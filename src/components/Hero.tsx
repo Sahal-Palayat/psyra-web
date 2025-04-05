@@ -7,10 +7,14 @@ import MobileHero from "../../public/HeroMOBILE.jpg"; // Mobile Image
 import Logo from "../../public/Psyra Logo-04 1.png";
 import Arrow from "../../public/Arrow right.png";
 import Modal from "./Modal";
+import { useSearchParams } from "next/navigation";
+import EventModal from "./EventModal";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [eventModal, setEventModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const searchParams = useSearchParams();
 
   // Detect screen size on mount & window resize
   useEffect(() => {
@@ -23,6 +27,13 @@ const Hero = () => {
 
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  useEffect(() => {
+    const eventQrParam = searchParams.get("eventQr");
+    if (eventQrParam === "true") {
+      setEventModal(true);
+    }
+  }, [searchParams]);
 
   return (
     <section className="relative bg-teal-600 text-white min-h-screen flex items-center">
@@ -90,6 +101,7 @@ const Hero = () => {
         onClose={() => setIsModalOpen(false)}
         type={"getStarted"}
       />
+      <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
     </section>
   );
 };
