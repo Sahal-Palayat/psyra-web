@@ -156,7 +156,7 @@ const EventModal = ({ isOpen, onClose }: EventModalProps) => {
               ) : (
                 <div className="text-center py-8">
                   <h3 className="text-lg font-semibold text-teal-700 mb-2">
-                    You're Registered!
+                    You are Registered!
                   </h3>
                   <p className="text-gray-600">
                     We’ll get in touch with you soon.
