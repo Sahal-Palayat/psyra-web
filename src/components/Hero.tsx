@@ -3,8 +3,8 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ImageS3 from "../../public/Web Site A (2).jpg"; // Desktop Image
-import MobileHero from "../../public/HeroMOBILE.jpg"; // Mobile Image
-import Logo from "../../public/Psyra Logo-04 1.png";
+import MobileHero from "../../public/Web Site Phn.jpg"; // Mobile Image
+import Logo from "../../public/Psyra Logo White-04.svg";
 import Arrow from "../../public/Arrow right.png";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
@@ -74,7 +74,7 @@ const Hero = () => {
             viewport={{ once: false, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <Image src={Logo} alt="Psyra Logo" width={350} height={150} />
+            <Image src={Logo} alt="Psyra Logo" width={200} height={150} />
           </motion.div>
 
           <motion.p
