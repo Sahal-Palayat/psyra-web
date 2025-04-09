@@ -1,10 +1,10 @@
 import React from "react";
-import Individual from "@/components/individual";
+import CoupleIndex from "@/components/coupleTherapy";
 
 const page = () => {
   return (
     <div>
-      <Individual />
+      <CoupleIndex />
     </div>
   );
 };

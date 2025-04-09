@@ -5,33 +5,40 @@ import { motion } from "framer-motion";
 import Individual from "../../public/individual.jpg";
 import Couple from "../../public/couple.jpg";
 import Coffe from "../../public/Coffee.png";
-
+import { useRouter } from "next/navigation";
 const Services = () => {
+  const router = useRouter();
   const obj = [
     {
       type: "Individual therapy",
       subTitle: "You will never walk alone",
       img: Individual,
+      route: "individual",
     },
     {
       type: "Couple therapy",
       subTitle: "You will never walk alone",
       img: Couple,
+      route: "couple-therapy",
     },
     {
       type: "Coffee with Psychologist",
       subTitle: "You will never walk alone",
       img: Coffe,
+      route: "coffe-with",
     },
   ];
 
   // Function to handle WhatsApp redirection
-  const handleWhatsAppRedirect = (serviceType: string) => {
+  const handleWhatsAppRedirect = (item) => {
+    router.push(`/${item?.route}`);
     const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
-    const message = encodeURIComponent(
-      `Hi, I'm interested in the "${serviceType}" package. Can you provide more details?`
-    );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the
+   "Get Started" button for a specific service type. Here's what the code is doing: */
+    // const message = encodeURIComponent(
+    //   `Hi, I'm interested in the "${serviceType}" package. Can you provide more details?`
+    // );
+    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
 
   return (
@@ -82,7 +89,7 @@ const Services = () => {
                   whileTap={{ scale: 0.95 }}
                   className="inline-block bg-white text-[#0F1010] max-w-[112px] w-[112px] h-[28px] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all"
                   style={{ fontSize: "11px" }}
-                  onClick={() => handleWhatsAppRedirect(item.type)}
+                  onClick={() => handleWhatsAppRedirect(item)}
                 >
                   Get Started
                 </motion.button>
