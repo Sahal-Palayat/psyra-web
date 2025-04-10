@@ -199,7 +199,7 @@ export default function Footer() {
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link
-                href="#"
+                href="https://www.instagram.com/psyra.care?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Instagram size={24} />

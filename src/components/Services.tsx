@@ -30,7 +30,7 @@ const Services = () => {
   ];
 
   // Function to handle WhatsApp redirection
-  const handleWhatsAppRedirect = (item) => {
+  const handleWhatsAppRedirect = (item: any) => {
     router.push(`/${item?.route}`);
     const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
     /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the

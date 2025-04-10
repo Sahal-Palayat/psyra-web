@@ -7,7 +7,6 @@ import Event from "@/components/Event";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
-import Footer from "@/components/Footer";
 import EventGallery from "@/components/eventGallery";
 // import { ChevronDown } from "lucide-react"
 
@@ -39,7 +38,6 @@ export default function Home() {
       <Faq />
 
       {/* Footer */}
-      <Footer />
     </main>
   );
 }

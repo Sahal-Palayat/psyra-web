@@ -2,6 +2,7 @@
 import Packages from "./Packages";
 import HeroIndividual from "./HeroIndividual";
 import sampleImage from "../../../public/couple.jpg";
+import Faq from "../Faq";
 
 export default function Individual() {
   const individualTypes = [
@@ -49,6 +50,7 @@ export default function Individual() {
     <div className="flex flex-col min-h-screen bg-9EE0D6">
       <HeroIndividual />
       <Packages data={individualTypes} />
+      <Faq />
     </div>
   );
 }
