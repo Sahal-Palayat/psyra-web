@@ -11,19 +11,19 @@ const Services = () => {
   const obj = [
     {
       type: "Individual therapy",
-      subTitle: "You will never walk alone",
+      subTitle: "Starts from ₹749",
       img: Individual,
       route: "individual",
     },
     {
       type: "Couple therapy",
-      subTitle: "You will never walk alone",
+      subTitle: "Starts from ₹749",
       img: Couple,
       route: "couple-therapy",
     },
     {
       type: "Coffee with Psychologist",
-      subTitle: "You will never walk alone",
+      subTitle: "Starts from ₹2749",
       img: Coffe,
       route: "coffe-with",
     },
@@ -79,8 +79,8 @@ const Services = () => {
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
                 <p className="text-lg font-semibold">{item?.type}</p>
-                <p className="text-sm">{item?.subTitle}</p>
-              </motion.div>
+                <p className="text-base font-medium text-white drop-shadow-sm">{item?.subTitle}</p>
+                </motion.div>
 
               {/* Button Animation */}
               <div className="absolute inset-0 flex items-center justify-center">
