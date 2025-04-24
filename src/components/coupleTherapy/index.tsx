@@ -8,6 +8,7 @@ import Faq from "../Faq";
 const CoupleIndex = () => {
   const couplePackages = [
     {
+      type: "couple",
       img: sampleImage, // Replace with actual image import
       title: "Single Session (1 Session - ₹999)",
       tagline: "Reconnect and Reflect",
@@ -21,6 +22,7 @@ const CoupleIndex = () => {
       cta: "Strengthen Your Bond Today",
     },
     {
+      type: "couple",
       img: sampleImage, // Replace with actual image import
       title: "Harmony Package (4 Sessions - ₹899 per session)",
       tagline: "Build a Stronger Connection",
@@ -34,6 +36,7 @@ const CoupleIndex = () => {
       cta: "Invest in Your Relationship",
     },
     {
+      type: "couple",
       img: sampleImage, // Replace with actual image import
       title: "Lasting Love Package (10 Sessions - ₹849 per session)",
       tagline: "Deepen Your Relationship",
