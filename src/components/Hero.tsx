@@ -75,7 +75,7 @@ const Hero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Image src={Logo} alt="Psyra Logo" width={200} height={150} />
-          </motion.div>
+          </motion.div> 
 
           <motion.p
             className="max-w-[314px] mx-auto text-xl md:text-2xl mb-8"

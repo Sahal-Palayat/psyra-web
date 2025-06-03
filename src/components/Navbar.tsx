@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import Logo from "../../public/Psyra Logo-04 1.png";
+import Logo from "../../public/Psyra Logo Color-05.svg";
 import Modal from "./Modal";
 
 const Navbar = () => {
@@ -38,7 +38,7 @@ const Navbar = () => {
           isScrolled ? "bg-[rgba(255,255,255,0.5)] shadow-md" : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto flex justify-between items-center px-4 md:px-6 h-full">
+        <div className="container mx-auto flex justify-between items-center px-8 md:px-6 h-full">
           {/* Logo */}
           <Link href="/" className="z-20">
             <Image
@@ -46,23 +46,29 @@ const Navbar = () => {
               alt="Psyra Logo"
               width={120}
               height={40}
-              className="w-[100px] md:w-[120px]"
+              className="w-[60px] md:w-[80px]"
             />
           </Link>
 
           {/* Nav Links - Desktop */}
           <div className="hidden md:flex space-x-6">
-            <Link href="#hero" className="text-white hover:text-teal-300">
+            <Link href="#hero" className="text-[#005657] hover:text-white">
               Home
             </Link>
-            <Link href="#about" className="text-white hover:text-teal-300">
+            <Link href="#about" className="text-[#005657] hover:text-white">
               About us
             </Link>
-            <Link href="#services" className="text-white hover:text-teal-300">
+            <Link
+              href="#services"
+              className="text-[#005657] hover:text-white"
+            >
               Services
             </Link>
 
-            <Link href="#contact" className="text-white hover:text-teal-300">
+            <Link
+              href="#contact"
+              className="text-[#005657] hover:text-white"
+            >
               Contact us
             </Link>
           </div>
@@ -112,40 +118,40 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 right-0 h-full w-full bg-teal-600 z-40 flex flex-col p-6 pt-24"
+            className="fixed top-0 right-0 h-full w-full bg-[#9EE0D6] z-40 flex flex-col p-6 pt-24"
           >
             <div className="flex flex-col space-y-6">
               <Link
                 href="/"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
               <Link
                 href="#about"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 About us
               </Link>
               <Link
                 href="#services"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Services
               </Link>
               <Link
                 href="/blog"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Blog
               </Link>
               <Link
                 href="#contact"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Contact us
