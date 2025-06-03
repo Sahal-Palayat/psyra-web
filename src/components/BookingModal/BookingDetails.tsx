@@ -53,6 +53,20 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="phone" className="text-[#005657] font-medium">
+           Age
+          </Label>
+          <Input
+            id="phone"
+            name="phone"
+            value={formData.age}
+            onChange={handleInputChange}
+            placeholder="Enter your phone number"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
           <Label htmlFor="name" className="text-[#005657] font-medium">
             Place
           </Label>

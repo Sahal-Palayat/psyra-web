@@ -22,8 +22,8 @@ export default function Home() {
       <AboutUs />
 
       {/* Meet New Faces */}
-      {/* <Event /> */}
-      <EventGallery />
+      <Event />
+      {/* <EventGallery /> */}
 
       {/* Our Specialties */}
       <OurSpecials />

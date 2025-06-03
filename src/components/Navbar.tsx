@@ -52,22 +52,22 @@ const Navbar = () => {
 
           {/* Nav Links - Desktop */}
           <div className="hidden md:flex space-x-6">
-            <Link href="#hero" className="text-[#005657] hover:text-teal-300">
+            <Link href="#hero" className="text-[#005657] hover:text-white">
               Home
             </Link>
-            <Link href="#about" className="text-[#005657] hover:text-teal-300">
+            <Link href="#about" className="text-[#005657] hover:text-white">
               About us
             </Link>
             <Link
               href="#services"
-              className="text-[#005657] hover:text-teal-300"
+              className="text-[#005657] hover:text-white"
             >
               Services
             </Link>
 
             <Link
               href="#contact"
-              className="text-[#005657] hover:text-teal-300"
+              className="text-[#005657] hover:text-white"
             >
               Contact us
             </Link>
@@ -123,35 +123,35 @@ const Navbar = () => {
             <div className="flex flex-col space-y-6">
               <Link
                 href="/"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
               <Link
                 href="#about"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 About us
               </Link>
               <Link
                 href="#services"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Services
               </Link>
               <Link
                 href="/blog"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Blog
               </Link>
               <Link
                 href="#contact"
-                className="text-white text-lg font-medium hover:text-teal-300"
+                className="text-white text-lg font-medium hover:text-white"
                 onClick={toggleMenu}
               >
                 Contact us
