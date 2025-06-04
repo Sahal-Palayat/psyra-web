@@ -84,7 +84,7 @@ const Hero = () => {
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 1 }}
           >
-            Your mental wellness partner here for you, no worries
+            Your mental wellness partner
           </motion.p>
 
           <motion.button
