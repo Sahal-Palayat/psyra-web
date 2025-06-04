@@ -1,10 +1,13 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EventMob from "../../public/eidevent.jpeg";
+import Modal from "./Modal";
 
 const EventMobile = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <motion.section
       whileInView={{ opacity: 1, y: 0 }}
@@ -47,6 +50,7 @@ const EventMobile = () => {
 
         <div className="gap-3 absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black via-black/60 to-transparent flex flex-col items-center justify-center text-center text-white px-2">
           <motion.button
+            onClick={() => setIsModalOpen(true)}
             whileInView={{ opacity: 1, scale: 1 }}
             initial={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.5 }}
@@ -59,6 +63,11 @@ const EventMobile = () => {
           </motion.button>
         </div>
       </motion.div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        type={"event"}
+      />
     </motion.section>
   );
 };
