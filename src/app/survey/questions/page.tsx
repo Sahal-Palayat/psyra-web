@@ -24,137 +24,227 @@ type SurveyQuestion = {
 
 const profQuestions = [
   {
-    id: 1,
-    question: "How often do you feel stressed or overwhelmed?",
-    options: ["Never", "Rarely", "Sometimes", "Always"],
-    type: "option",
+    id: "workField",
+    question: "Specify the field of working",
+    options: ["it", "it"],
+    type: "options",
   },
   {
-    id: 2,
-    question: "How often do you feel stressed or overwhelmed?",
-    options: ["Never", "Rarely", "Sometimes", "Always"],
-    type: "option",
+    id: "living",
+    question: "Who do you live with?",
+    options: ["Family", "Friends", "Alone", "Hostel/PG"],
+    type: "options",
   },
   {
-    id: 3,
+    id: "morningRoutine",
+    question: "How do you usually start your day?",
+    options: [
+      "With a plan or routine",
+      "Rushed and stressed",
+      "Calm and relaxed",
+      "Without Any Plans",
+      "I don’t know",
+    ],
+    type: "options",
+  },
+  {
+    id: "sleepHours",
+    question: "How many hours of sleep do you usually get?",
+    options: [
+      "Less than 4 hours",
+      "4–6 hours",
+      "6–8 hours",
+      "More than 8 hours",
+    ],
+    type: "options",
+  },
+  {
+    id: "feelUnderstood",
+    question: "Do you feel understood by the people close to you?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
+  },
+  {
+    id: "stressPoints",
+    question: "What are the biggest stress points in your day-to-day life?",
+    options: [
+      "Academic pressure",
+      "Job/work tension",
+      "Financial worries",
+      "Relationship/family conflict",
+      "Social media/comparison",
+      "Lack of time for myself",
+      "Health concerns",
+      "Loneliness",
+    ],
+    type: "options",
+  },
+  {
+    id: "hideFeelings",
     question:
-      "Do you feel comfortable talking about mental health with others?",
-    options: ["Very Comfortable", "Comfortable", "Neutral", "Uncomfortable"],
-    type: "option",
+      "Have you ever kept your feelings to yourself because you were scared of being judged?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
   },
   {
-    id: 4,
+    id: "safeToOpenUp",
+    question: "Who do you feel safe opening up to when life gets hard?",
+    options: [
+      "Friend",
+      "Parent or sibling",
+      "Partner",
+      "Teacher/Mentor",
+      "No one",
+    ],
+    type: "options",
+  },
+  {
+    id: "rechargeMethod",
+    question: "How do you usually recharge when you feel overwhelmed?",
+    options: [
+      "Listening to music",
+      "Being alone",
+      "Talking to someone",
+      "Going outside",
+      "Sleeping it off",
+      "I keep everything inside",
+    ],
+    type: "options",
+  },
+  {
+    id: "awarenessLevel",
     question:
-      "How important do you think mental health support is in your community?",
-    options: [
-      "Extremely Important",
-      "Very Important",
-      "Moderately Important",
-      "Not Important",
-    ],
-    type: "option",
+      "Do you feel there's enough awareness around emotional well-being in your area?",
+    options: ["Yes", "A little", "Not at all", "Don’t know"],
+    type: "options",
   },
   {
-    id: 5,
+    id: "sourceOfAwareness",
     question:
-      "Have you ever sought professional help for mental health concerns?",
+      "Where do people around you mostly learn about emotional or personal well-being?",
     options: [
-      "Yes, currently",
-      "Yes, in the past",
-      "Considering it",
-      "No, not interested",
+      "School/College",
+      "Religious/Community spaces",
+      "Social media",
+      "Healthcare professionals",
+      "They don’t learn",
     ],
-    type: "option",
+    type: "options",
   },
   {
-    id: 6,
-    question: "What prevents you most from seeking mental health support?",
+    id: "recentEmotions",
+    question: "In the past month, have you felt…",
     options: [
-      "Cost/Affordability",
-      "Stigma/Shame",
-      "Lack of Time",
-      "Don't Know Where to Go"
+      "Emotionally tired",
+      "Easily irritated",
+      "Disconnected from people",
+      "Low energy or no motivation",
+      "All of the above",
+      "None of the above",
     ],
-    type: "option",
+    type: "options",
   },
+
   {
-    id: 7,
-    question: "How would you prefer to receive mental health support?",
-    options: [
-      "In-Person Counseling",
-      "Online Therapy",
-      "Self-Help Resources",
-      "Mobile Apps",
-    ],
-    type: "option",
-  },
-  {
-    id: 8,
-    question: "How often do you practice self-care activities?",
-    options: ["Daily", "Weekly", "Monthly", "Never"],
-    type: "option",
-  },
-  {
-    id: 9,
-    question: "Do you feel your workplace/school supports mental health?",
-    options: [
-      "Strongly Agree",
-      "Agree",
-      "Neutral",
-      "Disagree",
-      "Strongly Disagree",
-    ],
-    type: "option",
-  },
-  {
-    id: 10,
+    id: "safeFriend",
     question:
-      "How likely are you to recommend mental health services to a friend?",
-    options: ["Very Likely", "Neutral", "Unlikely", "Very Unlikely"],
-    type: "option",
+      "If someone in your circle was feeling emotionally off, would they feel safe telling you?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "familyStruggles",
+    question:
+      "Has anyone in your family or friend circle ever faced emotional struggles but avoided help?",
+    options: ["Yes", "No", "Not sure"],
+    type: "options",
+  },
+  {
+    id: "supportIfAvailable",
+    question:
+      "If support was easily available, would you or someone you know try it?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "supportBarriers",
+    question:
+      "What stops people in your area from seeking emotional or mental support?",
+    options: [
+      "Fear of gossip/judgment",
+      "Lack of privacy",
+      "Belief that “it’s just a phase”",
+      "Money/affordability",
+      "Don’t trust professionals",
+      "Don't know where to go",
+      "Other: __________",
+    ],
+    type: "options",
+  },
+  {
+    id: "feelPeace",
+    question: "What helps you feel peaceful or balanced?",
+    options: [
+      "Nature",
+      "Prayer/meditation",
+      "Hobbies",
+      "Good sleep",
+      "Supportive people",
+      "Quiet time",
+      "Nothing really",
+    ],
+    type: "options",
+  },
+  {
+    id: "supportFriend",
+    question:
+      "If your close friend was struggling silently, how would you support them?",
+    options: [
+      "Listen and talk",
+      "Help them get help",
+      "Keep checking in",
+      "Stay with them quietly",
+      "Help them to consult a psychologist",
+      "I wouldn't know what to do",
+    ],
+    type: "options",
   },
 ];
 
-const studentQuestions = [
+const basicQuestions = [
   {
-    id: 2,
-    question: "How often do you feel stressed or overwhelmed? STUDNET",
-    options: ["Never", "Rarely", "Sometimes", "Always"],
-    type: "option",
+    id: "occupation",
+    question: "Are you??",
+    options: ["Proffession", "Student"],
+    type: "options",
+  },
+  {
+    id: "age",
+    question: "age",
+    options: ["1", "2", "3"],
+    type: "dropDown",
+  },
+  {
+    id: "gender",
+    question: "gender",
+    options: ["Male", "Female", "Binary", "Prefer Not to say"],
+    type: "options",
+  },
+  {
+    id: "state",
+    question: "State",
+    options: ["Male", "Female", "Binary", "Prefer Not to say"],
+    type: "dropDown",
   },
 ];
 
 export default function SurveyQuestions() {
   const router = useRouter();
   const [value, setValue] = useState("");
-  const [surveyQuestions, setSurveyQuestions] = useState<SurveyQuestion[]>([
-    {
-      id: "occupation",
-      question: "Are you??",
-      options: ["Proffession", "Student"],
-      type: "options",
-    },
-    {
-      id: "age",
-      question: "age",
-      options: ["1", "2", "3"],
-      type: "dropDown",
-    },
-    {
-      id: "gender",
-      question: "gender",
-      options: ["Male", "Female", "Binary", "Prefer Not to say"],
-      type: "options",
-    },
-    {
-      id: "state",
-      question: "State",
-      options: ["Male", "Female", "Binary", "Prefer Not to say"],
-      type: "dropDown",
-    },
-  ]);
+  const [surveyQuestions, setSurveyQuestions] =
+    useState<SurveyQuestion[]>(basicQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -185,16 +275,22 @@ export default function SurveyQuestions() {
       [surveyQuestions[currentQuestion].id]: option,
     }));
 
+    let quesCount = surveyQuestions.length;
+
     if (
       surveyQuestions[currentQuestion].id === "state" &&
-      surveyQuestions?.length < 5
+      surveyQuestions?.length <= basicQuestions.length
     ) {
       setSurveyQuestions((prev) => [...prev, ...profQuestions]);
+      quesCount = surveyQuestions.length - basicQuestions?.length;
     }
 
     // Auto-advance after a short delay
+
+    console.log(quesCount, "QUES COUNT");
+
     setTimeout(() => {
-      if (currentQuestion < 20) {
+      if (currentQuestion < quesCount) {
         setIsTransitioning(true);
         setTimeout(() => {
           setCurrentQuestion((prev) => prev + 1);
@@ -219,7 +315,7 @@ export default function SurveyQuestions() {
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 100);
+      }, 300);
     }
   };
 
@@ -266,7 +362,7 @@ export default function SurveyQuestions() {
                   </button>
                 )}
               </div>
-              {question?.id !== "Personol" && (
+              {surveyQuestions?.length > basicQuestions.length && (
                 <div className="px-4 py-2 rounded-full bg-gradient-to-r from-teal-100 to-emerald-100 text-teal-700 font-medium text-sm border border-teal-200/50">
                   {currentQuestion + 1} / {surveyQuestions.length}
                 </div>
@@ -320,10 +416,12 @@ export default function SurveyQuestions() {
                       question.options.map((option, index) => (
                         <button
                           key={index}
-                          onClick={() => handleOptionSelect(option)}
+                          onClick={() => {
+                            handleOptionSelect(option);
+                          }}
                           // disabled={selectedOption !== null}
                           className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.02] group ${
-                            selectedOption === option
+                            answers[question.id] === option
                               ? "bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-300 text-gray-800 shadow-lg shadow-teal-500/20"
                               : "bg-white/60 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-teal-50/50 hover:to-emerald-50/50 hover:border-teal-200 hover:shadow-md"
                           } disabled:cursor-not-allowed`}
