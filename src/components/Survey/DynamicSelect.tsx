@@ -19,7 +19,6 @@ export default function DynamicSelect({
   onChange,
   options,
   handle,
-  placeholder = "Select an option",
 }: any) {
   return (
     <Select
@@ -30,8 +29,11 @@ export default function DynamicSelect({
         onChange(e);
       }}
     >
-      <SelectTrigger className="bg-white/70 backdrop-blur-sm border-emerald-200/60 focus:border-primary-500 focus:ring-primary-500/20 rounded-xl py-6 px-4 text-base transition-all duration-300 h-auto">
-        <SelectValue placeholder={placeholder} className="text-gray-500" />
+      <SelectTrigger className="w-full bg-white/70 backdrop-blur-sm border-emerald-200/60 focus:border-primary-500 focus:ring-primary-500/20 rounded-xl py-6 px-4 text-base transition-all duration-300 h-auto">
+        <SelectValue
+          placeholder={"Write your answer"}
+          className="text-gray-500"
+        />
       </SelectTrigger>
       <SelectContent className="bg-white/95 backdrop-blur-md border-emerald-200/60 rounded-xl shadow-xl">
         {options.map((option: any) => (

@@ -62,7 +62,6 @@ const profQuestions = [
       "Yes, currently",
       "Yes, in the past",
       "Considering it",
-      "No, but interested",
       "No, not interested",
     ],
     type: "option",
@@ -74,8 +73,7 @@ const profQuestions = [
       "Cost/Affordability",
       "Stigma/Shame",
       "Lack of Time",
-      "Don't Know Where to Go",
-      "Nothing Prevents Me",
+      "Don't Know Where to Go"
     ],
     type: "option",
   },
@@ -305,7 +303,7 @@ export default function SurveyQuestions() {
 
               <div className="space-y-4">
                 {question?.type === "dropDown" ? (
-                  <>
+                  <div className="">
                     <DynamicSelect
                       value={value}
                       onChange={setValue}
@@ -314,9 +312,8 @@ export default function SurveyQuestions() {
                         handleOptionSelect(e);
                       }}
                       options={question?.options}
-                      placeholder="Select your gender identity"
                     />
-                  </>
+                  </div>
                 ) : (
                   <>
                     {question.options &&
