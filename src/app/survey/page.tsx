@@ -12,7 +12,10 @@ export default function SurveyHome() {
     setIsOpen(false)
   }
   return (
-    <div className="min-h-screen bg-white">
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+    //   style={{ backgroundImage: "url('/greenbgs.jpg')" }}
+    >
       {/* Minimal Header */}
       {/* <header className="fixed top-0 left-0 right-0 z-10 bg-[#00989D] backdrop-blur-md px-6 py-5">
         <div className="max-w-5xl mx-auto">
@@ -122,7 +125,7 @@ export default function SurveyHome() {
           </div>
         </div>
       </footer>
-      <SurveyModal isOpen={isOpen} onClose={handleClose}/>
+      <SurveyModal isOpen={isOpen} onClose={handleClose} />
     </div>
   );
 }

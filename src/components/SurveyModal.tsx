@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, User, Phone, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface SurveyModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface SurveyModalProps {
 }
 
 const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [place, setPlace] = useState("");
@@ -17,6 +19,8 @@ const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onClose();
+    router.push("/survey/questions");
+
     // if (!name || !phone || !place) {
     //   alert("Please fill in all fields.");
     //   return;
