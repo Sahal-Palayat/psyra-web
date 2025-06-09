@@ -492,7 +492,6 @@ export default function SurveyQuestions() {
     if (currentQuestion + 1 === basicQuestions.length) {
       if (answers?.occupation === "Student") {
         setSurveyQuestions((prev) => [...prev, ...studentQuestions]);
-        studentQuestions;
       } else {
         setSurveyQuestions((prev) => [...prev, ...profQuestions]);
       }
