@@ -333,7 +333,7 @@ const profQuestions = [
     question:
       "What’s one thing you wish people could see about you without needing an explanation?",
     options: [""],
-    type: "open-ended",
+    type: "multi-select",
   },
   {
     id: "others_feel_safe",
