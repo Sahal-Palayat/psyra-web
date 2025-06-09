@@ -475,9 +475,8 @@ export default function SurveyQuestions() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    const userInfo = sessionStorage.getItem("userInfo");
-
-    if (!userInfo) {
+    const savedUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    if (!savedUser.username || !savedUser.mobile) {
       router.push("/survey");
     }
   }, []);
