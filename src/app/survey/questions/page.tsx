@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import InputSurvey from "@/components/Survey/InputSurvey";
 import DynamicSelect from "@/components/Survey/DynamicSelect";
+import CompletionModal from "@/components/Survey/CompletionModal";
 
 // Mental health focused survey questions
 
@@ -70,7 +71,7 @@ const basicQuestions = [
   {
     id: "age",
     question: "age",
-    options: ["1", "2", "3"],
+    options: Array.from({ length: 109 }, (_, i) => (i + 12).toString()),
     type: "dropDown",
   },
   {
@@ -82,7 +83,36 @@ const basicQuestions = [
   {
     id: "state",
     question: "State",
-    options: ["Male", "Female", "Binary", "Prefer Not to say"],
+    options: [
+      "Andhra Pradesh",
+      "Arunachal Pradesh",
+      "Assam",
+      "Bihar",
+      "Chhattisgarh",
+      "Goa",
+      "Gujarat",
+      "Haryana",
+      "Himachal Pradesh",
+      "Jharkhand",
+      "Karnataka",
+      "Kerala",
+      "Madhya Pradesh",
+      "Maharashtra",
+      "Manipur",
+      "Meghalaya",
+      "Mizoram",
+      "Nagaland",
+      "Odisha",
+      "Punjab",
+      "Rajasthan",
+      "Sikkim",
+      "Tamil Nadu",
+      "Telangana",
+      "Tripura",
+      "Uttar Pradesh",
+      "Uttarakhand",
+      "West Bengal",
+    ],
     type: "dropDown",
   },
 ];
@@ -92,6 +122,7 @@ export default function SurveyQuestions() {
   const [value, setValue] = useState("");
   const [surveyQuestions, setSurveyQuestions] =
     useState<SurveyQuestion[]>(basicQuestions);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [quesCount, setQuesCount] = useState(basicQuestions?.length);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -154,8 +185,10 @@ export default function SurveyQuestions() {
       currentQuestion + 1 === surveyQuestions?.length &&
       surveyQuestions?.length !== basicQuestions?.length
     ) {
-      alert("FINSIHH")
-      return
+      setTimeout(() => {
+        setShowCompletionModal(true);
+      }, 500);
+      return;
     }
 
     setTimeout(() => {
@@ -316,6 +349,13 @@ export default function SurveyQuestions() {
           </>
         </div>
       </main>
+      <CompletionModal
+        isOpen={showCompletionModal}
+        onClose={() => {
+          router.push("/");
+          setShowCompletionModal(false);
+        }}
+      />
     </div>
   );
 }
