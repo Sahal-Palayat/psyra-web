@@ -475,7 +475,7 @@ export default function SurveyQuestions() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    const userInfo = sessionStorage.getItem("surveyUser");
+    const userInfo = sessionStorage.getItem("userInfo");
 
     if (!userInfo) {
       router.push("/survey");
