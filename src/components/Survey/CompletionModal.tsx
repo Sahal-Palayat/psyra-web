@@ -8,8 +8,7 @@
     DialogHeader,
     DialogTitle,
     } from "@/components/ui/dialog";
-    import { Button } from "@/components/ui/button";
-    import { CheckCircle, Award, Star } from "lucide-react";
+    import { CheckCircle, Star } from "lucide-react";
 
     interface CompletionModalProps {
     isOpen: boolean;

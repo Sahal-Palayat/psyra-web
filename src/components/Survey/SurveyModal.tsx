@@ -6,13 +6,12 @@ import { User, Phone } from "lucide-react";
 interface SurveyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setIsOpen: any;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SurveyModal = ({ isOpen, onClose, setIsOpen }: SurveyModalProps) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,9 +33,7 @@ const SurveyModal = ({ isOpen, onClose, setIsOpen }: SurveyModalProps) => {
 
     localStorage.setItem("userInfo", JSON.stringify(userData));
 
-    setIsSubmitted(true);
     setTimeout(() => {
-      setIsSubmitted(false);
       onClose();
     }, 1000);
   };

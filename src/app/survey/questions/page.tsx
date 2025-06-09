@@ -474,14 +474,13 @@ export default function SurveyQuestions() {
   // const [progress, setProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  console.log(answers, "ANSERSSSSS");
-
   useEffect(() => {
     const userInfo = sessionStorage.getItem("surveyUser");
+
     if (!userInfo) {
       router.push("/survey");
     }
-  }, [currentQuestion, router, answers]);
+  }, []);
 
   const handleOptionSelect = (option: string) => {
     // Save the answer
@@ -623,9 +622,8 @@ export default function SurveyQuestions() {
                     <DynamicSelect
                       value={value}
                       onChange={setValue}
-                      handle={(e: any) => {
-                        console.log(e, question?.id, "hhhhhhhhh");
-                        handleOptionSelect(e);
+                      handle={(value: string) => {
+                        handleOptionSelect(value);
                         setValue("");
                       }}
                       options={question?.options}

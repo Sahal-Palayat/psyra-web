@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import SurveyModal from "@/components/SurveyModal";
+import SurveyModal from "@/components/Survey/SurveyModal";
 import { useState } from "react";
 
 export default function SurveyHome() {

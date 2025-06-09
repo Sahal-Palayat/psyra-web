@@ -18,7 +18,6 @@ export default function DynamicSelect({
   value,
   onChange,
   handle,
-  options,
   placeholder = "Type your answer",
 }: DynamicSelectProps) {
   const [inputValue, setInputValue] = useState(value ||"");
