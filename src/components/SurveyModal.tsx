@@ -1,58 +1,44 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, User, Phone, MapPin } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { User, Phone } from "lucide-react";
 
 interface SurveyModalProps {
   isOpen: boolean;
   onClose: () => void;
+  setIsOpen: any;
 }
 
-const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
-  const router = useRouter();
+const SurveyModal = ({ isOpen, onClose, setIsOpen }: SurveyModalProps) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [place, setPlace] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onClose();
-    router.push("/survey/questions");
 
-    // if (!name || !phone || !place) {
-    //   alert("Please fill in all fields.");
-    //   return;
-    // }
+    const phoneRegex = /^\d{10}$/;
 
-    // const url =
-    //   "https://script.google.com/macros/s/AKfycby2rNAeiTr6M7pUn57_XBGk1x_b8A9rXu6ZW03ywQK7xPb6RWOB6F5JBmJ3zIg0SiMu/exec";
+    if (!phoneRegex.test(phone)) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
 
-    // const formData = new URLSearchParams();
-    // formData.append("Name", name);
-    // formData.append("Phone", phone);
-    // formData.append("Type", "event");
+    setPhoneError(""); // Clear any previous errors
 
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: formData.toString(),
-    // })
-    //   .then((res) => res.text())
-    //   .then((data) => {
-    //     console.log("Response:", data);
-    //     setName("");
-    //     setPhone("");
-    //     setPlace("");
-    //     setIsSubmitted(true); // Trigger success screen
+    const userData = {
+      username: name,
+      mobile: phone,
+    };
 
-    //     setTimeout(() => {
-    //       setIsSubmitted(false);
-    //       onClose(); // Close modal after delay
-    //     }, 2000);
-    //   })
-    //   .catch((err) => console.error("Submission error:", err));
+    localStorage.setItem("userInfo", JSON.stringify(userData));
+
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      onClose();
+    }, 1000);
   };
 
   useEffect(() => {
@@ -68,6 +54,15 @@ const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
+    if (!savedUser.username || !savedUser.mobile) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -77,7 +72,6 @@ const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
-            onClick={onClose}
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -87,63 +81,53 @@ const SurveyModal = ({ isOpen, onClose }: SurveyModalProps) => {
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-md bg-white rounded-2xl shadow-lg z-50 p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center mb-4">
-              <div></div>
-              <button onClick={onClose} aria-label="Close">
-                <X className="text-gray-500 hover:text-gray-700" />
-              </button>
-            </div>
-
             <form onSubmit={handleSubmit} className="space-y-4">
-              {!isSubmitted ? (
-                <>
-                  <div>
-                    <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
-                      <User className="w-4 h-4 mr-2 text-teal-600" />
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="w-full p-2 rounded-md border border-gray-300 text-black"
-                      placeholder="Your name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
-                      <Phone className="w-4 h-4 mr-2 text-teal-600" />
-                      Mobile Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      className="w-full p-2 rounded-md border border-gray-300 text-black"
-                      placeholder="Your mobile number"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-teal-600 text-white p-2.5 rounded-full font-medium hover:bg-teal-700 transition"
-                  >
-                    Submit
-                  </button>
-                </>
-              ) : (
-                <div className="text-center py-8">
-                  <h3 className="text-lg font-semibold text-teal-700 mb-2">
-                    You are Registered!
-                  </h3>
-                  <p className="text-gray-600">
-                    We’ll get in touch with you soon.
-                  </p>
+              <>
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
+                    <User className="w-4 h-4 mr-2 text-teal-600" />
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full p-2 rounded-md border border-gray-300 text-black"
+                    placeholder="Your name"
+                  />
                 </div>
-              )}
+
+                <div>
+                  <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
+                    <Phone className="w-4 h-4 mr-2 text-teal-600" />
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                      if (phoneError) setPhoneError(""); // Clear error on change
+                    }}
+                    required
+                    className={`w-full p-2 rounded-md border ${
+                      phoneError ? "border-red-500" : "border-gray-300"
+                    } text-black`}
+                    placeholder="Your mobile number"
+                  />
+                  {phoneError && (
+                    <p className="text-sm text-red-500 mt-1">{phoneError}</p>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-teal-600 text-white p-2.5 rounded-full font-medium hover:bg-teal-700 transition"
+                >
+                  Submit
+                </button>
+              </>
             </form>
           </motion.div>
         </>

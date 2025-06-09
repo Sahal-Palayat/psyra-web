@@ -8,23 +8,14 @@ import { useState } from "react";
 
 export default function SurveyHome() {
   const [isOpen, setIsOpen] = useState(true);
-  const  handleClose = ()=>{
-    setIsOpen(false)
-  }
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat"
-    //   style={{ backgroundImage: "url('/greenbgs.jpg')" }}
+      //   style={{ backgroundImage: "url('/greenbgs.jpg')" }}
     >
-      {/* Minimal Header */}
-      {/* <header className="fixed top-0 left-0 right-0 z-10 bg-[#00989D] backdrop-blur-md px-6 py-5">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center">
-            <Image src={Logo} alt="Psyra Logo" width={60} height={50} />
-          </div>
-        </div>
-      </header> */}
-
       {/* Main Content */}
       <main className="pt-24 pb-20 px-6">
         <div className="max-w-5xl mx-auto">
@@ -111,7 +102,6 @@ export default function SurveyHome() {
           </section>
         </div>
       </main>
-
       {/* Minimal Footer */}
       <footer className="bg-white px-6 py-8 border-t border-gray-100">
         <div className="max-w-5xl mx-auto">
@@ -125,7 +115,7 @@ export default function SurveyHome() {
           </div>
         </div>
       </footer>
-      <SurveyModal isOpen={isOpen} onClose={handleClose} />
+      <SurveyModal isOpen={isOpen} onClose={handleClose} setIsOpen={setIsOpen}/>
     </div>
   );
 }

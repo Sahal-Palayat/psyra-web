@@ -23,21 +23,15 @@ type SurveyQuestion = {
   type: string;
 };
 
-const profQuestions = [
+const studentQuestions = [
   {
-    id: "workField",
-    question: "Specify the field of working",
-    options: ["it", "it"],
-    type: "options",
-  },
-  {
-    id: "living",
+    id: "living_situation",
     question: "Who do you live with?",
     options: ["Family", "Friends", "Alone", "Hostel/PG"],
     type: "options",
   },
   {
-    id: "morningRoutine",
+    id: "morning_routine",
     question: "How do you usually start your day?",
     options: [
       "With a plan or routine",
@@ -49,7 +43,7 @@ const profQuestions = [
     type: "options",
   },
   {
-    id: "sleepHours",
+    id: "sleep_hours",
     question: "How many hours of sleep do you usually get?",
     options: [
       "Less than 4 hours",
@@ -58,6 +52,366 @@ const profQuestions = [
       "More than 8 hours",
     ],
     type: "options",
+  },
+  {
+    id: "feeling_understood",
+    question: "Do you feel understood by the people close to you?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
+  },
+  {
+    id: "stress_points",
+    question:
+      "What are the biggest stress points in your day-to-day life? (Select all that apply)",
+    options: [
+      "Academic pressure",
+      "Job/work tension",
+      "Financial worries",
+      "Relationship/family conflict",
+      "Social media/comparison",
+      "Lack of time for myself",
+      "Health concerns",
+      "Loneliness",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "feelings_hidden",
+    question:
+      "Have you ever kept your feelings to yourself because you were scared of being judged?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
+  },
+  {
+    id: "safe_to_open_up",
+    question: "Who do you feel safe opening up to when life gets hard?",
+    options: [
+      "Friend",
+      "Parent or sibling",
+      "Partner",
+      "Teacher/Mentor",
+      "No one",
+    ],
+    type: "options",
+  },
+  {
+    id: "recharge_method",
+    question: "How do you usually recharge when you feel overwhelmed?",
+    options: [
+      "Listening to music",
+      "Being alone",
+      "Talking to someone",
+      "Going outside",
+      "Sleeping it off",
+      "I keep everything inside",
+    ],
+    type: "options",
+  },
+  {
+    id: "awareness_area",
+    question:
+      "Do you feel there's enough awareness around emotional well-being in your area?",
+    options: ["Yes", "A little", "Not at all", "Don’t know"],
+    type: "options",
+  },
+  {
+    id: "source_of_learning",
+    question:
+      "Where do people around you mostly learn about emotional or personal well-being?",
+    options: [
+      "School/College",
+      "Religious/Community spaces",
+      "Social media",
+      "Healthcare professionals",
+      "They don’t learn",
+    ],
+    type: "options",
+  },
+  {
+    id: "emotional_experience",
+    question: "In the past month, have you felt…",
+    options: [
+      "Emotionally tired",
+      "Easily irritated",
+      "Disconnected from people",
+      "Low energy or no motivation",
+      "All of the above",
+      "None of the above",
+    ],
+    type: "options",
+  },
+  {
+    id: "seen_without_explaining",
+    question:
+      "What’s one thing you wish people could see about you without needing an explanation?",
+    options: ["laskjfa;ks"],
+    type: "multi-select",
+  },
+  {
+    id: "others_feel_safe",
+    question:
+      "If someone in your circle was feeling emotionally off, would they feel safe telling you?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "family_struggles",
+    question:
+      "Has anyone in your family or friend circle ever faced emotional struggles but avoided help?",
+    options: ["Yes", "No", "Not sure"],
+    type: "options",
+  },
+  {
+    id: "if_support_available",
+    question:
+      "If support was easily available, would you or someone you know try it?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "barriers_to_support",
+    question:
+      "What stops people in your area from seeking emotional or mental support?",
+    options: [
+      "Fear of gossip/judgment",
+      "Lack of privacy",
+      "Belief that “it’s just a phase”",
+      "Money/affordability",
+      "Don’t trust professionals",
+      "Don't know where to go",
+      "Other",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "feel_peaceful_with",
+    question: "What helps you feel peaceful or balanced?",
+    options: [
+      "Nature",
+      "Prayer/meditation",
+      "Hobbies",
+      "Good sleep",
+      "Supportive people",
+      "Quiet time",
+      "Nothing really",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "support_friend",
+    question:
+      "If your close friend was struggling silently, how would you support them?",
+    options: [
+      "Listen and talk",
+      "Help them get help",
+      "Keep checking in",
+      "Stay with them quietly",
+      "Help them to consult a psychologist",
+      "I wouldn't know what to do",
+    ],
+    type: "multi-select",
+  },
+];
+
+const profQuestions = [
+  {
+    id: "work_field",
+    question: "Specify the field of working?",
+    options: [""],
+    type: "multi-select",
+  },
+  {
+    id: "living_situation",
+    question: "Who do you live with?",
+    options: ["Family", "Friends", "Alone", "Hostel/PG"],
+    type: "options",
+  },
+  {
+    id: "morning_routine",
+    question: "How do you usually start your day?",
+    options: [
+      "With a plan or routine",
+      "Rushed and stressed",
+      "Calm and relaxed",
+      "Without Any Plans",
+      "I don’t know",
+    ],
+    type: "options",
+  },
+  {
+    id: "sleep_hours",
+    question: "How many hours of sleep do you usually get?",
+    options: [
+      "Less than 4 hours",
+      "4–6 hours",
+      "6–8 hours",
+      "More than 8 hours",
+    ],
+    type: "options",
+  },
+  {
+    id: "feeling_understood",
+    question: "Do you feel understood by the people close to you?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
+  },
+  {
+    id: "stress_points",
+    question:
+      "What are the biggest stress points in your day-to-day life? (Select all that apply)",
+    options: [
+      "Academic pressure",
+      "Job/work tension",
+      "Financial worries",
+      "Relationship/family conflict",
+      "Social media/comparison",
+      "Lack of time for myself",
+      "Health concerns",
+      "Loneliness",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "feelings_hidden",
+    question:
+      "Have you ever kept your feelings to yourself because you were scared of being judged?",
+    options: ["Yes", "Sometimes", "No"],
+    type: "options",
+  },
+  {
+    id: "safe_to_open_up",
+    question: "Who do you feel safe opening up to when life gets hard?",
+    options: [
+      "Friend",
+      "Parent or sibling",
+      "Partner",
+      "Teacher/Mentor",
+      "No one",
+    ],
+    type: "options",
+  },
+  {
+    id: "recharge_method",
+    question: "How do you usually recharge when you feel overwhelmed?",
+    options: [
+      "Listening to music",
+      "Being alone",
+      "Talking to someone",
+      "Going outside",
+      "Sleeping it off",
+      "I keep everything inside",
+    ],
+    type: "options",
+  },
+  {
+    id: "awareness_area",
+    question:
+      "Do you feel there's enough awareness around emotional well-being in your area?",
+    options: ["Yes", "A little", "Not at all", "Don’t know"],
+    type: "options",
+  },
+  {
+    id: "source_of_learning",
+    question:
+      "Where do people around you mostly learn about emotional or personal well-being?",
+    options: [
+      "School/College",
+      "Religious/Community spaces",
+      "Social media",
+      "Healthcare professionals",
+      "They don’t learn",
+    ],
+    type: "options",
+  },
+  {
+    id: "emotional_experience",
+    question: "In the past month, have you felt…",
+    options: [
+      "Emotionally tired",
+      "Easily irritated",
+      "Disconnected from people",
+      "Low energy or no motivation",
+      "All of the above",
+      "None of the above",
+    ],
+    type: "options",
+  },
+  {
+    id: "seen_without_explaining",
+    question:
+      "What’s one thing you wish people could see about you without needing an explanation?",
+    options: [""],
+    type: "open-ended",
+  },
+  {
+    id: "others_feel_safe",
+    question:
+      "If someone in your circle was feeling emotionally off, would they feel safe telling you?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "family_struggles",
+    question:
+      "Has anyone in your family or friend circle ever faced emotional struggles but avoided help?",
+    options: ["Yes", "No", "Not sure"],
+    type: "options",
+  },
+  {
+    id: "if_support_available",
+    question:
+      "If support was easily available, would you or someone you know try it?",
+    options: ["Yes", "Maybe", "No"],
+    type: "options",
+  },
+  {
+    id: "barriers_to_support",
+    question:
+      "What stops people in your area from seeking emotional or mental support?",
+    options: [
+      "Fear of gossip/judgment",
+      "Lack of privacy",
+      "Belief that “it’s just a phase”",
+      "Money/affordability",
+      "Don’t trust professionals",
+      "Don't know where to go",
+      "Other",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "feel_peaceful_with",
+    question: "What helps you feel peaceful or balanced?",
+    options: [
+      "Nature",
+      "Prayer/meditation",
+      "Hobbies",
+      "Good sleep",
+      "Supportive people",
+      "Quiet time",
+      "Nothing really",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "support_friend",
+    question:
+      "If your close friend was struggling silently, how would you support them?",
+    options: [
+      "Listen and talk",
+      "Help them get help",
+      "Keep checking in",
+      "Stay with them quietly",
+      "Help them to consult a psychologist",
+      "I wouldn't know what to do",
+    ],
+    type: "multi-select",
+  },
+  {
+    id: "self_improvement_goal",
+    question: "What’s one thing you want to improve about your life this year?",
+    options: [""],
+    type: "open-ended",
   },
 ];
 
@@ -72,7 +426,7 @@ const basicQuestions = [
     id: "age",
     question: "age",
     options: Array.from({ length: 109 }, (_, i) => (i + 12).toString()),
-    type: "dropDown",
+    type: "multi-select",
   },
   {
     id: "gender",
@@ -113,7 +467,7 @@ const basicQuestions = [
       "Uttarakhand",
       "West Bengal",
     ],
-    type: "dropDown",
+    type: "multi-select",
   },
 ];
 
@@ -178,7 +532,12 @@ export default function SurveyQuestions() {
       currentQuestion + 1 === basicQuestions.length &&
       quesCount === surveyQuestions?.length
     ) {
-      setSurveyQuestions((prev) => [...prev, ...profQuestions]);
+      if (answers?.occupation === "Student") {
+        setSurveyQuestions((prev) => [...prev, ...studentQuestions]);
+        studentQuestions;
+      } else {
+        setSurveyQuestions((prev) => [...prev, ...profQuestions]);
+      }
     }
 
     if (
@@ -300,7 +659,7 @@ export default function SurveyQuestions() {
               </h2>
 
               <div className="space-y-4">
-                {question?.type === "dropDown" ? (
+                {question?.type === "multi-select" ? (
                   <div className="">
                     <DynamicSelect
                       value={value}
@@ -308,6 +667,7 @@ export default function SurveyQuestions() {
                       handle={(e: any) => {
                         console.log(e, question?.id, "hhhhhhhhh");
                         handleOptionSelect(e);
+                        setValue("");
                       }}
                       options={question?.options}
                     />
