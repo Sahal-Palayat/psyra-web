@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Logo from "../../../public/Psyra Logo White-04.svg";
 import SurveyModal from "@/components/SurveyModal";
 import { useState } from "react";
 
@@ -71,10 +69,9 @@ export default function SurveyHome() {
           {/* Quote Section */}
           <section className="mb-32">
             <div className="max-w-3xl mx-auto text-center">
-              <div className="text-primary-500 text-5xl font-serif mb-6">"</div>
               <p className="text-2xl md:text-3xl font-light text-gray-800 mb-8 leading-relaxed">
-                Mental health is not a destination, but a process. It's about
-                how you drive, not where you're going.
+                Mental health is not a destination, but a process. It is about
+                how you drive, not where you are going.
               </p>
               <div className="h-0.5 w-12 bg-primary-500 mx-auto"></div>
             </div>
@@ -115,7 +112,11 @@ export default function SurveyHome() {
           </div>
         </div>
       </footer>
-      <SurveyModal isOpen={isOpen} onClose={handleClose} setIsOpen={setIsOpen}/>
+      <SurveyModal
+        isOpen={isOpen}
+        onClose={handleClose}
+        setIsOpen={setIsOpen}
+      />
     </div>
   );
 }

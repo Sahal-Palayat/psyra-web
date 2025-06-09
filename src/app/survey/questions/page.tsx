@@ -3,14 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import InputSurvey from "@/components/Survey/InputSurvey";
 import DynamicSelect from "@/components/Survey/DynamicSelect";
 import CompletionModal from "@/components/Survey/CompletionModal";
 
@@ -477,61 +469,28 @@ export default function SurveyQuestions() {
   const [surveyQuestions, setSurveyQuestions] =
     useState<SurveyQuestion[]>(basicQuestions);
   const [showCompletionModal, setShowCompletionModal] = useState(false);
-  const [quesCount, setQuesCount] = useState(basicQuestions?.length);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [progress, setProgress] = useState(0);
+  // const [progress, setProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   console.log(answers, "ANSERSSSSS");
 
   useEffect(() => {
     const userInfo = sessionStorage.getItem("surveyUser");
-    // if (!userInfo) {
-    //   router.push("/survey");
-    // }
-
-    setProgress(((currentQuestion + 1) / surveyQuestions.length) * 100);
-
-    if (answers[currentQuestion + 1]) {
-      setSelectedOption(answers[currentQuestion + 1]);
-    } else {
-      setSelectedOption(null);
+    if (!userInfo) {
+      router.push("/survey");
     }
   }, [currentQuestion, router, answers]);
 
   const handleOptionSelect = (option: string) => {
-    setSelectedOption(option);
-
     // Save the answer
     setAnswers((prev) => ({
       ...prev,
       [surveyQuestions[currentQuestion].id]: option,
     }));
 
-    // if (
-    //   surveyQuestions[currentQuestion].id === "state" &&
-    //   surveyQuestions?.length <= basicQuestions.length
-    // ) {
-    //   setSurveyQuestions((prev) => [...prev, ...profQuestions]);
-    // }
-    console.log(
-      currentQuestion,
-      "cuurent",
-      basicQuestions.length,
-      "basic",
-      surveyQuestions.length,
-      "surve length",
-      quesCount,
-      "Ques count",
-      "LENGTH EQUALS AQSA SASK"
-    );
-
-    if (
-      currentQuestion + 1 === basicQuestions.length &&
-      quesCount === surveyQuestions?.length
-    ) {
+    if (currentQuestion + 1 === basicQuestions.length) {
       if (answers?.occupation === "Student") {
         setSurveyQuestions((prev) => [...prev, ...studentQuestions]);
         studentQuestions;
