@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import EventMob from "../../public/eidevent.jpeg";
+import EventMob from "../../public/eventBloree.jpg";
 import Modal from "./Modal";
 
 const EventMobile = () => {
@@ -48,7 +48,7 @@ const EventMobile = () => {
           />
         </motion.div>
 
-        <div className="gap-3 absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black via-black/60 to-transparent flex flex-col items-center justify-center text-center text-white px-2">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent px-2 py-4">
           <motion.button
             onClick={() => setIsModalOpen(true)}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -56,7 +56,7 @@ const EventMobile = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: false, amount: 0.2 }}
             className="bg-white font-semibold text-[#0F1010] w-[121px] h-[22px] text-[11px] 
-             flex items-center justify-center rounded-full hover:bg-gray-100 transition-all"
+       flex items-center justify-center rounded-full hover:bg-gray-100 transition-all mx-auto"
             style={{ color: "#005657" }}
           >
             Register Now

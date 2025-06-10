@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import EventImg from "../../public/eideventcropped.jpeg";
+import EventImg from "../../public/artist-tools.jpg";
 import Modal from "./Modal";
 
 const EventDesktop = () => {
@@ -56,10 +56,10 @@ const EventDesktop = () => {
             viewport={{ once: false, amount: 0.2 }}
             className="gap-6"
           >
-            <p className="text-[50px] font-bold">Eid With Strangers</p>
+            <p className="text-[50px] font-bold">Art With Strangers</p>
 
-            <p className="text-[22px]">Sat, June 07 3:00 PM IST</p>
-            <p className="text-[22px]">Cafe Frabby, Vyttila</p>
+            <p className="text-[22px]">Sun, June 15 3:30 PM IST</p>
+            <p className="text-[22px]">Thelagram Cafe, JP Nagar, Bengaluru</p>
           </motion.div>
 
           <motion.button
