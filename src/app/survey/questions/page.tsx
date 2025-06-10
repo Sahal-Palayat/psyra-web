@@ -302,109 +302,6 @@ const profQuestions = [
     options: ["Yes", "A little", "Not at all", "Don’t know"],
     type: "options",
   },
-  {
-    id: "source_of_learning",
-    question:
-      "Where do people around you mostly learn about emotional or personal well-being?",
-    options: [
-      "School/College",
-      "Religious/Community spaces",
-      "Social media",
-      "Healthcare professionals",
-      "They don’t learn",
-    ],
-    type: "options",
-  },
-  {
-    id: "emotional_experience",
-    question: "In the past month, have you felt…",
-    options: [
-      "Emotionally tired",
-      "Easily irritated",
-      "Disconnected from people",
-      "Low energy or no motivation",
-      "All of the above",
-      "None of the above",
-    ],
-    type: "options",
-  },
-  {
-    id: "seen_without_explaining",
-    question:
-      "What’s one thing you wish people could see about you without needing an explanation?",
-    options: [""],
-    type: "multi-select",
-  },
-  {
-    id: "others_feel_safe",
-    question:
-      "If someone in your circle was feeling emotionally off, would they feel safe telling you?",
-    options: ["Yes", "Maybe", "No"],
-    type: "options",
-  },
-  {
-    id: "family_struggles",
-    question:
-      "Has anyone in your family or friend circle ever faced emotional struggles but avoided help?",
-    options: ["Yes", "No", "Not sure"],
-    type: "options",
-  },
-  {
-    id: "if_support_available",
-    question:
-      "If support was easily available, would you or someone you know try it?",
-    options: ["Yes", "Maybe", "No"],
-    type: "options",
-  },
-  {
-    id: "barriers_to_support",
-    question:
-      "What stops people in your area from seeking emotional or mental support?",
-    options: [
-      "Fear of gossip/judgment",
-      "Lack of privacy",
-      "Belief that “it’s just a phase”",
-      "Money/affordability",
-      "Don’t trust professionals",
-      "Don't know where to go",
-      "Other",
-    ],
-    type: "multi-select",
-  },
-  {
-    id: "feel_peaceful_with",
-    question: "What helps you feel peaceful or balanced?",
-    options: [
-      "Nature",
-      "Prayer/meditation",
-      "Hobbies",
-      "Good sleep",
-      "Supportive people",
-      "Quiet time",
-      "Nothing really",
-    ],
-    type: "multi-select",
-  },
-  {
-    id: "support_friend",
-    question:
-      "If your close friend was struggling silently, how would you support them?",
-    options: [
-      "Listen and talk",
-      "Help them get help",
-      "Keep checking in",
-      "Stay with them quietly",
-      "Help them to consult a psychologist",
-      "I wouldn't know what to do",
-    ],
-    type: "multi-select",
-  },
-  {
-    id: "self_improvement_goal",
-    question: "What’s one thing you want to improve about your life this year?",
-    options: [""],
-    type: "open-ended",
-  },
 ];
 
 const basicQuestions = [
@@ -481,6 +378,25 @@ export default function SurveyQuestions() {
     }
   }, []);
 
+  const submitSurvey = async (finalAnswers: any) => {
+    console.log("finalAnswers", finalAnswers);
+
+    try {
+      const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalAnswers),
+      });
+
+      const data = await response.json();
+      console.log("Survey submitted successfully:", data);
+    } catch (error) {
+      console.error("Error submitting survey:", error);
+    }
+  };
+
   const handleOptionSelect = (option: string) => {
     // Save the answer
     setAnswers((prev) => ({
@@ -488,7 +404,17 @@ export default function SurveyQuestions() {
       [surveyQuestions[currentQuestion].id]: option,
     }));
 
-    if (currentQuestion + 1 === basicQuestions.length) {
+    if (
+      currentQuestion + 1 === basicQuestions.length &&
+      surveyQuestions?.length === basicQuestions?.length
+    ) {
+      console.log(
+        surveyQuestions?.length,
+        "surveyquestions",
+        basicQuestions.length,
+        "basicQuestions.length"
+      );
+
       if (answers?.occupation === "Student") {
         setSurveyQuestions((prev) => [...prev, ...studentQuestions]);
       } else {
@@ -500,6 +426,18 @@ export default function SurveyQuestions() {
       currentQuestion + 1 === surveyQuestions?.length &&
       surveyQuestions?.length !== basicQuestions?.length
     ) {
+      const finalAnswers = {
+        ...answers,
+        [surveyQuestions[currentQuestion].id]: option,
+      };
+
+      console.log(finalAnswers, "FINKKKKKKKKK");
+
+      submitSurvey(finalAnswers);
+
+      // Optionally save locally
+      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers));
+
       setTimeout(() => {
         setShowCompletionModal(true);
       }, 500);
@@ -513,15 +451,6 @@ export default function SurveyQuestions() {
           setCurrentQuestion((prev) => prev + 1);
           setIsTransitioning(false);
         }, 300);
-      } else {
-        // Complete survey
-        sessionStorage.setItem(
-          "surveyAnswers",
-          JSON.stringify({
-            ...answers,
-            [surveyQuestions[currentQuestion].id]: option,
-          })
-        );
       }
     }, 300);
   };
