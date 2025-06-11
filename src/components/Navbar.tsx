@@ -28,6 +28,12 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleWhatsAppRedirect = (serviceType: string) => {
+    const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
+    const message = encodeURIComponent(`Hi , How can i start?`);
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  };
+
   return (
     <>
       <motion.nav
@@ -58,24 +64,18 @@ const Navbar = () => {
             <Link href="#about" className="text-[#005657] hover:text-white">
               About us
             </Link>
-            <Link
-              href="#services"
-              className="text-[#005657] hover:text-white"
-            >
+            <Link href="#services" className="text-[#005657] hover:text-white">
               Services
             </Link>
 
-            <Link
-              href="#contact"
-              className="text-[#005657] hover:text-white"
-            >
+            <Link href="#contact" className="text-[#005657] hover:text-white">
               Contact us
             </Link>
           </div>
 
           {/* CTA Button */}
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => handleWhatsAppRedirect}
             className="hidden md:inline-block bg-white text-[#00989D] max-w-[120px] md:max-w-[152px] w-[120px] md:w-[152px] h-[36px] md:h-[40px] flex items-center justify-center rounded-full text-sm md:text-base font-medium hover:bg-gray-100 transition-all"
           >
             Get Started
@@ -159,7 +159,7 @@ const Navbar = () => {
             </div>
             <div className="mt-auto">
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => handleWhatsAppRedirect}
                 className="bg-white text-[#00989D] w-full h-[40px] flex items-center justify-center rounded-full font-medium hover:bg-gray-100 transition-all"
               >
                 Get Started
