@@ -10,7 +10,6 @@ export interface BookingData {
   age: string;
   modeOfTherapy: string;
   issue: string;
-  otherIssue?: string;
   agreeToTerms: boolean;
   sessionType: string;
 

@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 import { BookingModal } from "../BookingModal/bookingModal";
 
 interface PackageItem {
-  img: string;
+  type:string;
+  img: any;
   title: string;
   tagline: string;
   list: string[];
   price: string;
+  cta:string;
 }
 
 interface PackagesProps {
@@ -20,8 +22,8 @@ const Packages = ({ data }: PackagesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
 
-  const handleBookNow = (packageTitle: string) => {
-    setSelectedPackage(packageTitle);
+  const handleBookNow = (packageTitle: string,packageType:string) => {
+    setSelectedPackage(`${packageTitle} - ${packageType}`);
     setIsModalOpen(true);
   };
 
@@ -78,7 +80,7 @@ const Packages = ({ data }: PackagesProps) => {
                 <div className="flex justify-center">
                   <button
                     className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                    onClick={() => handleBookNow(item.title)}
+                    onClick={() => handleBookNow(item.title,item?.type)}
                   >
                     Book Now
                   </button>

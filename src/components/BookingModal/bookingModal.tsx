@@ -1,10 +1,12 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { BookingModalProps, BookingData } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
+import axios from "axios";
 import { SuccessScreen } from "./success-screen";
+import DemoPayment from "./demo-payment";
 
 export function BookingModal({
   isOpen,
@@ -20,11 +22,22 @@ export function BookingModal({
     modeOfTherapy: "",
     issue: "",
     agreeToTerms: false,
-    packageTitle,
+    packageTitle: packageTitle,
     sessionType: "",
   });
 
+  useEffect(() => {
+    setBookingData((prev) => ({
+      ...prev,
+      packageTitle: packageTitle,
+    }));
+  }, [packageTitle]);
+
+  console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
+
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
+    console.log(data, "DATA IN UPDATE");
+
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
 
@@ -46,7 +59,7 @@ export function BookingModal({
       issue: "",
       sessionType: "",
       agreeToTerms: false,
-      packageTitle,
+      packageTitle: packageTitle,
     });
     onClose();
   };
@@ -78,9 +91,56 @@ export function BookingModal({
       bookingData.age &&
       bookingData.modeOfTherapy &&
       bookingData.issue &&
-      (bookingData.issue !== "Other" || bookingData.otherIssue) &&
       bookingData.agreeToTerms
     );
+  };
+
+  const createSlot = async () => {
+    const {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      packageTitle,
+      date,
+      timeSlot,
+    } = bookingData;
+
+    const variable = {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      packageTitle,
+      date: date instanceof Date ? date.toISOString().split("T")[0] : date, // ensure date is in "YYYY-MM-DD"
+      timeSlot,
+    };
+
+    console.log("variable for API", variable);
+
+    try {
+      const response = await axios.post(
+        "https://kochimetrocalc.me/consultation/book-slot",
+        variable
+      ); // Update endpoint if needed
+      console.log("Booking successful", response.data);
+      alert("response:");
+    } catch (error) {
+      console.error("Booking failed", error);
+      alert("ERRORR");
+      // You can show an error toast or message here
+    }
+
+    // Now you can use this variable in your API call
+    // await axios.post('/api/book-slot', variable);
   };
 
   if (!isOpen) return null;
@@ -103,7 +163,11 @@ export function BookingModal({
           className="relative w-full max-w-[1000px] overflow-hidden rounded-2xl bg-white shadow-xl"
         >
           {step === 3 ? (
-            <SuccessScreen bookingData={bookingData} />
+            <DemoPayment
+              handle={() => {
+                createSlot();
+              }}
+            />
           ) : (
             <>
               {/* Header */}
