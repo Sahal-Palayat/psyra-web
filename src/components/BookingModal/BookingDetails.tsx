@@ -2,13 +2,11 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
-import { BookingFormData } from "./types";
-
-
+import { BookingData } from "./types";
 
 type BookingDetailsProps = {
-  formData: BookingFormData;
-  setFormData: React.Dispatch<React.SetStateAction<BookingFormData>>;
+  formData: BookingData;
+  setFormData: React.Dispatch<React.SetStateAction<BookingData>>;
 };
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({
@@ -54,7 +52,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({
 
         <div className="space-y-2">
           <Label htmlFor="phone" className="text-[#005657] font-medium">
-           Age
+            Age
           </Label>
           <Input
             id="phone"
@@ -109,21 +107,6 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({
       </div>
 
       <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="concerns" className="text-[#005657] font-medium">
-            Your Concerns (Optional)
-          </Label>
-          <Textarea
-            id="concerns"
-            name="concerns"
-            value={formData.concerns}
-            onChange={handleInputChange}
-            placeholder="Briefly describe what you'd like to discuss"
-            rows={6}
-            className="h-[calc(100%-2rem)]"
-          />
-        </div>
-
         <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
           <h4 className="font-medium text-[#005657] mb-1">What to expect:</h4>
           <p className="text-sm text-[#005657]/80">

@@ -110,6 +110,11 @@ export function BookingModal({
       timeSlot,
     } = bookingData;
 
+    const adjustedDate =
+      date instanceof Date
+        ? new Date(date.getTime() + 24 * 60 * 60 * 1000) // add 1 day in ms
+        : new Date(); // fallback in case `date` is a string
+
     const variable = {
       name,
       email,
@@ -120,7 +125,7 @@ export function BookingModal({
       agreeToTerms,
       sessionType,
       packageTitle,
-      date: date instanceof Date ? date.toISOString().split("T")[0] : date, // ensure date is in "YYYY-MM-DD"
+      date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
       timeSlot,
     };
 
