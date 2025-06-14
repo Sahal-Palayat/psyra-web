@@ -42,57 +42,45 @@ const Services = () => {
   };
 
   return (
-    <section className="py-16 pb-8" id="services">
+    <section className="py-16 px-16" id="services">
       <div className="container mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {obj.map((item, index) => (
             <motion.div
               key={index}
-              className="relative rounded-lg overflow-hidden shadow-md"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              className="bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col"
             >
-              {/* Image Animation */}
-              <motion.div
-                initial={{ scale: 0.9 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: false, amount: 0.5 }}
-                transition={{ duration: 0.5 }}
-              >
+              {/* Top Image */}
+              <div className="w-full h-[200px] relative">
                 <Image
-                  src={item?.img}
+                  src={item?.img || "/placeholder.svg"}
                   alt={`Feature ${item?.type}`}
-                  width={500}
-                  height={300}
-                  className="w-full h-48 object-cover"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-2xl"
                 />
-              </motion.div>
+              </div>
 
-              {/* Gradient Overlay */}
-              <motion.div
-                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#00989D] via-[#00989D]/60 to-transparent flex flex-col items-center justify-center text-center text-white px-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: false, amount: 0.5 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              >
-                <p className="text-lg font-semibold">{item?.type}</p>
-                <p className="text-base font-medium text-white drop-shadow-sm">{item?.subTitle}</p>
-                </motion.div>
+              {/* Content */}
+              <div className="p-5 text-black flex flex-col flex-grow text-center">
+                <h3 className="font-bold text-xl mb-1">{item.type}</h3>
+                <p className="italic mb-3">{item?.subTitle}</p>
 
-              {/* Button Animation */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-block bg-white text-[#0F1010] max-w-[112px] w-[112px] h-[28px] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all"
-                  style={{ fontSize: "11px" }}
-                  onClick={() => handleWhatsAppRedirect(item)}
-                >
-                  Get Started
-                </motion.button>
+                {/* This wrapper pushes price + button to bottom */}
+                <div className="mt-auto">
+                  <div className="flex justify-center">
+                    <button
+                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
