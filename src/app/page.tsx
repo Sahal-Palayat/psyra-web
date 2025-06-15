@@ -8,6 +8,7 @@ import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
 import EventGallery from "@/components/eventGallery";
+import CarouselCardFlip from "@/components/Psychologists";
 // import { ChevronDown } from "lucide-react"
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       {/* Why Psyra Section */}
       <AboutUs />
 
+      <CarouselCardFlip />
       {/* Meet New Faces */}
       <Event />
       {/* <EventGallery /> */}
@@ -29,7 +31,6 @@ export default function Home() {
       <OurSpecials />
 
       {/* CTA Section */}
-      
 
       {/* Contact Form */}
       <GetInTouch />
