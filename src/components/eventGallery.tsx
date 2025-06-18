@@ -18,8 +18,6 @@ interface EventImage {
 }
 
 
-jjjjjjjjjjjjjjjjjjjjjjjjj
-
 export default function EventGallery() {
   // Sample event images - replace with your actual event images
   const eventImages: EventImage[] = [
