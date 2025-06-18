@@ -1,7 +1,6 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "../ui/textarea";
 import { BookingData } from "./types";
 
 type BookingDetailsProps = {
@@ -110,8 +109,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({
         <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
           <h4 className="font-medium text-[#005657] mb-1">What to expect:</h4>
           <p className="text-sm text-[#005657]/80">
-            After providing your information, you'll be able to select from
-            available consultation times. We'll send a confirmation to your
+            After providing your information, you will be able to select from
+            available consultation times. We will send a confirmation to your
             email with details about your appointment.
           </p>
         </div>

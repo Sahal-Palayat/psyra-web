@@ -30,9 +30,9 @@ const Services = () => {
   ];
 
   // Function to handle WhatsApp redirection
-  const handleWhatsAppRedirect = (item: any) => {
-    router.push(`/${item?.route}`);
-    const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
+  const handleWhatsAppRedirect = (item: string) => {
+    router.push(`/${item}`);
+    // const phoneNumber = "+918891724199"; 
     /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the
    "Get Started" button for a specific service type. Here's what the code is doing: */
     // const message = encodeURIComponent(
@@ -75,7 +75,7 @@ const Services = () => {
                   <div className="flex justify-center">
                     <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      onClick={() => handleWhatsAppRedirect(item)}
+                      onClick={() => handleWhatsAppRedirect(item?.route)}
                     >
                       Book Now
                     </button>

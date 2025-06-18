@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import { BookingModal } from "../BookingModal/bookingModal";
 
 interface PackageItem {
   type:string;
-  img: any;
+  img: StaticImageData;
   title: string;
   tagline: string;
   list: string[];
