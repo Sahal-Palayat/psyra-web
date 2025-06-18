@@ -179,7 +179,7 @@ export function BookingModal({
               <div className="bg-[#005657] text-white p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-xl font-bold">Book Consultation</h2>
+                    <h2 className="text-xl font-bold">Book Consultation SLOPE 5</h2>
                     <p className="text-[#B6E5DF] mt-1">
                       {packageTitle} - {getStepTitle()}
                     </p>
