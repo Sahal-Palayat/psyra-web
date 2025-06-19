@@ -24,7 +24,7 @@ export default function EventGallery() {
     {
       id: '1',
       src: '/Cmmnty.png',
-      alt: 'Event banner with green spheres',
+      alt: 'Event banner with green spheres over on it',
       className: 'col-span-1 row-span-1',
     },
     {
