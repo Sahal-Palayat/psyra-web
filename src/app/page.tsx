@@ -2,7 +2,7 @@
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import AboutUs from "@/components/AboutUs";
-import Event from "@/components/Event";
+// import Event from "@/components/Event";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
@@ -18,7 +18,7 @@ export default function Home() {
       <AboutUs />
 
       {/* Meet New Faces */}
-      <Event />
+      {/* <Event /> */}
       {/* <EventGallery /> */}
 
       {/* Our Specialties */}
