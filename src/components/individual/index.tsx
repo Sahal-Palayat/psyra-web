@@ -1,6 +1,6 @@
 "use client";
 import Packages from "./Packages";
-import HeroIndividual from "./HeroIndividual";
+// import HeroIndividual from "./HeroIndividual";
 import individual from "../../../public/Packages 2.jpg";
 import individual1 from "../../../public/Packages 1.jpg";
 import individual2 from "../../../public/Packages 3.jpg";
@@ -19,13 +19,13 @@ export default function Individual() {
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
-      price: "₹649",
+      price: "₹999",
       cta: "Start Your Journey Today",
     },
     {
       type: "individual",
       img: individual2, // Replace with actual image import
-      title: "Growth Package (5 Sessions - ₹599 per session)",
+      title: "Growth Package (5 Sessions - ₹899 per session)",
       tagline: "Deepen Your Healing",
       list: [
         "5 guided therapy sessions",
@@ -33,13 +33,13 @@ export default function Individual() {
         "Explore your thoughts and emotions",
         "Develop practical coping strategies",
       ],
-      price: "₹2,995", // 599 x 5
+      price: "₹4,499", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {
       type: "individual",
       img: individual1, // Replace with actual image import
-      title: "Transformation Package (10 Sessions - ₹549 per session)",
+      title: "Transformation Package (10 Sessions - ₹849 per session)",
       tagline: "Transform Your Mindset",
       list: [
         "10 comprehensive therapy sessions",
@@ -47,13 +47,13 @@ export default function Individual() {
         "Set and achieve personal goals",
         "Ongoing support for sustainable change",
       ],
-      price: "₹5,490", // 549 x 10
+      price: "₹8,490", // 549 x 10
       cta: "Commit to a Better You",
     },
   ];
   return (
     <div className="flex flex-col min-h-screen bg-9EE0D6">
-      <HeroIndividual />
+      {/* <HeroIndividual /> */}
       <Packages data={individualTypes} />
       <Faq />
     </div>

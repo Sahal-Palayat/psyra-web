@@ -47,21 +47,21 @@ export function BookingModal({
   //   setStep(4); // Success screen
   // };
 
-  const resetAndClose = () => {
-    setStep(1);
-    setBookingData({
-      name: "",
-      email: "",
-      phone: "",
-      age: "",
-      modeOfTherapy: "",
-      issue: "",
-      sessionType: "",
-      agreeToTerms: false,
-      packageTitle: packageTitle,
-    });
-    onClose();
-  };
+  // const resetAndClose = () => {
+  //   setStep(1);
+  //   setBookingData({
+  //     name: "",
+  //     email: "",
+  //     phone: "",
+  //     age: "",
+  //     modeOfTherapy: "",
+  //     issue: "",
+  //     sessionType: "",
+  //     agreeToTerms: false,
+  //     packageTitle: packageTitle,
+  //   });
+  //   onClose();
+  // };
 
   const getStepTitle = () => {
     switch (step) {
@@ -136,6 +136,19 @@ export function BookingModal({
         variable
       ); // Update endpoint if needed
       console.log("Booking successful", response.data);
+      const phoneNumber = "+918891724199";
+      const message = encodeURIComponent(
+        `Hi, I would like to book the following therapy session. Please share the payment details:
+      
+      Name: ${name}
+      Age: ${age}
+      Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+      Time Slot: ${timeSlot}
+      
+      Looking forward to your confirmation. Thank you!`
+      );
+
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
       alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
@@ -166,108 +179,110 @@ export function BookingModal({
           exit={{ opacity: 0, scale: 0.95 }}
           className="relative w-full max-w-[1000px] overflow-hidden rounded-2xl bg-white shadow-xl"
         >
-          {step === 3 ? (
-            <DemoPayment
-              handle={() => {
-                createSlot();
-              }}
-            />
-          ) : (
-            <>
-              {/* Header */}
-              <div className="bg-[#005657] text-white p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold">Book Consultation SLOPE 5</h2>
-                    <p className="text-[#B6E5DF] mt-1">
-                      {packageTitle} - {getStepTitle()}
-                    </p>
-                  </div>
+          <>
+            {/* Header */}
+            <div className="bg-[#005657] text-white p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-bold">Book Consultation</h2>
+                  <p className="text-[#B6E5DF] mt-1">
+                    {packageTitle} - {getStepTitle()}
+                  </p>
+                </div>
 
-                  {/* Step indicator */}
-                  <div className="flex items-center space-x-2">
-                    {[1, 2, 3].map((stepNumber) => (
-                      <div
-                        key={stepNumber}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                          stepNumber === step
-                            ? "bg-white text-[#005657]"
-                            : stepNumber < step
-                            ? "bg-[#B6E5DF] text-[#005657]"
-                            : "bg-[#005657]/50 text-white border border-white/30"
-                        }`}
-                      >
-                        {stepNumber < step ? (
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        ) : (
-                          stepNumber
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                {/* Step indicator */}
+                <div className="flex items-center space-x-2">
+                  {[1, 2, 3].map((stepNumber) => (
+                    <div
+                      key={stepNumber}
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                        stepNumber === step
+                          ? "bg-white text-[#005657]"
+                          : stepNumber < step
+                          ? "bg-[#B6E5DF] text-[#005657]"
+                          : "bg-[#005657]/50 text-white border border-white/30"
+                      }`}
+                    >
+                      {stepNumber < step ? (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      ) : (
+                        stepNumber
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
+            </div>
 
-              {/* Content */}
-              <div className="p-6">
-                {step === 1 && (
-                  <SlotSelection
-                    bookingData={bookingData}
-                    onUpdate={updateBookingData}
-                  />
-                )}
-                {step === 2 && (
-                  <DetailsForm
-                    bookingData={bookingData}
-                    onUpdate={updateBookingData}
-                  />
-                )}
-              </div>
+            {/* Content */}
+            <div className="p-6">
+              {step === 1 && (
+                <SlotSelection
+                  bookingData={bookingData}
+                  onUpdate={updateBookingData}
+                />
+              )}
+              {step === 2 && (
+                <DetailsForm
+                  bookingData={bookingData}
+                  onUpdate={updateBookingData}
+                />
+              )}
+            </div>
 
-              {/* Footer */}
-              <div className="p-6 pt-0 flex flex-col sm:flex-row gap-2 border-t border-gray-100">
+            {/* Footer */}
+            <div className="p-6 pt-0 flex flex-col sm:flex-row gap-2 border-t border-gray-100">
+              <button
+                onClick={step === 1 ? onClose : prevStep}
+                className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                {step === 1 ? "Cancel" : "Back"}
+              </button>
+
+              {step === 1 ? (
                 <button
-                  onClick={step === 1 ? onClose : prevStep}
-                  className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={nextStep}
+                  disabled={step === 1 && !canProceedFromStep1()}
+                  className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
+                    step === 1 && !canProceedFromStep1()
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-[#005657] hover:bg-[#005657]/90"
+                  }`}
                 >
-                  {step === 1 ? "Cancel" : "Back"}
+                  Continue to Details
                 </button>
-
-                {step < 3 && (
-                  <button
-                    onClick={nextStep}
-                    disabled={
-                      (step === 1 && !canProceedFromStep1()) ||
-                      (step === 2 && !canProceedFromStep2())
-                    }
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
-                      (step === 1 && !canProceedFromStep1()) ||
-                      (step === 2 && !canProceedFromStep2())
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}
-                  >
-                    {step === 1 ? "Continue to Details" : "Continue to Payment"}
-                  </button>
-                )}
-              </div>
-            </>
-          )}
+              ) : (
+                <button
+                  onClick={() => {
+                    createSlot();
+                  }}
+                  disabled={step === 1 && !canProceedFromStep1()}
+                  className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
+                    step === 1 && !canProceedFromStep1()
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-[#005657] hover:bg-[#005657]/90"
+                  }`}
+                >
+                  Continue to Payment
+                </button>
+              )}
+            </div>
+          </>
 
           {/* Close button for success screen */}
-          {step === 4 && (
+          {/* {step === 4 && (
             <button
               onClick={resetAndClose}
               className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
@@ -286,7 +301,7 @@ export function BookingModal({
                 />
               </svg>
             </button>
-          )}
+          )} */}
         </motion.div>
       </div>
     </div>
