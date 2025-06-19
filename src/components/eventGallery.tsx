@@ -30,7 +30,7 @@ export default function EventGallery() {
     {
       id: "2",
       src: "/24x7.png",
-      alt: "Connecting Ideas & Empowering Innovationsss",
+      alt: "Connecting Ideas & Empowering Innovations",
       className: "col-span-1 row-span-2 md:col-span-1",
       overlay: {
         type: "text",
