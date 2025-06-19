@@ -360,6 +360,10 @@ const basicQuestions = [
   },
 ];
 
+type SurveyAnswers = {
+  [questionId: string]: string | number | boolean;
+};
+
 export default function SurveyQuestions() {
   const router = useRouter();
   const [value, setValue] = useState("");
@@ -378,7 +382,7 @@ export default function SurveyQuestions() {
     }
   }, []);
 
-  const submitSurvey = async (finalAnswers: any) => {
+  const submitSurvey = async (finalAnswers: SurveyAnswers) => {
     console.log("finalAnswers", finalAnswers);
 
     try {
