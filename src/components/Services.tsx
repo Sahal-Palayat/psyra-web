@@ -51,8 +51,8 @@ const Services = () => {
   };
 
   return (
-    <section className="py-16 px-16" id="services">
-      <div className="container mx-auto px-6 md:px-10">
+    <section className="py-16 px-8 sm:px-6 md:px-16" id="services">
+      <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {obj.map((item, index) => (
             <motion.div
