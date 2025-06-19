@@ -47,21 +47,21 @@ export function BookingModal({
   //   setStep(4); // Success screen
   // };
 
-  // const resetAndClose = () => {
-  //   setStep(1);
-  //   setBookingData({
-  //     name: "",
-  //     email: "",
-  //     phone: "",
-  //     age: "",
-  //     modeOfTherapy: "",
-  //     issue: "",
-  //     sessionType: "",
-  //     agreeToTerms: false,
-  //     packageTitle: packageTitle,
-  //   });
-  //   onClose();
-  // };
+  const resetAndClose = () => {
+    setStep(1);
+    setBookingData({
+      name: "",
+      email: "",
+      phone: "",
+      age: "",
+      modeOfTherapy: "",
+      issue: "",
+      sessionType: "",
+      agreeToTerms: false,
+      packageTitle: packageTitle,
+    });
+    onClose();
+  };
 
   const getStepTitle = () => {
     switch (step) {
@@ -82,17 +82,17 @@ export function BookingModal({
     return bookingData.date && bookingData.timeSlot;
   };
 
-  const canProceedFromStep2 = () => {
-    return (
-      bookingData.name &&
-      bookingData.email &&
-      bookingData.phone &&
-      bookingData.age &&
-      bookingData.modeOfTherapy &&
-      bookingData.issue &&
-      bookingData.agreeToTerms
-    );
-  };
+  // const canProceedFromStep2 = () => {
+  //   return (
+  //     bookingData.name &&
+  //     bookingData.email &&
+  //     bookingData.phone &&
+  //     bookingData.age &&
+  //     bookingData.modeOfTherapy &&
+  //     bookingData.issue &&
+  //     bookingData.agreeToTerms
+  //   );
+  // };
 
   const createSlot = async () => {
     const {
@@ -147,9 +147,9 @@ export function BookingModal({
       
       Looking forward to your confirmation. Thank you!`
       );
-
+      resetAndClose()
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
-      alert("response:");
+      // alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
       alert("ERRORR");
@@ -192,7 +192,7 @@ export function BookingModal({
 
                 {/* Step indicator */}
                 <div className="flex items-center space-x-2">
-                  {[1, 2, 3].map((stepNumber) => (
+                  {[1, 2].map((stepNumber) => (
                     <div
                       key={stepNumber}
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
