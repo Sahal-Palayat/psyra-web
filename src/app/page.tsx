@@ -1,5 +1,4 @@
 "use client";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import AboutUs from "@/components/AboutUs";
@@ -7,8 +6,8 @@ import Event from "@/components/Event";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
-import EventGallery from "@/components/eventGallery";
-import CarouselCardFlip from "@/components/Psychologists";
+// import EventGallery from "@/components/eventGallery";
+// import CarouselCardFlip from "@/components/Psychologists";
 // import { ChevronDown } from "lucide-react"
 
 export default function Home() {

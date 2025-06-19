@@ -5,7 +5,6 @@ import type { BookingModalProps, BookingData } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
 import axios from "axios";
-import { SuccessScreen } from "./success-screen";
 import DemoPayment from "./demo-payment";
 
 export function BookingModal({
@@ -44,9 +43,9 @@ export function BookingModal({
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  const handlePaymentComplete = () => {
-    setStep(4); // Success screen
-  };
+  // const handlePaymentComplete = () => {
+  //   setStep(4); // Success screen
+  // };
 
   const resetAndClose = () => {
     setStep(1);

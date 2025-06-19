@@ -412,8 +412,8 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
       <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
         <h4 className="font-medium text-[#005657] mb-2">What happens next?</h4>
         <ul className="text-sm text-[#005657]/80 space-y-1">
-          <li>• You'll proceed to secure payment</li>
-          <li>• We'll send confirmation details to your email</li>
+          <li>• You will proceed to secure payment</li>
+          <li>• We will send confirmation details to your email</li>
           <li>• Our therapist will contact you before your appointment</li>
           <li>• You can reschedule up to 24 hours before your session</li>
         </ul>

@@ -1,23 +1,30 @@
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import Individual from "../../public/individual.jpg";
 import Couple from "../../public/couple.jpg";
 import Coffe from "../../public/Coffee.png";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+
+export interface TherapyCardType {
+  type: string;
+  subTitle: string;
+  img: StaticImageData;
+  route: string;
+}
 const Services = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const obj = [
     {
       type: "Individual therapy",
-      subTitle: "Starts from ₹749",
+      subTitle: "Starts from ₹999",
       img: Individual,
       route: "individual",
     },
     {
       type: "Couple therapy",
-      subTitle: "Starts from ₹749",
+      subTitle: "Starts from ₹1499",
       img: Couple,
       route: "couple-therapy",
     },
@@ -30,15 +37,17 @@ const Services = () => {
   ];
 
   // Function to handle WhatsApp redirection
-  const handleWhatsAppRedirect = (item: any) => {
-    router.push(`/${item?.route}`);
+  const handleWhatsAppRedirect = (item: TherapyCardType) => {
+    // router.push(`/${item?.route}`);
+    console.log(item);
+
     const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
     /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the
    "Get Started" button for a specific service type. Here's what the code is doing: */
-    // const message = encodeURIComponent(
-    //   `Hi, I'm interested in the "${serviceType}" package. Can you provide more details?`
-    // );
-    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    const message = encodeURIComponent(
+      `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
 
   return (
@@ -67,7 +76,7 @@ const Services = () => {
 
               {/* Content */}
               <div className="p-5 text-black flex flex-col flex-grow text-center">
-                <h3 className="font-bold text-xl mb-1">{item.type}</h3>
+                <h3 className="font-bold text-xl mb-1">{item?.type}</h3>
                 <p className="italic mb-3">{item?.subTitle}</p>
 
                 {/* This wrapper pushes price + button to bottom */}
