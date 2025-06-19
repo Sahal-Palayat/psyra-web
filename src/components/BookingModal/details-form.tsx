@@ -368,7 +368,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent"
             >
               <option value="">Select your session type</option>
-              {SESSION_TYPE.map((issue: any) => (
+              {SESSION_TYPE.map((issue: string) => (
                 <option key={issue} value={issue}>
                   {issue}
                 </option>

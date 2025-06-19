@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import type { BookingData, BookedSlot } from "./types";
+import type { BookingData, BookedSlot, TherapyBooking } from "./types";
 import { ALL_TIME_SLOTS } from "./types";
 import axios from "axios";
 
@@ -17,7 +17,7 @@ interface SlotSelectionProps {
 
 export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
-  const [bookedSlots, setBookedSlot] = useState<any>([]);
+  const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
 
   const fetchBookedSlots = async (date: string) => {
     try {
@@ -48,8 +48,8 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       const formattedDate = format(bookingData.date, "yyyy-MM-dd");
       // Filter booked slots for the selected date
       const bookedForThisDate = bookedSlots
-        .filter((slot: any) => slot.date === formattedDate)
-        .map((slot: any) => slot.timeSlot); 
+        .filter((slot: TherapyBooking) => slot.date === formattedDate)
+        .map((slot: TherapyBooking) => slot.timeSlot);
 
       setBookedSlotsForDate(bookedForThisDate);
 
