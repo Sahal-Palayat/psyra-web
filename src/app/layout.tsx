@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Psyra",
-  description: "Psyra for your mental wellness",
+  description: "Psyra for your mental wellness", 
 };
 
 export default function RootLayout({
