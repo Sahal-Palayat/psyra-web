@@ -39,22 +39,22 @@ const Services = () => {
   // Function to handle WhatsApp redirection
   const handleWhatsAppRedirect = (item: TherapyCardType) => {
     // router.push(`/${item?.route}`);
-    console.log(item);
+    console.log(item?.route);
 
-    const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
+    // const phoneNumber = "+918891724199";
     /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the
    "Get Started" button for a specific service type. Here's what the code is doing: */
-    const message = encodeURIComponent(
-      `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
-    );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    // const message = encodeURIComponent(
+    //   `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
+    // );
+    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
 
   return (
     <section className="py-16 px-8 sm:px-6 md:px-16" id="services">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {obj.map((item, index) => (
+          {obj?.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
