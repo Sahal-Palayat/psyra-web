@@ -1,32 +1,42 @@
-"use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import Logo from "../../public/Psyra Logo Color-05.svg";
-import Modal from "./Modal";
+"use client"
+import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
+import { Menu, X } from "lucide-react"
+import Logo from "../../public/Psyra Logo Color-05.svg"
+import Modal from "./Modal"
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Hide navbar if route includes survey/questions
+  const shouldHideNavbar = pathname.includes("survey/questions")
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setIsScrolled(true);
+        setIsScrolled(true)
       } else {
-        setIsScrolled(false);
+        setIsScrolled(false)
       }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  // Don't render navbar if on survey/questions pages
+  if (shouldHideNavbar) {
+    return null
+  }
 
   return (
     <>
@@ -42,7 +52,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="z-20">
             <Image
-              src={Logo}
+              src={Logo || "/placeholder.svg"}
               alt="Psyra Logo"
               width={120}
               height={40}
@@ -58,17 +68,11 @@ const Navbar = () => {
             <Link href="#about" className="text-[#005657] hover:text-white">
               About us
             </Link>
-            <Link
-              href="#services"
-              className="text-[#005657] hover:text-white"
-            >
+            <Link href="#services" className="text-[#005657] hover:text-white">
               Services
             </Link>
 
-            <Link
-              href="#contact"
-              className="text-[#005657] hover:text-white"
-            >
+            <Link href="#contact" className="text-[#005657] hover:text-white">
               Contact us
             </Link>
           </div>
@@ -82,16 +86,8 @@ const Navbar = () => {
           </button>
 
           {/* Hamburger Menu - Mobile */}
-          <button
-            className="md:hidden ml-4 z-20 text-white"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+          <button className="md:hidden ml-4 z-20 text-white" onClick={toggleMenu} aria-label="Toggle menu">
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </motion.nav>
@@ -121,39 +117,19 @@ const Navbar = () => {
             className="fixed top-0 right-0 h-full w-full bg-[#9EE0D6] z-40 flex flex-col p-6 pt-24"
           >
             <div className="flex flex-col space-y-6">
-              <Link
-                href="/"
-                className="text-white text-lg font-medium hover:text-white"
-                onClick={toggleMenu}
-              >
+              <Link href="/" className="text-white text-lg font-medium hover:text-white" onClick={toggleMenu}>
                 Home
               </Link>
-              <Link
-                href="#about"
-                className="text-white text-lg font-medium hover:text-white"
-                onClick={toggleMenu}
-              >
+              <Link href="#about" className="text-white text-lg font-medium hover:text-white" onClick={toggleMenu}>
                 About us
               </Link>
-              <Link
-                href="#services"
-                className="text-white text-lg font-medium hover:text-white"
-                onClick={toggleMenu}
-              >
+              <Link href="#services" className="text-white text-lg font-medium hover:text-white" onClick={toggleMenu}>
                 Services
               </Link>
-              <Link
-                href="/blog"
-                className="text-white text-lg font-medium hover:text-white"
-                onClick={toggleMenu}
-              >
+              <Link href="/blog" className="text-white text-lg font-medium hover:text-white" onClick={toggleMenu}>
                 Blog
               </Link>
-              <Link
-                href="#contact"
-                className="text-white text-lg font-medium hover:text-white"
-                onClick={toggleMenu}
-              >
+              <Link href="#contact" className="text-white text-lg font-medium hover:text-white" onClick={toggleMenu}>
                 Contact us
               </Link>
             </div>
@@ -168,13 +144,9 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        type={"getStarted"}
-      />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} type={"getStarted"} />
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
