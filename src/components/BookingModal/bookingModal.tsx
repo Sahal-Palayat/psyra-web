@@ -5,7 +5,7 @@ import type { BookingModalProps, BookingData } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
 import axios from "axios";
-import DemoPayment from "./demo-payment";
+// import DemoPayment from "./demo-payment";
 
 export function BookingModal({
   isOpen,
@@ -135,6 +135,7 @@ export function BookingModal({
         "https://kochimetrocalc.me/consultation/book-slot",
         variable
       ); // Update endpoint if needed
+
       console.log("Booking successful", response.data);
       const phoneNumber = "+918891724199";
       const message = encodeURIComponent(
