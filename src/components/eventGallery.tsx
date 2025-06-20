@@ -24,13 +24,13 @@ export default function EventGallery() {
     {
       id: "1",
       src: "/Cmmnty.png",
-      alt: "Event banner with green spheres to testt on it",
+      alt: "Event banner with green spheres to test",
       className: "col-span-1 row-span-1",
     },
     {
       id: "2",
       src: "/24x7.png",
-      alt: "Connecting Ideas & Empowering Innovationss",
+      alt: "Connecting Ideas & Empowering Innovations",
       className: "col-span-1 row-span-2 md:col-span-1",
       overlay: {
         type: "text",
