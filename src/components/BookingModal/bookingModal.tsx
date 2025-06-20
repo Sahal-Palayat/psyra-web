@@ -214,11 +214,14 @@ export function BookingModal({
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 sm:p-6">
                 {step === 1 && (
-                  <SlotSelection
-                    bookingData={bookingData}
-                    onUpdate={updateBookingData}
-                    // bookedSlots={bookedSlots}
-                  />
+                  <div>
+                    <SlotSelection
+                      bookingData={bookingData}
+                      onUpdate={(data) => {
+                        updateBookingData(data);
+                      }}
+                    />
+                  </div>
                 )}
                 {step === 2 && (
                   <DetailsForm
@@ -281,7 +284,7 @@ export function BookingModal({
                       !canProceedFromStep2()
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}                    
+                    }`}
                   >
                     Continue to Payment
                   </button>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
@@ -49,6 +49,17 @@ export function SlotSelection({
   }, [bookingData.date, bookedSlots]);
 
   const handleDateSelect = (date: Date) => {
+    // Scroll to slot selection when date is updated (especially in mobile)
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        if (slotListRef.current) {
+          slotListRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }
+      }, 150); // short delay for DOM to update
+    }
     onUpdate({ date, timeSlot: "" });
   };
 
@@ -61,6 +72,8 @@ export function SlotSelection({
       onUpdate({ timeSlot });
     }
   };
+
+  const slotListRef = useRef<HTMLDivElement>(null);
 
   const isSlotBooked = (slot: string) => {
     return bookedSlotsForDate.includes(slot);
@@ -152,7 +165,10 @@ export function SlotSelection({
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+    <div
+      ref={slotListRef}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"
+    >
       <div className="space-y-4">
         <h3 className="font-medium text-base sm:text-lg text-[#005657]">
           Select a Date
