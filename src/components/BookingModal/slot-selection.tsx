@@ -321,8 +321,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                   </span>
                 </div>
                 <div className="text-xs text-yellow-700 space-y-1">
-                  <p>• Grey slots are already booked</p>
-                  <p>• Red slots require at least 30 minutes advance booking</p>
+                  <p>• Red slots are already booked</p>
                 </div>
               </div>
             )}
