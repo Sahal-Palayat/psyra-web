@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BookingData } from "./types";
 import type React from "react";
 import { THERAPY_MODES, THERAPY_ISSUES } from "./types";
@@ -20,6 +20,11 @@ interface ValidationErrors {
 export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) {
@@ -163,7 +168,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div ref={formRef} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="space-y-2">
