@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import HeroIndividual from "../individual/HeroIndividual";
+// import HeroIndividual from "../individual/HeroIndividual";
 import Packages from "../individual/Packages";
 import sampleImage from "../../../public/couple.jpg";
 import Faq from "../Faq";
@@ -53,7 +53,7 @@ const CoupleIndex = () => {
 
   return (
     <div>
-      <HeroIndividual />
+      {/* <HeroIndividual /> */}
       <Packages data={couplePackages} />
       <Faq />
     </div>
