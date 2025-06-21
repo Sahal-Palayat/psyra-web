@@ -414,7 +414,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
         </div>
       </div>
 
-      <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
+      {/* <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
         <h4 className="font-medium text-[#005657] mb-2">What happens next?</h4>
         <ul className="text-sm text-[#005657]/80 space-y-1">
           <li>• You will proceed to secure payment</li>
@@ -422,7 +422,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
           <li>• Our therapist will contact you before your appointment</li>
           <li>• You can reschedule up to 24 hours before your session</li>
         </ul>
-      </div>
+      </div> */}
 
       {!isFormValid() && (
         <div className="p-3 bg-red-50 border border-red-200 rounded-md">

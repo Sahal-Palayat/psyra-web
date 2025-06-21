@@ -62,7 +62,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       console.log("Adjusted Date (1 day less):", adjustedDate);
       console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
 
-      setBookedSlot(res.data?.data);
+      setBookedSlot(res?.data?.data);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }

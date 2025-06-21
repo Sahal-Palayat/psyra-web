@@ -201,7 +201,7 @@ export function BookingModal({
                 <div className="flex items-center space-x-1 sm:space-x-2">
                   {" "}
                   <button
-                    onClick={onClose}
+                    onClick={resetAndClose}
                     className="p-2 hover:bg-white/10 rounded-full transition-colors"
                     aria-label="Close modal"
                   >
