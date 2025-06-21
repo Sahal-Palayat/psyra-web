@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { BookingModal } from "../BookingModal/bookingModal";
 
 interface PackageItem {
-  type:string;
+  type: string;
   img: StaticImageData;
   title: string;
   tagline: string;
   list: string[];
   price: string;
-  cta:string;
+  cta: string;
 }
 
 interface PackagesProps {
@@ -22,23 +22,13 @@ const Packages = ({ data }: PackagesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
 
-  const handleBookNow = (packageTitle: string,packageType:string) => {
+  const handleBookNow = (packageTitle: string, packageType: string) => {
     setSelectedPackage(`${packageTitle} - ${packageType}`);
     setIsModalOpen(true);
   };
 
   return (
-    <div className="px-4 py-6">
-      <motion.h2
-        whileInView={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: false, amount: 0.2 }}
-        className="text-[32px] sm:text-[44px] text-[#005657] font-bold text-center mb-5"
-      >
-        PACKAGES
-      </motion.h2>
-
+    <div className="px-4 py-26">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.map((item: PackageItem, index: number) => (
           <motion.div
@@ -80,7 +70,7 @@ const Packages = ({ data }: PackagesProps) => {
                 <div className="flex justify-center">
                   <button
                     className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                    onClick={() => handleBookNow(item.title,item?.type)}
+                    onClick={() => handleBookNow(item.title, item?.type)}
                   >
                     Book Now
                   </button>
