@@ -11,7 +11,7 @@ export default function Individual() {
     {
       type: "individual",
       img: individual, // Replace with actual image import
-      title: "Single Session (1 Session - ₹649)",
+      title: "Single Session (1 Session - ₹999)",
       tagline: "Discover Clarity",
       list: [
         "Duration: 50–60 minutes",
@@ -33,7 +33,7 @@ export default function Individual() {
         "Explore your thoughts and emotions",
         "Develop practical coping strategies",
       ],
-      price: "₹4,499", // 599 x 5
+      price: "₹4,495", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {

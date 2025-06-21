@@ -10,7 +10,7 @@ const CoupleIndex = () => {
     {
       type: "couple",
       img: sampleImage, // Replace with actual image import
-      title: "Single Session (1 Session - ₹999)",
+      title: "Single Session (1 Session - ₹1499)",
       tagline: "Reconnect and Reflect",
       list: [
         "Duration: 50–60 minutes",
@@ -18,7 +18,7 @@ const CoupleIndex = () => {
         "Address relationship challenges",
         "Gain clarity and understanding together",
       ],
-      price: "₹999",
+      price: "₹1499",
       cta: "Strengthen Your Bond Today",
     },
     {
