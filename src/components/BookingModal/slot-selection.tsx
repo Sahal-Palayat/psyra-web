@@ -120,45 +120,45 @@ export function SlotSelection({
     return "Click to select this time slot";
   };
 
-  const getUnavailableSlotIcon = (slot: string) => {
-    if (isSlotBooked(slot)) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 ml-1 flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
-          />
-        </svg>
-      );
-    }
-    if (isSlotPast(slot, bookingData.date)) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 ml-1 flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      );
-    }
-    return null;
-  };
+  // const getUnavailableSlotIcon = (slot: string) => {
+  //   if (isSlotBooked(slot)) {
+  //     return (
+  //       <svg
+  //         xmlns="http://www.w3.org/2000/svg"
+  //         className="h-4 w-4 ml-1 flex-shrink-0"
+  //         fill="none"
+  //         viewBox="0 0 24 24"
+  //         stroke="currentColor"
+  //         strokeWidth={2}
+  //       >
+  //         <path
+  //           strokeLinecap="round"
+  //           strokeLinejoin="round"
+  //           d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
+  //         />
+  //       </svg>
+  //     );
+  //   }
+  //   if (isSlotPast(slot, bookingData.date)) {
+  //     return (
+  //       <svg
+  //         xmlns="http://www.w3.org/2000/svg"
+  //         className="h-4 w-4 ml-1 flex-shrink-0"
+  //         fill="none"
+  //         viewBox="0 0 24 24"
+  //         stroke="currentColor"
+  //         strokeWidth={2}
+  //       >
+  //         <path
+  //           strokeLinecap="round"
+  //           strokeLinejoin="round"
+  //           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+  //         />
+  //       </svg>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   const unavailableSlots = ALL_TIME_SLOTS.filter(
     (slot) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
