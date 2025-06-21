@@ -23,6 +23,21 @@ export interface BookingModalProps {
   packageTitle: string;
 }
 
+export interface TherapyBooking {
+  name: string;
+  age: string; // You can change this to `number` if you plan to validate/convert it
+  email: string;
+  phone: string;
+  date: string; // ISO date string format
+  timeSlot: string;
+  issue: string;
+  otherIssue: string | null;
+  sessionType: string;
+  modeOfTherapy: string;
+  packageTitle: string;
+  agreeToTerms: boolean;
+}
+
 export interface BookedSlot {
   date: string; // Format: "yyyy-MM-dd"
   timeSlot: string; // Format: "12:00 AM - 01:00 AM"

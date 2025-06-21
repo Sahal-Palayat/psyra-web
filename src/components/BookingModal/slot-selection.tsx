@@ -3,7 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import { ALL_TIME_SLOTS, BookedSlot, BookingData } from "./types";
+import {
+  ALL_TIME_SLOTS,
+  BookedSlot,
+  BookingData,
+  TherapyBooking,
+} from "./types";
+import axios from "axios";
 // import type { BookingData, BookedSlot } from "../../types/booking"
 // import { ALL_TIME_SLOTS } from "../../types/booking"
 
@@ -20,12 +26,9 @@ const mockBookedSlots: BookedSlot[] = [
   { date: format(new Date(), "yyyy-MM-dd"), timeSlot: "07:00 PM - 08:00 PM" },
 ];
 
-export function SlotSelection({
-  bookingData,
-  onUpdate,
-  bookedSlots = mockBookedSlots,
-}: SlotSelectionProps) {
+export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
 
   useEffect(() => {
     if (bookingData.date) {
@@ -48,6 +51,30 @@ export function SlotSelection({
     }
   }, [bookingData.date, bookedSlots]);
 
+  const fetchBookedSlots = async (date: string) => {
+    try {
+      // Convert the string to a Date object
+      const selectedDate = new Date(date);
+
+      // Subtract one day
+      selectedDate.setDate(selectedDate.getDate() + 1);
+
+      // Convert back to YYYY-MM-DD string
+      const adjustedDate = selectedDate.toISOString().split("T")[0];
+
+      const res = await axios.get(
+        `https://kochimetrocalc.me/consultation/booked-slots?date=${adjustedDate}`
+      );
+
+      console.log("Adjusted Date (1 day less):", adjustedDate);
+      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
+
+      setBookedSlot(res.data?.data);
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
+
   const handleDateSelect = (date: Date) => {
     // Scroll to slot selection when date is updated (especially in mobile)
     if (window.innerWidth < 768) {
@@ -61,6 +88,7 @@ export function SlotSelection({
       }, 150); // short delay for DOM to update
     }
     onUpdate({ date, timeSlot: "" });
+    fetchBookedSlots(date.toISOString().split("T")[0]);
   };
 
   const handleTimeSelect = (timeSlot: string) => {
