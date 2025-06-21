@@ -62,17 +62,17 @@ const Navbar = () => {
 
           {/* Nav Links - Desktop */}
           <div className="hidden md:flex space-x-6">
-            <Link href="#hero" className="text-[#005657] hover:text-white">
+            <Link href="/#hero" className="text-[#005657] hover:text-white">
               Home
             </Link>
-            <Link href="#about" className="text-[#005657] hover:text-white">
+            <Link href="/#about" className="text-[#005657] hover:text-white">
               About us
             </Link>
-            <Link href="#services" className="text-[#005657] hover:text-white">
+            <Link href="/#services" className="text-[#005657] hover:text-white">
               Services
             </Link>
 
-            <Link href="#contact" className="text-[#005657] hover:text-white">
+            <Link href="/#contact" className="text-[#005657] hover:text-white">
               Contact us
             </Link>
           </div>
