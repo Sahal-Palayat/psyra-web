@@ -38,14 +38,15 @@ const Services = () => {
 
   // Function to handle WhatsApp redirection
   const handleWhatsAppRedirect = (item: TherapyCardType) => {
+    if (item?.route === "coffe-with") {
+      const phoneNumber = "+918891724199";
+      const message = encodeURIComponent(
+        `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
+      );
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    }
     router.push(`/${item?.route}`);
     console.log(item);
-
-    // const phoneNumber = "+918891724199";
-    // const message = encodeURIComponent(
-    //   `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
-    // );
-    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
 
   return (
