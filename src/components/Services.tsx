@@ -2,8 +2,8 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import Individual from "../../public/individual.jpg";
-import Couple from "../../public/couple.jpg";
+import Individual from "../../public/Single Cover.jpg";
+import Couple from "../../public/Couple Cover.jpg";
 import Coffe from "../../public/Coffee.png";
 import { useRouter } from "next/navigation";
 
