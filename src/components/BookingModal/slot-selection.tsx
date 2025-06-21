@@ -19,13 +19,6 @@ interface SlotSelectionProps {
   bookedSlots?: BookedSlot[]; // Backend data for booked slots
 }
 
-// Mock booked slots data - replace this with actual backend data
-const mockBookedSlots: BookedSlot[] = [
-  { date: format(new Date(), "yyyy-MM-dd"), timeSlot: "09:00 AM - 10:00 AM" },
-  { date: format(new Date(), "yyyy-MM-dd"), timeSlot: "02:00 PM - 03:00 PM" },
-  { date: format(new Date(), "yyyy-MM-dd"), timeSlot: "07:00 PM - 08:00 PM" },
-];
-
 export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
   const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
