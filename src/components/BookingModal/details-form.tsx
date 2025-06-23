@@ -405,7 +405,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
                   href="/privacy"
                   className="text-[#005657] underline hover:text-[#005657]/80"
                 >
-                  Privacy Policy
+                  Consent to Therapy
                 </a>
                 *
               </label>
