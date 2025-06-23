@@ -77,12 +77,6 @@ export const SESSION_TYPE = ["New Session", "Followup Session"];
 // Generate all 24-hour time slots
 export const ALL_TIME_SLOTS = [
   "12:00 AM - 01:00 AM",
-  "01:00 AM - 02:00 AM",
-  "02:00 AM - 03:00 AM",
-  "03:00 AM - 04:00 AM",
-  "04:00 AM - 05:00 AM",
-  "05:00 AM - 06:00 AM",
-  "06:00 AM - 07:00 AM",
   "07:00 AM - 08:00 AM",
   "08:00 AM - 09:00 AM",
   "09:00 AM - 10:00 AM",
