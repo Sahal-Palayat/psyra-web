@@ -24,7 +24,7 @@ const CoupleIndex = () => {
     {
       type: "couple",
       img: sampleImage, // Replace with actual image import
-      title: "Harmony Package (4 Sessions - ₹899 per session)",
+      title: "Harmony Package (5 Sessions - ₹1399 per session)",
       tagline: "Build a Stronger Connection",
       list: [
         "4 guided couple therapy sessions",
@@ -32,13 +32,13 @@ const CoupleIndex = () => {
         "Work through challenges as a team",
         "Strengthen your emotional bond",
       ],
-      price: "₹3,596", // 899 x 4
+      price: "₹6,995", 
       cta: "Invest in Your Relationship",
     },
     {
       type: "couple",
       img: sampleImage, // Replace with actual image import
-      title: "Lasting Love Package (10 Sessions - ₹849 per session)",
+      title: "Lasting Love Package (10 Sessions - ₹1249 per session)",
       tagline: "Deepen Your Relationship",
       list: [
         "10 comprehensive couple therapy sessions",
@@ -46,7 +46,7 @@ const CoupleIndex = () => {
         "Address underlying issues with professional guidance",
         "Foster long-term harmony and growth",
       ],
-      price: "₹8,490", // 849 x 10
+      price: "₹12,490", 
       cta: "Create Lasting Love",
     },
   ];
