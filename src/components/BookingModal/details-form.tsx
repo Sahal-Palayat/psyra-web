@@ -395,14 +395,14 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               <label htmlFor="agreeToTerms" className="text-sm text-[#005657]">
                 I agree to the{" "}
                 <a
-                  href="/terms"
+                  href="/terms-conditions"
                   className="text-[#005657] underline hover:text-[#005657]/80"
                 >
                   Terms and Conditions
                 </a>{" "}
                 and{" "}
                 <a
-                  href="/privacy"
+                  href="/privacy-policy"
                   className="text-[#005657] underline hover:text-[#005657]/80"
                 >
                   Consent to Therapy
