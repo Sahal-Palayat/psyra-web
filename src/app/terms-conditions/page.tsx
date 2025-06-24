@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
-  ArrowLeft,
   Shield,
   FileText,
   Users,
@@ -192,9 +190,11 @@ export default function TermsAndConditions() {
             Agreement to Terms
           </h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            By accessing or using our website, mobile applications, or services
-            (collectively, "Platform"), you agree to comply with and be bound by
-            the following Terms of Use.
+            <>
+              {
+                'By accessing or using our website, mobile applications, or services (collectively, "Platform"), you agree to comply with and be bound by the following Terms of Use.'
+              }
+            </>
           </p>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <p className="text-red-800 font-medium">

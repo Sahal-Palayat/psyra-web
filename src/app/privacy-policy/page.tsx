@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
-  ArrowLeft,
   Shield,
   Eye,
   Database,
@@ -201,12 +199,11 @@ export default function PrivacyPolicy() {
             Our Commitment to Your Privacy
           </h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Psyra.in ("we", "our", or "us") is committed to protecting your
-            privacy and maintaining the confidentiality of the personal and
-            health information you share with us. This Privacy Policy outlines
-            how we collect, use, disclose, and safeguard your information when
-            you visit or use our website, mobile applications, or related
-            services (collectively referred to as the "Platform").
+            <>
+              {
+                'Psyra.in ("we", "our", or "us") is committed to protecting your privacy and maintaining the confidentiality of the personal and health information you share with us. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit or use our website, mobile applications, or related services (collectively referred to as the "Platform").'
+              }
+            </>
           </p>
           <div className="bg-[#B6E5DF]/20 rounded-lg p-4">
             <p className="text-[#005657] font-medium">
