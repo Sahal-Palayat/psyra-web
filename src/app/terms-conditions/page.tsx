@@ -293,7 +293,7 @@ export default function TermsAndConditions() {
             Questions About These Terms?
           </h3>
           <p className="text-[#B6E5DF] mb-6">
-            If you have any questions about these Terms of Use, please don't
+            If you have any questions about these Terms of Use, please do not
             hesitate to contact us.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
