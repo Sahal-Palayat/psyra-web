@@ -1,26 +1,34 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist_Mono, Onest } from "next/font/google"
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist_Mono, Onest } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const onest = Onest({
   variable: "--font-onest",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"], // Choose weights as per your design
-})
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Psyra - Mental Health Support",
   description:
     "Professional mental health services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
-  keywords: ["mental health", "therapy", "counseling", "psychology", "wellness", "psyra", "online therapy"],
+  keywords: [
+    "mental health",
+    "therapy",
+    "counseling",
+    "psychology",
+    "wellness",
+    "psyra",
+    "online therapy",
+  ],
   authors: [{ name: "Psyra Team" }],
   creator: "Psyra",
   publisher: "Psyra",
@@ -35,7 +43,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Psyra - Mental Health Support",
-    description: "Professional mental health services with licensed therapists and psychologists",
+    description:
+      "Professional mental health services with licensed therapists and psychologists",
     url: "https://psyra.in", // Replace with your actual domain
     siteName: "Psyra",
     images: [
@@ -52,7 +61,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Psyra - Mental Health Support",
-    description: "Professional mental health services with licensed therapists and psychologists",
+    description:
+      "Professional mental health services with licensed therapists and psychologists",
     images: ["/og-image.png"],
   },
   robots: {
@@ -86,12 +96,12 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -115,7 +125,8 @@ export default function RootLayout({
               name: "Psyra",
               url: "https://psyra.in", // Replace with your actual domain
               logo: "https://psyra.in/icon.png", // Replace with your actual domain
-              description: "Professional mental health services with licensed therapists and psychologists",
+              description:
+                "Professional mental health services with licensed therapists and psychologists",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+91-88917-24199",
@@ -124,6 +135,18 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-53R46XKX4Y"
+        />
+        <script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-53R46XKX4Y');
+          `}
+        </script>
       </head>
       <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
@@ -131,5 +154,5 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
-  )
+  );
 }
