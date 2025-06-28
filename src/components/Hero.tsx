@@ -8,11 +8,13 @@ import Logo from "../../public/Psyra Logo White-04.svg";
 import Arrow from "../../public/Arrow right.png";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventModal, setEventModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   // Detect screen size on mount & window resize
   useEffect(() => {
@@ -88,7 +90,10 @@ const Hero = () => {
           </motion.p>
 
           <motion.button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              router.push("/individual");
+              // setIsModalOpen(true);
+            }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center justify-center gap-2 bg-white text-[#00989D] max-w-[191px] w-[191px] h-[38px] rounded-full font-medium hover:bg-gray-100 transition-all"
