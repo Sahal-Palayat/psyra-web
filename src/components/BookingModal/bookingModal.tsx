@@ -307,7 +307,7 @@ export function BookingModal({
                         : "bg-[#005657] hover:bg-[#005657]/90"
                     }`}
                   >
-                    Continue to Payment
+                    Continue
                   </button>
                 )}
               </div>
