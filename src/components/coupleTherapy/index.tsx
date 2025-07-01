@@ -2,7 +2,9 @@
 import React from "react";
 // import HeroIndividual from "../individual/HeroIndividual";
 import Packages from "../individual/Packages";
-import sampleImage from "../../../public/couple.jpg";
+import sampleImage from "../../../public/Couple Packages 1.jpg";
+import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
+import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
 import Faq from "../Faq";
 
 const CoupleIndex = () => {
@@ -23,7 +25,7 @@ const CoupleIndex = () => {
     },
     {
       type: "couple",
-      img: sampleImage, // Replace with actual image import
+      img: sampleImage2, // Replace with actual image import
       title: "Harmony Package (5 Sessions - ₹1399 per session)",
       tagline: "Build a Stronger Connection",
       list: [
@@ -37,7 +39,7 @@ const CoupleIndex = () => {
     },
     {
       type: "couple",
-      img: sampleImage, // Replace with actual image import
+      img: sampleImage3, // Replace with actual image import
       title: "Lasting Love Package (10 Sessions - ₹1249 per session)",
       tagline: "Deepen Your Relationship",
       list: [
