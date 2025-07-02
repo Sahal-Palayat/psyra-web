@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,10 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Hide navbar if route includes survey/questions
+  const shouldHideNavbar = pathname.includes("survey/questions");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +33,11 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Don't render navbar if on survey/questions pages
+  if (shouldHideNavbar) {
+    return null;
+  }
+
   return (
     <>
       <motion.nav
@@ -42,7 +52,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="z-20">
             <Image
-              src={Logo}
+              src={Logo || "/placeholder.svg"}
               alt="Psyra Logo"
               width={120}
               height={40}
@@ -52,22 +62,36 @@ const Navbar = () => {
 
           {/* Nav Links - Desktop */}
           <div className="hidden md:flex space-x-6">
-            <Link href="#hero" className="text-[#005657] hover:text-white">
+            <Link
+              href="/#hero"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
+            >
               Home
             </Link>
-            <Link href="#about" className="text-[#005657] hover:text-white">
+            <Link
+              href="/#about"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
+            >
               About us
             </Link>
             <Link
-              href="#services"
-              className="text-[#005657] hover:text-white"
+              href="/#services"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
             >
               Services
             </Link>
 
             <Link
-              href="#contact"
-              className="text-[#005657] hover:text-white"
+              href="/#contact"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
             >
               Contact us
             </Link>

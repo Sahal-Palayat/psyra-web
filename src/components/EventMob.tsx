@@ -1,13 +1,10 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import EventMob from "../../public/eidevent.jpeg";
-import Modal from "./Modal";
+import EventMob from "../../public/eventmob.jpg";
 
 const EventMobile = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <motion.section
       whileInView={{ opacity: 1, y: 0 }}
@@ -49,8 +46,19 @@ const EventMobile = () => {
         </motion.div>
 
         <div className="gap-3 absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black via-black/60 to-transparent flex flex-col items-center justify-center text-center text-white px-2">
+          <motion.div
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: false, amount: 0.2 }}
+            className="gap-3"
+          >
+            <p className="text-[20px] font-semibold">Let&apos;s Gather with a Tea</p>
+            <p className="text-[11px]">Sun, April 06 6:00 PM IST</p>
+            <p className="text-[11px]">Kochi, Marine Drive Park</p>
+          </motion.div>
+
           <motion.button
-            onClick={() => setIsModalOpen(true)}
             whileInView={{ opacity: 1, scale: 1 }}
             initial={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.5 }}
@@ -63,11 +71,6 @@ const EventMobile = () => {
           </motion.button>
         </div>
       </motion.div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        type={"event"}
-      />
     </motion.section>
   );
 };

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+"use client";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import AboutUs from "@/components/AboutUs";
@@ -6,13 +6,9 @@ import AboutUs from "@/components/AboutUs";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
-import Footer from "@/components/Footer";
-// import { ChevronDown } from "lucide-react"
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
       {/* Hero Section */}
 
       <Hero />
@@ -23,12 +19,12 @@ export default function Home() {
 
       {/* Meet New Faces */}
       {/* <Event /> */}
+      {/* <EventGallery /> */}
 
       {/* Our Specialties */}
       <OurSpecials />
 
       {/* CTA Section */}
-      
 
       {/* Contact Form */}
       <GetInTouch />
@@ -37,10 +33,6 @@ export default function Home() {
       <Faq />
 
       {/* Footer */}
-      <Footer />
     </main>
   );
 }
-
-
-

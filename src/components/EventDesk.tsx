@@ -2,7 +2,7 @@
 // import Image from "next/image";
 // import React, { useState } from "react";
 // import { motion } from "framer-motion";
-// import EventImg from "../../public/eideventcropped.jpeg";
+// import EventImg from "../../public/best-friends-are-chatting-laughing-with-tasty-snacks-terrace 2.jpg";
 // import Modal from "./Modal";
 
 // const EventDesktop = () => {
@@ -56,13 +56,14 @@
 //             viewport={{ once: false, amount: 0.2 }}
 //             className="gap-6"
 //           >
-//             <p className="text-[50px] font-bold">Eid With Strangers</p>
-
-//             <p className="text-[22px]">Sat, June 07 3:00 PM IST</p>
-//             <p className="text-[22px]">Cafe Frabby, Vyttila</p>
+//             <p className="text-[50px] font-semibold">
+//               Let&apos;s Gather with a Tea
+//             </p>
+//             <p className="text-[22px]">Sun, April 06 6:00 PM IST</p>
+//             <p className="text-[22px]">Kochi, Marine Drive Park</p>
 //           </motion.div>
 
-//           <motion.button
+//            <motion.button
 //             onClick={() => setIsModalOpen(true)}
 //             whileInView={{ opacity: 1, scale: 1 }}
 //             initial={{ opacity: 0, scale: 0.9 }}
