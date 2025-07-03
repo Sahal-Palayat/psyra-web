@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SurveyModal from "@/components/Survey/SurveyModal";
 import { useState } from "react";
+import Clound from "../../../public/cloud.jpeg";
+import Image from "next/image";
 
 export default function SurveyHome() {
   const [isOpen, setIsOpen] = useState(true);
@@ -37,6 +39,15 @@ export default function SurveyHome() {
                 </Button>
               </Link>
             </div>
+            {/* <div>
+              <Image
+                src={Clound}
+                alt="Cloud Image"
+                width={60}
+                height={30}
+                // className="w-full h-auto object-cover"
+              />
+            </div> */}
           </section>
 
           {/* Features Section */}
