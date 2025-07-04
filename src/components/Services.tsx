@@ -63,7 +63,7 @@ const Services = () => {
               className="bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col"
             >
               {/* Top Image */}
-              <div className="w-full h-[200px] relative">
+              <div className="w-full hidden sm:block h-[200px] relative">
                 <Image
                   src={item?.img || "/placeholder.svg"}
                   alt={`Feature ${item?.type}`}
