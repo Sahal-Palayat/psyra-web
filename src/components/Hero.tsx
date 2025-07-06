@@ -9,6 +9,7 @@ import Arrow from "../../public/Arrow right.png";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import { useRouter } from "next/navigation";
+import AnimatedText from "./Hero/AnimatedText";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +46,8 @@ const Hero = () => {
       {/* Background Image Animation */}
 
       {/* Content Section */}
-      <motion.div
+      <AnimatedText />
+      {/* <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
@@ -53,7 +55,7 @@ const Hero = () => {
         className="container mx-auto px-4 py-24 md:py-24 relative z-10 text-center"
       >
         haii
-      </motion.div>
+      </motion.div> */}
 
       <Modal
         isOpen={isModalOpen}
