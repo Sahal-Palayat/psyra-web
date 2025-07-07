@@ -3,8 +3,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SurveyModal from "@/components/Survey/SurveyModal";
 import { useState } from "react";
-import Clound from "../../../public/cloud.jpeg";
-import Image from "next/image";
 
 export default function SurveyHome() {
   const [isOpen, setIsOpen] = useState(true);
