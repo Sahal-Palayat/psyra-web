@@ -7,38 +7,28 @@ export const StarRating = ({
   onRatingSelect,
   currentRating,
   answers,
-  questionId, // Add questionId prop to identify current question
+  questionId,
 }: {
   onRatingSelect: (rating: number) => void
   currentRating?: number
   answers?: any
-  questionId?: string | number // ID of current question
+  questionId?: string | number
 }) => {
   const [hoverRating, setHoverRating] = useState(0)
   const [selectedRating, setSelectedRating] = useState(0)
 
-  // Reset and set rating when question changes or component mounts
   useEffect(() => {
-    // First check if there's an existing answer for this question
     const existingAnswer = questionId && answers ? answers[questionId] : null
-
-    // Set the rating based on priority: existing answer > currentRating > 0
     const initialRating = existingAnswer || currentRating || 0
     setSelectedRating(initialRating)
-    setHoverRating(0) // Reset hover state
+    setHoverRating(0)
   }, [questionId, answers, currentRating])
 
   const handleClick = (rating: number) => {
     setSelectedRating(rating)
     onRatingSelect(rating)
-
-    // Auto-advance to next question after a brief delay for better UX
-    setTimeout(() => {
-      // You can remove this setTimeout if you want immediate navigation
-    }, 500)
   }
 
-  // Helper function to get rating descriptions
   const getRatingDescription = (rating: number): string => {
     const descriptions = {
       1: "Extremely Poor",
@@ -73,7 +63,6 @@ export const StarRating = ({
                   : "fill-gray-200 text-gray-300 hover:fill-yellow-200 hover:text-yellow-300"
               }`}
             />
-            {/* Number label */}
             <span className="absolute -bottom-4 sm:-bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-500 group-hover:text-teal-600 transition-colors">
               {star}
             </span>
@@ -81,7 +70,6 @@ export const StarRating = ({
         ))}
       </div>
 
-      {/* Rating description */}
       <div className="text-center mt-2 sm:mt-0">
         {(hoverRating || selectedRating) > 0 && (
           <div className="flex flex-col items-center space-y-2">
