@@ -55,7 +55,6 @@ export const SingleSelectDropdown = ({
     setSearchTerm("")
   }
 
-  const displayValue = value || placeholder
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
