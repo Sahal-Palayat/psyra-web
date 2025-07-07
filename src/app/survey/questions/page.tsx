@@ -1,382 +1,253 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { ArrowLeft, Star } from "lucide-react"
-import DynamicSelect from "@/components/Survey/DynamicSelect"
-import CompletionModal from "@/components/Survey/CompletionModal"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Star } from "lucide-react";
+import DynamicSelect from "@/components/Survey/DynamicSelect";
+import CompletionModal from "@/components/Survey/CompletionModal";
+import { StarRating } from "@/components/Survey/StarRating";
 
 // Mental health focused survey questions
 type SurveyQuestion = {
-  id: number | string
-  question: string
-  options: string[]
-  type: string
-}
-
-// Rating Component
-const StarRating = ({
-  onRatingSelect,
-  currentRating,
-}: { onRatingSelect: (rating: number) => void; currentRating?: number }) => {
-  const [hoverRating, setHoverRating] = useState(0)
-  const [selectedRating, setSelectedRating] = useState(currentRating || 0)
-
-  const handleClick = (rating: number) => {
-    setSelectedRating(rating)
-    onRatingSelect(rating)
-  }
-
-  return (
-    <div className="flex flex-col items-center space-y-6">
-      <div className="flex items-center space-x-2">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
-          <button
-            key={star}
-            onClick={() => handleClick(star)}
-            onMouseEnter={() => setHoverRating(star)}
-            onMouseLeave={() => setHoverRating(0)}
-            className="group relative transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50 rounded-full p-1"
-          >
-            <Star
-              className={`w-8 h-8 transition-all duration-200 ${
-                star <= (hoverRating || selectedRating)
-                  ? "fill-yellow-400 text-yellow-400 drop-shadow-lg"
-                  : "fill-gray-200 text-gray-300 hover:fill-yellow-200 hover:text-yellow-300"
-              }`}
-            />
-            {/* Number label */}
-            <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-500 group-hover:text-teal-600 transition-colors">
-              {star}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Rating description */}
-      <div className="text-center">
-        {(hoverRating || selectedRating) > 0 && (
-          <div className="flex flex-col items-center space-y-2">
-            <div className="px-4 py-2 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-full border border-teal-200">
-              <span className="text-lg font-semibold text-teal-700">{hoverRating || selectedRating}/10</span>
-            </div>
-            <p className="text-sm text-gray-600 max-w-md">{getRatingDescription(hoverRating || selectedRating)}</p>
-          </div>
-        )}
-      </div>
-
-      {selectedRating > 0 && (
-        <button
-          onClick={() => handleClick(selectedRating)}
-          className="mt-4 px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-2xl font-medium hover:from-teal-600 hover:to-emerald-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-        >
-          Confirm Rating: {selectedRating}/10
-        </button>
-      )}
-    </div>
-  )
-}
-
-// Helper function to get rating descriptions
-const getRatingDescription = (rating: number): string => {
-  const descriptions = {
-    1: "Extremely Poor",
-    2: "Very Poor",
-    3: "Poor",
-    4: "Below Average",
-    5: "Average",
-    6: "Above Average",
-    7: "Good",
-    8: "Very Good",
-    9: "Excellent",
-    10: "Outstanding",
-  }
-  return descriptions[rating as keyof typeof descriptions] || ""
-}
+  id: number | string;
+  question: string;
+  options: string[];
+  type: string;
+};
 
 const studentQuestions = [
   {
-    id: "living_situation",
-    question: "Who do you live with?",
-    options: ["Family", "Friends", "Alone", "Hostel/PG"],
-    type: "options",
-  },
-  {
-    id: "morning_routine",
-    question: "How do you usually start your day?",
-    options: ["With a plan or routine", "Rushed and stressed", "Calm and relaxed", "Without Any Plans", "I don't know"],
-    type: "options",
-  },
-  {
-    id: "sleep_quality_rating",
-    question: "How would you rate your overall sleep quality?",
+    id: "emotional_balance",
+    question: "I feel emotionally balanced and stable most of the time",
     options: [],
     type: "rating",
   },
   {
-    id: "stress_level_rating",
-    question: "On a scale of 1-10, how would you rate your current stress level?",
+    id: "stress_coping",
+    question: "I am able to cope well with stress in daily life",
     options: [],
     type: "rating",
   },
   {
-    id: "sleep_hours",
-    question: "How many hours of sleep do you usually get?",
-    options: ["Less than 4 hours", "4–6 hours", "6–8 hours", "More than 8 hours"],
-    type: "options",
-  },
-  {
-    id: "feeling_understood",
-    question: "Do you feel understood by the people close to you?",
-    options: ["Yes", "Sometimes", "No"],
-    type: "options",
-  },
-  {
-    id: "life_satisfaction_rating",
-    question: "How satisfied are you with your life overall?",
+    id: "pressure_handling",
+    question:
+      "I have healthy ways to deal with pressure or difficult emotions.",
     options: [],
     type: "rating",
   },
   {
-    id: "stress_points",
-    question: "What are the biggest stress points in your day-to-day life? (Select all that apply)",
-    options: [
-      "Academic pressure",
-      "Job/work tension",
-      "Financial worries",
-      "Relationship/family conflict",
-      "Social media/comparison",
-      "Lack of time for myself",
-      "Health concerns",
-      "Loneliness",
-    ],
-    type: "multi-select",
-  },
-  {
-    id: "mental_health_awareness_rating",
-    question: "How would you rate your awareness about mental health?",
+    id: "self_value",
+    question: "I believe I have value and something to offer",
     options: [],
     type: "rating",
   },
   {
-    id: "feelings_hidden",
-    question: "Have you ever kept your feelings to yourself because you were scared of being judged?",
-    options: ["Yes", "Sometimes", "No"],
-    type: "options",
+    id: "support_system",
+    question: "I have someone I can talk to when I feel down or anxious.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "safe_to_open_up",
-    question: "Who do you feel safe opening up to when life gets hard?",
-    options: ["Friend", "Parent or sibling", "Partner", "Teacher/Mentor", "No one"],
-    type: "options",
+    id: "ask_for_help",
+    question: "I am comfortable asking for help when I need it",
+    options: [],
+    type: "rating",
   },
   {
-    id: "recharge_method",
-    question: "How do you usually recharge when you feel overwhelmed?",
-    options: [
-      "Listening to music",
-      "Being alone",
-      "Talking to someone",
-      "Going outside",
-      "Sleeping it off",
-      "I keep everything inside",
-    ],
-    type: "options",
+    id: "support_access",
+    question: "I know where to find support for my mental health.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "awareness_area",
-    question: "Do you feel there's enough awareness around emotional well-being in your area?",
-    options: ["Yes", "A little", "Not at all", "Don't know"],
-    type: "options",
+    id: "resilience",
+    question: "I bounce back quickly after setbacks or failures.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "source_of_learning",
-    question: "Where do people around you mostly learn about emotional or personal well-being?",
-    options: [
-      "School/College",
-      "Religious/Community spaces",
-      "Social media",
-      "Healthcare professionals",
-      "They don't learn",
-    ],
-    type: "options",
+    id: "express_emotions",
+    question: "I can express my feelings in a healthy and respectful way.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "emotional_experience",
-    question: "In the past month, have you felt…",
-    options: [
-      "Emotionally tired",
-      "Easily irritated",
-      "Disconnected from people",
-      "Low energy or no motivation",
-      "All of the above",
-      "None of the above",
-    ],
-    type: "options",
+    id: "goal_setting",
+    question: "I set goals for myself and work towards them steadily.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "seen_without_explaining",
-    question: "What's one thing you wish people could see about you without needing an explanation?",
-    options: ["laskjfa;ks"],
-    type: "multi-select",
+    id: "daily_joy",
+    question: "I feel a sense of joy or fulfillment in daily life",
+    options: [],
+    type: "rating",
   },
   {
-    id: "others_feel_safe",
-    question: "If someone in your circle was feeling emotionally off, would they feel safe telling you?",
-    options: ["Yes", "Maybe", "No"],
-    type: "options",
+    id: "responsibility_confidence",
+    question: "I feel confident handling responsibilities in my daily life",
+    options: [],
+    type: "rating",
   },
   {
-    id: "family_struggles",
-    question: "Has anyone in your family or friend circle ever faced emotional struggles but avoided help?",
-    options: ["Yes", "No", "Not sure"],
-    type: "options",
+    id: "academic_pressure",
+    question:
+      "I don't feel that expectations from teachers and parents are too high",
+    options: [],
+    type: "rating",
   },
   {
-    id: "if_support_available",
-    question: "If support was easily available, would you or someone you know try it?",
-    options: ["Yes", "Maybe", "No"],
-    type: "options",
+    id: "safe_environment",
+    question:
+      "My school/college provides a safe and respectful environment for learning.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "barriers_to_support",
-    question: "What stops people in your area from seeking emotional or mental support?",
-    options: [
-      "Fear of gossip/judgment",
-      "Lack of privacy",
-      "Belief that it's just a phase",
-      "Money/affordability",
-      "Don't trust professionals",
-      "Don't know where to go",
-      "Other",
-    ],
-    type: "multi-select",
+    id: "teacher_support",
+    question:
+      "Teachers are approachable and supportive when I face academic difficulties.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "feel_peaceful_with",
-    question: "What helps you feel peaceful or balanced?",
-    options: [
-      "Nature",
-      "Prayer/meditation",
-      "Hobbies",
-      "Good sleep",
-      "Supportive people",
-      "Quiet time",
-      "Nothing really",
-    ],
-    type: "multi-select",
+    id: "mental_health_services",
+    question:
+      "My school/college offers mental health support or counseling services.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "support_friend",
-    question: "If your close friend was struggling silently, how would you support them?",
-    options: [
-      "Listen and talk",
-      "Help them get help",
-      "Keep checking in",
-      "Stay with them quietly",
-      "Help them to consult a psychologist",
-      "I wouldn't know what to do",
-    ],
-    type: "multi-select",
+    id: "peer_support",
+    question: "I feel supported by my peers during stressful academic times",
+    options: [],
+    type: "rating",
   },
-]
+  {
+    id: "empathy_towards_others",
+    question:
+      "I always try to understand others' mental health condition and help them.",
+    options: [],
+    type: "rating",
+  },
+];
 
 const profQuestions = [
   {
-    id: "work_field",
-    question: "Specify the field of working?",
-    options: [""],
-    type: "multi-select",
-  },
-  {
-    id: "work_satisfaction_rating",
-    question: "How satisfied are you with your current work?",
+    id: "emotional_balance",
+    question: "I feel emotionally balanced and stable most of the time",
     options: [],
     type: "rating",
   },
   {
-    id: "living_situation",
-    question: "Who do you live with?",
-    options: ["Family", "Friends", "Alone", "Hostel/PG"],
-    type: "options",
-  },
-  {
-    id: "morning_routine",
-    question: "How do you usually start your day?",
-    options: ["With a plan or routine", "Rushed and stressed", "Calm and relaxed", "Without Any Plans", "I don't know"],
-    type: "options",
-  },
-  {
-    id: "work_life_balance_rating",
-    question: "How would you rate your work-life balance?",
+    id: "stress_coping",
+    question: "I am able to cope well with stress in daily life",
     options: [],
     type: "rating",
   },
   {
-    id: "sleep_hours",
-    question: "How many hours of sleep do you usually get?",
-    options: ["Less than 4 hours", "4–6 hours", "6–8 hours", "More than 8 hours"],
-    type: "options",
-  },
-  {
-    id: "feeling_understood",
-    question: "Do you feel understood by the people close to you?",
-    options: ["Yes", "Sometimes", "No"],
-    type: "options",
-  },
-  {
-    id: "job_stress_rating",
-    question: "How would you rate your job-related stress level?",
+    id: "emotion_handling",
+    question:
+      "I have healthy ways to deal with pressure or difficult emotions.",
     options: [],
     type: "rating",
   },
   {
-    id: "stress_points",
-    question: "What are the biggest stress points in your day-to-day life? (Select all that apply)",
-    options: [
-      "Academic pressure",
-      "Job/work tension",
-      "Financial worries",
-      "Relationship/family conflict",
-      "Social media/comparison",
-      "Lack of time for myself",
-      "Health concerns",
-      "Loneliness",
-    ],
-    type: "multi-select",
+    id: "self_value",
+    question: "I believe I have value and something to offer",
+    options: [],
+    type: "rating",
   },
   {
-    id: "feelings_hidden",
-    question: "Have you ever kept your feelings to yourself because you were scared of being judged?",
-    options: ["Yes", "Sometimes", "No"],
-    type: "options",
+    id: "support_system",
+    question: "I have someone I can talk to when I feel down or anxious.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "safe_to_open_up",
-    question: "Who do you feel safe opening up to when life gets hard?",
-    options: ["Friend", "Parent or sibling", "Partner", "Teacher/Mentor", "No one"],
-    type: "options",
+    id: "help_comfort",
+    question: "I am comfortable asking for help when I need it",
+    options: [],
+    type: "rating",
   },
   {
-    id: "recharge_method",
-    question: "How do you usually recharge when you feel overwhelmed?",
-    options: [
-      "Listening to music",
-      "Being alone",
-      "Talking to someone",
-      "Going outside",
-      "Sleeping it off",
-      "I keep everything inside",
-    ],
-    type: "options",
+    id: "support_access",
+    question: "I know where to find support for my mental health.",
+    options: [],
+    type: "rating",
   },
   {
-    id: "awareness_area",
-    question: "Do you feel there's enough awareness around emotional well-being in your area?",
-    options: ["Yes", "A little", "Not at all", "Don't know"],
-    type: "options",
+    id: "resilience",
+    question: "I bounce back quickly after setbacks or failures.",
+    options: [],
+    type: "rating",
   },
-]
+  {
+    id: "emotion_expression",
+    question: "I can express my feelings in a healthy and respectful way.",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "goal_setting",
+    question: "I set goals for myself and work towards them steadily.",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "daily_joy",
+    question: "I feel a sense of joy or fulfillment in daily life",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "responsibility_confidence",
+    question: "I feel confident handling responsibilities in my daily life",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "manager_approach",
+    question:
+      "I can approach my manager or team leader if I’m feeling overwhelmed",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "org_support",
+    question:
+      "My mental well-being is respected and supported by my organization.",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "stress_management_promo",
+    question: "My workplace promotes healthy ways to manage stress.",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "deadline_pressure",
+    question:
+      "I don't feel constant pressure to meet unrealistic deadlines or expectations",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "sleep_disturbance",
+    question:
+      "I have never experienced sleep disturbances or fatigue due to work stress.",
+    options: [],
+    type: "rating",
+  },
+  {
+    id: "workplace_recommendation",
+    question:
+      "I would recommend my workplace to others based on its atmosphere",
+    options: [],
+    type: "rating",
+  },
+];
 
 const basicQuestions = [
   {
@@ -432,30 +303,31 @@ const basicQuestions = [
     ],
     type: "multi-select",
   },
-]
+];
 
 type SurveyAnswers = {
-  [questionId: string]: string | number | boolean
-}
+  [questionId: string]: string | number | boolean;
+};
 
 export default function SurveyQuestions() {
-  const router = useRouter()
-  const [value, setValue] = useState("")
-  const [surveyQuestions, setSurveyQuestions] = useState<SurveyQuestion[]>(basicQuestions)
-  const [showCompletionModal, setShowCompletionModal] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string | number>>({})
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const router = useRouter();
+  const [value, setValue] = useState("");
+  const [surveyQuestions, setSurveyQuestions] =
+    useState<SurveyQuestion[]>(basicQuestions);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string | number>>({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("userInfo") || "{}")
+    const savedUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
     if (!savedUser.username || !savedUser.mobile) {
-      router.push("/survey")
+      router.push("/survey");
     }
-  }, [])
+  }, []);
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
-    console.log("finalAnswers", finalAnswers)
+    console.log("finalAnswers", finalAnswers);
     try {
       const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
         method: "POST",
@@ -463,72 +335,83 @@ export default function SurveyQuestions() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(finalAnswers),
-      })
-      const data = await response.json()
-      console.log("Survey submitted successfully:", data)
+      });
+      const data = await response.json();
+      console.log("Survey submitted successfully:", data);
     } catch (error) {
-      console.error("Error submitting survey:", error)
+      console.error("Error submitting survey:", error);
     }
-  }
+  };
 
   const handleOptionSelect = (option: string | number) => {
     // Save the answer
     setAnswers((prev) => ({
       ...prev,
       [surveyQuestions[currentQuestion].id]: option,
-    }))
+    }));
 
-    if (currentQuestion + 1 === basicQuestions.length && surveyQuestions?.length === basicQuestions?.length) {
-      console.log(surveyQuestions?.length, "surveyquestions", basicQuestions.length, "basicQuestions.length")
+    if (
+      currentQuestion + 1 === basicQuestions.length &&
+      surveyQuestions?.length === basicQuestions?.length
+    ) {
+      console.log(
+        surveyQuestions?.length,
+        "surveyquestions",
+        basicQuestions.length,
+        "basicQuestions.length"
+      );
       if (answers?.occupation === "Student") {
-        setSurveyQuestions((prev) => [...prev, ...studentQuestions])
+        setSurveyQuestions((prev) => [...prev, ...studentQuestions]);
       } else {
-        setSurveyQuestions((prev) => [...prev, ...profQuestions])
+        setSurveyQuestions((prev) => [...prev, ...profQuestions]);
       }
     }
 
-    if (currentQuestion + 1 === surveyQuestions?.length && surveyQuestions?.length !== basicQuestions?.length) {
+    if (
+      currentQuestion + 1 === surveyQuestions?.length &&
+      surveyQuestions?.length !== basicQuestions?.length
+    ) {
       const finalAnswers = {
         ...answers,
         [surveyQuestions[currentQuestion].id]: option,
-      }
-      console.log(finalAnswers, "FINKKKKKKKKK")
-      submitSurvey(finalAnswers)
+      };
+      console.log(finalAnswers, "FINKKKKKKKKK");
+      submitSurvey(finalAnswers);
       // Optionally save locally
-      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers))
+      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers));
       setTimeout(() => {
-        setShowCompletionModal(true)
-      }, 500)
-      return
+        setShowCompletionModal(true);
+      }, 500);
+      return;
     }
 
     setTimeout(() => {
       if (currentQuestion < surveyQuestions?.length) {
-        setIsTransitioning(true)
+        setIsTransitioning(true);
         setTimeout(() => {
-          setCurrentQuestion((prev) => prev + 1)
-          setIsTransitioning(false)
-        }, 300)
+          setCurrentQuestion((prev) => prev + 1);
+          setIsTransitioning(false);
+        }, 300);
       }
-    }, 300)
-  }
+    }, 300);
+  };
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
-      setIsTransitioning(true)
+      setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentQuestion((prev) => prev - 1)
-        setIsTransitioning(false)
-      }, 300)
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 300);
     }
-  }
+  };
 
-  const question = surveyQuestions[currentQuestion]
+  const question = surveyQuestions[currentQuestion];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
       {/* Enhanced Background Elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 ">
         {/* Floating geometric shapes with better colors */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-gradient-to-br from-emerald-200/20 to-teal-300/20 animate-pulse"></div>
         <div
@@ -546,7 +429,7 @@ export default function SurveyQuestions() {
       </div>
 
       {/* Main Content */}
-      <main className="flex items-center justify-center min-h-screen px-4 relative z-10">
+      <main className="p-14 flex items-center justify-center min-h-screen px-4 relative z-10">
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-teal-500/10 border border-white/50 w-full max-w-4xl min-h-[600px] p-8">
           {/* Header with Back Arrow */}
           <header className="mb-6">
@@ -573,7 +456,9 @@ export default function SurveyQuestions() {
           {/* Question Content */}
           <div
             className={`transition-all duration-500 ${
-              isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
+              isTransitioning
+                ? "opacity-0 transform translate-y-4"
+                : "opacity-100 transform translate-y-0"
             }`}
           >
             <h2 className="text-2xl font-semibold text-gray-800 mb-8 leading-relaxed text-center">
@@ -594,8 +479,8 @@ export default function SurveyQuestions() {
                     value={value}
                     onChange={setValue}
                     handle={(value: string) => {
-                      handleOptionSelect(value)
-                      setValue("")
+                      handleOptionSelect(value);
+                      setValue("");
                     }}
                     options={question?.options}
                   />
@@ -607,7 +492,7 @@ export default function SurveyQuestions() {
                       <button
                         key={index}
                         onClick={() => {
-                          handleOptionSelect(option)
+                          handleOptionSelect(option);
                         }}
                         className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.02] group ${
                           answers[question.id] === option
@@ -631,10 +516,10 @@ export default function SurveyQuestions() {
       <CompletionModal
         isOpen={showCompletionModal}
         onClose={() => {
-          router.push("/")
-          setShowCompletionModal(false)
+          router.push("/");
+          setShowCompletionModal(false);
         }}
       />
     </div>
-  )
+  );
 }
