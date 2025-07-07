@@ -3,7 +3,8 @@
 import { OptionButtons } from "./option-buttons"
 import DynamicSelect from "./dynamic-select"
 import { StarRating } from "./star-rating"
-import { SurveyQuestion } from "./types/survey"
+import type { SurveyQuestion } from "./types/survey"
+import { SingleSelectDropdown } from "./single-dropdown"
 
 interface QuestionContentProps {
   question: SurveyQuestion
@@ -38,6 +39,25 @@ export const QuestionContent = ({ question, answers, value, setValue, onOptionSe
             setValue("")
           }}
           options={question.options}
+          placeholder={`Select ${question.question.toLowerCase()}...`}
+        />
+      </div>
+    )
+  }
+
+  if (question.type === "drop-down") {
+    return (
+      <div>
+        <SingleSelectDropdown
+          value={value}
+          onChange={setValue}
+          handle={(value: string) => {
+            onOptionSelect(value)
+            setValue("")
+          }}
+          options={question.options}
+          placeholder={`Choose ${question.question.toLowerCase()}...`}
+          searchable={true}
         />
       </div>
     )

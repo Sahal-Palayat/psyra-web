@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { BackgroundElements } from "@/components/Survey/background-elements";
 import CompletionModal from "@/components/Survey/completion-modal";
@@ -21,9 +21,9 @@ export default function SurveyQuestions() {
     handleOptionSelect,
     handlePrevious,
     router,
-  } = useSurveyLogic();
+  } = useSurveyLogic()
 
-  const question = surveyQuestions[currentQuestion];
+  const question = surveyQuestions[currentQuestion]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
@@ -40,10 +40,7 @@ export default function SurveyQuestions() {
             showProgress={surveyQuestions.length > basicQuestions.length}
           />
 
-          <QuestionDisplay
-            question={question.question}
-            isTransitioning={isTransitioning}
-          />
+          <QuestionDisplay question={question.question} isTransitioning={isTransitioning} />
 
           <div className="space-y-4">
             <QuestionContent
@@ -60,10 +57,10 @@ export default function SurveyQuestions() {
       <CompletionModal
         isOpen={showCompletionModal}
         onClose={() => {
-          router.push("/");
-          setShowCompletionModal(false);
+          router.push("/")
+          setShowCompletionModal(false)
         }}
       />
     </div>
-  );
+  )
 }

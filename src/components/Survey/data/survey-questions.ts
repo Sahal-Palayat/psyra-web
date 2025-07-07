@@ -274,6 +274,6 @@ export const basicQuestions: SurveyQuestion[] = [
       "Uttarakhand",
       "West Bengal",
     ],
-    type: "multi-select",
+    type: "drop-down",
   },
 ]
