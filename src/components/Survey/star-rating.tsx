@@ -20,7 +20,7 @@ export const StarRating = ({
   useEffect(() => {
     const existingAnswer = questionId && answers ? answers[questionId] : null;
     const initialRating = existingAnswer || currentRating || 0;
-    setSelectedRating(initialRating);
+    setSelectedRating(Number(initialRating));
     setHoverRating(0);
   }, [questionId, answers, currentRating]);
 
