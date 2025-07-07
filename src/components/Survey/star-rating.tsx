@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Star } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const StarRating = ({
   onRatingSelect,
@@ -9,25 +9,25 @@ export const StarRating = ({
   answers,
   questionId,
 }: {
-  onRatingSelect: (rating: number) => void
-  currentRating?: number
-  answers?: any
-  questionId?: string | number
+  onRatingSelect: (rating: number) => void;
+  currentRating?: number;
+  answers: Record<string, string | number>;
+  questionId?: string | number;
 }) => {
-  const [hoverRating, setHoverRating] = useState(0)
-  const [selectedRating, setSelectedRating] = useState(0)
+  const [hoverRating, setHoverRating] = useState(0);
+  const [selectedRating, setSelectedRating] = useState(0);
 
   useEffect(() => {
-    const existingAnswer = questionId && answers ? answers[questionId] : null
-    const initialRating = existingAnswer || currentRating || 0
-    setSelectedRating(initialRating)
-    setHoverRating(0)
-  }, [questionId, answers, currentRating])
+    const existingAnswer = questionId && answers ? answers[questionId] : null;
+    const initialRating = existingAnswer || currentRating || 0;
+    setSelectedRating(initialRating);
+    setHoverRating(0);
+  }, [questionId, answers, currentRating]);
 
   const handleClick = (rating: number) => {
-    setSelectedRating(rating)
-    onRatingSelect(rating)
-  }
+    setSelectedRating(rating);
+    onRatingSelect(rating);
+  };
 
   const getRatingDescription = (rating: number): string => {
     const descriptions = {
@@ -41,9 +41,9 @@ export const StarRating = ({
       8: "Very Good",
       9: "Excellent",
       10: "Outstanding",
-    }
-    return descriptions[rating as keyof typeof descriptions] || ""
-  }
+    };
+    return descriptions[rating as keyof typeof descriptions] || "";
+  };
 
   return (
     <div className="flex flex-col items-center space-y-4 sm:space-y-6 w-full max-w-full">
@@ -85,5 +85,5 @@ export const StarRating = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
