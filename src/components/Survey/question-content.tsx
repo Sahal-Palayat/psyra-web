@@ -15,20 +15,20 @@ interface QuestionContentProps {
 }
 
 export const QuestionContent = ({ question, answers, value, setValue, onOptionSelect }: QuestionContentProps) => {
-  if (question.type === "rating") {
+  if (question?.type === "rating") {
     return (
       <div className="flex justify-center py-8">
         <StarRating
           onRatingSelect={(rating) => onOptionSelect(rating)}
-          currentRating={answers[question.id] as number}
-          questionId={question.id}
+          currentRating={answers[question?.id] as number}
+          questionId={question?.id}
           answers={answers}
         />
       </div>
     )
   }
 
-  if (question.type === "multi-select") {
+  if (question?.type === "multi-select") {
     return (
       <div>
         <DynamicSelect
@@ -38,14 +38,14 @@ export const QuestionContent = ({ question, answers, value, setValue, onOptionSe
             onOptionSelect(value)
             setValue("")
           }}
-          options={question.options}
-          placeholder={`Select ${question.question.toLowerCase()}...`}
+          options={question?.options}
+          placeholder={`Select ${question?.question.toLowerCase()}...`}
         />
       </div>
     )
   }
 
-  if (question.type === "drop-down") {
+  if (question?.type === "drop-down") {
     return (
       <div>
         <SingleSelectDropdown
@@ -55,13 +55,13 @@ export const QuestionContent = ({ question, answers, value, setValue, onOptionSe
             onOptionSelect(value)
             setValue("")
           }}
-          options={question.options}
-          placeholder={`Choose ${question.question.toLowerCase()}...`}
+          options={question?.options}
+          placeholder={`Choose ${question?.question.toLowerCase()}...`}
           searchable={true}
         />
       </div>
     )
   }
 
-  return <OptionButtons options={question.options} selectedAnswer={answers[question.id]} onSelect={onOptionSelect} />
+  return <OptionButtons options={question?.options} selectedAnswer={answers[question?.id]} onSelect={onOptionSelect} />
 }

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
 import { BackgroundElements } from "@/components/Survey/background-elements";
-import CompletionModal from "@/components/Survey/completion-modal";
 import { QuestionContent } from "@/components/Survey/question-content";
 import { QuestionDisplay } from "@/components/Survey/question-display";
 import { SurveyHeader } from "@/components/Survey/survey-header";
 import { useSurveyLogic } from "@/hooks/use-survey-logic";
 import { basicQuestions } from "@/components/Survey/data/survey-questions";
+import { ResultsModal } from "@/components/Survey/completion-modal";
 
 export default function SurveyQuestions() {
   const {
@@ -21,9 +21,9 @@ export default function SurveyQuestions() {
     handleOptionSelect,
     handlePrevious,
     router,
-  } = useSurveyLogic()
+  } = useSurveyLogic();
 
-  const question = surveyQuestions[currentQuestion]
+  const question = surveyQuestions[currentQuestion];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
@@ -40,7 +40,10 @@ export default function SurveyQuestions() {
             showProgress={surveyQuestions.length > basicQuestions.length}
           />
 
-          <QuestionDisplay question={question.question} isTransitioning={isTransitioning} />
+          <QuestionDisplay
+            question={question?.question}
+            isTransitioning={isTransitioning}
+          />
 
           <div className="space-y-4">
             <QuestionContent
@@ -54,13 +57,15 @@ export default function SurveyQuestions() {
         </div>
       </main>
 
-      <CompletionModal
+      <ResultsModal
         isOpen={showCompletionModal}
         onClose={() => {
-          router.push("/")
-          setShowCompletionModal(false)
+          setShowCompletionModal(false);
+          router.push("/");
         }}
+        answers={answers}
+        totalQuestions={surveyQuestions.length}
       />
     </div>
-  )
+  );
 }
