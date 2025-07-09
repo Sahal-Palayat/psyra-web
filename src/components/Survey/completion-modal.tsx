@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { CheckCircle, AlertTriangle, AlertCircle, Share2, Download, TrendingUp, Heart, Brain } from "lucide-react"
+import { CheckCircle, AlertTriangle, AlertCircle, Share2, Download, Brain } from "lucide-react"
 
 interface ResultsModalProps {
   isOpen: boolean
@@ -20,44 +20,36 @@ interface ScoreRange {
   max: number
   title: string
   description: string
-  recommendations: string[]
   icon: React.ReactNode
   color: string
   bgColor: string
   borderColor: string
-  progressColor: string
 }
 
 export function ResultsModal({ isOpen, onClose, answers, totalQuestions }: ResultsModalProps) {
   const [score, setScore] = useState(0)
   const [animatedScore, setAnimatedScore] = useState(0)
-  const [showDetails, setShowDetails] = useState(false)
-  const [isAnimating, setIsAnimating] = useState(false)
 
-  const maxScore = totalQuestions * 10
-
-  // Calculate total score based on answers
+  // Calculate total score based on numeric answers only
   useEffect(() => {
     if (isOpen && Object.keys(answers).length > 0) {
-      const totalScore = Object.values(answers).reduce((sum, value) => sum + value, 0)
+      const numericAnswers = Object.values(answers).filter((value) => typeof value === "number")
+      const totalScore = numericAnswers.reduce((sum, value) => sum + value, 0)
+
       setScore(totalScore)
-      setIsAnimating(true)
 
       // Animate score counting
       let current = 0
-      const increment = totalScore / 60
+      const increment = totalScore / 50
       const timer = setInterval(() => {
         current += increment
         if (current >= totalScore) {
           setAnimatedScore(totalScore)
-          setIsAnimating(false)
           clearInterval(timer)
-          // Show details after animation completes
-          setTimeout(() => setShowDetails(true), 500)
         } else {
           setAnimatedScore(Math.floor(current))
         }
-      }, 25)
+      }, 30)
 
       return () => clearInterval(timer)
     }
@@ -65,123 +57,80 @@ export function ResultsModal({ isOpen, onClose, answers, totalQuestions }: Resul
 
   const scoreRanges: ScoreRange[] = [
     {
-      min: Math.floor(maxScore * 0.8),
-      max: maxScore,
-      title: "Excellent Mental Well-Being",
+      min: 144,
+      max: 180,
+      title: "Good Level of Mental Well-Being",
       description:
-        "You demonstrate strong emotional resilience, positive coping strategies, and overall life satisfaction. Your mental health appears to be in excellent condition.",
-      recommendations: [
-        "Continue your current self-care practices",
-        "Consider mentoring others in mental wellness",
-        "Maintain your support network",
-        "Keep up regular exercise and healthy habits",
-      ],
-      icon: <CheckCircle className="h-8 w-8" />,
+        "You are likely experiencing a strong sense of emotional balance, resilience, and satisfaction in various areas of life. You may have healthy coping mechanisms, supportive relationships, and a positive outlook. Keep maintaining your mental health with regular self-care and reflection.",
+      icon: <CheckCircle className="h-6 w-6" />,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
       borderColor: "border-emerald-200",
-      progressColor: "bg-emerald-500",
     },
     {
-      min: Math.floor(maxScore * 0.6),
-      max: Math.floor(maxScore * 0.79),
-      title: "Good Mental Well-Being",
+      min: 72,
+      max: 143,
+      title: "Moderate Level of Mental Well-Being",
       description:
-        "You show positive mental health indicators with room for some improvement. You're managing well but could benefit from additional support strategies.",
-      recommendations: [
-        "Develop consistent self-care routines",
-        "Practice mindfulness or meditation",
-        "Strengthen social connections",
-        "Consider stress management techniques",
-      ],
-      icon: <TrendingUp className="h-8 w-8" />,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
-      progressColor: "bg-blue-500",
-    },
-    {
-      min: Math.floor(maxScore * 0.4),
-      max: Math.floor(maxScore * 0.59),
-      title: "Moderate Mental Well-Being",
-      description:
-        "You may be experiencing some challenges with emotional balance or stress management. There are opportunities to enhance your mental wellness.",
-      recommendations: [
-        "Establish regular sleep patterns",
-        "Engage in physical activity",
-        "Seek support from friends or family",
-        "Consider professional counseling",
-      ],
-      icon: <AlertTriangle className="h-8 w-8" />,
+        "You may be doing fairly well but could be facing occasional emotional stress, mood fluctuations, or a lack of consistency in self-care. This score suggests there's room for improvement in your mental well-being. Consider exploring healthy habits, therapy, or support systems to enhance your psychological wellness.",
+      icon: <AlertTriangle className="h-6 w-6" />,
       color: "text-amber-600",
       bgColor: "bg-amber-50",
       borderColor: "border-amber-200",
-      progressColor: "bg-amber-500",
     },
     {
-      min: 0,
-      max: Math.floor(maxScore * 0.39),
-      title: "Needs Attention",
+      min: 18,
+      max: 71,
+      title: "Poor Level of Mental Well-Being",
       description:
-        "Your responses suggest you may be experiencing significant challenges with mental well-being. Professional support could be very beneficial.",
-      recommendations: [
-        "Reach out to a mental health professional",
-        "Connect with trusted friends or family",
-        "Consider crisis support resources if needed",
-        "Focus on basic self-care needs",
-      ],
-      icon: <AlertCircle className="h-8 w-8" />,
+        "This score indicates a low level of mental well-being, possibly marked by emotional distress, anxiety, low motivation, or social withdrawal. It's important to seek support — from a mental health professional, a support group, or trusted individuals. Prioritizing your mental health is the first step toward healing and growth.",
+      icon: <AlertCircle className="h-6 w-6" />,
       color: "text-red-600",
       bgColor: "bg-red-50",
       borderColor: "border-red-200",
-      progressColor: "bg-red-500",
     },
   ]
 
   const getCurrentRange = (): ScoreRange => {
-    return scoreRanges.find((range) => score >= range.min && score <= range.max) || scoreRanges[3]
+    return scoreRanges.find((range) => score >= range.min && score <= range.max) || scoreRanges[2]
   }
 
   const currentRange = getCurrentRange()
-  const scorePercentage = (score / maxScore) * 100
+  const maxPossibleScore = 180 // Based on your scoring system
+  const scorePercentage = (score / maxPossibleScore) * 100
 
   const handleShare = async () => {
+    const shareText = `I scored ${score}/180 on my mental health assessment. ${currentRange.title}`
+
     if (navigator.share) {
       try {
         await navigator.share({
           title: "Mental Health Assessment Results",
-          text: `I scored ${score}/${maxScore} on my mental health assessment. ${currentRange.title}`,
+          text: shareText,
           url: window.location.href,
         })
       } catch (error) {
         console.log("Error sharing:", error)
       }
     } else {
-      // Fallback to clipboard
-      navigator.clipboard.writeText(
-        `I scored ${score}/${maxScore} on my mental health assessment. ${currentRange.title}`,
-      )
+      navigator.clipboard.writeText(shareText)
     }
   }
 
   const handleDownload = () => {
-    const reportContent = `
-Mental Health Assessment Report
+    const reportContent = `Mental Health Assessment Report
 ==============================
 
-Score: ${score}/${maxScore} (${Math.round(scorePercentage)}%)
+Score: ${score}/180 (${Math.round(scorePercentage)}%)
 Category: ${currentRange.title}
 
 Description:
 ${currentRange.description}
 
-Recommendations:
-${currentRange.recommendations.map((rec) => `• ${rec}`).join("\n")}
-
 Assessment Date: ${new Date().toLocaleDateString()}
 
 Note: This assessment is for informational purposes only and does not replace professional medical advice.
-    `
+`
 
     const blob = new Blob([reportContent], { type: "text/plain" })
     const url = URL.createObjectURL(blob)
@@ -196,101 +145,79 @@ Note: This assessment is for informational purposes only and does not replace pr
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gradient-to-b from-white to-gray-50 border-gray-200 sm:max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="text-center space-y-6">
+      <DialogContent className="bg-white border-gray-200 sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <div
-              className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-full p-6 shadow-lg transition-all duration-500 ${showDetails ? "scale-100" : "scale-95"}`}
-            >
-              <div className={`${currentRange.color} transition-colors duration-500`}>{currentRange.icon}</div>
+            <div className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-full p-4 shadow-lg`}>
+              <div className={currentRange.color}>{currentRange.icon}</div>
             </div>
           </div>
 
-          <DialogTitle className="text-3xl font-bold text-gray-800 flex items-center justify-center gap-3">
-            <Brain className="h-8 w-8 text-teal-600" />
+          <DialogTitle className="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+            <Brain className="h-6 w-6 text-teal-600" />
             Your Mental Health Score
           </DialogTitle>
 
-          <div className="space-y-4">
-            <div className="text-7xl font-bold text-gray-800 transition-all duration-300">
+          <div className="space-y-3">
+            <div className="text-5xl font-bold text-gray-800">
               {animatedScore}
-              <span className="text-3xl text-gray-500">/{maxScore}</span>
+              <span className="text-2xl text-gray-500">/180</span>
             </div>
-
-            <div className="space-y-2">
-              <Progress value={scorePercentage} className="h-3 bg-gray-200" />
-              <div className="text-lg text-gray-600">{Math.round(scorePercentage)}% Overall Score</div>
-            </div>
+            <Progress value={scorePercentage} className="h-2 bg-gray-200" />
+            <div className="text-sm text-gray-600">{Math.round(scorePercentage)}% Overall Score</div>
           </div>
         </DialogHeader>
 
-        <div
-          className={`space-y-6 mt-6 transition-all duration-700 ${showDetails ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
+        <div className="space-y-4 mt-6">
           {/* Current Score Range */}
-          <div
-            className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-xl p-6 transition-all duration-300 hover:shadow-lg`}
-          >
-            <div className="flex items-start space-x-4">
+          <div className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-lg p-4`}>
+            <div className="flex items-start space-x-3">
               <div className={currentRange.color}>{currentRange.icon}</div>
               <div className="flex-1">
-                <h3 className={`text-xl font-semibold ${currentRange.color} mb-3 flex items-center gap-2`}>
-                  <Heart className="h-5 w-5" />
-                  {currentRange.title}
+                <h3 className={`text-lg font-semibold ${currentRange.color} mb-2`}>
+                  {currentRange.min} – {currentRange.max}: {currentRange.title}
                 </h3>
-                <p className="text-gray-700 leading-relaxed mb-4">{currentRange.description}</p>
-
-                <div className="space-y-2">
-                  <h4 className="font-medium text-gray-800">Recommendations:</h4>
-                  <ul className="space-y-1">
-                    {currentRange.recommendations.map((rec, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
-                        <div className="h-1.5 w-1.5 rounded-full bg-teal-500 mt-2 flex-shrink-0" />
-                        {rec}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="text-gray-700 text-sm leading-relaxed">{currentRange.description}</p>
               </div>
             </div>
           </div>
 
-          {/* Score Distribution */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* All Score Ranges Reference */}
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-800 text-center text-sm">Score Reference Guide</h4>
             {scoreRanges.map((range, index) => (
               <div
                 key={index}
-                className={`flex items-center space-x-3 p-4 rounded-lg transition-all duration-300 hover:scale-105 ${
+                className={`flex items-center space-x-3 p-3 rounded-lg transition-all ${
                   score >= range.min && score <= range.max
-                    ? `${range.bgColor} ${range.borderColor} border-2 shadow-md`
-                    : "bg-gray-50 border border-gray-200 hover:bg-gray-100"
+                    ? `${range.bgColor} ${range.borderColor} border-2`
+                    : "bg-gray-50 border border-gray-200"
                 }`}
               >
                 <div className={score >= range.min && score <= range.max ? range.color : "text-gray-400"}>
                   {range.icon}
                 </div>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-800 text-sm">{range.title}</div>
-                  <div className="text-xs text-gray-500">
-                    {range.min} - {range.max} points
-                  </div>
+                <div>
+                  <span className="font-medium text-gray-800 text-sm">
+                    {range.min} – {range.max}: {range.title}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row gap-2 pt-4">
             <Button
               onClick={onClose}
-              className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white transition-all duration-300 hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white"
             >
               Continue
             </Button>
             <Button
               variant="outline"
               onClick={handleShare}
-              className="flex-1 border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition-all duration-300 hover:scale-105 bg-transparent"
+              className="flex-1 border-emerald-200 text-emerald-700 hover:bg-emerald-50 bg-transparent"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Share Results
@@ -298,7 +225,7 @@ Note: This assessment is for informational purposes only and does not replace pr
             <Button
               variant="outline"
               onClick={handleDownload}
-              className="flex-1 border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition-all duration-300 hover:scale-105 bg-transparent"
+              className="flex-1 border-emerald-200 text-emerald-700 hover:bg-emerald-50 bg-transparent"
             >
               <Download className="h-4 w-4 mr-2" />
               Download Report
@@ -306,10 +233,9 @@ Note: This assessment is for informational purposes only and does not replace pr
           </div>
         </div>
 
-        <DialogDescription className="text-center text-sm text-gray-500 mt-6 p-4 bg-gray-50 rounded-lg border">
-          <AlertTriangle className="h-4 w-4 inline mr-2" />
-          This assessment is for informational purposes only and does not replace professional medical advice. If you're
-          experiencing mental health concerns, please consult with a qualified healthcare provider.
+        <DialogDescription className="text-center text-xs text-gray-500 mt-4 p-3 bg-gray-50 rounded-lg border">
+          <AlertTriangle className="h-3 w-3 inline mr-1" />
+          This assessment is for informational purposes only and does not replace professional medical advice.
         </DialogDescription>
       </DialogContent>
     </Dialog>
