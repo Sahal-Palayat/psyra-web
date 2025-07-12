@@ -64,7 +64,7 @@ const Hero = () => {
         className="container px-2 py-24 md:py-24 relative z-10 text-left"
       >
         <motion.p
-          className="max-w-[314px] mx-auto text-[#9EE0D6] text-[36px] md:text-2xl leading-none"
+          className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[36px] md:text-2xl leading-none"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
