@@ -3,13 +3,12 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ImageS3 from "../../public/Web Site A (2).jpg"; // Desktop Image
-import MobileHero from "../../public/Web Site Phn.jpg"; // Mobile Image
+import MobileHero from "../../public/HERO-hand.webp"; // Mobile Image
 import Logo from "../../public/Psyra Logo White-04.svg";
-import Arrow from "../../public/Arrow right.png";
+import Emojii from "../../public/emojiihero.png";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import { useRouter } from "next/navigation";
-import AnimatedText from "./Hero/AnimatedText";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,20 +41,63 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative bg-teal-600 text-white flex items-center">
+    <section className="relative text-white">
       {/* Background Image Animation */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.2 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className=""
+        id="home"
+      >
+        <Image
+          src={isMobile ? MobileHero : ImageS3} // Conditionally show images
+          alt="Background"
+          fill
+          className=""
+          priority
+        />
+      </motion.div>
 
       {/* Content Section */}
-      <AnimatedText />
-      {/* <motion.div
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="container mx-auto px-4 py-24 md:py-24 relative z-10 text-center"
+        className="container px-2 py-24 md:py-24 relative z-10 text-left"
       >
-        haii
-      </motion.div> */}
+        <motion.p
+          className="max-w-[314px] mx-auto text-[#9EE0D6] text-[36px] md:text-2xl leading-none"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 1 }}
+        >
+          You are not alone,
+          <br />
+          <span className="text-white">Psyra</span> is with you
+        </motion.p>
+        <motion.div className="px-12">
+          <motion.img
+            src="/emojiihero.png"
+            alt="Team"
+            width={100}
+            height={100}
+            initial={{ opacity: 1 }}
+            animate={{
+              opacity: 1,
+              rotate: [-5, 5, -5], // Slight rotation (degrees)
+            }}
+            transition={{
+              duration: 2, // Time for one full back-and-forth rotation
+              repeat: Infinity, // Infinite repeat
+              repeatType: "loop", // Continuous loop
+              ease: "easeInOut", // Smooth easing
+            }}
+          />
+        </motion.div>
+      </motion.div>
 
       <Modal
         isOpen={isModalOpen}
