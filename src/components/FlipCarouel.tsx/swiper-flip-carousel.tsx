@@ -149,7 +149,7 @@ export default function SwiperFlipCarousel({
                           {/* Circular glow behind the image */}
                           <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
                           <img
-                            src="https://pebby-uplods.s3.us-east-1.amazonaws.com/uploads/07a34e53-fd36-4fcd-ae13-f81e3d411569.png"
+                            src={data[index]?.imageUrl}
                             alt="ALTERNATIVE IMAGE"
                             className="w-40 h-50 object-cover rounded-full relative z-10"
                           />
