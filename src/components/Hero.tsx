@@ -4,17 +4,13 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ImageS3 from "../../public/Web Site A (2).jpg"; // Desktop Image
 import MobileHero from "../../public/HERO-hand.webp"; // Mobile Image
-import Logo from "../../public/Psyra Logo White-04.svg";
-import Emojii from "../../public/emojiihero.png";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
-import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventModal, setEventModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const router = useRouter();
 
   // Detect screen size on mount & window resize
   useEffect(() => {
