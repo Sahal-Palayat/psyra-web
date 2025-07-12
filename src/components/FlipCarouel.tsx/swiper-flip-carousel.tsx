@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -18,39 +18,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import "swiper/css/autoplay";
+import axios from "axios";
 
-const data = [
-  {
-    title: "Fidha Raeesa",
-    image: "/Fida C.png",
-    description: "Techniques to manage stress and anxiety.",
-  },
-  {
-    title: "Nihal",
-    image: "/Nihal C.png",
-    description: "Build stronger emotional connections.",
-  },
-  {
-    title: "Unais",
-    image: "/UPK C.png",
-    description: "Techniques to manage stress and anxiety.",
-  },
-  {
-    title: "Pooja",
-    image: "/Pooja C.png",
-    description: "Build stronger emotional connections.",
-  },
-  {
-    title: "RAFNAS",
-    image: "/Raf 2 C.png",
-    description: "Consultant Psychologists",
-  },
-  {
-    title: "Sharfu",
-    image: "/shrfu C.png",
-    description: "OCD Consultant Psychologists",
-  },
-];
+// const data =[{}]
 
 interface SwiperFlipCarouselProps {
   onBookNow?: (psychologist: any) => void;
@@ -60,12 +30,26 @@ export default function SwiperFlipCarousel({
   onBookNow,
 }: SwiperFlipCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [data, setData] = useState([]);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const swiperRef = useRef<SwiperType>();
 
   const handleSlideChange = (swiper: SwiperType) => {
     setActiveIndex(swiper.realIndex);
   };
+
+  const fetchPsychologists = async () => {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
+    );
+
+    console.log(response, "RESPONSEEE");
+    setData(response?.data);
+  };
+
+  useEffect(() => {
+    fetchPsychologists();
+  }, []);
 
   const toggleAutoplay = () => {
     if (swiperRef.current) {
@@ -165,8 +149,8 @@ export default function SwiperFlipCarousel({
                           {/* Circular glow behind the image */}
                           <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
                           <img
-                            src={data[index].image}
-                            alt={data[index].title}
+                            src="https://pebby-uplods.s3.us-east-1.amazonaws.com/uploads/07a34e53-fd36-4fcd-ae13-f81e3d411569.png"
+                            alt="ALTERNATIVE IMAGE"
                             className="w-40 h-50 object-cover rounded-full relative z-10"
                           />
 
@@ -174,10 +158,10 @@ export default function SwiperFlipCarousel({
                         </div>
 
                         <h2 className="text-xl font-bold text-[#ffffff] mb-0">
-                          {data[index].title}
+                          {data[index].name}
                         </h2>
                         <p className="text-[#ffffff] text-sm">
-                          {data[index].description}
+                          {data[index].specialization}
                         </p>
                       </div>
                     </div>

@@ -31,7 +31,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       const adjustedDate = selectedDate.toISOString().split("T")[0];
 
       const res = await axios.get(
-        `https://kochimetrocalc.me/consultation/booked-slots?date=${adjustedDate}`
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
       );
 
       console.log("Adjusted Date (1 day less):", adjustedDate);
@@ -49,7 +49,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       // Filter booked slots for the selected date
       const bookedForThisDate = bookedSlots
         .filter((slot: any) => slot.date === formattedDate)
-        .map((slot: any) => slot.timeSlot); 
+        .map((slot: any) => slot.timeSlot);
 
       setBookedSlotsForDate(bookedForThisDate);
 
