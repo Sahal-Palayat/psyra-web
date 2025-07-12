@@ -37,7 +37,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative text-white">
+    <section className="relative bg-teal-600 text-white">
       {/* Background Image Animation */}
       <motion.div
         initial={{ opacity: 0, scale: 1.2 }}
