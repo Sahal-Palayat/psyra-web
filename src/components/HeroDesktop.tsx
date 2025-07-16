@@ -43,7 +43,7 @@ const HeroDesktop = () => {
 
   return (
     <>
-      <section className="relative bg-teal-600 text-white min-h-screen flex items-center">
+      <section className="relative bg-teal-600 text-white flex items-center">
         {/* Background Image Animation */}
         <motion.div
           initial={{ opacity: 0, scale: 1.2 }}
@@ -52,13 +52,13 @@ const HeroDesktop = () => {
           className="absolute inset-0 w-full h-full min-h-[500px]"
           id="home"
         >
-          <Image
+          {/* <Image
             src={isMobile ? MobileHero : ImageS3} // Conditionally show images
             alt="Background"
             fill
             className="object-cover"
             priority
-          />
+          /> */}
         </motion.div>
 
         {/* Content Section */}
@@ -69,9 +69,9 @@ const HeroDesktop = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="container mx-auto px-4 py-24 md:py-24 relative z-10 text-center"
         >
-          <div className="max-w-3xl mx-auto mt-12 text-center">
+          <div className="max-w-3xl mx-auto mb-18 mt-10 text-center">
             {/* Psyra Logo */}
-            <motion.div
+            {/* <motion.div
               className="flex justify-center mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -79,30 +79,18 @@ const HeroDesktop = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <Image src={Logo} alt="Psyra Logo" width={200} height={150} />
-            </motion.div>
+            </motion.div> */}
 
             <motion.p
-              className="max-w-[314px] mx-auto text-xl md:text-2xl mb-8"
+              className="font-bold text-[#9EE0D6] text-[42px] leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 1 }}
             >
-              Your mental wellness partner
+              You are not alone,
+              <span className="text-white"> Psyra</span> is with you
             </motion.p>
-
-            <motion.button
-              onClick={() => {
-                router.push("/individual");
-                // setIsModalOpen(true);
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#00989D] max-w-[191px] w-[191px] h-[38px] rounded-full font-medium hover:bg-gray-100 transition-all"
-            >
-              Get Appointment
-              <Image src={Arrow} width={15} height={20} alt="ARROW" />
-            </motion.button>
           </div>
         </motion.div>
 
@@ -113,7 +101,9 @@ const HeroDesktop = () => {
         />
         <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
       </section>
-      <Services />
+      <div className="relative z-20 -mt-34 md:-mt-28">
+        <Services />
+      </div>
     </>
   );
 };
