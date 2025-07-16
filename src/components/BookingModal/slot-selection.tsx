@@ -1,11 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import type { BookingData, BookedSlot } from "./types";
-import { ALL_TIME_SLOTS } from "./types";
+import {
+  ALL_TIME_SLOTS,
+  BookedSlot,
+  BookingData,
+  TherapyBooking,
+} from "./types";
 import axios from "axios";
+// import type { BookingData, BookedSlot } from "../../types/booking"
+// import { ALL_TIME_SLOTS } from "../../types/booking"
 
 interface SlotSelectionProps {
   bookingData: BookingData;
@@ -13,11 +19,30 @@ interface SlotSelectionProps {
   bookedSlots?: BookedSlot[]; // Backend data for booked slots
 }
 
-// Mock booked slots data - replace this with actual backend data
-
 export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
-  const [bookedSlots, setBookedSlot] = useState<any>([]);
+  const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
+
+  useEffect(() => {
+    if (bookingData.date) {
+      const formattedDate = format(bookingData.date, "yyyy-MM-dd");
+      // Filter booked slots for the selected date
+      const bookedForThisDate = bookedSlots
+        .filter((slot) => slot.date === formattedDate)
+        .map((slot) => slot.timeSlot);
+
+      setBookedSlotsForDate(bookedForThisDate);
+
+      // If currently selected time slot is booked or past, clear it
+      if (
+        bookingData.timeSlot &&
+        (bookedForThisDate.includes(bookingData.timeSlot) ||
+          isSlotPast(bookingData.timeSlot, bookingData.date))
+      ) {
+        onUpdate({ timeSlot: "" });
+      }
+    }
+  }, [bookingData.date, bookedSlots]);
 
   const fetchBookedSlots = async (date: string) => {
     try {
@@ -37,34 +62,24 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       console.log("Adjusted Date (1 day less):", adjustedDate);
       console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
 
-      setBookedSlot(res.data?.data);
+      setBookedSlot(res?.data?.data);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
 
-  useEffect(() => {
-    if (bookingData.date) {
-      const formattedDate = format(bookingData.date, "yyyy-MM-dd");
-      // Filter booked slots for the selected date
-      const bookedForThisDate = bookedSlots
-        .filter((slot: any) => slot.date === formattedDate)
-        .map((slot: any) => slot.timeSlot);
-
-      setBookedSlotsForDate(bookedForThisDate);
-
-      // If currently selected time slot is booked or past, clear it
-      if (
-        bookingData.timeSlot &&
-        (bookedForThisDate.includes(bookingData.timeSlot) ||
-          isSlotPast(bookingData.timeSlot, bookingData.date))
-      ) {
-        onUpdate({ timeSlot: "" });
-      }
-    }
-  }, [bookingData.date, bookedSlots]);
-
   const handleDateSelect = (date: Date) => {
+    // Scroll to slot selection when date is updated (especially in mobile)
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        if (slotListRef.current) {
+          slotListRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }
+      }, 150); // short delay for DOM to update
+    }
     onUpdate({ date, timeSlot: "" });
     fetchBookedSlots(date.toISOString().split("T")[0]);
   };
@@ -78,6 +93,8 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       onUpdate({ timeSlot });
     }
   };
+
+  const slotListRef = useRef<HTMLDivElement>(null);
 
   const isSlotBooked = (slot: string) => {
     return bookedSlotsForDate.includes(slot);
@@ -106,7 +123,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       return "bg-red-100 text-red-400 border-red-200 cursor-not-allowed";
     }
     if (isSlotPast(slot, bookingData.date)) {
-      return "bg-gray-200 text-gray-400 border-gray-200 cursor-not-allowed";
+      return "bg-red-100 text-red-400 border-red-200 cursor-not-allowed";
     }
     if (bookingData.timeSlot === slot) {
       return "bg-[#005657] text-white border-[#005657]";
@@ -124,37 +141,60 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
     return "Click to select this time slot";
   };
 
-  const getUnavailableSlotIcon = (slot: string) => {
-    if (isSlotBooked(slot)) {
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 ml-1 flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
-          />
-        </svg>
-      );
-    }
-    return null;
-  };
+  // const getUnavailableSlotIcon = (slot: string) => {
+  //   if (isSlotBooked(slot)) {
+  //     return (
+  //       <svg
+  //         xmlns="http://www.w3.org/2000/svg"
+  //         className="h-4 w-4 ml-1 flex-shrink-0"
+  //         fill="none"
+  //         viewBox="0 0 24 24"
+  //         stroke="currentColor"
+  //         strokeWidth={2}
+  //       >
+  //         <path
+  //           strokeLinecap="round"
+  //           strokeLinejoin="round"
+  //           d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"
+  //         />
+  //       </svg>
+  //     );
+  //   }
+  //   if (isSlotPast(slot, bookingData.date)) {
+  //     return (
+  //       <svg
+  //         xmlns="http://www.w3.org/2000/svg"
+  //         className="h-4 w-4 ml-1 flex-shrink-0"
+  //         fill="none"
+  //         viewBox="0 0 24 24"
+  //         stroke="currentColor"
+  //         strokeWidth={2}
+  //       >
+  //         <path
+  //           strokeLinecap="round"
+  //           strokeLinejoin="round"
+  //           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+  //         />
+  //       </svg>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   const unavailableSlots = ALL_TIME_SLOTS.filter(
     (slot) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      ref={slotListRef}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"
+    >
       <div className="space-y-4">
-        <h3 className="font-medium text-lg text-[#005657]">Select a Date</h3>
-        <div className="bg-[#B6E5DF]/10 rounded-lg p-4">
+        <h3 className="font-medium text-base sm:text-lg text-[#005657]">
+          Select a Date
+        </h3>
+        <div className="bg-[#B6E5DF]/10 rounded-lg p-3 sm:p-4">
           <Calendar selected={bookingData.date} onSelect={handleDateSelect} />
         </div>
 
@@ -175,8 +215,8 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <span>
-                Selected: {format(bookingData.date, "EEEE, MMMM d, yyyy")}
+              <span className="truncate">
+                Selected: {format(bookingData.date, "MMM d, yyyy")}
               </span>
             </p>
           </div>
@@ -184,7 +224,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       </div>
 
       <div className="space-y-4">
-        <h3 className="font-medium text-lg text-[#005657]">
+        <h3 className="font-medium text-base sm:text-lg text-[#005657]">
           {bookingData.date
             ? "Available Time Slots"
             : "Select a date to see available times"}
@@ -194,9 +234,9 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-[#B6E5DF]/10 rounded-lg p-4 max-h-[500px] overflow-y-auto"
+            className="bg-[#B6E5DF]/10 rounded-lg p-3 sm:p-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
               {ALL_TIME_SLOTS.map((slot) => (
                 <button
                   key={slot}
@@ -204,15 +244,15 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                   disabled={
                     isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
                   }
-                  className={`flex items-center justify-center px-3 py-2 rounded-md border text-sm transition-colors ${getSlotButtonClass(
+                  className={`flex items-center justify-center px-2 sm:px-3 py-2 rounded-md border text-xs sm:text-sm transition-colors ${getSlotButtonClass(
                     slot
                   )}`}
                   onClick={() => handleTimeSelect(slot)}
                   title={getSlotTooltip(slot)}
                 >
-                  <svg
+                  {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mr-2 flex-shrink-0"
+                    className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -223,9 +263,11 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                       strokeLinejoin="round"
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
-                  </svg>
-                  <span className="truncate">{slot}</span>
-                  {getUnavailableSlotIcon(slot)}
+                  </svg> */}
+                  <span className="truncate text-center leading-tight">
+                    {slot}
+                  </span>
+                  {/* {getUnavailableSlotIcon(slot)} */}
                 </button>
               ))}
             </div>
@@ -279,17 +321,16 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                   </span>
                 </div>
                 <div className="text-xs text-yellow-700 space-y-1">
-                  <p>• Grey slots are already booked</p>
-                  <p>• Red slots require at least 30 minutes advance booking</p>
+                  <p>• Red slots are already booked</p>
                 </div>
               </div>
             )}
           </motion.div>
         ) : (
-          <div className="bg-[#B6E5DF]/10 rounded-lg p-6 min-h-[300px] flex flex-col items-center justify-center text-center">
+          <div className="bg-[#B6E5DF]/10 rounded-lg p-4 sm:p-6 min-h-[250px] sm:min-h-[300px] flex flex-col items-center justify-center text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12 text-[#005657]/30 mb-4"
+              className="h-10 w-10 sm:h-12 sm:w-12 text-[#005657]/30 mb-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -301,21 +342,11 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            <p className="text-[#005657] font-medium">Select a date first</p>
-            <p className="text-sm text-[#005657]/70 mt-1">
-              All available time slots will appear here
+            <p className="text-[#005657] font-medium text-sm sm:text-base">
+              Select a date first
             </p>
-          </div>
-        )}
-
-        {bookingData.date && bookingData.timeSlot && (
-          <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
-            <h4 className="font-medium text-[#005657] mb-1">
-              Your selected appointment:
-            </h4>
-            <p className="text-sm text-[#005657]/80">
-              {format(bookingData.date, "EEEE, MMMM d, yyyy")} at{" "}
-              {bookingData.timeSlot}
+            <p className="text-xs sm:text-sm text-[#005657]/70 mt-1">
+              All available time slots will appear here
             </p>
           </div>
         )}

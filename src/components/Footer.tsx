@@ -199,28 +199,28 @@ export default function Footer() {
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link
-                href="https://www.instagram.com/psyra.care?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                href="https://www.instagram.com/psyra.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Instagram size={24} />
                 <span className="sr-only">Instagram</span>
               </Link>
               <Link
-                href="#"
+                href="https://x.com/PsyraCare"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Twitter size={24} />
-                <span className="sr-only">Twitter</span>
+                <span className="sr-only">X</span>
               </Link>
               <Link
-                href="#"
+                href="https://www.linkedin.com/company/psyra-care/posts/?feedView=all"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Linkedin size={24} />
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="#"
+                href="https://www.youtube.com/@YourMentalWellnessPartner"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Youtube size={24} />

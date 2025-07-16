@@ -1,16 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "../../public/Psyra Logo Color-05.svg";
+import Logo1 from "../../public/Psyra Logo White-04.svg";
 import Modal from "./Modal";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Hide navbar if route includes survey/questions
+  const shouldHideNavbar = pathname.includes("survey/questions");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,13 +34,18 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Don't render navbar if on survey/questions pages
+  if (shouldHideNavbar) {
+    return null;
+  }
+
   return (
     <>
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1200px] h-[60px] md:h-[74px] z-50 transition-all duration-300 rounded-[50px] backdrop-blur-sm ${
+        className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1200px] h-[60px] md:h-[74px] z-50 transition-all duration-300 rounded-[20px] backdrop-blur-sm ${
           isScrolled ? "bg-[rgba(255,255,255,0.5)] shadow-md" : "bg-transparent"
         }`}
       >
@@ -42,7 +53,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="z-20">
             <Image
-              src={Logo}
+              src={isScrolled ? Logo : Logo1 || "/placeholder.svg"}
               alt="Psyra Logo"
               width={120}
               height={40}
@@ -52,22 +63,36 @@ const Navbar = () => {
 
           {/* Nav Links - Desktop */}
           <div className="hidden md:flex space-x-6">
-            <Link href="#hero" className="text-[#005657] hover:text-white">
+            <Link
+              href="/#hero"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
+            >
               Home
             </Link>
-            <Link href="#about" className="text-[#005657] hover:text-white">
+            <Link
+              href="/#about"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
+            >
               About us
             </Link>
             <Link
-              href="#services"
-              className="text-[#005657] hover:text-white"
+              href="/#services"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
             >
               Services
             </Link>
 
             <Link
-              href="#contact"
-              className="text-[#005657] hover:text-white"
+              href="/#contact"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
             >
               Contact us
             </Link>

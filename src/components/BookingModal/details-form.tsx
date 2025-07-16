@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BookingData } from "./types";
 import type React from "react";
 import { THERAPY_MODES, THERAPY_ISSUES } from "./types";
@@ -20,6 +20,11 @@ interface ValidationErrors {
 export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) {
@@ -163,7 +168,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div ref={formRef} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="space-y-2">
@@ -368,7 +373,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent"
             >
               <option value="">Select your session type</option>
-              {SESSION_TYPE.map((issue: any) => (
+              {SESSION_TYPE.map((issue: string) => (
                 <option key={issue} value={issue}>
                   {issue}
                 </option>
@@ -390,17 +395,17 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               <label htmlFor="agreeToTerms" className="text-sm text-[#005657]">
                 I agree to the{" "}
                 <a
-                  href="/terms"
+                  href="/terms-conditions"
                   className="text-[#005657] underline hover:text-[#005657]/80"
                 >
                   Terms and Conditions
                 </a>{" "}
                 and{" "}
                 <a
-                  href="/privacy"
+                  href="/privacy-policy"
                   className="text-[#005657] underline hover:text-[#005657]/80"
                 >
-                  Privacy Policy
+                  Consent to Therapy
                 </a>
                 *
               </label>
@@ -409,15 +414,15 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
         </div>
       </div>
 
-      <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
+      {/* <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
         <h4 className="font-medium text-[#005657] mb-2">What happens next?</h4>
         <ul className="text-sm text-[#005657]/80 space-y-1">
-          <li>• You'll proceed to secure payment</li>
-          <li>• We'll send confirmation details to your email</li>
+          <li>• You will proceed to secure payment</li>
+          <li>• We will send confirmation details to your email</li>
           <li>• Our therapist will contact you before your appointment</li>
           <li>• You can reschedule up to 24 hours before your session</li>
         </ul>
-      </div>
+      </div> */}
 
       {!isFormValid() && (
         <div className="p-3 bg-red-50 border border-red-200 rounded-md">

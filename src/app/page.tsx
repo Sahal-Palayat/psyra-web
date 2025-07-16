@@ -1,22 +1,18 @@
 "use client";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
 import AboutUs from "@/components/AboutUs";
-import Event from "@/components/Event";
+// import Event from "@/components/Event";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
 import PsychologistCarousel from "@/components/SimpleCarousel/psychologist-carousel";
 // import { ChevronDown } from "lucide-react"
 
+import Hero from "@/components/Hero";
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-
       <Hero />
-      <Services />
 
       {/* Why Psyra Section */}
       <AboutUs />
@@ -24,7 +20,7 @@ export default function Home() {
       <PsychologistCarousel />
       {/* <CarouselCardFlip /> */}
       {/* Meet New Faces */}
-      <Event />
+      {/* <Event /> */}
       {/* <EventGallery /> */}
 
       {/* Our Specialties */}

@@ -1,23 +1,30 @@
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import Individual from "../../public/individual.jpg";
-import Couple from "../../public/couple.jpg";
+import Individual from "../../public/Single Cover.jpg";
+import Couple from "../../public/Couple Cover.jpg";
 import Coffe from "../../public/Coffee.png";
 import { useRouter } from "next/navigation";
+
+export interface TherapyCardType {
+  type: string;
+  subTitle: string;
+  img: StaticImageData;
+  route: string;
+}
 const Services = () => {
   const router = useRouter();
   const obj = [
     {
       type: "Individual therapy",
-      subTitle: "Starts from ₹749",
+      subTitle: "Starts from ₹999",
       img: Individual,
       route: "individual",
     },
     {
       type: "Couple therapy",
-      subTitle: "Starts from ₹749",
+      subTitle: "Starts from ₹1499",
       img: Couple,
       route: "couple-therapy",
     },
@@ -30,20 +37,21 @@ const Services = () => {
   ];
 
   // Function to handle WhatsApp redirection
-  const handleWhatsAppRedirect = (item: any) => {
+  const handleWhatsAppRedirect = (item: TherapyCardType) => {
+    if (item?.route === "coffe-with") {
+      const phoneNumber = "+918891724199";
+      const message = encodeURIComponent(
+        `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
+      );
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    }
     router.push(`/${item?.route}`);
-    const phoneNumber = "+918891724199"; // Replace with your WhatsApp number (e.g., "911234567890")
-    /* The code snippet you provided is handling the redirection to WhatsApp when a user clicks on the
-   "Get Started" button for a specific service type. Here's what the code is doing: */
-    // const message = encodeURIComponent(
-    //   `Hi, I'm interested in the "${serviceType}" package. Can you provide more details?`
-    // );
-    // window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    console.log(item);
   };
 
   return (
-    <section className="py-16 px-16" id="services">
-      <div className="container mx-auto px-6 md:px-10">
+    <section className="py-2 px-14 " id="services">
+      <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {obj.map((item, index) => (
             <motion.div
@@ -55,7 +63,7 @@ const Services = () => {
               className="bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col"
             >
               {/* Top Image */}
-              <div className="w-full h-[200px] relative">
+              <div className="w-full hidden sm:block h-[200px] relative">
                 <Image
                   src={item?.img || "/placeholder.svg"}
                   alt={`Feature ${item?.type}`}
@@ -66,19 +74,27 @@ const Services = () => {
               </div>
 
               {/* Content */}
-              <div className="p-5 text-black flex flex-col flex-grow text-center">
-                <h3 className="font-bold text-xl mb-1">{item.type}</h3>
-                <p className="italic mb-3">{item?.subTitle}</p>
+              <div className="p-5 text-[#005657] flex flex-col flex-grow text-center">
+                <h2 className="font-bold text-[24px] leading-none">
+                  {item?.type}
+                </h2>
+                <p className="text-[18px] italic mb-3">{item?.subTitle}</p>
 
                 {/* This wrapper pushes price + button to bottom */}
                 <div className="mt-auto">
                   <div className="flex justify-center">
                     <button
+                      className="bg-white px-6 py-2 text-teal text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      BOOK NOW
+                    </button>
+                    {/* <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() => handleWhatsAppRedirect(item)}
                     >
                       Book Now
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
