@@ -84,11 +84,17 @@ const Services = () => {
                 <div className="mt-auto">
                   <div className="flex justify-center">
                     <button
-                      className="bg-[#22CEB8] px-6 py-1 text-white text-[12px] font-semibold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+                      className="bg-white px-6 py-2 text-teal text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() => handleWhatsAppRedirect(item)}
                     >
                       BOOK NOW
                     </button>
+                    {/* <button
+                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      Book Now
+                    </button> */}
                   </div>
                 </div>
               </div>
