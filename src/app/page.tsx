@@ -7,9 +7,7 @@ import Event from "@/components/Event";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
-import EventGallery from "@/components/eventGallery";
-import CarouselCardFlip from "@/components/Psychologists";
-import { PsychologistsSection } from "@/components/FlipCarouel.tsx/psychologists-section";
+import PsychologistCarousel from "@/components/SimpleCarousel/psychologist-carousel";
 // import { ChevronDown } from "lucide-react"
 
 export default function Home() {
@@ -23,8 +21,8 @@ export default function Home() {
       {/* Why Psyra Section */}
       <AboutUs />
 
+      <PsychologistCarousel />
       {/* <CarouselCardFlip /> */}
-      <PsychologistsSection />
       {/* Meet New Faces */}
       <Event />
       {/* <EventGallery /> */}
