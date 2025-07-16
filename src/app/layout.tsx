@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Psyra - Mental Health Support",
+  title: "Online Counseling Psychology",
   description:
     "Professional mental health services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
   keywords: [
