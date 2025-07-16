@@ -26,11 +26,25 @@ interface SwiperFlipCarouselProps {
   onBookNow?: (psychologist: any) => void;
 }
 
+interface Psychologist {
+  name: string;
+  specialization: string;
+  monthlySlots: string[];
+  imageUrl: string;
+}
+
 export default function SwiperFlipCarousel({
   onBookNow,
 }: SwiperFlipCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Psychologist[]>([
+    {
+      name: "",
+      specialization: "",
+      monthlySlots: [],
+      imageUrl: "",
+    },
+  ]);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const swiperRef = useRef<SwiperType>();
 
@@ -149,7 +163,10 @@ export default function SwiperFlipCarousel({
                           {/* Circular glow behind the image */}
                           <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
                           <img
-                            src={data[index]?.imageUrl}
+                            src={
+                              data[index]?.imageUrl ||
+                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
+                            }
                             alt="ALTERNATIVE IMAGE"
                             className="w-40 h-50 object-cover rounded-full relative z-10"
                           />
