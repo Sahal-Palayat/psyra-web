@@ -22,18 +22,12 @@ export function PsychologistCard({
 
   return (
     <div
-      className={`
-        relative w-[280px] sm:w-[320px] h-[400px] sm:h-[440px] transition-all duration-800 ease-out transform rounded-xl p-4 sm:p-6
-        flex flex-col items-center justify-center text-center bg-[#00989D] shadow-xl
-        ${isActive ? "scale-110 z-10" : "scale-95"}
-        ${isActive ? "brightness-110 saturate-120" : "brightness-90"}
-      `}
       style={{
         transformStyle: "preserve-3d",
         backfaceVisibility: "hidden",
       }}
     >
-      <div className="flex flex-col items-center justify-center w-full h-full text-center">
+      <div className="flex flex-col items-center justify-center mt-6  w-full h-full text-center">
         <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
           {/* Circular glow behind the image */}
           <div className="relative w-50 h-55  flex items-center justify-center">
@@ -51,37 +45,28 @@ export function PsychologistCard({
             {/* Image in the front */}
           </div>
         </div>
+        <div className="flex flex-col items-center justify-center text-center mt-6">
+          <>
+            <h2 className="text-lg sm:text-xl font-bold text-teal mb-1">
+              {psychologist.name || "Unknown Doctor"}
+            </h2>
 
-        <h2 className="text-lg sm:text-xl font-bold text-white mb-1">
-          {psychologist.name || "Unknown Doctor"}
-        </h2>
-
-        <p className="text-white/90 text-sm mb-2">
-          {psychologist.specialization || "General Psychology"}
-        </p>
+            <p className="text-teal/90 text-sm mb-2">
+              {psychologist.specialization || "General Psychology"}
+            </p>
+          </>
+          {isActive && (
+            <motion.button
+              onClick={() => onBookNow(psychologist)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-teal-200 shadow-sm hover:bg-teal-100 transition-colors"
+            >
+              Book Consultation
+            </motion.button>
+          )}
+        </div>
       </div>
-
-      {/* Card position indicator */}
-      <div
-        className={`absolute top-2 right-2 w-3 h-3 rounded-full transition-all duration-300 ${
-          isActive
-            ? "bg-green-400 animate-ping"
-            : isPrev || isNext
-            ? "bg-yellow-400"
-            : "bg-gray-400"
-        }`}
-      />
-
-      {isActive && (
-        <motion.button
-          onClick={() => onBookNow(psychologist)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-teal-200 shadow-sm hover:bg-teal-100 transition-colors"
-        >
-          Book Consultation
-        </motion.button>
-      )}
     </div>
   );
 }

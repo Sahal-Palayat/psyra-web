@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { PsychologistCard } from "./psychologist-card";
 import { CarouselNavigation } from "./carousel-navigation";
 import { Psychologist } from "@/types/psychologist";
+// import type { Psychologist } from "../types/psychologist";
 
 interface CarouselContainerProps {
   data: Psychologist[];
@@ -47,7 +48,6 @@ export function CarouselContainer({
           isFarLeft: i === -2,
           isFarRight: i === 2,
           position: i,
-          index,
         });
       }
     }
@@ -92,50 +92,54 @@ export function CarouselContainer({
   return (
     <div className="relative">
       <div className="flex items-center justify-center min-h-[500px] relative overflow-hidden">
-        {/* Render all visible cards without AnimatePresence */}
-        {getVisibleCards().map(
-          ({
-            psychologist,
-            isActive,
-            isPrev,
-            isNext,
-            isFarLeft,
-            isFarRight,
-            position,
-            index,
-          }) => (
-            <motion.div
-              key={psychologist.name || index} // Use stable key
-              animate={{
-                opacity: getCardOpacity(position),
-                x: position * 180, // Card spacing
-                scale: getCardScale(position),
-                zIndex: getCardZIndex(position),
-              }}
-              transition={{
-                duration: 0.6,
-                ease: "easeInOut",
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-              }}
-              className="absolute"
-              style={{
-                willChange: "transform, opacity", // Optimize for animations
-              }}
-            >
-              <PsychologistCard
-                psychologist={psychologist}
-                isActive={isActive}
-                isPrev={isPrev}
-                isNext={isNext}
-                // isFarLeft={isFarLeft}
-                // isFarRight={isFarRight}
-                onBookNow={onBookNow}
-              />
-            </motion.div>
-          )
-        )}
+        <AnimatePresence mode="wait">
+          {getVisibleCards().map(
+            ({
+              psychologist,
+              isActive,
+              isPrev,
+              isNext,
+              isFarLeft,
+              isFarRight,
+              position,
+            }) => (
+              <motion.div
+                key={`${psychologist.name}-${currentIndex}`}
+                initial={{
+                  opacity: 0,
+                  x: position * 150,
+                  scale: 0.6,
+                }}
+                animate={{
+                  opacity: getCardOpacity(position),
+                  x: position * 180, // Adjusted spacing for 5 cards
+                  scale: getCardScale(position),
+                  zIndex: getCardZIndex(position),
+                }}
+                exit={{
+                  opacity: 0,
+                  x: position * -150,
+                  scale: 0.6,
+                }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeInOut",
+                }}
+                className="absolute"
+              >
+                <PsychologistCard
+                  psychologist={psychologist}
+                  isActive={isActive}
+                  isPrev={isPrev}
+                  isNext={isNext}
+                //   isFarLeft={isFarLeft}
+                //   isFarRight={isFarRight}
+                  onBookNow={onBookNow}
+                />
+              </motion.div>
+            )
+          )}
+        </AnimatePresence>
       </div>
 
       <CarouselNavigation onPrevious={onPrevious} onNext={onNext} />
