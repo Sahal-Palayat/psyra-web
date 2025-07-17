@@ -1,3 +1,5 @@
+import { Psychologist } from "@/types/psychologist";
+
 export interface BookingData {
   // Slot selection
   date?: Date;
@@ -14,13 +16,19 @@ export interface BookingData {
   sessionType: string;
 
   // Package info
-  packageTitle: string;
+  packageTitle?: string;
 }
 
 export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   packageTitle: string;
+}
+
+export interface PsychologistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  data: Psychologist;
 }
 
 export interface TherapyBooking {
@@ -57,7 +65,6 @@ export interface TherapyBooking {
   packageTitle: string;
   agreeToTerms: boolean;
 }
-
 
 export const THERAPY_MODES = ["Video Call", "Audio Call", "Chat"];
 

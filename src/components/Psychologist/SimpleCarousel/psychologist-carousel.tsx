@@ -12,6 +12,7 @@ import axios from "axios";
 export default function PsychologistCarousel() {
   const [data, setData] = useState<Psychologist[]>([
     {
+      _id: "",
       name: "",
       specialization: "",
       monthlySlots: [],
@@ -39,9 +40,10 @@ export default function PsychologistCarousel() {
     console.log("Booking consultation with:", psychologist.name);
     // Add your booking logic here
   }, []);
+  
 
   return (
-    <section className="py-16 bg-gradient-to-br from-teal-50 to-cyan-50 overflow-hidden">
+    <section className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <CarouselHeader />
 

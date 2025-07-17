@@ -4,7 +4,7 @@ import AboutUs from "@/components/AboutUs";
 import OurSpecials from "@/components/OurSpecials";
 import GetInTouch from "@/components/GetInTouch";
 import Faq from "@/components/Faq";
-import PsychologistCarousel from "@/components/SimpleCarousel/psychologist-carousel";
+import PsychologistCarousel from "@/components/Psychologist/SimpleCarousel/psychologist-carousel";
 // import { ChevronDown } from "lucide-react"
 
 import Hero from "@/components/Hero";

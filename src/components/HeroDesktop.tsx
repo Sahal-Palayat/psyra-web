@@ -81,7 +81,7 @@ const HeroDesktop = () => {
         />
         <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
       </section>
-      <div className="relative z-20 -mt-34 md:-mt-28">
+      <div className="relative z-10 -mt-34 md:-mt-28">
         <Services />
       </div>
     </>

@@ -94,17 +94,20 @@ export function CarouselContainer({
       <div className="flex items-center justify-center min-h-[500px] relative overflow-hidden">
         <AnimatePresence mode="wait">
           {getVisibleCards().map(
-            ({
-              psychologist,
-              isActive,
-              isPrev,
-              isNext,
-              isFarLeft,
-              isFarRight,
-              position,
-            }) => (
+            (
+              {
+                psychologist,
+                isActive,
+                isPrev,
+                isNext,
+                isFarLeft,
+                isFarRight,
+                position,
+              },
+              index
+            ) => (
               <motion.div
-                key={`${psychologist.name}-${currentIndex}`}
+                key={index}
                 initial={{
                   opacity: 0,
                   x: position * 150,
@@ -122,7 +125,7 @@ export function CarouselContainer({
                   scale: 0.6,
                 }}
                 transition={{
-                  duration: 0.4,
+                  duration: 0.6,
                   ease: "easeInOut",
                 }}
                 className="absolute"
@@ -132,8 +135,8 @@ export function CarouselContainer({
                   isActive={isActive}
                   isPrev={isPrev}
                   isNext={isNext}
-                //   isFarLeft={isFarLeft}
-                //   isFarRight={isFarRight}
+                  //   isFarLeft={isFarLeft}
+                  //   isFarRight={isFarRight}
                   onBookNow={onBookNow}
                 />
               </motion.div>

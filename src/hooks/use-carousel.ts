@@ -9,7 +9,7 @@ interface UseCarouselProps {
 
 export function useCarousel({
   totalItems,
-  autoPlayInterval = 3000,
+  autoPlayInterval = 4000,
 }: UseCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);

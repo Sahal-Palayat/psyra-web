@@ -45,7 +45,7 @@ const Navbar = () => {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1200px] h-[60px] md:h-[74px] z-50 transition-all duration-300 rounded-[20px] backdrop-blur-sm ${
+        className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1200px] h-[60px] md:h-[74px] z-30 transition-all duration-300 rounded-[20px] backdrop-blur-sm ${
           isScrolled ? "bg-[rgba(255,255,255,0.5)] shadow-md" : "bg-transparent"
         }`}
       >
