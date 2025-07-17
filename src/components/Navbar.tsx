@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import Logo from "../../public/Psyra Logo Color-05.svg";
+import Logo from "../../public/2Psyra Logo Color-05.svg";
 import Logo1 from "../../public/Psyra Logo White-04.svg";
 import Modal from "./Modal";
 
