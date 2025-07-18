@@ -277,6 +277,7 @@ export function BookingModal({
                         }
                       }}
                       allTimeSlots={ALL_TIME_SLOTS}
+                      bookedSlots={bookedSlots}
                     />
                   </div>
                 )}
