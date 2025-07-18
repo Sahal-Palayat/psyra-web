@@ -2,14 +2,10 @@
 
 import { CardProps } from "@/types/psychologist";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { PsychologistModal } from "../Modal/PsychologistModal";
 
 export function PsychologistCard({
   psychologist,
   isActive,
-  isPrev,
-  isNext,
   onBookNow,
 }: CardProps) {
   console.log("PsychologistCard - Psychologist:", psychologist);

@@ -14,7 +14,7 @@ export function CarouselStats() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto"
+      className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto px-4"
     >
       {stats.map((stat, index) => (
         <div key={index} className="text-center p-6 bg-white rounded-lg shadow-sm">

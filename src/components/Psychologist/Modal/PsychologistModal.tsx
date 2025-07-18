@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import {
@@ -84,21 +84,6 @@ export function PsychologistModal({
     onClose();
   };
 
-  const getStepTitle = () => {
-    switch (step) {
-      case 1:
-        return "Select Date & Time";
-      case 2:
-        return "Your Details";
-      case 3:
-        return "Payment";
-      case 4:
-        return "Confirmation";
-      default:
-        return "";
-    }
-  };
-
   const canProceedFromStep1 = () => {
     return bookingData.date && bookingData.timeSlot;
   };
@@ -125,8 +110,6 @@ export function PsychologistModal({
       modeOfTherapy,
       issue,
       agreeToTerms,
-      sessionType,
-      packageTitle,
       date,
       timeSlot,
     } = bookingData;
@@ -142,11 +125,11 @@ export function PsychologistModal({
       phone,
       age,
       modeOfTherapy,
-      psychologistId:data?._id,
+      psychologistId: data?._id,
       issue,
       agreeToTerms,
-      sessionType:"individual test",
-      packageTitle:"Single session",
+      sessionType: "individual test",
+      packageTitle: "Single session",
       date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
       timeSlot,
     };

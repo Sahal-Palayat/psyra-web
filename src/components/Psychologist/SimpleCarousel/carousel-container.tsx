@@ -100,8 +100,6 @@ export function CarouselContainer({
                 isActive,
                 isPrev,
                 isNext,
-                isFarLeft,
-                isFarRight,
                 position,
               },
               index

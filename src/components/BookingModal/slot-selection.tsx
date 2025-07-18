@@ -35,9 +35,11 @@ export function SlotSelection({
     if (bookingData.date) {
       const formattedDate = format(bookingData.date, "yyyy-MM-dd");
       // Filter booked slots for the selected date
-      const bookedForThisDate = bookedSlots?
-        .filter((slot:BookedSlot) => slot.date === formattedDate)
-        .map((slot:BookedSlot) => slot.timeSlot);
+      const bookedForThisDate = bookedSlots
+        ? bookedSlots
+            .filter((slot: BookedSlot) => slot.date === formattedDate)
+            .map((slot: BookedSlot) => slot.timeSlot)
+        : [];
 
       setBookedSlotsForDate(bookedForThisDate);
 

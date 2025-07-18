@@ -33,12 +33,17 @@ export default function PsychologistCarousel() {
   });
 
   const fetchPsychologists = async () => {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
-    );
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
+      );
 
-    console.log(response, "RESPONSEEE");
-    setData(response?.data);
+      console.log(response, "RESPONSEEE");
+      setData(response?.data);
+    } catch (error) {
+      console.log(error);
+      alert("tecnical issue");
+    }
   };
 
   useEffect(() => {
@@ -53,7 +58,7 @@ export default function PsychologistCarousel() {
   }, []);
 
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-16 bg-white overflow-hidden" id="psychologists">
       <div className="container mx-auto">
         <CarouselHeader />
 

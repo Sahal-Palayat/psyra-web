@@ -9,10 +9,9 @@ interface UseCarouselProps {
 
 export function useCarousel({
   totalItems,
-  autoPlayInterval = 100000,
+  autoPlayInterval = 60000,
 }: UseCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Clear existing interval
@@ -25,13 +24,13 @@ export function useCarousel({
 
   // Start auto play
   const startAutoPlay = useCallback(() => {
-    if (!isAutoPlay || totalItems <= 1) return;
+    if (totalItems <= 1) return;
 
     clearAutoPlay();
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % totalItems);
     }, autoPlayInterval);
-  }, [isAutoPlay, totalItems, autoPlayInterval, clearAutoPlay]);
+  }, [totalItems, autoPlayInterval, clearAutoPlay]);
 
   // Auto play effect
   useEffect(() => {
@@ -42,33 +41,22 @@ export function useCarousel({
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % totalItems);
     // Reset auto play timer when user interacts
-    if (isAutoPlay) {
-      startAutoPlay();
-    }
-  }, [totalItems, isAutoPlay, startAutoPlay]);
+  }, [totalItems, startAutoPlay]);
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + totalItems) % totalItems);
-    // Reset auto play timer when user interacts
-    if (isAutoPlay) {
-      startAutoPlay();
-    }
-  }, [totalItems, isAutoPlay, startAutoPlay]);
+  }, [totalItems, startAutoPlay]);
 
   const goToSlide = useCallback(
     (index: number) => {
       setCurrentIndex(index);
       // Reset auto play timer when user interacts
-      if (isAutoPlay) {
-        startAutoPlay();
-      }
     },
-    [isAutoPlay, startAutoPlay]
+    [startAutoPlay]
   );
 
   return {
     currentIndex,
-    isAutoPlay,
     nextSlide,
     prevSlide,
     goToSlide,
