@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import {
+  BookedSlot,
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
@@ -16,6 +17,7 @@ export function PsychologistModal({
   data,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
+  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
     email: "",
@@ -27,13 +29,38 @@ export function PsychologistModal({
     sessionType: "",
   });
 
+  const fetchBookedSlots = async (date: string) => {
+    try {
+      // Convert the string to a Date object
+      const selectedDate = new Date(date);
 
-  console.log(data,"DARASLL");
-  
+      // Subtract one day
+      selectedDate.setDate(selectedDate.getDate() + 1);
+
+      // Convert back to YYYY-MM-DD string
+      const adjustedDate = selectedDate.toISOString().split("T")[0];
+
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking?date=${adjustedDate}&psychologistId=${data?._id}`
+      );
+
+      // console.log("Adjusted Date (1 day less):", adjustedDate);
+      // console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
+
+      setBookedSlot(res?.data);
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
+
+  console.log(bookedSlots, "BOOKKEDD BOKKEEDD");
+
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     console.log(data, "DATA IN UPDATE");
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
+
+  console.log(data, "PSYCHOLOGISIIS");
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -115,10 +142,11 @@ export function PsychologistModal({
       phone,
       age,
       modeOfTherapy,
+      psychologistId:data?._id,
       issue,
       agreeToTerms,
-      sessionType,
-      packageTitle,
+      sessionType:"individual test",
+      packageTitle:"Single session",
       date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
       timeSlot,
     };
@@ -127,7 +155,7 @@ export function PsychologistModal({
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`,
         variable
       ); // Update endpoint if needed
 
@@ -163,7 +191,7 @@ export function PsychologistModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-70 overflow-hidden">
+    <div className="fixed inset-0 z-99 overflow-hidden">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 transition-opacity"
@@ -231,8 +259,15 @@ export function PsychologistModal({
                     <SlotSelection
                       bookingData={bookingData}
                       onUpdate={(data) => {
+                        if (data?.date) {
+                          fetchBookedSlots(
+                            data?.date?.toISOString().split("T")[0]
+                          );
+                        }
                         updateBookingData(data);
                       }}
+                      allTimeSlots={data?.monthlySlots}
+                      bookedSlots={bookedSlots}
                     />
                   </div>
                 )}

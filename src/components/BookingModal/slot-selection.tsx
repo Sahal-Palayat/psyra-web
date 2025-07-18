@@ -17,19 +17,27 @@ interface SlotSelectionProps {
   bookingData: BookingData;
   onUpdate: (data: Partial<BookingData>) => void;
   bookedSlots?: BookedSlot[]; // Backend data for booked slots
+  allTimeSlots: string[];
 }
 
-export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
+export function SlotSelection({
+  bookingData,
+  onUpdate,
+  allTimeSlots,
+  bookedSlots,
+}: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
-  const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
+  // const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+
+  console.log(bookedSlots, "BOOKEDDD SLOTSS");
 
   useEffect(() => {
     if (bookingData.date) {
       const formattedDate = format(bookingData.date, "yyyy-MM-dd");
       // Filter booked slots for the selected date
-      const bookedForThisDate = bookedSlots
-        .filter((slot) => slot.date === formattedDate)
-        .map((slot) => slot.timeSlot);
+      const bookedForThisDate = bookedSlots?
+        .filter((slot:BookedSlot) => slot.date === formattedDate)
+        .map((slot:BookedSlot) => slot.timeSlot);
 
       setBookedSlotsForDate(bookedForThisDate);
 
@@ -44,30 +52,6 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
     }
   }, [bookingData.date, bookedSlots]);
 
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      // Convert the string to a Date object
-      const selectedDate = new Date(date);
-
-      // Subtract one day
-      selectedDate.setDate(selectedDate.getDate() + 1);
-
-      // Convert back to YYYY-MM-DD string
-      const adjustedDate = selectedDate.toISOString().split("T")[0];
-
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
-      );
-
-      console.log("Adjusted Date (1 day less):", adjustedDate);
-      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
-
-      setBookedSlot(res?.data?.data);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
-    }
-  };
-
   const handleDateSelect = (date: Date) => {
     // Scroll to slot selection when date is updated (especially in mobile)
     if (window.innerWidth < 768) {
@@ -81,7 +65,6 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       }, 150); // short delay for DOM to update
     }
     onUpdate({ date, timeSlot: "" });
-    fetchBookedSlots(date.toISOString().split("T")[0]);
   };
 
   const handleTimeSelect = (timeSlot: string) => {
@@ -181,8 +164,8 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   //   return null;
   // };
 
-  const unavailableSlots = ALL_TIME_SLOTS.filter(
-    (slot) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
+  const unavailableSlots = allTimeSlots.filter(
+    (slot: string) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
   );
 
   return (
@@ -237,7 +220,7 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
             className="bg-[#B6E5DF]/10 rounded-lg p-3 sm:p-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto"
           >
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
-              {ALL_TIME_SLOTS.map((slot) => (
+              {allTimeSlots?.map((slot) => (
                 <button
                   key={slot}
                   type="button"

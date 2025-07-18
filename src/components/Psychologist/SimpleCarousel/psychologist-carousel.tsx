@@ -8,8 +8,17 @@ import { CarouselContainer } from "./carousel-container";
 import { CarouselControls } from "./carousel-controls";
 import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
+import { PsychologistModal } from "../Modal/PsychologistModal";
 
 export default function PsychologistCarousel() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [psychologist, setPsychologist] = useState<Psychologist>({
+    _id: "",
+    name: "",
+    specialization: "",
+    monthlySlots: [],
+    imageUrl: "",
+  });
   const [data, setData] = useState<Psychologist[]>([
     {
       _id: "",
@@ -38,13 +47,14 @@ export default function PsychologistCarousel() {
 
   const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name);
+    setIsModalOpen(true);
+    setPsychologist(psychologist);
     // Add your booking logic here
   }, []);
-  
 
   return (
     <section className="py-16 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <CarouselHeader />
 
         <CarouselContainer
@@ -63,6 +73,11 @@ export default function PsychologistCarousel() {
 
         <CarouselStats />
       </div>
+      <PsychologistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={psychologist}
+      />
     </section>
   );
 }

@@ -91,7 +91,7 @@ export function CarouselContainer({
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-center min-h-[500px] relative overflow-hidden">
+      <div className="flex items-center justify-center min-h-[350px] relative overflow-hidden">
         <AnimatePresence mode="wait">
           {getVisibleCards().map(
             (

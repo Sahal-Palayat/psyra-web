@@ -13,7 +13,6 @@ export function PsychologistCard({
   onBookNow,
 }: CardProps) {
   console.log("PsychologistCard - Psychologist:", psychologist);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!psychologist) {
     return (
@@ -43,7 +42,7 @@ export function PsychologistCard({
                   "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
                 }
                 alt="ALTERNATIVE IMAGE"
-                className="w-40 h-50 object-cover rounded-full relative z-10"
+                className="w-50 h-50 object-cover rounded-full relative z-10"
               />
 
               {/* Image in the front */}
@@ -62,7 +61,6 @@ export function PsychologistCard({
             {isActive && (
               <motion.button
                 onClick={() => {
-                  setIsModalOpen(true);
                   onBookNow(psychologist);
                 }}
                 whileHover={{ scale: 1.05 }}
@@ -75,11 +73,6 @@ export function PsychologistCard({
           </div>
         </div>
       </div>
-      <PsychologistModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        data={psychologist}
-      />
     </>
   );
 }

@@ -1,7 +1,12 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
-import type { BookingModalProps, BookingData } from "./types";
+import {
+  type BookingModalProps,
+  type BookingData,
+  ALL_TIME_SLOTS,
+  BookedSlot,
+} from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
 import axios from "axios";
@@ -13,6 +18,7 @@ export function BookingModal({
   packageTitle,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
+  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
     email: "",
@@ -38,6 +44,30 @@ export function BookingModal({
     console.log(data, "DATA IN UPDATE");
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
+
+  const fetchBookedSlots = async (date: string) => {
+    try {
+      // Convert the string to a Date object
+      const selectedDate = new Date(date);
+
+      // Subtract one day
+      selectedDate.setDate(selectedDate.getDate() + 1);
+
+      // Convert back to YYYY-MM-DD string
+      const adjustedDate = selectedDate.toISOString().split("T")[0];
+
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
+      );
+
+      console.log("Adjusted Date (1 day less):", adjustedDate);
+      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
+
+      setBookedSlot(res?.data?.data);
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -240,7 +270,13 @@ export function BookingModal({
                       bookingData={bookingData}
                       onUpdate={(data) => {
                         updateBookingData(data);
+                        if (data?.date) {
+                          fetchBookedSlots(
+                            data?.date?.toISOString().split("T")[0]
+                          );
+                        }
                       }}
+                      allTimeSlots={ALL_TIME_SLOTS}
                     />
                   </div>
                 )}
