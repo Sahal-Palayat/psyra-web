@@ -3,15 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import {
-  ALL_TIME_SLOTS,
-  BookedSlot,
-  BookingData,
-  TherapyBooking,
-} from "./types";
-import axios from "axios";
-// import type { BookingData, BookedSlot } from "../../types/booking"
-// import { ALL_TIME_SLOTS } from "../../types/booking"
+import { BookedSlot, BookingData } from "./types";
 
 interface SlotSelectionProps {
   bookingData: BookingData;
