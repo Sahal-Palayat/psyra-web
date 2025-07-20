@@ -6,7 +6,7 @@ import { useCarousel } from "@/hooks/use-carousel";
 import { CarouselHeader } from "./carousel-header";
 import { CarouselContainer } from "./carousel-container";
 import { CarouselControls } from "./carousel-controls";
-import { CarouselStats } from "./carousel-stats";
+// import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
 import { PsychologistModal } from "../Modal/PsychologistModal";
 
@@ -76,7 +76,7 @@ export default function PsychologistCarousel() {
           onDotClick={goToSlide}
         />
 
-        <CarouselStats />
+        {/* <CarouselStats /> */}
       </div>
       <PsychologistModal
         isOpen={isModalOpen}

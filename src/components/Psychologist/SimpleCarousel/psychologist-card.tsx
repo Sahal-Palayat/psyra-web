@@ -46,7 +46,7 @@ export function PsychologistCard({
           </div>
           <div className="flex flex-col items-center justify-center text-center mt-6">
             <>
-              <h2 className="text-lg sm:text-xl font-bold text-teal mb-1">
+              <h2 className="text-lg sm:text-xl font-bold text-teal">
                 {psychologist.name || "Unknown Doctor"}
               </h2>
 

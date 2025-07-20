@@ -4,11 +4,11 @@ import { motion } from "framer-motion"
 
 export function CarouselHeader() {
   return (
-    <div className="text-center mb-12">
+    <div className="text-center mb-8">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4"
+        className="text-3xl sm:text-4xl font-bold text-teal-800 mb-4"
       >
         Meet Our Expert Psychologists
       </motion.h2>
