@@ -1,17 +1,16 @@
 "use client";
 import React from "react";
 // import HeroIndividual from "../individual/HeroIndividual";
-import Packages from "../individual/Packages";
-import sampleImage from "../../../public/Couple Packages 1.jpg";
-import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
-import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
+// import sampleImage from "../../../public/Couple Packages 1.jpg";
+// import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
+// import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
 import Faq from "../Faq";
+import HeroPackages from "../individual/HeroPackage";
 
 const CoupleIndex = () => {
   const couplePackages = [
     {
       type: "couple",
-      img: sampleImage, // Replace with actual image import
       title: "Single Session (1 Session - ₹1499)",
       tagline: "Reconnect and Reflect",
       list: [
@@ -25,7 +24,6 @@ const CoupleIndex = () => {
     },
     {
       type: "couple",
-      img: sampleImage2, // Replace with actual image import
       title: "Harmony Package (5 Sessions - ₹1399 per session)",
       tagline: "Build a Stronger Connection",
       list: [
@@ -34,12 +32,11 @@ const CoupleIndex = () => {
         "Work through challenges as a team",
         "Strengthen your emotional bond",
       ],
-      price: "₹6,995", 
+      price: "₹6,995",
       cta: "Invest in Your Relationship",
     },
     {
       type: "couple",
-      img: sampleImage3, // Replace with actual image import
       title: "Lasting Love Package (10 Sessions - ₹1249 per session)",
       tagline: "Deepen Your Relationship",
       list: [
@@ -48,7 +45,7 @@ const CoupleIndex = () => {
         "Address underlying issues with professional guidance",
         "Foster long-term harmony and growth",
       ],
-      price: "₹12,490", 
+      price: "₹12,490",
       cta: "Create Lasting Love",
     },
   ];
@@ -56,7 +53,7 @@ const CoupleIndex = () => {
   return (
     <div>
       {/* <HeroIndividual /> */}
-      <Packages data={couplePackages} />
+      <HeroPackages data={couplePackages} />
       <Faq />
     </div>
   );

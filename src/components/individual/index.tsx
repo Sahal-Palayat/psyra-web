@@ -1,16 +1,16 @@
 "use client";
 import Packages from "./Packages";
 // import HeroIndividual from "./HeroIndividual";
-import individual from "../../../public/Packages 2.jpg";
-import individual1 from "../../../public/Packages 1.jpg";
-import individual2 from "../../../public/Packages 3.jpg";
+// import individual from "../../../public/Packages 2.jpg";
+// import individual1 from "../../../public/Packages 1.jpg";
+// import individual2 from "../../../public/Packages 3.jpg";
 import Faq from "../Faq";
+import HeroPackages from "./HeroPackage";
 
 export default function Individual() {
   const individualTypes = [
     {
       type: "individual",
-      img: individual, // Replace with actual image import
       title: "Single Session (1 Session - ₹999)",
       tagline: "Discover Clarity",
       list: [
@@ -24,7 +24,6 @@ export default function Individual() {
     },
     {
       type: "individual",
-      img: individual2, // Replace with actual image import
       title: "Growth Package (5 Sessions - ₹899 per session)",
       tagline: "Deepen Your Healing",
       list: [
@@ -38,7 +37,6 @@ export default function Individual() {
     },
     {
       type: "individual",
-      img: individual1, // Replace with actual image import
       title: "Transformation Package (10 Sessions - ₹849 per session)",
       tagline: "Transform Your Mindset",
       list: [
@@ -54,7 +52,8 @@ export default function Individual() {
   return (
     <div className="flex flex-col min-h-screen bg-9EE0D6">
       {/* <HeroIndividual /> */}
-      <Packages data={individualTypes} />
+      <HeroPackages data={individualTypes} />
+      {/* <Packages data={individualTypes} /> */}
       <Faq />
     </div>
   );

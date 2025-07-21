@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
 import { BookingModal } from "../BookingModal/bookingModal";
 
-interface PackageItem {
+export interface PackageItem {
   type: string;
   img: StaticImageData;
   title: string;
