@@ -151,45 +151,56 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 right-0 h-full w-full bg-[#9EE0D6] z-40 flex flex-col p-6 pt-24"
+            className="fixed top-0 right-0 h-full w-full bg-teal-600 z-40 flex flex-col p-6 pt-24"
           >
+            {/* ❌ Close Icon */}
+            <button
+              onClick={toggleMenu}
+              className="absolute top-6 right-6 text-white hover:text-gray-200 transition"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Navigation Links */}
             <div className="flex flex-col space-y-6">
               <Link
                 href="/"
-                className="text-white text-lg font-medium hover:text-white"
+                className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
               <Link
                 href="#about"
-                className="text-white text-lg font-medium hover:text-white"
+                className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
                 About us
               </Link>
               <Link
                 href="#services"
-                className="text-white text-lg font-medium hover:text-white"
+                className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
                 Services
               </Link>
               <Link
-                href="/blog"
-                className="text-white text-lg font-medium hover:text-white"
+                href="#psychologists"
+                className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
-                Blog
+                Therapists
               </Link>
               <Link
                 href="#contact"
-                className="text-white text-lg font-medium hover:text-white"
+                className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
                 Contact us
               </Link>
             </div>
+
+            {/* CTA Button */}
             <div className="mt-auto">
               <button
                 onClick={() => setIsModalOpen(true)}
