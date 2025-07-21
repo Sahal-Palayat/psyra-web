@@ -51,21 +51,6 @@ export interface BookedSlot {
   timeSlot: string; // Format: "12:00 AM - 01:00 AM"
 }
 
-export interface TherapyBooking {
-  name: string;
-  age: string; // You can change this to `number` if you plan to validate/convert it
-  email: string;
-  phone: string;
-  date: string; // ISO date string format
-  timeSlot: string;
-  issue: string;
-  otherIssue: string | null;
-  sessionType: string;
-  modeOfTherapy: string;
-  packageTitle: string;
-  agreeToTerms: boolean;
-}
-
 export const THERAPY_MODES = ["Video Call", "Audio Call", "Chat"];
 
 export const THERAPY_ISSUES = [

@@ -50,6 +50,8 @@ export function useCarousel({
   const goToSlide = useCallback(
     (index: number) => {
       setCurrentIndex(index);
+      console.log("RAFNASNALSKALSJKAL");
+      
       // Reset auto play timer when user interacts
     },
     [startAutoPlay]

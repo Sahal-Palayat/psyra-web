@@ -76,12 +76,12 @@ export function CarouselContainer({
         return 1; // Active card
       case -1:
       case 1:
-        return 0.8; // Adjacent cards
+        return 1; // Adjacent cards
       case -2:
       case 2:
-        return 0.5; // Far cards
+        return 1; // Far cards
       default:
-        return 0.5;
+        return 1;
     }
   };
 
@@ -94,16 +94,7 @@ export function CarouselContainer({
       <div className="flex items-center justify-center min-h-[350px] relative overflow-hidden">
         <AnimatePresence mode="wait">
           {getVisibleCards().map(
-            (
-              {
-                psychologist,
-                isActive,
-                isPrev,
-                isNext,
-                position,
-              },
-              index
-            ) => (
+            ({ psychologist, isActive, isPrev, isNext, position }, index) => (
               <motion.div
                 key={index}
                 initial={{

@@ -1,5 +1,5 @@
 export interface Psychologist {
-  _id:string;
+  _id: string;
   name: string;
   specialization: string;
   monthlySlots: string[];
@@ -15,6 +15,6 @@ export interface CardProps {
 }
 
 export interface CarouselState {
-  currentIndex: number
-  isAutoPlay: boolean
+  currentIndex: number;
+  isAutoPlay: boolean;
 }

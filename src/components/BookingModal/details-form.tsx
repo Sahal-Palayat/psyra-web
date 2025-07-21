@@ -2,8 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { BookingData } from "./types";
 import type React from "react";
-import { THERAPY_MODES, THERAPY_ISSUES } from "./types";
-import { SESSION_TYPE } from "./types";
+import { THERAPY_MODES, THERAPY_ISSUES, SESSION_TYPE } from "./types";
 
 interface DetailsFormProps {
   bookingData: BookingData;
@@ -20,6 +19,7 @@ interface ValidationErrors {
 export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,61 +27,36 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   }, []);
 
   const validateName = (name: string): string | undefined => {
-    if (!name.trim()) {
-      return "Full name is required";
-    }
-    if (name.trim().length < 2) {
+    if (!name.trim()) return "Full name is required";
+    if (name.trim().length < 2)
       return "Name must be at least 2 characters long";
-    }
-    if (name.trim().length > 50) {
-      return "Name must not exceed 50 characters";
-    }
-    if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+    if (name.trim().length > 50) return "Name must not exceed 50 characters";
+    if (!/^[a-zA-Z\s]+$/.test(name.trim()))
       return "Name should only contain letters and spaces";
-    }
     return undefined;
   };
 
   const validateEmail = (email: string): string | undefined => {
-    if (!email.trim()) {
-      return "Email is required";
-    }
+    if (!email.trim()) return "Email is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return "Please enter a valid email address";
-    }
+    if (!emailRegex.test(email)) return "Please enter a valid email address";
     return undefined;
   };
 
   const validatePhone = (phone: string): string | undefined => {
-    if (!phone.trim()) {
-      return "Phone number is required";
-    }
-    // Remove any non-digit characters for validation
+    if (!phone.trim()) return "Phone number is required";
     const digitsOnly = phone.replace(/\D/g, "");
-    if (digitsOnly.length !== 10) {
+    if (digitsOnly.length !== 10)
       return "Phone number must be exactly 10 digits";
-    }
-    if (!/^\d{10}$/.test(digitsOnly)) {
-      return "Phone number should only contain digits";
-    }
     return undefined;
   };
 
   const validateAge = (age: string): string | undefined => {
-    if (!age.trim()) {
-      return "Age is required";
-    }
+    if (!age.trim()) return "Age is required";
     const ageNum = Number.parseInt(age);
-    if (isNaN(ageNum)) {
-      return "Age must be a valid number";
-    }
-    if (ageNum < 18) {
-      return "Age must be at least 18 years";
-    }
-    if (ageNum > 120) {
-      return "Please enter a valid age";
-    }
+    if (isNaN(ageNum)) return "Age must be a valid number";
+    if (ageNum < 18) return "Age must be at least 18 years";
+    if (ageNum > 120) return "Please enter a valid age";
     return undefined;
   };
 
@@ -91,12 +66,9 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
     const { name, value, type } = e.target;
     let processedValue = value;
 
-    // Special handling for phone number - only allow digits
     if (name === "phone") {
       processedValue = value.replace(/\D/g, "").slice(0, 10);
     }
-
-    // Special handling for age - only allow digits
     if (name === "age") {
       processedValue = value.replace(/\D/g, "").slice(0, 3);
     }
@@ -108,7 +80,6 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
       onUpdate({ [name]: processedValue });
     }
 
-    // Validate on change
     validateField(name, processedValue);
   };
 
@@ -120,7 +91,6 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
   const validateField = (fieldName: string, value: string) => {
     let error: string | undefined;
-
     switch (fieldName) {
       case "name":
         error = validateName(value);
@@ -135,45 +105,113 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
         error = validateAge(value);
         break;
     }
-
-    setErrors((prev) => ({
-      ...prev,
-      [fieldName]: error,
-    }));
-  };
-
-  const isFormValid = () => {
-    const hasNoErrors = Object.values(errors).every((error) => !error);
-    const allFieldsFilled =
-      bookingData.name &&
-      bookingData.email &&
-      bookingData.phone &&
-      bookingData.age &&
-      bookingData.modeOfTherapy &&
-      bookingData.issue &&
-      bookingData.agreeToTerms;
-
-    return hasNoErrors && allFieldsFilled;
+    setErrors((prev) => ({ ...prev, [fieldName]: error }));
   };
 
   const getInputClassName = (fieldName: string) => {
     const baseClass =
-      "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent transition-colors";
+      "w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent transition-all duration-200 bg-white";
     const hasError =
       touched[fieldName] && errors[fieldName as keyof ValidationErrors];
-
     return `${baseClass} ${
-      hasError ? "border-red-300 focus:ring-red-200" : "border-gray-300"
+      hasError
+        ? "border-red-300 focus:ring-red-200"
+        : "border-gray-200 hover:border-[#B6E5DF]"
     }`;
   };
+
+  const CustomSelect = ({
+    label,
+    value,
+    options,
+    placeholder,
+    name,
+    required = false,
+  }: {
+    label: string;
+    value: string;
+    options: string[];
+    placeholder: string;
+    name: string;
+    required?: boolean;
+  }) => {
+    const isOpen = openDropdown === name;
+
+    return (
+      <div className="space-y-2">
+        <label className="block text-[#005657] font-medium">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setOpenDropdown(isOpen ? null : name)}
+            className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent transition-all duration-200 bg-white text-left flex items-center justify-between ${
+              value ? "text-gray-900" : "text-gray-500"
+            } border-gray-200 hover:border-[#B6E5DF]`}
+          >
+            <span className="truncate">{value || placeholder}</span>
+            <svg
+              className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          {isOpen && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto">
+              {options.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => {
+                    onUpdate({ [name]: option });
+                    setOpenDropdown(null);
+                  }}
+                  className={`w-full px-4 py-3 text-left hover:bg-[#B6E5DF]/10 transition-colors duration-150 ${
+                    value === option
+                      ? "bg-[#B6E5DF]/20 text-[#005657] font-medium"
+                      : "text-gray-700"
+                  } first:rounded-t-xl last:rounded-b-xl`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown && !(event.target as Element).closest(".relative")) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openDropdown]);
 
   return (
     <div ref={formRef} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-4">
+        <div className="space-y-2">
           <div className="space-y-2">
             <label htmlFor="name" className="block text-[#005657] font-medium">
-              Full Name *
+              Full Name <span className="text-red-500">*</span>
             </label>
             <input
               id="name"
@@ -207,7 +245,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
           <div className="space-y-2">
             <label htmlFor="email" className="block text-[#005657] font-medium">
-              Email *
+              Email Address <span className="text-red-500">*</span>
             </label>
             <input
               id="email"
@@ -242,7 +280,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
           <div className="space-y-2">
             <label htmlFor="phone" className="block text-[#005657] font-medium">
-              Phone Number *
+              Phone Number <span className="text-red-500">*</span>
             </label>
             <input
               id="phone"
@@ -250,7 +288,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               value={bookingData.phone}
               onChange={handleInputChange}
               onBlur={handleBlur}
-              placeholder="Enter Your Phone number"
+              placeholder="Enter your phone number"
               required
               maxLength={10}
               className={getInputClassName("phone")}
@@ -277,7 +315,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
           <div className="space-y-2">
             <label htmlFor="age" className="block text-[#005657] font-medium">
-              Age *
+              Age <span className="text-red-500">*</span>
             </label>
             <input
               id="age"
@@ -311,75 +349,33 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label
-              htmlFor="modeOfTherapy"
-              className="block text-[#005657] font-medium"
-            >
-              Mode of Therapy *
-            </label>
-            <select
-              id="modeOfTherapy"
-              name="modeOfTherapy"
-              value={bookingData.modeOfTherapy}
-              onChange={handleInputChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent"
-            >
-              <option value="">Select therapy mode</option>
-              {THERAPY_MODES.map((mode) => (
-                <option key={mode} value={mode}>
-                  {mode}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="space-y-2">
+          <CustomSelect
+            label="Mode of Therapy"
+            value={bookingData.modeOfTherapy}
+            options={THERAPY_MODES}
+            placeholder="Select therapy mode"
+            name="modeOfTherapy"
+            required
+          />
 
-          <div className="space-y-2">
-            <label htmlFor="issue" className="block text-[#005657] font-medium">
-              Primary Issue/Concern *
-            </label>
-            <select
-              id="issue"
-              name="issue"
-              value={bookingData.issue}
-              onChange={handleInputChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent"
-            >
-              <option value="">Select your primary concern</option>
-              {THERAPY_ISSUES.map((issue) => (
-                <option key={issue} value={issue}>
-                  {issue}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CustomSelect
+            label="Primary Issue/Concern"
+            value={bookingData.issue}
+            options={THERAPY_ISSUES}
+            placeholder="Select your primary concern"
+            name="issue"
+            required
+          />
 
-          <div className="space-y-2">
-            <label
-              htmlFor="sessionType"
-              className="block text-[#005657] font-medium"
-            >
-              Session Type *
-            </label>
-            <select
-              id="sessionType"
-              name="sessionType"
-              value={bookingData.sessionType}
-              onChange={handleInputChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent"
-            >
-              <option value="">Select your session type</option>
-              {SESSION_TYPE.map((issue: string) => (
-                <option key={issue} value={issue}>
-                  {issue}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CustomSelect
+            label="Session Type"
+            value={bookingData.sessionType}
+            options={SESSION_TYPE}
+            placeholder="Select your session type"
+            name="sessionType"
+            required
+          />
 
           <div className="space-y-4 pt-4">
             <div className="flex items-start space-x-3">
@@ -407,31 +403,12 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
                 >
                   Consent to Therapy
                 </a>
-                *
+                <span className="text-red-500"> *</span>
               </label>
             </div>
           </div>
         </div>
       </div>
-
-      {/* <div className="p-4 bg-[#B6E5DF]/20 rounded-md">
-        <h4 className="font-medium text-[#005657] mb-2">What happens next?</h4>
-        <ul className="text-sm text-[#005657]/80 space-y-1">
-          <li>• You will proceed to secure payment</li>
-          <li>• We will send confirmation details to your email</li>
-          <li>• Our therapist will contact you before your appointment</li>
-          <li>• You can reschedule up to 24 hours before your session</li>
-        </ul>
-      </div> */}
-
-      {!isFormValid() && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-sm text-red-600">
-            Please fill in all required fields correctly and agree to the terms
-            and conditions.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
