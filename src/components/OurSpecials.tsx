@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Comunity from "../../public/Cmmnty.png"
 import Tracking from "../../public/Tracking.png"
 import Workshop from "../../public/Workshop.png"
-import Twenrty from "../../public/24x7.png"
+import Twenrty from "../../public/Callingg.png"
 
 const OurSpecials = () => {
   const obj = [

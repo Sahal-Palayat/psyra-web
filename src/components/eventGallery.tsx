@@ -29,7 +29,7 @@ export default function EventGallery() {
     },
     {
       id: "2",
-      src: "/24x7.png",
+      src: "/Callingg.png",
       alt: "Connecting Ideas & Empowering Innovations",
       className: "col-span-1 row-span-2 md:col-span-1",
       overlay: {
