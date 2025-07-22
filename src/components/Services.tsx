@@ -43,9 +43,11 @@ const Services = () => {
       const message = encodeURIComponent(
         `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
       );
-      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "psyra.in");
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+      router.push(`https://www.psyra.in/`);
     }
-    router.push(`https://www.psyra.in`);
+    router.push(`/${item?.route}`);
+
     console.log(item);
   };
 
