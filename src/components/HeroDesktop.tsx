@@ -69,7 +69,7 @@ const HeroDesktop = () => {
               transition={{ duration: 1 }}
             >
               You are not alone,
-              <span className="text-white"> Psyra</span> is with you
+              <span className="text-white"> Psyra</span> here for you 
             </motion.p>
           </div>
         </motion.div>

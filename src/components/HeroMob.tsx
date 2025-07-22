@@ -74,7 +74,7 @@ const HeroMob = () => {
           >
             You are not alone,
             <br />
-            <span className="text-white">Psyra</span> is with you
+            <span className="text-white">Psyra</span> here for you
           </motion.p>
           <motion.div className="px-12">
             <motion.img
