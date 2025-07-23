@@ -78,11 +78,13 @@ export default function PsychologistCarousel() {
 
         {/* <CarouselStats /> */}
       </div>
-      <PsychologistModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        data={psychologist}
-      />
+      {isModalOpen && (
+        <PsychologistModal
+          isOpen={true}
+          onClose={() => setIsModalOpen(false)}
+          data={psychologist}
+        />
+      )}
     </section>
   );
 }
