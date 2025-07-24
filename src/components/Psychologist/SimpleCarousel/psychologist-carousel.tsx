@@ -9,6 +9,7 @@ import { CarouselControls } from "./carousel-controls";
 // import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
 import { PsychologistModal } from "../Modal/PsychologistModal";
+import Carousel3DMinimal from "@/components/Swiper";
 
 export default function PsychologistCarousel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function PsychologistCarousel() {
   }, []);
 
   return (
-    <section className="py-16 bg-white overflow-hidden" id="psychologists">
+    <section id="psychologists">
       <div className="container mx-auto">
         <CarouselHeader />
 
@@ -75,6 +76,7 @@ export default function PsychologistCarousel() {
           current={currentIndex}
           onDotClick={goToSlide}
         />
+        <Carousel3DMinimal data={data} />
 
         {/* <CarouselStats /> */}
       </div>

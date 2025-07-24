@@ -17,7 +17,10 @@ export default function Home() {
       {/* Why Psyra Section */}
       <AboutUs />
 
+      {/* <Carousel3DMinimal /> */}
+
       <PsychologistCarousel />
+
       {/* <CarouselCardFlip /> */}
       {/* Meet New Faces */}
       {/* <Event /> */}
