@@ -25,11 +25,6 @@ export default function Carousel3DMinimal({ data }: any) {
           },
           768: {
             slidesPerView: 3,
-            spaceBetween: -50, // Negative value to bring slides closer
-          },
-          1024: {
-            slidesPerView: 3,
-            spaceBetween: -80, // Even more negative for larger screens
           },
         }}
         coverflowEffect={{
@@ -51,7 +46,7 @@ export default function Carousel3DMinimal({ data }: any) {
         className="bg-white relative"
       >
         {data?.map((psychologist: any) => (
-          <SwiperSlide key={psychologist?._id} className="w-28">
+          <SwiperSlide key={psychologist?._id} className="w-full">
             <div className="bg-white">
               <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
                 <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
@@ -64,7 +59,7 @@ export default function Carousel3DMinimal({ data }: any) {
                         "/placeholder.svg"
                       }
                       alt="ALTERNATIVE IMAGE"
-                      className="w-50 h-50 object-cover rounded-full relative z-10"
+                      className=" object-cover rounded-full relative z-10"
                     />
                   </div>
                 </div>
