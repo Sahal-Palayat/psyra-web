@@ -21,8 +21,11 @@ export const metadata: Metadata = {
   description:
     "Professional mental health Online services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
   keywords: [
+    "online counseling",
+    "online psychology",
     "mental health",
     "therapy",
+    "online therapy",
     "counseling",
     "psychology",
     "wellness",
