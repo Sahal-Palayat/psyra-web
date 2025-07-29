@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Online Counseling Psychology",
   description:
-    "Professional mental health services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
+    "Professional mental health Online services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
   keywords: [
     "mental health",
     "therapy",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Psyra - Mental Health Support",
     description:
-      "Professional mental health services with licensed therapists and psychologists",
+      "Professional mental health Online services with licensed therapists and psychologists",
     url: "https://psyra.in", // Replace with your actual domain
     siteName: "Psyra",
     images: [
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Psyra - Mental Health Support",
     description:
-      "Professional mental health services with licensed therapists and psychologists",
+      "Professional mental health Online services with licensed therapists and psychologists",
     images: ["/og-image.png"],
   },
   robots: {
@@ -126,7 +126,7 @@ export default function RootLayout({
               url: "https://psyra.in", // Replace with your actual domain
               logo: "https://psyra.in/icon.png", // Replace with your actual domain
               description:
-                "Professional mental health services with licensed therapists and psychologists",
+                "Professional mental health Online services with licensed therapists and psychologists",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+91-88917-24199",
