@@ -6,13 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "../../public/2Psyra Logo Color-05.svg";
+import { useRouter } from "next/navigation";
 import Logo1 from "../../public/Psyra Logo White-04.svg";
-import Modal from "./Modal";
+// import Modal from "./Modal";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
 
   // Hide navbar if route includes survey/questions
@@ -32,6 +35,14 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Function to handle WhatsApp redirection
+  const handleWhatsAppRedirect = () => {
+    const phoneNumber = "+918891724199";
+    const message = encodeURIComponent(`Hi, How can i connect with you?`);
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+    router.push(`https://www.psyra.in/`);
   };
 
   // Don't render navbar if on survey/questions pages
@@ -108,7 +119,8 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <button
-            onClick={() => setIsModalOpen(true)}
+            // onClick={() => setIsModalOpen(true)}
+            onClick={() => handleWhatsAppRedirect()}
             className="hidden md:inline-block bg-white text-[#00989D] max-w-[120px] md:max-w-[152px] w-[120px] md:w-[152px] h-[36px] md:h-[40px] flex items-center justify-center rounded-full text-sm md:text-base font-medium hover:bg-gray-100 transition-all"
           >
             Get Started
@@ -203,7 +215,8 @@ const Navbar = () => {
             {/* CTA Button */}
             <div className="mt-auto">
               <button
-                onClick={() => setIsModalOpen(true)}
+                // onClick={() => setIsModalOpen(true)}
+                onClick={() => handleWhatsAppRedirect()}
                 className="bg-white text-[#00989D] w-full h-[40px] flex items-center justify-center rounded-full font-medium hover:bg-gray-100 transition-all"
               >
                 Get Started
@@ -212,11 +225,11 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         type={"getStarted"}
-      />
+      /> */}
     </>
   );
 };
