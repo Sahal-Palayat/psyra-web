@@ -164,7 +164,7 @@ export function BookingModal({
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL_NGROK}/consultation/book-slot`,
         variable
-      ); // Update endpoint if needed
+      ); // Update endpoint
 
       if (response?.status) {
         console.log("Booking successful", response.data);
