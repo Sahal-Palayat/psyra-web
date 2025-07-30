@@ -41,7 +41,7 @@ export function PsychologistModal({
       selectedDate.setDate(selectedDate.getDate() + 1);
       const adjustedDate = selectedDate.toISOString().split("T")[0];
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL_NGROK}/psychologist-booking?date=${adjustedDate}&psychologistId=${data?._id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking?date=${adjustedDate}&psychologistId=${data?._id}`
       );
       setBookedSlot(res?.data);
     } catch (error) {
@@ -137,7 +137,7 @@ export function PsychologistModal({
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL_NGROK}/psychologist-booking`,
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`,
         variable
       );
 

@@ -36,7 +36,7 @@ export default function PsychologistCarousel() {
   const fetchPsychologists = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL_NGROK}/psychologists`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
       console.log(response, "RESPONSEEE");

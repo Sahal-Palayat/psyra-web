@@ -57,7 +57,7 @@ export function BookingModal({
       const adjustedDate = selectedDate.toISOString().split("T")[0];
 
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL_NGROK}/consultation/booked-slots?date=${adjustedDate}`
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
       );
 
       console.log("Adjusted Date (1 day less):", adjustedDate);
@@ -162,7 +162,7 @@ export function BookingModal({
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL_NGROK}/consultation/book-slot`,
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
         variable
       ); // Update endpoint
 
