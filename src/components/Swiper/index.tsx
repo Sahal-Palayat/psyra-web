@@ -16,10 +16,8 @@ import {
   ChevronRight,
   Calendar,
   MapPin,
-  Star,
   Clock,
   Award,
-  Users,
 } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import { Button } from "../ui/button";
