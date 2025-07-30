@@ -76,7 +76,7 @@ export default function PsychologistCarousel() {
           current={currentIndex}
           onDotClick={goToSlide}
         />
-        <div className="sam:w-[800px] sm:mx-auto">
+        <div className="">
           <Carousel3DMinimal data={data} />
         </div>
 
