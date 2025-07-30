@@ -12,10 +12,10 @@ export default function Individual() {
     {
       type: "individual",
       title: "Single Session (1 Session - ₹999)",
-      tagline: "Discover Clarity",
+      tagline: "Start your journey",
       list: [
         "Duration: 50–60 minutes",
-        "One-on-one personalized guidance",
+        "Build rapport with your therapist",
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
@@ -25,10 +25,10 @@ export default function Individual() {
     {
       type: "individual",
       title: "Growth Package (5 Sessions - ₹899 per session)",
-      tagline: "Deepen Your Healing",
+      tagline: "Build clarity and consistency",
       list: [
         "5 guided therapy sessions",
-        "Build rapport with your therapist",
+        "Address specific issues",
         "Explore your thoughts and emotions",
         "Develop practical coping strategies",
       ],
@@ -38,12 +38,12 @@ export default function Individual() {
     {
       type: "individual",
       title: "Transformation Package (10 Sessions - ₹849 per session)",
-      tagline: "Transform Your Mindset",
+      tagline: "Deepen healing and growth-",
       list: [
         "10 comprehensive therapy sessions",
         "Holistic approach to long-term well-being",
-        "Set and achieve personal goals",
-        "Ongoing support for sustainable change",
+        "Chat through assistance",
+        "Sustained guidance",
       ],
       price: "₹8,490", // 549 x 10
       cta: "Commit to a Better You",
