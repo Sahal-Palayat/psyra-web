@@ -28,7 +28,7 @@ export default function Carousel3DFixedTiming({
 }: {
   data: Psychologist[];
 }) {
-  const swiperRef = useRef<SwiperType | null>(null);
+  const swiperRef = useRef<SwiperType | null >(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
@@ -68,7 +68,7 @@ export default function Carousel3DFixedTiming({
         }`}
       >
         <Swiper
-          ref={swiperRef} // UNCOMMENTED: Assign ref to Swiper instance
+          // ref={swiperRef} // UNCOMMENTED: Assign ref to Swiper instance
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
@@ -187,17 +187,17 @@ export default function Carousel3DFixedTiming({
                       <div className="flex-1 space-y-2 text-xs">
                         <div className="flex items-center text-gray-600">
                           <Clock className="w-3 h-3 mr-2 text-teal-500" />
-                          <span>{"5+"} years experience</span>
+                          <span>5 years experience</span>
                         </div>
 
                         <div className="flex items-center text-gray-600">
                           <MapPin className="w-3 h-3 mr-2 text-red-500" />
-                          <span>{"Online & In-person"}</span>
+                          <span>Online</span>
                         </div>
 
                         <div className="flex items-center text-gray-600">
                           <Award className="w-3 h-3 mr-2 text-purple-500" />
-                          <span>{"Licensed Therapist"}</span>
+                          <span>Licensed Therapist</span>
                         </div>
 
                         <div className="bg-white/80 rounded-lg p-2 mt-2">
