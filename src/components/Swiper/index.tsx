@@ -1,64 +1,84 @@
-"use client"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/effect-coverflow"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
-import { ChevronLeft, ChevronRight, Calendar, MapPin, Star, Clock, Award, Users } from "lucide-react"
-import { useRef, useEffect, useState } from "react"
-import { Button } from "../ui/button"
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+  Autoplay,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  MapPin,
+  Star,
+  Clock,
+  Award,
+  Users,
+} from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import type { Psychologist } from "@/types/psychologist";
 
-export default function Carousel3DFixedTiming({ data }: any) {
-  const swiperRef = useRef<any>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
+export default function Carousel3DFixedTiming({
+  data,
+}: {
+  data: Psychologist[];
+}) {
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   useEffect(() => {
     const initCarousel = () => {
-      setIsLoaded(true)
-
-      if (swiperRef.current?.swiper) {
-        swiperRef.current.swiper.autoplay.start()
-        swiperRef.current.swiper.update()
+      setIsLoaded(true);
+      if (swiperRef.current) {
+        swiperRef.current.autoplay.start();
+        swiperRef.current.update();
       }
-    }
-
-    const timer = setTimeout(initCarousel, 200)
-    return () => clearTimeout(timer)
-  }, [data])
+    };
+    const timer = setTimeout(initCarousel, 200);
+    return () => clearTimeout(timer);
+  }, [data]);
 
   // Pause/resume autoplay based on hover state
   useEffect(() => {
-    if (swiperRef.current?.swiper) {
+    if (swiperRef.current) {
       if (hoveredCard) {
-        swiperRef.current.swiper.autoplay.stop()
+        swiperRef.current.autoplay.stop();
       } else {
-        swiperRef.current.swiper.autoplay.start()
+        swiperRef.current.autoplay.start();
       }
     }
-  }, [hoveredCard])
+  }, [hoveredCard]);
 
-  const handleBookConsultation = (psychologist: any) => {
-    console.log("Booking consultation with:", psychologist.name)
+  const handleBookConsultation = (psychologist: Psychologist) => {
+    console.log("Booking consultation with:", psychologist.name);
     // Add your booking logic here
-  }
+  };
 
   return (
     <div className="relative pt-40 pb-24">
       <div
-        className={`max-w-260 mx-auto relative transition-all duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+        className={`max-w-260 mx-auto relative transition-all duration-700 ${
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
       >
         <Swiper
-          ref={swiperRef}
+          ref={swiperRef} // UNCOMMENTED: Assign ref to Swiper instance
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
           autoplay={{
-            delay: 2000, // Exactly 3 seconds
+            delay: 3000, // Reverted to 3 seconds
             disableOnInteraction: false,
-            pauseOnMouseEnter: false, // We'll handle this manually
+            pauseOnMouseEnter: false, // We'll handle this manually with hoveredCard state
             waitForTransition: true, // Wait for transition to complete
             stopOnLastSlide: false,
           }}
@@ -87,15 +107,17 @@ export default function Carousel3DFixedTiming({ data }: any) {
             clickable: true,
           }}
           onSwiper={(swiper) => {
+            // ADDED: Assign swiper instance to ref
+            swiperRef.current = swiper;
             setTimeout(() => {
-              swiper.autoplay.start()
-              swiper.update()
-            }, 100)
+              swiper.autoplay.start();
+              swiper.update();
+            }, 100);
           }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="bg-white relative"
         >
-          {data?.map((psychologist: any) => (
+          {data?.map((psychologist: Psychologist) => (
             <SwiperSlide key={psychologist?._id} className="">
               <div
                 className="flip-card-container group perspective-1000"
@@ -113,6 +135,7 @@ export default function Carousel3DFixedTiming({ data }: any) {
                             src={
                               psychologist?.imageUrl ||
                               "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
+                              "/placeholder.svg" ||
                               "/placeholder.svg" ||
                               "/placeholder.svg" ||
                               "/placeholder.svg"
@@ -145,61 +168,49 @@ export default function Carousel3DFixedTiming({ data }: any) {
                               "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
                               "/placeholder.svg" ||
                               "/placeholder.svg" ||
+                              "/placeholder.svg" ||
                               "/placeholder.svg"
                             }
                             alt={psychologist?.name || "Psychologist"}
                             className="w-14 h-14 object-cover rounded-full border border-white"
                           />
                         </div>
-                        <h3 className="text-base font-bold text-teal-800 mb-1">{psychologist.name || "Dr. Unknown"}</h3>
+                        <h3 className="text-base font-bold text-teal-800 mb-1">
+                          {psychologist.name || "Dr. Unknown"}
+                        </h3>
                         <p className="text-xs text-teal-600 font-medium">
                           {psychologist.specialization || "General Psychology"}
                         </p>
                       </div>
 
                       {/* Stats Row */}
-                      <div className="grid grid-cols-2 gap-2 mb-3">
-                        <div className="bg-white/70 rounded-lg p-2 text-center">
-                          <div className="flex items-center justify-center mb-1">
-                            <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                          </div>
-                          <div className="text-xs font-bold text-gray-800">{psychologist.rating || "4.8"}</div>
-                          <div className="text-xs text-gray-600">Rating</div>
-                        </div>
-                        <div className="bg-white/70 rounded-lg p-2 text-center">
-                          <div className="flex items-center justify-center mb-1">
-                            <Users className="w-3 h-3 text-teal-500" />
-                          </div>
-                          <div className="text-xs font-bold text-gray-800">{psychologist.patients || "200+"}</div>
-                          <div className="text-xs text-gray-600">Patients</div>
-                        </div>
-                      </div>
 
                       {/* Details */}
                       <div className="flex-1 space-y-2 text-xs">
                         <div className="flex items-center text-gray-600">
                           <Clock className="w-3 h-3 mr-2 text-teal-500" />
-                          <span>{psychologist.experience || "5+"} years experience</span>
+                          <span>{"5+"} years experience</span>
                         </div>
 
                         <div className="flex items-center text-gray-600">
                           <MapPin className="w-3 h-3 mr-2 text-red-500" />
-                          <span>{psychologist.location || "Online & In-person"}</span>
+                          <span>{"Online & In-person"}</span>
                         </div>
 
                         <div className="flex items-center text-gray-600">
                           <Award className="w-3 h-3 mr-2 text-purple-500" />
-                          <span>{psychologist.certification || "Licensed Therapist"}</span>
+                          <span>{"Licensed Therapist"}</span>
                         </div>
 
                         <div className="bg-white/80 rounded-lg p-2 mt-2">
                           <p className="text-xs text-gray-700 leading-relaxed">
-                            {psychologist.bio ||
-                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."}
+                            {
+                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."
+                            }
                           </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-1 mt-2">
+                        {/* <div className="flex flex-wrap gap-1 mt-2">
                           {(psychologist.specialties || ["Anxiety", "Depression", "Relationships"])
                             .slice(0, 3)
                             .map((specialty: string, index: number) => (
@@ -210,7 +221,7 @@ export default function Carousel3DFixedTiming({ data }: any) {
                                 {specialty}
                               </span>
                             ))}
-                        </div>
+                        </div> */}
                       </div>
 
                       {/* CTA Button */}
@@ -236,12 +247,7 @@ export default function Carousel3DFixedTiming({ data }: any) {
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.swiper?.slidePrev()
-            setTimeout(() => {
-              if (!hoveredCard) {
-                swiperRef.current?.swiper?.autoplay?.start()
-              }
-            }, 100)
+            swiperRef.current?.slidePrev(); // Simplified call
           }}
           className="absolute rounded-full left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -252,12 +258,7 @@ export default function Carousel3DFixedTiming({ data }: any) {
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.swiper?.slideNext()
-            setTimeout(() => {
-              if (!hoveredCard) {
-                swiperRef.current?.swiper?.autoplay?.start()
-              }
-            }, 100)
+            swiperRef.current?.slideNext(); // Simplified call
           }}
           className="absolute rounded-full right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -272,36 +273,30 @@ export default function Carousel3DFixedTiming({ data }: any) {
         .perspective-1000 {
           perspective: 1000px;
         }
-        
         .transform-style-preserve-3d {
           transform-style: preserve-3d;
         }
-        
         .backface-hidden {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
-        
         .rotate-y-180 {
           transform: rotateY(180deg);
         }
-        
         .flip-card-container {
           height: 320px;
           width: 100%;
           max-width: 220px;
           margin: 0 auto;
         }
-        
         .flip-card-inner {
           position: relative;
           width: 100%;
           height: 100%;
           text-align: center;
-          transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+          transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
           transform-style: preserve-3d;
         }
-        
         .flip-card-front,
         .flip-card-back {
           position: absolute;
@@ -310,20 +305,16 @@ export default function Carousel3DFixedTiming({ data }: any) {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
         }
-        
         .flip-card-back {
           transform: rotateY(180deg);
         }
-        
         .group:hover .flip-card-inner {
           transform: rotateY(180deg);
         }
-
         .swiper-button-next:after,
         .swiper-button-prev:after {
           display: none !important;
         }
-        
         .carousel-pagination .swiper-pagination-bullet {
           width: 14px !important;
           height: 14px !important;
@@ -334,19 +325,17 @@ export default function Carousel3DFixedTiming({ data }: any) {
           cursor: pointer;
           border-radius: 50%;
         }
-        
         .carousel-pagination .swiper-pagination-bullet-active {
           opacity: 1 !important;
           transform: scale(1.4);
           background: #0f766e !important;
           box-shadow: 0 0 10px rgba(13, 148, 136, 0.4);
         }
-        
         .carousel-pagination .swiper-pagination-bullet:hover {
           opacity: 0.8 !important;
           transform: scale(1.2);
         }
       `}</style>
     </div>
-  )
+  );
 }

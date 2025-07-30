@@ -1,5 +1,5 @@
 "use client";
-import Packages from "./Packages";
+// import Packages from "./Packages";
 // import HeroIndividual from "./HeroIndividual";
 // import individual from "../../../public/Packages 2.jpg";
 // import individual1 from "../../../public/Packages 1.jpg";

@@ -4,6 +4,8 @@ export interface Psychologist {
   specialization: string;
   monthlySlots: string[];
   imageUrl: string;
+  createdAt?:string;
+  updatedAt?:string;
 }
 
 export interface CardProps {
