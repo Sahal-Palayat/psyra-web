@@ -8,8 +8,6 @@ export function PsychologistCard({
   isActive,
   onBookNow,
 }: CardProps) {
-  console.log("PsychologistCard - Psychologist:", psychologist);
-
   if (!psychologist) {
     return (
       <div className="w-[280px] sm:w-[320px] h-[400px] sm:h-[440px] bg-gray-200 rounded-xl flex items-center justify-center">

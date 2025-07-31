@@ -12,7 +12,7 @@ const CoupleIndex = () => {
     {
       type: "couple",
       title: "Single Session (1 Session - ₹1499)",
-      tagline: "Reconnect and Reflect",
+      tagline: "Space to begin together",
       list: [
         "Duration: 50–60 minutes",
         "Personalized guidance for couples",
@@ -29,7 +29,7 @@ const CoupleIndex = () => {
       list: [
         "4 guided couple therapy sessions",
         "Enhance communication and mutual understanding",
-        "Work through challenges as a team",
+        "resolve conflicts",
         "Strengthen your emotional bond",
       ],
       price: "₹6,995",
@@ -38,12 +38,12 @@ const CoupleIndex = () => {
     {
       type: "couple",
       title: "Lasting Love Package (10 Sessions - ₹1249 per session)",
-      tagline: "Deepen Your Relationship",
+      tagline: "Grow together deeply.",
       list: [
+        "In depth work on deeper relationship pattrens",
         "10 comprehensive couple therapy sessions",
         "Develop lasting communication skills",
-        "Address underlying issues with professional guidance",
-        "Foster long-term harmony and growth",
+        "Regualr progress tracking and feedback",
       ],
       price: "₹12,490",
       cta: "Create Lasting Love",

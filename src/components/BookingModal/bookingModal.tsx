@@ -180,7 +180,7 @@ export function BookingModal({
         Looking forward to your confirmation. Thank you!`
         );
         resetAndClose();
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+        window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
         alert("Technincal issue");
       }

@@ -110,7 +110,8 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
   const getInputClassName = (fieldName: string) => {
     const baseClass =
-      "w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent transition-all duration-200 bg-white";
+      "w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B6E5DF] focus:border-transparent transition-all duration-200 bg-white text-black";
+
     const hasError =
       touched[fieldName] && errors[fieldName as keyof ValidationErrors];
     return `${baseClass} ${
@@ -290,7 +291,6 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               onBlur={handleBlur}
               placeholder="Enter your phone number"
               required
-              maxLength={10}
               className={getInputClassName("phone")}
             />
             {touched.phone && errors.phone && (

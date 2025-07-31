@@ -62,14 +62,14 @@ const HeroDesktop = () => {
             </motion.div> */}
 
             <motion.p
-              className="font-bold text-[#9EE0D6] text-[42px] leading-none"
+              className="font-bold text-[#9EE0D6] text-[40px] leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 1 }}
             >
               You are not alone,
-              <span className="text-white"> Psyra</span> is with you
+              <span className="text-white"> Psyra</span> is here for you 
             </motion.p>
           </div>
         </motion.div>

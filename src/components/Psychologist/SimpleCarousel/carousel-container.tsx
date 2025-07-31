@@ -21,9 +21,6 @@ export function CarouselContainer({
   onPrevious,
   onNext,
 }: CarouselContainerProps) {
-  console.log("CarouselContainer - Data:", data);
-  console.log("CarouselContainer - Current Index:", currentIndex);
-
   if (!data || data.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[500px]">
@@ -51,7 +48,6 @@ export function CarouselContainer({
         });
       }
     }
-    console.log("Visible Cards:", cards);
     return cards;
   };
 
