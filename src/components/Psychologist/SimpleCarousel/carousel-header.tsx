@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export function CarouselHeader() {
   return (
-    <div className="text-center mb-8">
+    <div className="text-center">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

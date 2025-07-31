@@ -77,7 +77,7 @@ export default function Carousel3DFixedTiming({
   }, []);
 
   return (
-    <div className="relative pt-40 pb-24">
+    <div className="relative pb-24">
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -346,12 +346,12 @@ export default function Carousel3DFixedTiming({
           display: none !important;
         }
         .carousel-pagination .swiper-pagination-bullet {
-          width: 14px !important;
-          height: 14px !important;
+          width: 10px !important;
+          height: 10px !important;
           background: #0d9488 !important;
           opacity: 0.4 !important;
           transition: all 0.3s ease !important;
-          margin: 0 6px !important;
+          margin: 0 3px !important;
           cursor: pointer;
           border-radius: 50%;
         }
