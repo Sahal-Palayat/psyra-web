@@ -17,7 +17,7 @@ import {
   Calendar,
   MapPin,
   Clock,
-  Award,
+  Globe,
 } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -206,7 +206,7 @@ export default function Carousel3DFixedTiming({
 
                         {Array.isArray(psychologist?.languages) && (
                           <div className="flex items-center text-gray-600">
-                            <Award className="w-3 h-3 mr-2 text-purple-500" />
+                            <Globe className="w-3 h-3 mr-2 text-purple-500" />
                             <span>{psychologist.languages.join(", ")}</span>
                           </div>
                         )}
@@ -219,7 +219,7 @@ export default function Carousel3DFixedTiming({
                           </p>
                         </div> */}
 
-                        <div className="flex flex-wrap gap-1 mt-2">
+                        <div className="flex py-2 px-1 flex-wrap gap-1 mt-2 border-2 border-gray-200 rounded-xl">
                           {(
                             psychologist?.expertise || [
                               "Anxiety",
@@ -246,7 +246,7 @@ export default function Carousel3DFixedTiming({
                           className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
                         >
                           <Calendar className="w-3 h-3 mr-1" />
-                          Book Consultation
+                          Book Now
                         </Button>
                       </div>
                     </div>
