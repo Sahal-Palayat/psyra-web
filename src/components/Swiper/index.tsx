@@ -22,13 +22,14 @@ import {
 import { useRef, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import type { Psychologist } from "@/types/psychologist";
+import { motion } from "framer-motion";
 
 export default function Carousel3DFixedTiming({
   data,
 }: {
   data: Psychologist[];
 }) {
-  const swiperRef = useRef<SwiperType | null >(null);
+  const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
@@ -151,14 +152,14 @@ export default function Carousel3DFixedTiming({
                           {psychologist.specialization || "General Psychology"}
                         </p>
                       </div>
-                      <div className="">
-                        <Button
-                          onClick={() => handleBookConsultation(psychologist)}
-                          className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-                        >
-                          Book Now
-                        </Button>
-                      </div>
+                      <motion.button
+                        onClick={() => handleBookConsultation(psychologist)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="bg-white py-2 px-4 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
+                      >
+                        Book Now
+                      </motion.button>
                     </div>
                   </div>
 
@@ -208,16 +209,22 @@ export default function Carousel3DFixedTiming({
                           <span>Licensed Therapist</span>
                         </div>
 
-                        <div className="bg-white/80 rounded-lg p-2 mt-2">
+                        {/* <div className="bg-white/80 rounded-lg p-2 mt-2">
                           <p className="text-xs text-gray-700 leading-relaxed">
                             {
                               "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."
                             }
                           </p>
-                        </div>
+                        </div> */}
 
                         {/* <div className="flex flex-wrap gap-1 mt-2">
-                          {(psychologist.specialties || ["Anxiety", "Depression", "Relationships"])
+                          {(
+                            psychologist.specialties || [
+                              "Anxiety",
+                              "Depression",
+                              "Relationships",
+                            ]
+                          )
                             .slice(0, 3)
                             .map((specialty: string, index: number) => (
                               <span
@@ -290,7 +297,7 @@ export default function Carousel3DFixedTiming({
           transform: rotateY(180deg);
         }
         .flip-card-container {
-          height: 340px;
+          height: 360px;
           width: 100%;
           max-width: 220px;
           margin: 0 auto;
