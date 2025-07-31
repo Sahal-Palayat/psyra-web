@@ -151,7 +151,7 @@ export default function Carousel3DFixedTiming({
                           {psychologist.specialization || "General Psychology"}
                         </p>
                       </div>
-                      <div className="mt-3">
+                      <div className="">
                         <Button
                           onClick={() => handleBookConsultation(psychologist)}
                           className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
@@ -290,7 +290,7 @@ export default function Carousel3DFixedTiming({
           transform: rotateY(180deg);
         }
         .flip-card-container {
-          height: 320px;
+          height: 340px;
           width: 100%;
           max-width: 220px;
           margin: 0 auto;
