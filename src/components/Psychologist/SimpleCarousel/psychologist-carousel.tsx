@@ -38,7 +38,6 @@ export default function PsychologistCarousel() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      console.log(response, "RESPONSEEE");
       setData(response?.data);
     } catch (error) {
       console.log(error);
