@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Psychologist } from "@/types/psychologist";
-import { useCarousel } from "@/hooks/use-carousel";
+// import { useCarousel } from "@/hooks/use-carousel";
 import { CarouselHeader } from "./carousel-header";
-import { CarouselContainer } from "./carousel-container";
-import { CarouselControls } from "./carousel-controls";
+// import { CarouselContainer } from "./carousel-container";
+// import { CarouselControls } from "./carousel-controls";
 // import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
 import { PsychologistModal } from "../Modal/PsychologistModal";
@@ -35,9 +35,9 @@ export default function PsychologistCarousel() {
       languages: [],
     },
   ]);
-  const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
-    totalItems: data?.length,
-  });
+  // const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
+  //   totalItems: data?.length,
+  // });
 
   const fetchPsychologists = async () => {
     try {
@@ -56,34 +56,19 @@ export default function PsychologistCarousel() {
     fetchPsychologists();
   }, []);
 
-  const handleBookNow = useCallback((psychologist: Psychologist) => {
-    console.log("Booking consultation with:", psychologist.name);
-    setIsModalOpen(true);
-    setPsychologist(psychologist);
-    // Add your booking logic here
-  }, []);
+  // const handleBookNow = useCallback((psychologist: Psychologist) => {
+  //   console.log("Booking consultation with:", psychologist.name);
+  //   setIsModalOpen(true);
+  //   setPsychologist(psychologist);
+  //   // Add your booking logic here
+  // }, []);
 
   return (
     <section id="psychologists">
       <div className="container mx-auto">
         <CarouselHeader />
 
-        <CarouselContainer
-          data={data}
-          currentIndex={currentIndex}
-          onBookNow={handleBookNow}
-          onPrevious={prevSlide}
-          onNext={nextSlide}
-        />
-
-        <CarouselControls
-          total={data.length}
-          current={currentIndex}
-          onDotClick={goToSlide}
-        />
-        <div className="">
-          <Carousel3DMinimal data={data} />
-        </div>
+        <Carousel3DMinimal data={data} />
 
         {/* <CarouselStats /> */}
       </div>

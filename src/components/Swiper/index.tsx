@@ -56,6 +56,7 @@ export default function Carousel3DFixedTiming({
     const timer = setTimeout(initCarousel, 200);
     return () => clearTimeout(timer);
   }, [data]);
+  
 
   // Pause/resume autoplay based on hover state
   useEffect(() => {
