@@ -19,10 +19,11 @@ import {
   Clock,
   Globe,
 } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "../ui/button";
 import type { Psychologist } from "@/types/psychologist";
 import { motion } from "framer-motion";
+import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 
 export default function Carousel3DFixedTiming({
   data,
@@ -32,6 +33,17 @@ export default function Carousel3DFixedTiming({
   const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [psychologist, setPsychologist] = useState<Psychologist>({
+    _id: "",
+    name: "",
+    specialization: "",
+    monthlySlots: [],
+    imageUrl: "",
+    experience: "",
+    expertise: [],
+    languages: [],
+  });
 
   useEffect(() => {
     const initCarousel = () => {
@@ -56,10 +68,12 @@ export default function Carousel3DFixedTiming({
     }
   }, [hoveredCard]);
 
-  const handleBookConsultation = (psychologist: Psychologist) => {
+  const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name);
+    setIsModalOpen(true);
+    setPsychologist(psychologist);
     // Add your booking logic here
-  };
+  }, []);
 
   return (
     <div className="relative pt-40 pb-24">
@@ -153,7 +167,7 @@ export default function Carousel3DFixedTiming({
                         </p>
                       </div>
                       <motion.button
-                        onClick={() => handleBookConsultation(psychologist)}
+                        onClick={() => handleBookNow(psychologist)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
                         className="bg-white py-2 px-4 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
@@ -242,7 +256,7 @@ export default function Carousel3DFixedTiming({
                       {/* CTA Button */}
                       <div className="mt-3">
                         <Button
-                          onClick={() => handleBookConsultation(psychologist)}
+                          onClick={() => handleBookNow(psychologist)}
                           className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
                         >
                           <Calendar className="w-3 h-3 mr-1" />
@@ -351,6 +365,11 @@ export default function Carousel3DFixedTiming({
           transform: scale(1.2);
         }
       `}</style>
+      <PsychologistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={psychologist}
+      />
     </div>
   );
 }
