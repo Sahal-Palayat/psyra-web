@@ -196,7 +196,7 @@ export default function Carousel3DFixedTiming({
                       <div className="flex-1 space-y-2 text-xs">
                         <div className="flex items-center text-gray-600">
                           <Clock className="w-3 h-3 mr-2 text-teal-500" />
-                          <span>5 years experience</span>
+                          <span>{psychologist?.experience} experience</span>
                         </div>
 
                         <div className="flex items-center text-gray-600">
@@ -204,10 +204,12 @@ export default function Carousel3DFixedTiming({
                           <span>Online</span>
                         </div>
 
-                        <div className="flex items-center text-gray-600">
-                          <Award className="w-3 h-3 mr-2 text-purple-500" />
-                          <span>Licensed Therapist</span>
-                        </div>
+                        {Array.isArray(psychologist?.languages) && (
+                          <div className="flex items-center text-gray-600">
+                            <Award className="w-3 h-3 mr-2 text-purple-500" />
+                            <span>{psychologist.languages.join(", ")}</span>
+                          </div>
+                        )}
 
                         {/* <div className="bg-white/80 rounded-lg p-2 mt-2">
                           <p className="text-xs text-gray-700 leading-relaxed">
@@ -217,9 +219,9 @@ export default function Carousel3DFixedTiming({
                           </p>
                         </div> */}
 
-                        {/* <div className="flex flex-wrap gap-1 mt-2">
+                        <div className="flex flex-wrap gap-1 mt-2">
                           {(
-                            psychologist.specialties || [
+                            psychologist?.expertise || [
                               "Anxiety",
                               "Depression",
                               "Relationships",
@@ -234,7 +236,7 @@ export default function Carousel3DFixedTiming({
                                 {specialty}
                               </span>
                             ))}
-                        </div> */}
+                        </div>
                       </div>
 
                       {/* CTA Button */}

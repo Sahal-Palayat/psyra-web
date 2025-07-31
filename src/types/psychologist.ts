@@ -3,17 +3,20 @@ export interface Psychologist {
   name: string;
   specialization: string;
   monthlySlots: string[];
+  experience: string;
+  languages: string[];
+  expertise: string[];
   imageUrl: string;
-  createdAt?:string;
-  updatedAt?:string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CardProps {
-  psychologist: Psychologist
-  isActive: boolean
-  isPrev: boolean
-  isNext: boolean
-  onBookNow: (psychologist: Psychologist) => void
+  psychologist: Psychologist;
+  isActive: boolean;
+  isPrev: boolean;
+  isNext: boolean;
+  onBookNow: (psychologist: Psychologist) => void;
 }
 
 export interface CarouselState {

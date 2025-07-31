@@ -19,6 +19,9 @@ export default function PsychologistCarousel() {
     specialization: "",
     monthlySlots: [],
     imageUrl: "",
+    experience: "",
+    expertise: [],
+    languages: [],
   });
   const [data, setData] = useState<Psychologist[]>([
     {
@@ -27,6 +30,9 @@ export default function PsychologistCarousel() {
       specialization: "",
       monthlySlots: [],
       imageUrl: "",
+      experience: "",
+      expertise: [],
+      languages: [],
     },
   ]);
   const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
