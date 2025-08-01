@@ -126,51 +126,49 @@ export default function Carousel3DFixedTiming({
           {data?.map((psychologist: Psychologist) => (
             <SwiperSlide key={psychologist?._id} className="">
               <div
-                className="flip-card-container group perspective-1000"
-                onMouseEnter={() => setHoveredCard(psychologist._id)}
-                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                }}
               >
-                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d">
-                  {/* Front Side - Original Simple Circle Design */}
-                  <div className="flip-card-front absolute inset-0 w-full h-full backface-hidden">
-                    <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
-                      <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
-                        <div className="relative w-50 h-55 flex items-center justify-center">
-                          <div className="absolute w-40 h-40 sm:w-42 sm:h-42 rounded-full bg-[#9EE0D6] backdrop-blur-md z-0 mt-6 sm:mt-8"></div>
-                          <img
-                            src={
-                              psychologist?.imageUrl ||
-                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg"
-                            }
-                            alt={psychologist?.name || "Psychologist"}
-                            className="w-50 h-50 object-cover rounded-full relative z-10"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-center justify-center text-center mt-6">
-                        <h2 className="text-lg sm:text-xl font-bold text-teal">
-                          {psychologist.name || "Unknown Doctor"}
-                        </h2>
-                        <p className="text-teal/90 text-sm mb-2">
-                          {psychologist.specialization || "General Psychology"}
-                        </p>
-                      </div>
-                      <motion.button
-                        onClick={() => handleBookNow(psychologist)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="bg-white py-2 px-4 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
-                      >
-                        Book Now
-                      </motion.button>
+                <div className="flex flex-col items-center justify-center mt-6  w-full h-full text-center">
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
+                    {/* Circular glow behind the image */}
+                    <div className="relative w-50 h-55  flex items-center justify-center">
+                      {/* Circular glow behind the image */}
+                      <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
+                      <img
+                        src={
+                          psychologist?.imageUrl ||
+                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
+                        }
+                        alt="ALTERNATIVE IMAGE"
+                        className="w-50 h-50 object-cover rounded-full relative z-10"
+                      />
+
+                      {/* Image in the front */}
                     </div>
                   </div>
+                  <div className="flex flex-col items-center justify-center text-center mt-6">
+                    <>
+                      <h2 className="text-lg sm:text-xl font-bold text-teal">
+                        {psychologist.name || "Unknown Doctor"}
+                      </h2>
 
-                  {/* Back Side - Detailed Card */}
+                      <p className="text-teal/90 text-sm mb-2">
+                        {psychologist.specialization || "General Psychology"}
+                      </p>
+                    </>
+
+                    <motion.button
+                      onClick={() => handleBookNow(psychologist)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="bg-[red] py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
+                    >
+                      Book Consultation
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>
