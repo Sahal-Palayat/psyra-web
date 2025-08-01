@@ -64,7 +64,7 @@ export default function Carousel3DFixedTiming({
   }, [])
 
   return (
-    <div className="relative pb-24">
+    <div className="relative pb-24 mt-4">
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -163,7 +163,7 @@ export default function Carousel3DFixedTiming({
                       whileTap={{ scale: 0.97 }}
                       className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
                     >
-                      Book Consultation
+                      Book Now
                     </motion.button>
                   </div>
                 </div>
