@@ -144,10 +144,10 @@ export default function Carousel3DFixedTiming({
                         alt="ALTERNATIVE IMAGE"
                         className="w-50 h-50 object-cover rounded-full relative z-10"
                       />
-                      <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
 
                       {/* Image in the front */}
                     </div>
+                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0  mt-[33px]"></div>
                   </div>
                   <div className="flex flex-col items-center justify-center text-center mt-6">
                     <>
