@@ -84,7 +84,7 @@ export default function Carousel3DFixedTiming({
   };
 
   return (
-    <div className="relative pb-24">
+    <div className="relative pb-24 mt-4">
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -139,25 +139,24 @@ export default function Carousel3DFixedTiming({
           className="bg-white relative"
         >
           {data?.map((psychologist: Psychologist) => (
-            <SwiperSlide key={psychologist?._id} className="">
+            <SwiperSlide key={psychologist?._id}>
               <div
                 className="flip-card-container perspective-1000"
-                onMouseEnter={() => setHoveredCard(psychologist._id)} // Keep for autoplay pause
-                onMouseLeave={() => setHoveredCard(null)} // Keep for autoplay pause
-                onClick={() => toggleFlip(psychologist._id)} // Click to flip
+                onMouseEnter={() => setHoveredCard(psychologist._id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                onClick={() => toggleFlip(psychologist._id)}
               >
                 <div
-                  className={`flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-                    flippedCardId === psychologist._id ? "rotate-y-180" : "" // Apply flip based on isFlipped state
+                  className={`flip-card-inner ${
+                    flippedCardId === psychologist._id ? "rotate-y-180" : ""
                   }`}
                 >
-                  {/* Front Side - Original Simple Circle Design */}
-                  <div className="flip-card-front absolute inset-0 w-full h-full backface-hidden">
+                  {/* Front Side */}
+                  <div className="flip-card-front">
                     <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
                       <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
-                        <div className="relative w-50 h-55 flex items-center justify-center">
-                          {/* Always present blur/glow effect */}
-                          <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md z-0 mt-[33px]"></div>
+                        <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0 mt-[33px]"></div>
+                        <div className="relative w-50 h-55 flex items-center justify-center z-20">
                           <img
                             src={
                               psychologist?.imageUrl ||
@@ -165,44 +164,43 @@ export default function Carousel3DFixedTiming({
                               "/placeholder.svg" ||
                               "/placeholder.svg"
                             }
-                            alt={psychologist?.name || "Psychologist"}
-                            className="w-50 h-50 object-cover rounded-full relative z-10"
+                            alt="ALTERNATIVE IMAGE"
+                            className="w-50 h-50 object-cover rounded-full relative z-30"
+                            style={{
+                              backfaceVisibility: "hidden",
+                              WebkitBackfaceVisibility: "hidden",
+                              transform: "translateZ(0)",
+                            }}
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col items-center justify-center text-center mt-6">
-                        <h2 className="text-lg sm:text-xl font-bold text-teal">
-                          {psychologist.name || "Unknown Doctor"}
-                        </h2>
-                        <p className="text-teal/90 text-sm mb-2">
-                          {psychologist.specialization || "General Psychology"}
-                        </p>
-                        {/* Book Now button always present on front */}
-                        <Button
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent flipping when button is clicked
-                            handleBookNow(psychologist);
-                          }}
-                          className="w-full max-w-[150px] bg-teal-600 hover:bg-teal-700 text-white text-xs py-2 h-8 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
-                        >
-                          Book Now
-                        </Button>
-                      </div>
+                      <h2 className="text-lg sm:text-xl font-bold text-teal">
+                        {psychologist.name || "Unknown Doctor"}
+                      </h2>
+                      <p className="text-teal/90 text-sm mb-2">
+                        {psychologist.specialization || "General Psychology"}
+                      </p>
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookNow(psychologist);
+                        }}
+                        className="w-full max-w-[150px] bg-teal-600 hover:bg-teal-700 text-white text-xs py-2 h-8 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                      >
+                        Book Now
+                      </Button>
                     </div>
                   </div>
 
-                  {/* Back Side - Detailed Card */}
-                  <div className="flip-card-back absolute inset-0 w-full backface-hidden rotate-y-180 mt-4">
-                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 flex flex-col justify-between shadow-xl border border-teal-200">
-                      {/* Header */}
+                  {/* Back Side */}
+                  <div className="flip-card-back">
+                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 shadow-xl border border-teal-200 flex flex-col h-full">
                       <div className="text-center mb-3">
                         <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-md">
                           <img
                             src={
                               psychologist?.imageUrl ||
-                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg"
+                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
                             }
                             alt={psychologist?.name || "Psychologist"}
                             className="w-14 h-14 object-cover rounded-full border border-white"
@@ -216,85 +214,33 @@ export default function Carousel3DFixedTiming({
                         </p>
                       </div>
 
-                      {/* Stats Row */}
-                      <div className="grid grid-cols-2 gap-2 mb-3">
-                        {/* <div className="bg-white/70 rounded-lg p-2 text-center">
-                          <div className="flex items-center justify-center mb-1">
-                            <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                          </div>
-                          <div className="text-xs font-bold text-gray-800">{psychologist.rating || "4.8"}</div>
-                          <div className="text-xs text-gray-600">Rating</div>
-                        </div> */}
-                        {/* <div className="bg-white/70 rounded-lg p-2 text-center">
-                          <div className="flex items-center justify-center mb-1">
-                            <Users className="w-3 h-3 text-teal-500" />
-                          </div>
-                          <div className="text-xs font-bold text-gray-800">{psychologist.patients || "200+"}</div>
-                          <div className="text-xs text-gray-600">Patients</div>
-                        </div> */}
-                      </div>
-
-                      {/* Details */}
                       <div className="flex-1 space-y-2 text-xs">
                         <div className="flex items-center text-gray-600">
                           <Clock className="w-3 h-3 mr-2 text-teal-500" />
                           <span>{psychologist?.experience} experience</span>
                         </div>
-
                         <div className="flex items-center text-gray-600">
                           <MapPin className="w-3 h-3 mr-2 text-red-500" />
                           <span>Online</span>
                         </div>
-
                         {Array.isArray(psychologist?.languages) && (
                           <div className="flex items-center text-gray-600">
                             <Globe className="w-3 h-3 mr-2 text-purple-500" />
                             <span>{psychologist.languages.join(", ")}</span>
                           </div>
                         )}
-
-                        {/* <div className="flex items-center text-gray-600">
-                          <Award className="w-3 h-3 mr-2 text-purple-500" />
-                          <span>{psychologist.certification || "Licensed Therapist"}</span>
-                        </div> */}
-
-                        {/* <div className="bg-white/80 rounded-lg p-2 mt-2">
-                          <p className="text-xs text-gray-700 leading-relaxed">
-                            {psychologist.bio ||
-                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."}
-                          </p>
-                        </div> */}
-
-                        {/* <div className="flex py-2 px-1 flex-wrap gap-1 mt-2 border-2 border-gray-200 rounded-xl">
-                          {(psychologist?.expertise || []).slice(0, 3).map((specialty: string, index: number) => (
-                            <span
-                              key={index}
-                              className="bg-teal-100 text-teal-700 px-2 py-1 rounded-full text-xs font-medium"
-                            >
-                              {specialty}
-                            </span>
-                          ))}
-                          {Array.isArray(psychologist?.expertise) && psychologist.expertise.length > 3 && (
-                            <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs font-medium">
-                              +{psychologist.expertise.length - 3} others
-                            </span>
-                          )}
-                        </div> */}
                       </div>
 
-                      {/* CTA Button */}
-                      <div className="mt-3">
-                        <Button
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent flipping when button is clicked
-                            handleBookNow(psychologist);
-                          }}
-                          className="w-full mt-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-                        >
-                          <Calendar className="w-3 h-3 mr-1" />
-                          Book Now
-                        </Button>
-                      </div>
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBookNow(psychologist);
+                        }}
+                        className="w-full mt-4 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+                      >
+                        <Calendar className="w-3 h-3 mr-1" />
+                        Book Now
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -326,10 +272,8 @@ export default function Carousel3DFixedTiming({
           <ChevronRight className="h-5 w-5" />
         </Button>
       </div>
-
       {/* Pagination */}
       <div className="carousel-pagination flex justify-center space-x-3 mt-20"></div>
-
       <style jsx global>{`
         .perspective-1000 {
           perspective: 1000px;
@@ -349,6 +293,7 @@ export default function Carousel3DFixedTiming({
           width: 100%;
           max-width: 220px; /* Reverted max-width */
           margin: 0 auto;
+          overflow: hidden;
         }
         .flip-card-inner {
           position: relative;
@@ -369,21 +314,17 @@ export default function Carousel3DFixedTiming({
         .flip-card-back {
           transform: rotateY(180deg);
         }
-        /* Removed the global group:hover rule as flip is now click-based */
-        /* .group:hover .flip-card-inner {
-          transform: rotateY(180deg);
-        } */
         .swiper-button-next:after,
         .swiper-button-prev:after {
           display: none !important;
         }
         .carousel-pagination .swiper-pagination-bullet {
-          width: 10px !important; /* Reverted size */
-          height: 10px !important; /* Reverted size */
+          width: 10px !important;
+          height: 10px !important;
           background: #0d9488 !important;
           opacity: 0.4 !important;
           transition: all 0.3s ease !important;
-          margin: 0 3px !important; /* Reverted margin */
+          margin: 0 3px !important;
           cursor: pointer;
           border-radius: 50%;
         }
@@ -396,6 +337,19 @@ export default function Carousel3DFixedTiming({
         .carousel-pagination .swiper-pagination-bullet:hover {
           opacity: 0.8 !important;
           transform: scale(1.2);
+        }
+
+        /* Fix for mobile z-index issues during 3D transforms */
+        .swiper-slide {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .swiper-slide img {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform: translateZ(0);
+          -webkit-transform: translateZ(0);
         }
       `}</style>
       <PsychologistModal
