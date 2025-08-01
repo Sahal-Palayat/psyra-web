@@ -14,10 +14,6 @@ import "swiper/css/navigation";
 import {
   ChevronLeft,
   ChevronRight,
-  Calendar,
-  MapPin,
-  Clock,
-  Globe,
 } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "../ui/button";
