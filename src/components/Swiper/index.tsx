@@ -64,7 +64,7 @@ export default function Carousel3DFixedTiming({
   }, [])
 
   return (
-    <div className="relative pb-24 mt-4">
+    <div className="relative pb-8 mt-4">
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -126,7 +126,7 @@ export default function Carousel3DFixedTiming({
                   backfaceVisibility: "hidden",
                 }}
               >
-                <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
+                <div className="flex flex-col items-center justify-center mt-8 w-full h-full text-center">
                   <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
                     {/* Background glow positioned first with proper z-index */}
                     <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0 mt-[33px]"></div>
