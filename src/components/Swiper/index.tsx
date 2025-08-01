@@ -136,7 +136,7 @@ export default function Carousel3DFixedTiming({
                     {/* Circular glow behind the image */}
                     <div className="relative w-50 h-55  flex items-center justify-center">
                       {/* Circular glow behind the image */}
-                      <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
+                      {/* <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div> */}
                       <img
                         src={
                           psychologist?.imageUrl ||
