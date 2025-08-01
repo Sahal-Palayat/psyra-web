@@ -25,7 +25,7 @@ export default function Carousel3DFixedTiming({
 }) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
@@ -51,15 +51,15 @@ export default function Carousel3DFixedTiming({
   }, [data]);
 
   // Pause/resume autoplay based on hover state
-  useEffect(() => {
-    if (swiperRef.current) {
-      if (hoveredCard) {
-        swiperRef.current.autoplay.stop();
-      } else {
-        swiperRef.current.autoplay.start();
-      }
-    }
-  }, [hoveredCard]);
+  // useEffect(() => {
+  //   if (swiperRef.current) {
+  //     if (hoveredCard) {
+  //       swiperRef.current.autoplay.stop();
+  //     } else {
+  //       swiperRef.current.autoplay.start();
+  //     }
+  //   }
+  // }, [hoveredCard]);
 
   const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name);
