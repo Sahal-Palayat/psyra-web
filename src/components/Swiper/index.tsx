@@ -1,5 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import {
   EffectCoverflow,
@@ -18,11 +19,10 @@ import {
   MapPin,
   Clock,
   Globe,
-} from "lucide-react";
-import { useRef, useEffect, useState, useCallback } from "react";
+} from "lucide-react"; // Added Award back
+import { useRef, useEffect, useCallback } from "react";
 import { Button } from "../ui/button";
 import type { Psychologist } from "@/types/psychologist";
-import { motion } from "framer-motion";
 import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 
 export default function Carousel3DFixedTiming({
@@ -32,18 +32,20 @@ export default function Carousel3DFixedTiming({
 }) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null); // Used for autoplay pause on hover
+  const [flippedCardId, setFlippedCardId] = useState<string | null>(null); // State for single card flip
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [psychologist, setPsychologist] = useState<Psychologist>({
-    _id: "",
-    name: "",
-    specialization: "",
-    monthlySlots: [],
-    imageUrl: "",
-    experience: "",
-    expertise: [],
-    languages: [],
-  });
+  const [selectedPsychologist, setSelectedPsychologist] =
+    useState<Psychologist>({
+      _id: "",
+      name: "",
+      specialization: "",
+      monthlySlots: [],
+      imageUrl: "",
+      experience: "",
+      expertise: [],
+      languages: [],
+    });
 
   useEffect(() => {
     const initCarousel = () => {
@@ -57,7 +59,7 @@ export default function Carousel3DFixedTiming({
     return () => clearTimeout(timer);
   }, [data]);
 
-  // Pause/resume autoplay based on hover state
+  // Pause/resume autoplay based on hover state (for the entire carousel area)
   useEffect(() => {
     if (swiperRef.current) {
       if (hoveredCard) {
@@ -71,9 +73,15 @@ export default function Carousel3DFixedTiming({
   const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name);
     setIsModalOpen(true);
-    setPsychologist(psychologist);
+    setSelectedPsychologist(psychologist);
     // Add your booking logic here
   }, []);
+
+  const toggleFlip = (psychologistId: string) => {
+    setFlippedCardId((prevFlippedCardId) =>
+      prevFlippedCardId === psychologistId ? null : psychologistId
+    );
+  };
 
   return (
     <div className="relative pb-24">
@@ -83,16 +91,24 @@ export default function Carousel3DFixedTiming({
         }`}
       >
         <Swiper
-          // ref={swiperRef} // UNCOMMENTED: Assign ref to Swiper instance
+          onSwiper={(swiper) => {
+            if (swiperRef.current === null) {
+              swiperRef.current = swiper;
+            }
+            setTimeout(() => {
+              swiper.autoplay.start();
+              swiper.update();
+            }, 100);
+          }}
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
           autoplay={{
-            delay: 3000, // Reverted to 3 seconds
+            delay: 3000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: false, // We'll handle this manually with hoveredCard state
-            waitForTransition: true, // Wait for transition to complete
+            pauseOnMouseEnter: false, // Autoplay pause is handled by the hoveredCard state
+            waitForTransition: true,
             stopOnLastSlide: false,
           }}
           speed={600}
@@ -119,37 +135,33 @@ export default function Carousel3DFixedTiming({
             el: ".carousel-pagination",
             clickable: true,
           }}
-          onSwiper={(swiper) => {
-            // ADDED: Assign swiper instance to ref
-            swiperRef.current = swiper;
-            setTimeout(() => {
-              swiper.autoplay.start();
-              swiper.update();
-            }, 100);
-          }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="bg-white relative"
         >
           {data?.map((psychologist: Psychologist) => (
             <SwiperSlide key={psychologist?._id} className="">
               <div
-                className="flip-card-container group perspective-1000"
-                onMouseEnter={() => setHoveredCard(psychologist._id)}
-                onMouseLeave={() => setHoveredCard(null)}
+                className="flip-card-container perspective-1000"
+                onMouseEnter={() => setHoveredCard(psychologist._id)} // Keep for autoplay pause
+                onMouseLeave={() => setHoveredCard(null)} // Keep for autoplay pause
+                onClick={() => toggleFlip(psychologist._id)} // Click to flip
               >
-                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                <div
+                  className={`flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                    flippedCardId === psychologist._id ? "rotate-y-180" : "" // Apply flip based on isFlipped state
+                  }`}
+                >
                   {/* Front Side - Original Simple Circle Design */}
                   <div className="flip-card-front absolute inset-0 w-full h-full backface-hidden">
                     <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
                       <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
                         <div className="relative w-50 h-55 flex items-center justify-center">
+                          {/* Always present blur/glow effect */}
                           <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md z-0 mt-[33px]"></div>
                           <img
                             src={
                               psychologist?.imageUrl ||
                               "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
                               "/placeholder.svg" ||
                               "/placeholder.svg"
                             }
@@ -165,21 +177,23 @@ export default function Carousel3DFixedTiming({
                         <p className="text-teal/90 text-sm mb-2">
                           {psychologist.specialization || "General Psychology"}
                         </p>
+                        {/* Book Now button always present on front */}
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent flipping when button is clicked
+                            handleBookNow(psychologist);
+                          }}
+                          className="mt-4 w-full max-w-[150px] bg-teal-600 hover:bg-teal-700 text-white text-xs py-2 h-8 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                        >
+                          Book Now
+                        </Button>
                       </div>
-                      <motion.button
-                        onClick={() => handleBookNow(psychologist)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="bg-white py-2 px-4 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
-                      >
-                        Book Now
-                      </motion.button>
                     </div>
                   </div>
 
                   {/* Back Side - Detailed Card */}
                   <div className="flip-card-back absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 bg-red mt-12 flex flex-col justify-between shadow-xl border border-teal-200">
+                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 h-full flex flex-col justify-between shadow-xl border border-teal-200">
                       {/* Header */}
                       <div className="text-center mb-3">
                         <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-md">
@@ -187,8 +201,6 @@ export default function Carousel3DFixedTiming({
                             src={
                               psychologist?.imageUrl ||
                               "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
                               "/placeholder.svg" ||
                               "/placeholder.svg"
                             }
@@ -205,6 +217,22 @@ export default function Carousel3DFixedTiming({
                       </div>
 
                       {/* Stats Row */}
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {/* <div className="bg-white/70 rounded-lg p-2 text-center">
+                          <div className="flex items-center justify-center mb-1">
+                            <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                          </div>
+                          <div className="text-xs font-bold text-gray-800">{psychologist.rating || "4.8"}</div>
+                          <div className="text-xs text-gray-600">Rating</div>
+                        </div> */}
+                        {/* <div className="bg-white/70 rounded-lg p-2 text-center">
+                          <div className="flex items-center justify-center mb-1">
+                            <Users className="w-3 h-3 text-teal-500" />
+                          </div>
+                          <div className="text-xs font-bold text-gray-800">{psychologist.patients || "200+"}</div>
+                          <div className="text-xs text-gray-600">Patients</div>
+                        </div> */}
+                      </div>
 
                       {/* Details */}
                       <div className="flex-1 space-y-2 text-xs">
@@ -225,32 +253,42 @@ export default function Carousel3DFixedTiming({
                           </div>
                         )}
 
+                        {/* <div className="flex items-center text-gray-600">
+                          <Award className="w-3 h-3 mr-2 text-purple-500" />
+                          <span>{psychologist.certification || "Licensed Therapist"}</span>
+                        </div> */}
+
                         {/* <div className="bg-white/80 rounded-lg p-2 mt-2">
                           <p className="text-xs text-gray-700 leading-relaxed">
-                            {
-                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."
-                            }
+                            {psychologist.bio ||
+                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."}
                           </p>
                         </div> */}
-                        {/* Availability Status */}
-                        {/* <div className="text-xs text-center text-gray-700 font-semibold py-2">
-                          {Array.isArray(psychologist?.monthlySlots) &&
-                          psychologist.monthlySlots.length > 0 ? (
-                            <span className="text-green-600">
-                              Slots are available
+
+                        {/* <div className="flex py-2 px-1 flex-wrap gap-1 mt-2 border-2 border-gray-200 rounded-xl">
+                          {(psychologist?.expertise || []).slice(0, 3).map((specialty: string, index: number) => (
+                            <span
+                              key={index}
+                              className="bg-teal-100 text-teal-700 px-2 py-1 rounded-full text-xs font-medium"
+                            >
+                              {specialty}
                             </span>
-                          ) : (
-                            <span className="text-red-500">
-                              No slots available
+                          ))}
+                          {Array.isArray(psychologist?.expertise) && psychologist.expertise.length > 3 && (
+                            <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs font-medium">
+                              +{psychologist.expertise.length - 3} others
                             </span>
                           )}
                         </div> */}
                       </div>
 
                       {/* CTA Button */}
-                      <div className="mt-4">
+                      <div className="mt-3">
                         <Button
-                          onClick={() => handleBookNow(psychologist)}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent flipping when button is clicked
+                            handleBookNow(psychologist);
+                          }}
                           className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
                         >
                           <Calendar className="w-3 h-3 mr-1" />
@@ -270,7 +308,7 @@ export default function Carousel3DFixedTiming({
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slidePrev(); // Simplified call
+            swiperRef.current?.slidePrev();
           }}
           className="absolute rounded-full left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -281,7 +319,7 @@ export default function Carousel3DFixedTiming({
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slideNext(); // Simplified call
+            swiperRef.current?.slideNext();
           }}
           className="absolute rounded-full right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -307,9 +345,9 @@ export default function Carousel3DFixedTiming({
           transform: rotateY(180deg);
         }
         .flip-card-container {
-          height: 360px;
+          height: 320px; /* Reverted height */
           width: 100%;
-          max-width: 220px;
+          max-width: 220px; /* Reverted max-width */
           margin: 0 auto;
         }
         .flip-card-inner {
@@ -331,20 +369,21 @@ export default function Carousel3DFixedTiming({
         .flip-card-back {
           transform: rotateY(180deg);
         }
-        .group:hover .flip-card-inner {
+        /* Removed the global group:hover rule as flip is now click-based */
+        /* .group:hover .flip-card-inner {
           transform: rotateY(180deg);
-        }
+        } */
         .swiper-button-next:after,
         .swiper-button-prev:after {
           display: none !important;
         }
         .carousel-pagination .swiper-pagination-bullet {
-          width: 10px !important;
-          height: 10px !important;
+          width: 10px !important; /* Reverted size */
+          height: 10px !important; /* Reverted size */
           background: #0d9488 !important;
           opacity: 0.4 !important;
           transition: all 0.3s ease !important;
-          margin: 0 3px !important;
+          margin: 0 3px !important; /* Reverted margin */
           cursor: pointer;
           border-radius: 50%;
         }
@@ -362,7 +401,7 @@ export default function Carousel3DFixedTiming({
       <PsychologistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        data={psychologist}
+        data={selectedPsychologist}
       />
     </div>
   );
