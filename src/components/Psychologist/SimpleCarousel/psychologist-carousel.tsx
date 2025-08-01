@@ -12,17 +12,17 @@ import { PsychologistModal } from "../Modal/PsychologistModal";
 import Carousel3DMinimal from "@/components/Swiper";
 
 export default function PsychologistCarousel() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [psychologist, setPsychologist] = useState<Psychologist>({
-    _id: "",
-    name: "",
-    specialization: "",
-    monthlySlots: [],
-    imageUrl: "",
-    experience: "",
-    expertise: [],
-    languages: [],
-  });
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [psychologist, setPsychologist] = useState<Psychologist>({
+  //   _id: "",
+  //   name: "",
+  //   specialization: "",
+  //   monthlySlots: [],
+  //   imageUrl: "",
+  //   experience: "",
+  //   expertise: [],
+  //   languages: [],
+  // });
   const [data, setData] = useState<Psychologist[]>([
     {
       _id: "",
@@ -46,6 +46,7 @@ export default function PsychologistCarousel() {
       );
 
       setData(response?.data);
+      // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);
       alert("tecnical issue");
@@ -72,13 +73,13 @@ export default function PsychologistCarousel() {
 
         {/* <CarouselStats /> */}
       </div>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <PsychologistModal
           isOpen={true}
           onClose={() => setIsModalOpen(false)}
           data={psychologist}
         />
-      )}
+      )} */}
     </section>
   );
 }
