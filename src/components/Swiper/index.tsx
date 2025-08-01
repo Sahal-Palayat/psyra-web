@@ -25,7 +25,7 @@ export default function Carousel3DFixedTiming({
 }) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
@@ -51,15 +51,15 @@ export default function Carousel3DFixedTiming({
   }, [data]);
 
   // Pause/resume autoplay based on hover state
-  // useEffect(() => {
-  //   if (swiperRef.current) {
-  //     if (hoveredCard) {
-  //       swiperRef.current.autoplay.stop();
-  //     } else {
-  //       swiperRef.current.autoplay.start();
-  //     }
-  //   }
-  // }, [hoveredCard]);
+  useEffect(() => {
+    if (swiperRef.current) {
+      if (hoveredCard) {
+        swiperRef.current.autoplay.stop();
+      } else {
+        swiperRef.current.autoplay.start();
+      }
+    }
+  }, [hoveredCard]);
 
   const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name);
@@ -124,7 +124,7 @@ export default function Carousel3DFixedTiming({
           className="bg-white relative"
         >
           {data?.map((psychologist: Psychologist) => (
-            <SwiperSlide key={psychologist?._id} className="mt-14">
+            <SwiperSlide key={psychologist?._id} className="">
               <div
                 style={{
                   transformStyle: "preserve-3d",
@@ -136,15 +136,15 @@ export default function Carousel3DFixedTiming({
                     {/* Circular glow behind the image */}
                     <div className="relative w-50 h-55  flex items-center justify-center">
                       {/* Circular glow behind the image */}
-                      {/* <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div> */}
                       <img
                         src={
                           psychologist?.imageUrl ||
                           "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
                         }
                         alt="ALTERNATIVE IMAGE"
-                        className="w-50 h-50 object-cover rounded-[10px] bg-[#9EE0D6] relative z-10"
+                        className="w-50 h-50 object-cover rounded-full relative z-10"
                       />
+                      <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md shadow-2xl z-0  mt-[33px]"></div>
 
                       {/* Image in the front */}
                     </div>
@@ -164,9 +164,9 @@ export default function Carousel3DFixedTiming({
                       onClick={() => handleBookNow(psychologist)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
-                      className="bg-[white] py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
+                      className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
                     >
-                      Book Now
+                      Book Consultation
                     </motion.button>
                   </div>
                 </div>
