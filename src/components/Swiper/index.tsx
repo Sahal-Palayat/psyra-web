@@ -21,7 +21,7 @@ import {
   Globe,
 } from "lucide-react"; // Added Award back
 import { useRef, useEffect, useCallback } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import type { Psychologist } from "@/types/psychologist";
 import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 
@@ -162,6 +162,7 @@ export default function Carousel3DFixedTiming({
                               psychologist?.imageUrl ||
                               "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
                               "/placeholder.svg" ||
+                              "/placeholder.svg" ||
                               "/placeholder.svg"
                             }
                             alt="ALTERNATIVE IMAGE"
@@ -191,7 +192,6 @@ export default function Carousel3DFixedTiming({
                       </Button>
                     </div>
                   </div>
-
                   {/* Back Side */}
                   <div className="flip-card-back">
                     <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 shadow-xl border border-teal-200 flex flex-col h-full">
@@ -200,7 +200,8 @@ export default function Carousel3DFixedTiming({
                           <img
                             src={
                               psychologist?.imageUrl ||
-                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
+                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
+                              "/placeholder.svg"
                             }
                             alt={psychologist?.name || "Psychologist"}
                             className="w-14 h-14 object-cover rounded-full border border-white"
@@ -213,7 +214,6 @@ export default function Carousel3DFixedTiming({
                           {psychologist.specialization || "General Psychology"}
                         </p>
                       </div>
-
                       <div className="flex-1 space-y-2 text-xs">
                         <div className="flex items-center text-gray-600">
                           <Clock className="w-3 h-3 mr-2 text-teal-500" />
@@ -230,7 +230,6 @@ export default function Carousel3DFixedTiming({
                           </div>
                         )}
                       </div>
-
                       <Button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -248,7 +247,6 @@ export default function Carousel3DFixedTiming({
             </SwiperSlide>
           ))}
         </Swiper>
-
         {/* Arrow Buttons */}
         <Button
           variant="outline"
@@ -260,7 +258,6 @@ export default function Carousel3DFixedTiming({
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
-
         <Button
           variant="outline"
           size="icon"
@@ -294,6 +291,11 @@ export default function Carousel3DFixedTiming({
           max-width: 220px; /* Reverted max-width */
           margin: 0 auto;
           overflow: hidden;
+          /* Enhanced for mobile flip */
+          -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          -webkit-perspective: 1000px;
+          perspective: 1000px;
         }
         .flip-card-inner {
           position: relative;
@@ -302,6 +304,11 @@ export default function Carousel3DFixedTiming({
           text-align: center;
           transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
           transform-style: preserve-3d;
+          -webkit-transform-style: preserve-3d;
+          /* Force hardware acceleration */
+          will-change: transform;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
         }
         .flip-card-front,
         .flip-card-back {
@@ -310,9 +317,16 @@ export default function Carousel3DFixedTiming({
           height: 100%;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
+          /* Enhanced for mobile */
+          -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          /* Prevent flickering on mobile */
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
         .flip-card-back {
           transform: rotateY(180deg);
+          -webkit-transform: rotateY(180deg);
         }
         .swiper-button-next:after,
         .swiper-button-prev:after {
@@ -339,10 +353,13 @@ export default function Carousel3DFixedTiming({
           transform: scale(1.2);
         }
 
-        /* Fix for mobile z-index issues during 3D transforms */
+        /* Enhanced mobile fixes */
         .swiper-slide {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
+          /* Prevent transform conflicts */
+          transform-style: flat;
+          -webkit-transform-style: flat;
         }
 
         .swiper-slide img {
@@ -350,6 +367,61 @@ export default function Carousel3DFixedTiming({
           -webkit-backface-visibility: hidden;
           transform: translateZ(0);
           -webkit-transform: translateZ(0);
+          /* Prevent image flickering */
+          -webkit-font-smoothing: antialiased;
+        }
+
+        /* Mobile-specific flip card fixes */
+        @media (max-width: 768px) {
+          .flip-card-container {
+            /* Stronger perspective for mobile */
+            -webkit-perspective: 1200px;
+            perspective: 1200px;
+          }
+
+          .flip-card-inner {
+            /* Smoother transition on mobile */
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Force GPU acceleration */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+          }
+
+          .flip-card-front,
+          .flip-card-back {
+            /* Prevent double-sided rendering on mobile */
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            /* Force layer creation */
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+          }
+
+          /* Ensure proper z-index during flip */
+          .flip-card-inner.rotate-y-180 .flip-card-front {
+            z-index: 1;
+          }
+
+          .flip-card-inner.rotate-y-180 .flip-card-back {
+            z-index: 2;
+          }
+
+          .flip-card-inner:not(.rotate-y-180) .flip-card-front {
+            z-index: 2;
+          }
+
+          .flip-card-inner:not(.rotate-y-180) .flip-card-back {
+            z-index: 1;
+          }
+        }
+
+        /* Prevent conflicts between Swiper 3D and flip card 3D */
+        .swiper-slide-active .flip-card-container,
+        .swiper-slide-next .flip-card-container,
+        .swiper-slide-prev .flip-card-container {
+          /* Isolate flip card transforms from Swiper transforms */
+          transform-style: preserve-3d;
+          -webkit-transform-style: preserve-3d;
         }
       `}</style>
       <PsychologistModal
