@@ -183,7 +183,7 @@ export default function Carousel3DFixedTiming({
                             e.stopPropagation(); // Prevent flipping when button is clicked
                             handleBookNow(psychologist);
                           }}
-                          className="mt-4 w-full max-w-[150px] bg-teal-600 hover:bg-teal-700 text-white text-xs py-2 h-8 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                          className="w-full max-w-[150px] bg-teal-600 hover:bg-teal-700 text-white text-xs py-2 h-8 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg"
                         >
                           Book Now
                         </Button>
@@ -192,8 +192,8 @@ export default function Carousel3DFixedTiming({
                   </div>
 
                   {/* Back Side - Detailed Card */}
-                  <div className="flip-card-back absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 h-full flex flex-col justify-between shadow-xl border border-teal-200">
+                  <div className="flip-card-back absolute inset-0 w-full backface-hidden rotate-y-180 mt-4">
+                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 flex flex-col justify-between shadow-xl border border-teal-200">
                       {/* Header */}
                       <div className="text-center mb-3">
                         <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-md">
@@ -289,7 +289,7 @@ export default function Carousel3DFixedTiming({
                             e.stopPropagation(); // Prevent flipping when button is clicked
                             handleBookNow(psychologist);
                           }}
-                          className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+                          className="w-full mt-2 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
                         >
                           <Calendar className="w-3 h-3 mr-1" />
                           Book Now
@@ -345,7 +345,7 @@ export default function Carousel3DFixedTiming({
           transform: rotateY(180deg);
         }
         .flip-card-container {
-          height: 320px; /* Reverted height */
+          height: 360px; /* Reverted height */
           width: 100%;
           max-width: 220px; /* Reverted max-width */
           margin: 0 auto;
