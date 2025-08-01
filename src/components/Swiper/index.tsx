@@ -56,7 +56,6 @@ export default function Carousel3DFixedTiming({
     const timer = setTimeout(initCarousel, 200);
     return () => clearTimeout(timer);
   }, [data]);
-  
 
   // Pause/resume autoplay based on hover state
   useEffect(() => {
@@ -180,7 +179,7 @@ export default function Carousel3DFixedTiming({
 
                   {/* Back Side - Detailed Card */}
                   <div className="flip-card-back absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 h-full flex flex-col justify-between shadow-xl border border-teal-200">
+                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 bg-red mt-12 flex flex-col justify-between shadow-xl border border-teal-200">
                       {/* Header */}
                       <div className="text-center mb-3">
                         <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-md">
@@ -233,29 +232,23 @@ export default function Carousel3DFixedTiming({
                             }
                           </p>
                         </div> */}
-
-                        <div className="flex py-2 px-1 flex-wrap gap-1 mt-2 border-2 border-gray-200 rounded-xl">
-                          {(
-                            psychologist?.expertise || [
-                              "Anxiety",
-                              "Depression",
-                              "Relationships",
-                            ]
-                          )
-                            .slice(0, 3)
-                            .map((specialty: string, index: number) => (
-                              <span
-                                key={index}
-                                className="bg-teal-100 text-teal-700 px-2 py-1 rounded-full text-xs font-medium"
-                              >
-                                {specialty}
-                              </span>
-                            ))}
-                        </div>
+                        {/* Availability Status */}
+                        {/* <div className="text-xs text-center text-gray-700 font-semibold py-2">
+                          {Array.isArray(psychologist?.monthlySlots) &&
+                          psychologist.monthlySlots.length > 0 ? (
+                            <span className="text-green-600">
+                              Slots are available
+                            </span>
+                          ) : (
+                            <span className="text-red-500">
+                              No slots available
+                            </span>
+                          )}
+                        </div> */}
                       </div>
 
                       {/* CTA Button */}
-                      <div className="mt-3">
+                      <div className="mt-4">
                         <Button
                           onClick={() => handleBookNow(psychologist)}
                           className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
