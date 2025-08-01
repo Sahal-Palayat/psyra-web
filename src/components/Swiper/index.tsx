@@ -1,32 +1,27 @@
-"use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
-import {
-  EffectCoverflow,
-  Pagination,
-  Navigation,
-  Autoplay,
-} from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRef, useEffect, useState, useCallback } from "react";
-import { Button } from "../ui/button";
-import type { Psychologist } from "@/types/psychologist";
-import { motion } from "framer-motion";
-import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
+"use client"
+import { Swiper, SwiperSlide } from "swiper/react"
+import type { Swiper as SwiperType } from "swiper"
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules"
+import "swiper/css"
+import "swiper/css/effect-coverflow"
+import "swiper/css/pagination"
+import "swiper/css/navigation"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useRef, useEffect, useState, useCallback } from "react"
+import { Button } from "@/components/ui/button"
+import type { Psychologist } from "@/types/psychologist"
+import { motion } from "framer-motion"
+import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal"
 
 export default function Carousel3DFixedTiming({
   data,
 }: {
-  data: Psychologist[];
+  data: Psychologist[]
 }) {
-  const swiperRef = useRef<SwiperType | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const swiperRef = useRef<SwiperType | null>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -36,19 +31,19 @@ export default function Carousel3DFixedTiming({
     experience: "",
     expertise: [],
     languages: [],
-  });
+  })
 
   useEffect(() => {
     const initCarousel = () => {
-      setIsLoaded(true);
+      setIsLoaded(true)
       if (swiperRef.current) {
-        swiperRef.current.autoplay.start();
-        swiperRef.current.update();
+        swiperRef.current.autoplay.start()
+        swiperRef.current.update()
       }
-    };
-    const timer = setTimeout(initCarousel, 200);
-    return () => clearTimeout(timer);
-  }, [data]);
+    }
+    const timer = setTimeout(initCarousel, 200)
+    return () => clearTimeout(timer)
+  }, [data])
 
   // Pause/resume autoplay based on hover state
   // useEffect(() => {
@@ -62,11 +57,11 @@ export default function Carousel3DFixedTiming({
   // }, [hoveredCard]);
 
   const handleBookNow = useCallback((psychologist: Psychologist) => {
-    console.log("Booking consultation with:", psychologist.name);
-    setIsModalOpen(true);
-    setPsychologist(psychologist);
+    console.log("Booking consultation with:", psychologist.name)
+    setIsModalOpen(true)
+    setPsychologist(psychologist)
     // Add your booking logic here
-  }, []);
+  }, [])
 
   return (
     <div className="relative pb-24">
@@ -114,11 +109,11 @@ export default function Carousel3DFixedTiming({
           }}
           onSwiper={(swiper) => {
             // ADDED: Assign swiper instance to ref
-            swiperRef.current = swiper;
+            swiperRef.current = swiper
             setTimeout(() => {
-              swiper.autoplay.start();
-              swiper.update();
-            }, 100);
+              swiper.autoplay.start()
+              swiper.update()
+            }, 100)
           }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="bg-white relative"
@@ -131,40 +126,42 @@ export default function Carousel3DFixedTiming({
                   backfaceVisibility: "hidden",
                 }}
               >
-                <div className="flex flex-col items-center justify-center mt-6  w-full h-full text-center">
+                <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
                   <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
-                    {/* Circular glow behind the image */}
-                    <div className="relative w-50 h-55  flex items-center justify-center">
-                      {/* Circular glow behind the image */}
+                    {/* Background glow positioned first with proper z-index */}
+                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0 mt-[33px]"></div>
+
+                    {/* Image container with higher z-index */}
+                    <div className="relative w-50 h-55 flex items-center justify-center z-20">
                       <img
                         src={
                           psychologist?.imageUrl ||
-                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
+                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
+                          "/placeholder.svg" ||
+                          "/placeholder.svg"
                         }
                         alt="ALTERNATIVE IMAGE"
-                        className="w-50 h-50 object-cover rounded-full relative z-10"
+                        className="w-50 h-50 object-cover rounded-full relative z-30"
+                        style={{
+                          backfaceVisibility: "hidden",
+                          WebkitBackfaceVisibility: "hidden",
+                          transform: "translateZ(0)",
+                        }}
                       />
-
-                      {/* Image in the front */}
                     </div>
-                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0  mt-[33px]"></div>
                   </div>
-                  <div className="flex flex-col items-center justify-center text-center mt-6">
+                  <div className="flex flex-col items-center justify-center text-center mt-6 relative z-10">
                     <>
                       <h2 className="text-lg sm:text-xl font-bold text-teal">
                         {psychologist.name || "Unknown Doctor"}
                       </h2>
-
-                      <p className="text-teal/90 text-sm mb-2">
-                        {psychologist.specialization || "General Psychology"}
-                      </p>
+                      <p className="text-teal/90 text-sm mb-2">{psychologist.specialization || "General Psychology"}</p>
                     </>
-
                     <motion.button
                       onClick={() => handleBookNow(psychologist)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
-                      className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
+                      className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
                     >
                       Book Consultation
                     </motion.button>
@@ -174,34 +171,30 @@ export default function Carousel3DFixedTiming({
             </SwiperSlide>
           ))}
         </Swiper>
-
         {/* Arrow Buttons */}
         <Button
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slidePrev(); // Simplified call
+            swiperRef.current?.slidePrev() // Simplified call
           }}
           className="absolute rounded-full left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
-
         <Button
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slideNext(); // Simplified call
+            swiperRef.current?.slideNext() // Simplified call
           }}
           className="absolute rounded-full right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
       </div>
-
       {/* Pagination */}
       <div className="carousel-pagination flex justify-center space-x-3 mt-20"></div>
-
       <style jsx global>{`
         .perspective-1000 {
           perspective: 1000px;
@@ -242,7 +235,6 @@ export default function Carousel3DFixedTiming({
         .flip-card-back {
           transform: rotateY(180deg);
         }
-
         .swiper-button-next:after,
         .swiper-button-prev:after {
           display: none !important;
@@ -267,12 +259,21 @@ export default function Carousel3DFixedTiming({
           opacity: 0.8 !important;
           transform: scale(1.2);
         }
+        
+        /* Fix for mobile z-index issues during 3D transforms */
+        .swiper-slide {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .swiper-slide img {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          transform: translateZ(0);
+          -webkit-transform: translateZ(0);
+        }
       `}</style>
-      <PsychologistModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        data={psychologist}
-      />
+      <PsychologistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={psychologist} />
     </div>
-  );
+  )
 }
