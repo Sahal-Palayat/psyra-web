@@ -124,7 +124,7 @@ export default function Carousel3DFixedTiming({
           className="bg-white relative"
         >
           {data?.map((psychologist: Psychologist) => (
-            <SwiperSlide key={psychologist?._id} className="">
+            <SwiperSlide key={psychologist?._id} className="mt-14">
               <div
                 style={{
                   transformStyle: "preserve-3d",
@@ -143,7 +143,7 @@ export default function Carousel3DFixedTiming({
                           "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
                         }
                         alt="ALTERNATIVE IMAGE"
-                        className="w-50 h-50 object-cover rounded-full relative z-10"
+                        className="w-50 h-50 object-cover rounded-[10px] bg-[#9EE0D6] relative z-10"
                       />
 
                       {/* Image in the front */}
@@ -164,9 +164,9 @@ export default function Carousel3DFixedTiming({
                       onClick={() => handleBookNow(psychologist)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
-                      className="bg-[red] py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
+                      className="bg-[white] py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors"
                     >
-                      Book Consultation
+                      Book Now
                     </motion.button>
                   </div>
                 </div>
