@@ -8,7 +8,7 @@ import { CarouselHeader } from "./carousel-header";
 // import { CarouselControls } from "./carousel-controls";
 // import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
-import { PsychologistModal } from "../Modal/PsychologistModal";
+// import { PsychologistModal } from "../Modal/PsychologistModal";
 import Carousel3DMinimal from "@/components/Swiper";
 
 export default function PsychologistCarousel() {
