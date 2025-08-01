@@ -14,10 +14,6 @@ import "swiper/css/navigation";
 import {
   ChevronLeft,
   ChevronRight,
-  Calendar,
-  MapPin,
-  Clock,
-  Globe,
 } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "../ui/button";
@@ -137,7 +133,7 @@ export default function Carousel3DFixedTiming({
                 onMouseEnter={() => setHoveredCard(psychologist._id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 transform-style-preserve-3d">
                   {/* Front Side - Original Simple Circle Design */}
                   <div className="flip-card-front absolute inset-0 w-full h-full backface-hidden">
                     <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
@@ -178,87 +174,6 @@ export default function Carousel3DFixedTiming({
                   </div>
 
                   {/* Back Side - Detailed Card */}
-                  <div className="flip-card-back absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                    <div className="bg-gradient-to-br from-teal-50 via-white to-blue-50 rounded-2xl p-4 bg-red mt-12 flex flex-col justify-between shadow-xl border border-teal-200">
-                      {/* Header */}
-                      <div className="text-center mb-3">
-                        <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center shadow-md">
-                          <img
-                            src={
-                              psychologist?.imageUrl ||
-                              "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg" ||
-                              "/placeholder.svg"
-                            }
-                            alt={psychologist?.name || "Psychologist"}
-                            className="w-14 h-14 object-cover rounded-full border border-white"
-                          />
-                        </div>
-                        <h3 className="text-base font-bold text-teal-800 mb-1">
-                          {psychologist.name || "Dr. Unknown"}
-                        </h3>
-                        <p className="text-xs text-teal-600 font-medium">
-                          {psychologist.specialization || "General Psychology"}
-                        </p>
-                      </div>
-
-                      {/* Stats Row */}
-
-                      {/* Details */}
-                      <div className="flex-1 space-y-2 text-xs">
-                        <div className="flex items-center text-gray-600">
-                          <Clock className="w-3 h-3 mr-2 text-teal-500" />
-                          <span>{psychologist?.experience} experience</span>
-                        </div>
-
-                        <div className="flex items-center text-gray-600">
-                          <MapPin className="w-3 h-3 mr-2 text-red-500" />
-                          <span>Online</span>
-                        </div>
-
-                        {Array.isArray(psychologist?.languages) && (
-                          <div className="flex items-center text-gray-600">
-                            <Globe className="w-3 h-3 mr-2 text-purple-500" />
-                            <span>{psychologist.languages.join(", ")}</span>
-                          </div>
-                        )}
-
-                        {/* <div className="bg-white/80 rounded-lg p-2 mt-2">
-                          <p className="text-xs text-gray-700 leading-relaxed">
-                            {
-                              "Specialized in anxiety, depression, and relationship counseling. Committed to providing compassionate care."
-                            }
-                          </p>
-                        </div> */}
-                        {/* Availability Status */}
-                        {/* <div className="text-xs text-center text-gray-700 font-semibold py-2">
-                          {Array.isArray(psychologist?.monthlySlots) &&
-                          psychologist.monthlySlots.length > 0 ? (
-                            <span className="text-green-600">
-                              Slots are available
-                            </span>
-                          ) : (
-                            <span className="text-red-500">
-                              No slots available
-                            </span>
-                          )}
-                        </div> */}
-                      </div>
-
-                      {/* CTA Button */}
-                      <div className="mt-4">
-                        <Button
-                          onClick={() => handleBookNow(psychologist)}
-                          className="w-full bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white text-xs py-2 h-9 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-                        >
-                          <Calendar className="w-3 h-3 mr-1" />
-                          Book Now
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </SwiperSlide>
@@ -331,9 +246,7 @@ export default function Carousel3DFixedTiming({
         .flip-card-back {
           transform: rotateY(180deg);
         }
-        .group:hover .flip-card-inner {
-          transform: rotateY(180deg);
-        }
+
         .swiper-button-next:after,
         .swiper-button-prev:after {
           display: none !important;
