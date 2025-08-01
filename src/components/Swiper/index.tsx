@@ -11,10 +11,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "../ui/button";
 import type { Psychologist } from "@/types/psychologist";
@@ -139,7 +136,7 @@ export default function Carousel3DFixedTiming({
                     <div className="flex flex-col items-center justify-center mt-6 w-full h-full text-center">
                       <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
                         <div className="relative w-50 h-55 flex items-center justify-center">
-                          <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-md z-0 mt-[33px]"></div>
+                          <div className="absolute w-40 h-40 sm:w-42 sm:h-42 rounded-full bg-[#9EE0D6] backdrop-blur-md z-0 mt-6 sm:mt-8"></div>
                           <img
                             src={
                               psychologist?.imageUrl ||
@@ -226,6 +223,7 @@ export default function Carousel3DFixedTiming({
           width: 100%;
           max-width: 220px;
           margin: 0 auto;
+          overflow: hidden;
         }
         .flip-card-inner {
           position: relative;
