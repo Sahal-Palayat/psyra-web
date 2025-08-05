@@ -46,11 +46,11 @@ export default function WelcomeAnimationOverlay() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="hidden sm:block w-2/3 md:w-1/2 border-b-2 border-[#008080] mx-auto md:mx-0 pt-2 pb-0"
+            className="w-2/3 md:w-1/2 border-b-2 border-[#008080] mx-auto md:mx-0 pt-2 pb-0"
           />
         </div>
         {/* Image Column - takes up half width on desktop, no right padding */}
-        <div className="w-full md:w-1/2 flex justify-center items-center pl-20 md:py-30 md:pl-20">
+        {/* <div className="w-full md:w-1/2 flex justify-center items-center pl-20 md:py-30 md:pl-20">
           <motion.video
             autoPlay
             muted
@@ -64,7 +64,7 @@ export default function WelcomeAnimationOverlay() {
             <source src="/floweranim.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </motion.video>
-        </div>
+        </div> */}
       </div>
     </div>
   );
