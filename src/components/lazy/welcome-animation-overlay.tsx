@@ -15,7 +15,7 @@ export default function WelcomeAnimationOverlay() {
         setIsVisible(false);
       }, 1000); // Duration of fade-out animation (matches CSS transition)
       return () => clearTimeout(hideTimer);
-    }, 200000); // Show animation for 3 seconds before starting to fade out (adjust as needed for video length)
+    }, 2000); // Show animation for 3 seconds before starting to fade out (adjust as needed for video length)
 
     return () => clearTimeout(animationTimer);
   }, []); // Empty dependency array means this runs once on mount
