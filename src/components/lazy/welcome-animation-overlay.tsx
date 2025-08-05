@@ -31,7 +31,7 @@ export default function WelcomeAnimationOverlay() {
       }`}
     >
       {/* This container now takes full width and uses flexbox for responsive layout */}
-      <div className="flex flex-col md:flex-row items-center justify-center w-full h-full max-w-7xl mx-auto py-16 md:pl-56">
+      <div className="flex flex-col md:flex-row items-center justify-center w-full h-full max-w-7xl mx-auto py-16 md:pl-50">
         {/* Text Column - takes up half width on desktop, centered on mobile, with left padding */}
         <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
           <motion.h2
@@ -50,21 +50,14 @@ export default function WelcomeAnimationOverlay() {
           />
         </div>
         {/* Image Column - takes up half width on desktop, no right padding */}
-        {/* <div className="w-full md:w-1/2 flex justify-center items-center pl-20 md:py-30 md:pl-20">
-          <motion.video
-            autoPlay
-            muted
-            loop
-            playsInline
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="w-full h-auto" // Video fills its container, no extra borders/shadows
-          >
-            <source src="/floweranim.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </motion.video>
-        </div> */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="w-full md:w-1/2 flex justify-center items-center"
+        >
+          <img src="./download__2_-removebg-preview.png" />
+        </motion.div>
       </div>
     </div>
   );
