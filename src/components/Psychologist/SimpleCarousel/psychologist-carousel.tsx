@@ -51,7 +51,7 @@ export default function PsychologistCarousel() {
       // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);
-      alert("tecnical issue");
+      alert("technical issue");
     }
   };
 
