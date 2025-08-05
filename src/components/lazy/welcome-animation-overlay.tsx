@@ -5,23 +5,7 @@ import { motion } from "framer-motion";
 export default function WelcomeAnimationOverlay() {
   const [isVisible, setIsVisible] = useState(true); // Always start visible
   const [hasAnimated, setHasAnimated] = useState(false);
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05, // Delay between each word animation
-        delayChildren: 0.5, // Delay before the first word starts animating
-      },
-    },
-  };
 
-  // Variants for individual words
-  const wordVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-  const partnerText = "Your Trusted Mental Wellness Partner".split(" ");
   useEffect(() => {
     // Set a timeout to trigger the fade-out animation
     const animationTimer = setTimeout(() => {
