@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import {
   type BookingModalProps,
   type BookingData,
-  ALL_TIME_SLOTS,
   BookedSlot,
+  INDIVIDUAL_TIME_SLOTS,
+  COUPLE_TIME_SLOTS,
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
@@ -19,6 +20,8 @@ export function BookingModal({
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [allTImeSLots, setAlltimeSLots] = useState<string[]>([]);
+
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
     email: "",
@@ -29,6 +32,7 @@ export function BookingModal({
     agreeToTerms: false,
     packageTitle: packageTitle,
     sessionType: "",
+    therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
   });
 
   useEffect(() => {
@@ -36,6 +40,11 @@ export function BookingModal({
       ...prev,
       packageTitle: packageTitle,
     }));
+    const slotss =
+      bookingData?.therapyType === "individual"
+        ? INDIVIDUAL_TIME_SLOTS
+        : COUPLE_TIME_SLOTS;
+    setAlltimeSLots(slotss);
   }, [packageTitle]);
 
   console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
@@ -88,6 +97,7 @@ export function BookingModal({
       sessionType: "",
       agreeToTerms: false,
       packageTitle: packageTitle,
+      therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     });
     onClose();
   };
@@ -276,7 +286,11 @@ export function BookingModal({
                           );
                         }
                       }}
-                      allTimeSlots={ALL_TIME_SLOTS}
+                      allTimeSlots={
+                        bookingData?.therapyType === "individual"
+                          ? INDIVIDUAL_TIME_SLOTS
+                          : COUPLE_TIME_SLOTS
+                      }
                       bookedSlots={bookedSlots}
                     />
                   </div>

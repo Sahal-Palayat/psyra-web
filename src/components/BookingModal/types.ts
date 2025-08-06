@@ -14,7 +14,7 @@ export interface BookingData {
   issue: string;
   agreeToTerms: boolean;
   sessionType: string;
-
+  therapyType: string;
   // Package info
   packageTitle?: string;
 }
@@ -67,7 +67,7 @@ export const THERAPY_ISSUES = [
 export const SESSION_TYPE = ["New Session", "Followup Session"];
 
 // Generate all 24-hour time slots
-export const ALL_TIME_SLOTS = [
+export const INDIVIDUAL_TIME_SLOTS = [
   "12:00 AM - 01:00 AM",
   "07:00 AM - 08:00 AM",
   "08:00 AM - 09:00 AM",
@@ -86,4 +86,19 @@ export const ALL_TIME_SLOTS = [
   "09:00 PM - 10:00 PM",
   "10:00 PM - 11:00 PM",
   "11:00 PM - 12:00 AM",
+];
+
+export const COUPLE_TIME_SLOTS = [
+  "07:00 AM - 08:30 AM",
+  "08:30 AM - 10:00 AM",
+  "10:00 AM - 11:30 AM",
+  "11:30 AM - 01:00 PM",
+  "01:00 PM - 02:30 PM",
+  "02:30 PM - 04:00 PM",
+  "04:00 PM - 05:30 PM",
+  "05:30 PM - 07:00 PM",
+  "07:00 PM - 08:30 PM",
+  "08:30 PM - 10:00 PM",
+  "10:00 PM - 11:30 PM",
+  "11:30 PM - 01:00 AM",
 ];
