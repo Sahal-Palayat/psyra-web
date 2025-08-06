@@ -35,10 +35,13 @@ export function BookingModal({
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
   });
 
+  console.log(packageTitle?.includes("couple"), "PAKCAGE TITLE");
+
   useEffect(() => {
     setBookingData((prev) => ({
       ...prev,
       packageTitle: packageTitle,
+      therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     }));
     const slotss =
       bookingData?.therapyType === "individual"
