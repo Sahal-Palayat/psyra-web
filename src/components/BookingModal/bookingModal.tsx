@@ -20,7 +20,6 @@ export function BookingModal({
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
-  const [allTImeSLots, setAlltimeSLots] = useState<string[]>([]);
 
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
@@ -43,11 +42,6 @@ export function BookingModal({
       packageTitle: packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     }));
-    const slotss =
-      bookingData?.therapyType === "individual"
-        ? INDIVIDUAL_TIME_SLOTS
-        : COUPLE_TIME_SLOTS;
-    setAlltimeSLots(slotss);
   }, [packageTitle]);
 
   console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
