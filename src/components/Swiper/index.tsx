@@ -1,4 +1,5 @@
 "use client"
+
 import { Swiper, SwiperSlide } from "swiper/react"
 import type { Swiper as SwiperType } from "swiper"
 import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules"
@@ -6,21 +7,95 @@ import "swiper/css"
 import "swiper/css/effect-coverflow"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef, useEffect, useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
-import type { Psychologist } from "@/types/psychologist"
+import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal"
+
+// Mock type for demonstration
+type Psychologist = {
+  _id: string
+  name: string
+  specialization: string
+  monthlySlots: any[]
+  imageUrl: string
+  experience: string
+  expertise: string[]
+  languages: string[]
+}
+
+// Mock modal component
+const PsychologistModal = ({ isOpen, onClose, data }: { isOpen: boolean; onClose: () => void; data: Psychologist }) => {
+  if (!isOpen) return null
+  
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+        <h2 className="text-xl font-bold mb-4">{data.name}</h2>
+        <p className="text-gray-600 mb-4">{data.specialization}</p>
+        <button 
+          onClick={onClose}
+          className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Mock data for demonstration
+const mockData: Psychologist[] = [
+  {
+    _id: "1",
+    name: "Dr. Sarah Johnson",
+    specialization: "Clinical Psychology",
+    monthlySlots: [],
+    imageUrl: "/placeholder.svg?height=200&width=200&text=Dr.+Sarah",
+    experience: "10 years",
+    expertise: ["Anxiety", "Depression"],
+    languages: ["English", "Spanish"]
+  },
+  {
+    _id: "2",
+    name: "Dr. Michael Chen",
+    specialization: "Cognitive Behavioral Therapy",
+    monthlySlots: [],
+    imageUrl: "/placeholder.svg?height=200&width=200&text=Dr.+Michael",
+    experience: "8 years",
+    expertise: ["CBT", "Trauma"],
+    languages: ["English", "Mandarin"]
+  },
+  {
+    _id: "3",
+    name: "Dr. Emily Rodriguez",
+    specialization: "Family Therapy",
+    monthlySlots: [],
+    imageUrl: "/placeholder.svg?height=200&width=200&text=Dr.+Emily",
+    experience: "12 years",
+    expertise: ["Family", "Couples"],
+    languages: ["English", "Spanish"]
+  },
+  {
+    _id: "4",
+    name: "Dr. James Wilson",
+    specialization: "Child Psychology",
+    monthlySlots: [],
+    imageUrl: "/placeholder.svg?height=200&width=200&text=Dr.+James",
+    experience: "15 years",
+    expertise: ["Children", "ADHD"],
+    languages: ["English"]
+  }
+]
 
 export default function Carousel3DFixedTiming({
-  data,
+  data = mockData,
 }: {
-  data: Psychologist[]
+  data?: Psychologist[]
 }) {
   const swiperRef = useRef<SwiperType | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
-  // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
@@ -45,52 +120,39 @@ export default function Carousel3DFixedTiming({
     return () => clearTimeout(timer)
   }, [data])
 
-  // Pause/resume autoplay based on hover state
-  // useEffect(() => {
-  //   if (swiperRef.current) {
-  //     if (hoveredCard) {
-  //       swiperRef.current.autoplay.stop();
-  //     } else {
-  //       swiperRef.current.autoplay.start();
-  //     }
-  //   }
-  // }, [hoveredCard]);
-
   const handleBookNow = useCallback((psychologist: Psychologist) => {
     console.log("Booking consultation with:", psychologist.name)
     setIsModalOpen(true)
     setPsychologist(psychologist)
-    // Add your booking logic here
   }, [])
 
   return (
     <div className="relative pb-8 mt-4">
       <div
-        className={`max-w-260 mx-auto relative transition-all duration-700 ${
+        className={`max-w-6xl mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <Swiper
-          // ref={swiperRef} // UNCOMMENTED: Assign ref to Swiper instance
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
           autoplay={{
-            delay: 3000, // Reverted to 3 seconds
+            delay: 30000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: false, // We'll handle this manually with hoveredCard state
-            waitForTransition: true, // Wait for transition to complete
+            pauseOnMouseEnter: false,
+            waitForTransition: true,
             stopOnLastSlide: false,
           }}
           speed={600}
           watchSlidesProgress={true}
           breakpoints={{
             0: {
-              slidesPerView: 2,
+              slidesPerView: 1,
             },
             768: {
-              slidesPerView: 3,
+              slidesPerView: 2,
             },
             1024: {
               slidesPerView: 3,
@@ -99,8 +161,8 @@ export default function Carousel3DFixedTiming({
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 110,
-            modifier: 3,
+            depth: 100,
+            modifier: 2,
             slideShadows: false,
           }}
           pagination={{
@@ -108,7 +170,6 @@ export default function Carousel3DFixedTiming({
             clickable: true,
           }}
           onSwiper={(swiper) => {
-            // ADDED: Assign swiper instance to ref
             swiperRef.current = swiper
             setTimeout(() => {
               swiper.autoplay.start()
@@ -116,69 +177,70 @@ export default function Carousel3DFixedTiming({
             }, 100)
           }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-          className="bg-white relative"
+          className="relative"
         >
           {data?.map((psychologist: Psychologist) => (
-            <SwiperSlide key={psychologist?._id} className="">
-              <div
-                style={{
-                  transformStyle: "preserve-3d",
-                  backfaceVisibility: "hidden",
-                }}
+            <SwiperSlide key={psychologist?._id} className="pb-4">
+              <motion.div
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
+                className="h-full"
               >
-                <div className="flex flex-col items-center justify-center mt-8 w-full h-full text-center">
-                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
-                    {/* Background glow positioned first with proper z-index */}
-                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0 mt-[33px]"></div>
-
-                    {/* Image container with higher z-index */}
-                    <div className="relative w-50 h-55 flex items-center justify-center z-20">
+                <Card className="mx-4 h-full shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white border border-gray-200">
+                  <CardContent className="p-0">
+                    {/* Image Section */}
+                    <div className="relative w-full h-48 overflow-hidden bg-gray-100">
                       <img
                         src={
                           psychologist?.imageUrl ||
-                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                          "/placeholder.svg" ||
-                          "/placeholder.svg"
-                        }
-                        alt="ALTERNATIVE IMAGE"
-                        className="w-50 h-50 object-cover rounded-full relative z-30"
-                        style={{
-                          backfaceVisibility: "hidden",
-                          WebkitBackfaceVisibility: "hidden",
-                          transform: "translateZ(0)",
-                        }}
+                          "/placeholder.svg?height=200&width=300&text=Doctor"
+                         || "/placeholder.svg"}
+                        alt={psychologist?.name || "Doctor"}
+                        className="w-50 h-60 object-cover"
                       />
                     </div>
-                  </div>
-                  <div className="flex flex-col items-center justify-center text-center mt-6 relative z-10">
-                    <>
-                      <h2 className="text-lg sm:text-xl font-bold text-teal">
+                    
+                    {/* Content Section */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
                         {psychologist.name || "Unknown Doctor"}
-                      </h2>
-                      <p className="text-teal/90 text-sm mb-2">{psychologist.specialization || "General Psychology"}</p>
-                    </>
-                    <motion.button
-                      onClick={() => handleBookNow(psychologist)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
-                    >
-                      Book Now
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        {psychologist.specialization || "General Psychology"}
+                      </p>
+                      
+                      {/* Experience Badge */}
+                      {psychologist.experience && (
+                        <div className="inline-block bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full mb-4">
+                          {psychologist.experience} experience
+                        </div>
+                      )}
+                      
+                      {/* Book Now Button */}
+                      <motion.button
+                        onClick={() => handleBookNow(psychologist)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200"
+                      >
+                        Book Now
+                      </motion.button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>
+
         {/* Arrow Buttons */}
         <Button
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slidePrev() // Simplified call
+            swiperRef.current?.slidePrev()
           }}
-          className="absolute rounded-full left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full"
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
@@ -186,59 +248,18 @@ export default function Carousel3DFixedTiming({
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slideNext() // Simplified call
+            swiperRef.current?.slideNext()
           }}
-          className="absolute rounded-full right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full"
         >
           <ChevronRight className="h-5 w-5" />
         </Button>
       </div>
+
       {/* Pagination */}
-      <div className="carousel-pagination flex justify-center space-x-3 mt-20"></div>
+      <div className="carousel-pagination flex justify-center space-x-3 mt-8"></div>
+
       <style jsx global>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        .transform-style-preserve-3d {
-          transform-style: preserve-3d;
-        }
-        .backface-hidden {
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-        }
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-        .flip-card-container {
-          height: 360px;
-          width: 100%;
-          max-width: 220px;
-          margin: 0 auto;
-          overflow: hidden;
-        }
-        .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-          transform-style: preserve-3d;
-        }
-        .flip-card-front,
-        .flip-card-back {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-        }
-        .flip-card-back {
-          transform: rotateY(180deg);
-        }
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-          display: none !important;
-        }
         .carousel-pagination .swiper-pagination-bullet {
           width: 10px !important;
           height: 10px !important;
@@ -259,21 +280,19 @@ export default function Carousel3DFixedTiming({
           opacity: 0.8 !important;
           transform: scale(1.2);
         }
-        
-        /* Fix for mobile z-index issues during 3D transforms */
-        .swiper-slide {
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-        }
-
-        .swiper-slide img {
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-          transform: translateZ(0);
-          -webkit-transform: translateZ(0);
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
-      <PsychologistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={psychologist} />
+
+      <PsychologistModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        data={psychologist} 
+      />
     </div>
   )
 }

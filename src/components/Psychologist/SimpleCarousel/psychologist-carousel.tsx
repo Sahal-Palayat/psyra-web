@@ -10,6 +10,8 @@ import { CarouselHeader } from "./carousel-header";
 import axios from "axios";
 // import { PsychologistModal } from "../Modal/PsychologistModal";
 import Carousel3DMinimal from "@/components/Swiper";
+import RectangleCarousel from "@/components/Swiper";
+import Carousel3DFixedTiming from "@/components/Swiper";
 
 export default function PsychologistCarousel() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -228,7 +230,7 @@ export default function PsychologistCarousel() {
       <div className="container mx-auto">
         <CarouselHeader />
 
-        <Carousel3DMinimal data={professionals} />
+        <Carousel3DFixedTiming data={professionals} />
 
         {/* <CarouselStats /> */}
       </div>
