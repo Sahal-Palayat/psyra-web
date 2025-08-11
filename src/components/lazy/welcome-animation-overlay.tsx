@@ -56,7 +56,7 @@ export default function WelcomeAnimationOverlay() {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="w-full md:w-1/2 flex justify-center items-center"
         >
-          <img src="./download__2_-removebg-preview.png" />
+          <img src="./Web Vdo121.png" />
         </motion.div>
       </div>
     </div>
