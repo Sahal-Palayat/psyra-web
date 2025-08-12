@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Logo from "../../../public/logoFooter.png";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Image from "next/image";
 
 export default function PsyraChiefPsychologistApplication() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -141,7 +143,10 @@ export default function PsyraChiefPsychologistApplication() {
         {/* Header */}
         <div className="text-center mb-10">
           <div className="mb-6">
-            <h1 className="text-5xl font-bold text-emerald-800 mb-2">Psyra</h1>
+            <div className=" mb-4 inline-flex items-center justify-center bg-[#00989D] p-2 rounded-[10px]">
+              <Image src={Logo} alt="Psyra Logo" width={200} height={40} />
+            </div>
+            {" "}
             <h2 className="text-3xl font-semibold text-teal-700 mb-6">
               Chief Psychologist Application
             </h2>
@@ -196,10 +201,10 @@ export default function PsyraChiefPsychologistApplication() {
           {/* Basic Information */}
           <Card className="border-emerald-200 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl text-emerald-800">
+              <CardTitle className="text-2xl text-[black]">
                 Basic Information
               </CardTitle>
-              <CardDescription className="text-emerald-600">
+              <CardDescription className="text-[black]">
                 Please provide your basic details
               </CardDescription>
             </CardHeader>
@@ -207,7 +212,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="fullName"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Full Name *
                 </Label>
@@ -226,7 +231,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="mobileNumber"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Mobile Number *
                 </Label>
@@ -248,10 +253,10 @@ export default function PsyraChiefPsychologistApplication() {
           {/* Professional Information */}
           <Card className="border-emerald-200 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl text-emerald-800">
+              <CardTitle className="text-2xl text-[black]">
                 Professional Background
               </CardTitle>
-              <CardDescription className="text-emerald-600">
+              <CardDescription className="text-[black]">
                 Your qualifications and experience
               </CardDescription>
             </CardHeader>
@@ -259,11 +264,11 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="workExperience"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Work Experience (in years) *
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-[black] mb-2">
                   Exclude internships. Minimum 3 years required
                 </p>
                 <Select
@@ -291,7 +296,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="qualification"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Qualification *
                 </Label>
@@ -310,7 +315,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="specializedAreas"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Specialized Areas
                 </Label>
@@ -331,10 +336,10 @@ export default function PsyraChiefPsychologistApplication() {
           {/* Digital Presence & Documents */}
           <Card className="border-emerald-200 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl text-emerald-800">
+              <CardTitle className="text-2xl">
                 Digital Presence & Documents
               </CardTitle>
-              <CardDescription className="text-emerald-600">
+              <CardDescription className="text-[black]">
                 Share your online presence and required documents
               </CardDescription>
             </CardHeader>
@@ -342,7 +347,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="socialMediaAccounts"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Active Social Media Accounts (Attach Link)
                 </Label>
@@ -360,11 +365,11 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="recentPhoto"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   A Recent Photo 🔗 *
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-[black] mb-2">
                   Please provide a link to a recent photo of yourself. You may
                   upload it to Google Drive (ensure the link is accessible) or
                   share a link from any of your public social media accounts.
@@ -386,11 +391,11 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="resume"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Resume 🔗 *
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-[black] mb-2">
                   Please provide a link to your resume. You may upload it to
                   Google Drive (ensure the link is accessible) or share a link
                   from any public portfolio or professional website.
@@ -408,11 +413,11 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="videoPresentation"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   1-Minute Video Presentation (Link 🔗) *
                 </Label>
-                <ul className="text-left text-gray-700 space-y-2">
+                <ul className="text-left text-[black] space-y-2">
                   <li>
                     • In your video, feel free to speak on any topic in{" "}
                     <strong>Malayalam</strong> of your choice. The goal is to
@@ -447,10 +452,10 @@ export default function PsyraChiefPsychologistApplication() {
           {/* Vision & Ideas */}
           <Card className="border-emerald-200 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl text-emerald-800">
+              <CardTitle className="text-2xl text-[black]">
                 Your Vision & Ideas
               </CardTitle>
-              <CardDescription className="text-emerald-600">
+              <CardDescription className="text-[black]">
                 Help us understand your perspective and vision
               </CardDescription>
             </CardHeader>
@@ -458,7 +463,7 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="whyJoinPsyra"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Why do you want to join Psyra as Chief Psychologist? *
                 </Label>
@@ -478,12 +483,12 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="mentalHealthIdea"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Share one idea you believe could improve mental health
                   services in India. *
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-[black] mb-2">
                   This helps us understand your vision and thought process.
                 </p>
                 <Textarea
@@ -502,11 +507,11 @@ export default function PsyraChiefPsychologistApplication() {
               <div>
                 <Label
                   htmlFor="additionalInfo"
-                  className="text-lg font-medium text-gray-700"
+                  className="text-lg font-medium text-[black]"
                 >
                   Anything else you had like to share or ask us? (Optional)
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-sm text-[black] mb-2">
                   Share any thoughts, additional information, or questions.
                 </p>
                 <Textarea
@@ -531,7 +536,7 @@ export default function PsyraChiefPsychologistApplication() {
               disabled={isSubmitting}
               className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-12 py-4 text-xl font-semibold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              {isSubmitting ? "Submitting..." : "Submit Application 🌟"}
+              {isSubmitting ? "Submitting..." : "Submit Application"}
             </Button>
             <p className="text-sm text-gray-600 mt-4">
               By submitting this application, you confirm that all information
