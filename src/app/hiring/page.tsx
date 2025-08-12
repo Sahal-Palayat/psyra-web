@@ -137,7 +137,7 @@ export default function PsyraChiefPsychologistApplication() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mt-16 mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="mb-6">
@@ -412,16 +412,24 @@ export default function PsyraChiefPsychologistApplication() {
                 >
                   1-Minute Video Presentation (Link 🔗) *
                 </Label>
-                <p className="text-sm text-gray-600 mb-2">
-                  In your video, feel free to speak on any topic in{" "}
-                  <strong>Malayalam</strong> of your choice. The goal is to
-                  showcase your communication skills, confidence, and
-                  personality. Please ensure clear video and sound quality, good
-                  lighting, a formal appearance, and a distraction-free
-                  background. You may upload the video to any platform (like
-                  YouTube as an Unlisted video, Instagram, or Any Channel) and
-                  share the link.
-                </p>
+                <ul className="text-left text-gray-700 space-y-2">
+                  <li>
+                    • In your video, feel free to speak on any topic in{" "}
+                    <strong>Malayalam</strong> of your choice. The goal is to
+                    showcase your communication skills, confidence, and
+                    personality.{" "}
+                  </li>
+                  <li>
+                    • Please ensure clear video and sound quality, good
+                    lighting, a formal appearance, and a distraction-free
+                    background.{" "}
+                  </li>
+                  <li>
+                    • You may upload the video to any platform (like YouTube as
+                    an Unlisted video, Instagram, or Any Channel) and share the
+                    link.
+                  </li>
+                </ul>
                 <Input
                   id="videoPresentation"
                   value={formData.videoPresentation}
