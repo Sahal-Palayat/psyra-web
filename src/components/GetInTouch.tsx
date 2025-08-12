@@ -1,11 +1,62 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 import Smily from "../../public/listening-music-emoji-illustration 1.png";
 
 const GetInTouch = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [phone, setPhone] = useState("");
+  const [type, setType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name || !email || !message) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const url =
+        "https://script.google.com/macros/s/AKfycbzBYz9jU0LnZlnN_t-L3cvdUh_Khl2JcnZG7friVcd8rHyG3laqgWBjdgiwoe7ue4acQQ/exec";
+
+      const formData = new URLSearchParams();
+      formData.append("Name", name);
+      formData.append("Phone", phone);
+      formData.append("Type", type);
+      formData.append("Email", email);
+      formData.append("Message", message);
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString(),
+      });
+
+      const data = await response.text();
+      console.log("Response from Google Apps Script:", data);
+
+   
+
+      // Reset form
+      setName("");
+      setEmail("");
+      setMessage("");
+      setPhone("");
+      setType("");
+    } catch (error) {
+      console.error("Error submitting form:", error);
   
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <motion.section
       id="contact"
@@ -35,31 +86,67 @@ const GetInTouch = () => {
               initial="hidden"
               whileInView="visible"
               transition={{ staggerChildren: 0.2 }}
+              onSubmit={handleSubmit}
             >
-              {["Your Name", "Your Email", "Your Message"].map(
-                (placeholder, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                  >
-                    {placeholder === "Your Message" ? (
-                      <textarea
-                        placeholder={placeholder}
-                        rows={4}
-                        className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
-                      />
-                    ) : (
-                      <input
-                        type={placeholder === "Your Email" ? "email" : "text"}
-                        placeholder={placeholder}
-                        className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
-                      />
-                    )}
-                  </motion.div>
-                )
-              )}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0 * 0.2 }}
+              >
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1 * 0.2 }}
+              >
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 2 * 0.2 }}
+              >
+                <input
+                  type="tel"
+                  placeholder="Your Phone (Optional)"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 3 * 0.2 }}
+              >
+                <textarea
+                  placeholder="Your Message"
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="w-full p-3 rounded-md border border-gray-300 bg-white placeholder:text-[14px] focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  required
+                />
+              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -67,9 +154,10 @@ const GetInTouch = () => {
               >
                 <button
                   type="submit"
-                  className="w-full bg-teal-600 text-white p-3 rounded-md font-medium hover:bg-teal-700 transition-all"
+                  disabled={isSubmitting}
+                  className="w-full bg-teal-600 text-white p-3 rounded-md font-medium hover:bg-teal-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send
+                  {isSubmitting ? "Sending..." : "Send"}
                 </button>
               </motion.div>
             </motion.form>
@@ -79,19 +167,19 @@ const GetInTouch = () => {
             className="hidden md:inline-block flex items-center justify-center px-15"
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{
-              duration: 2, // Time for one full back-and-forth rotation
-              repeat: Infinity, // Infinite repeat
-              repeatType: "loop", // Continuous loop
-              ease: "easeInOut", // Smooth easing
+              duration: 2,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "loop",
+              ease: "easeInOut",
             }}
             initial={{ opacity: 1 }}
             animate={{
               opacity: 1,
-              rotate: [-5, 5, -5], // Slight rotation (degrees)
+              rotate: [-5, 5, -5],
             }}
           >
             <Image
-              src={Smily}
+              src={Smily || "/placeholder.svg"}
               alt="Contact"
               width={350}
               height={240}

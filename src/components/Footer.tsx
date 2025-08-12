@@ -258,7 +258,7 @@ export default function Footer() {
           </p>
         </div>
       </div>
-      <div className="text-center mt-4">
+      <div className="text-center mt-4 p-2">
         <p className="text-sm md:text-lg mt-3 text-[yellow]">
           Psyra does not deal with medical or psychological emergencies. We are
           not designed to offer support in crisis situations
