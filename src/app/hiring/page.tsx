@@ -1,5 +1,4 @@
 "use client";
-
 import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -20,10 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { useToast } from "@/hooks/use-toast"
 
 export default function PsyraChiefPsychologistApplication() {
-  //   const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     mobileNumber: "",
@@ -39,7 +37,7 @@ export default function PsyraChiefPsychologistApplication() {
     additionalInfo: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -61,7 +59,65 @@ export default function PsyraChiefPsychologistApplication() {
       return;
     }
 
-    console.log("Psyra Application submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      const url =
+        "https://script.google.com/macros/s/AKfycbx-t84uXlDX7OZa0nKqvgmvtrlbrrQ73ftXd8e-XdA7rNy0AP17nktxC9lTU2TKTAz1WQ/exec";
+
+      const submitData = new URLSearchParams();
+      submitData.append("Timestamp", new Date().toISOString());
+      submitData.append("FullName", formData.fullName);
+      submitData.append("Mobile", formData.mobileNumber);
+      submitData.append("WorkExperience", formData.workExperience);
+      submitData.append("Qualifications", formData.qualification);
+      submitData.append("SpecializedAreas", formData.specializedAreas);
+      submitData.append(
+        "ActiveSocialMediaAccounts",
+        formData.socialMediaAccounts
+      );
+      submitData.append("ARecentPhoto", formData.recentPhoto);
+      submitData.append("Resume", formData.resume);
+      submitData.append("MinuteVideoPresentatio", formData.videoPresentation); // Note: keeping the typo as in the script
+      submitData.append("Looking", formData.whyJoinPsyra);
+      submitData.append("PreferredRole", "Chief Psychologist");
+      // Additional fields that might not be in the original script but are important
+      submitData.append("MentalHealthIdea", formData.mentalHealthIdea);
+      submitData.append("AdditionalInfo", formData.additionalInfo);
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: submitData.toString(),
+      });
+
+      const result = await response.text();
+      console.log("Response from Google Apps Script:", result);
+
+      if (response.ok) {
+        // Reset form after successful submission
+        setFormData({
+          fullName: "",
+          mobileNumber: "",
+          workExperience: "",
+          qualification: "",
+          specializedAreas: "",
+          socialMediaAccounts: "",
+          recentPhoto: "",
+          resume: "",
+          videoPresentation: "",
+          whyJoinPsyra: "",
+          mentalHealthIdea: "",
+          additionalInfo: "",
+        });
+      } else {
+        throw new Error("Failed to submit application");
+      }
+    } catch (error) {
+      console.error("Error submitting application:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -70,7 +126,7 @@ export default function PsyraChiefPsychologistApplication() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto mt-16">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="mb-6">
@@ -453,9 +509,10 @@ export default function PsyraChiefPsychologistApplication() {
             <Button
               type="submit"
               size="lg"
-              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-12 py-4 text-xl font-semibold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105"
+              disabled={isSubmitting}
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-12 py-4 text-xl font-semibold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Submit Application 🌟
+              {isSubmitting ? "Submitting..." : "Submit Application 🌟"}
             </Button>
             <p className="text-sm text-gray-600 mt-4">
               By submitting this application, you confirm that all information
