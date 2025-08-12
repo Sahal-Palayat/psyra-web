@@ -1,4 +1,5 @@
 "use client";
+
 import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,9 +20,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function PsyraChiefPsychologistApplication() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     mobileNumber: "",
@@ -95,6 +104,8 @@ export default function PsyraChiefPsychologistApplication() {
       console.log("Response from Google Apps Script:", result);
 
       if (response.ok) {
+        setShowConfirmation(true);
+
         // Reset form after successful submission
         setFormData({
           fullName: "",
@@ -521,6 +532,36 @@ export default function PsyraChiefPsychologistApplication() {
           </div>
         </form>
       </div>
+
+      {/* Confirmation Modal */}
+      <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <div className="mx-auto mb-4 text-6xl">🎉</div>
+            <DialogTitle className="text-2xl font-bold text-emerald-800">
+              Application Submitted Successfully!
+            </DialogTitle>
+            <DialogDescription className="text-lg text-gray-600 mt-4">
+              Thank you for your interest in joining Psyra as Chief
+              Psychologist. We have received your application and will review it
+              carefully.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="bg-emerald-50 rounded-lg p-4 mt-4">
+            <p className="text-emerald-800 text-center font-medium">
+              Our team will get back to you.
+            </p>
+          </div>
+          <div className="flex justify-center mt-6">
+            <Button
+              onClick={() => setShowConfirmation(false)}
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-2"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
