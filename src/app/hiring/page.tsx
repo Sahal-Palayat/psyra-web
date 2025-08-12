@@ -504,7 +504,7 @@ export default function PsyraChiefPsychologistApplication() {
                   htmlFor="additionalInfo"
                   className="text-lg font-medium text-gray-700"
                 >
-                  Anything else you'd like to share or ask us? (Optional)
+                  Anything else you had like to share or ask us? (Optional)
                 </Label>
                 <p className="text-sm text-gray-600 mb-2">
                   Share any thoughts, additional information, or questions.
