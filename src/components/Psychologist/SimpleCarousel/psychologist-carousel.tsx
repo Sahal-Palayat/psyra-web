@@ -13,16 +13,16 @@ import Carousel3DMinimal from "@/components/Swiper";
 
 export default function PsychologistCarousel() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
-  const [psychologist, setPsychologist] = useState<Psychologist>({
-    _id: "",
-    name: "",
-    specialization: "",
-    monthlySlots: [],
-    imageUrl: "",
-    experience: "",
-    expertise: [],
-    languages: [],
-  });
+  // const [psychologist, setPsychologist] = useState<Psychologist>({
+  //   _id: "",
+  //   name: "",
+  //   specialization: "",
+  //   monthlySlots: [],
+  //   imageUrl: "",
+  //   experience: "",
+  //   expertise: [],
+  //   languages: [],
+  // });
   const [data, setData] = useState<Psychologist[]>([
     {
       _id: "",
@@ -46,7 +46,7 @@ export default function PsychologistCarousel() {
       );
 
       setData(response?.data);
-      setPsychologist(response?.data);
+      // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);
       alert("technical issue");
