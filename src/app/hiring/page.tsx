@@ -32,7 +32,7 @@ import Image from "next/image";
 
 export default function PsyraChiefPsychologistApplication() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(true);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     mobileNumber: "",
