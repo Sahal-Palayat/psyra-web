@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
@@ -49,8 +48,9 @@ export default function Concerns() {
           </div>
 
           <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {concerns?.map((concern) => (
+            {concerns?.map((concern, index) => (
               <Card
+                key={index}
                 onClick={() => {
                   handleWhatsAppRedirect(concern?.title);
                 }}
