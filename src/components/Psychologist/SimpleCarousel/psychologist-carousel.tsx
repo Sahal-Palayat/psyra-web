@@ -23,18 +23,18 @@ export default function PsychologistCarousel() {
   //   expertise: [],
   //   languages: [],
   // });
-  const [data, setData] = useState<Psychologist[]>([
-    {
-      _id: "",
-      name: "",
-      specialization: "",
-      monthlySlots: [],
-      imageUrl: "",
-      experience: "",
-      expertise: [],
-      languages: [],
-    },
-  ]);
+  // const [data, setData] = useState<Psychologist[]>([
+  //   {
+  //     _id: "",
+  //     name: "",
+  //     specialization: "",
+  //     monthlySlots: [],
+  //     imageUrl: "",
+  //     experience: "",
+  //     expertise: [],
+  //     languages: [],
+  //   },
+  // ]);
   // const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
   //   totalItems: data?.length,
   // });
@@ -45,7 +45,7 @@ export default function PsychologistCarousel() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      setData(response?.data);
+      // setData(response?.data);
       // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);
