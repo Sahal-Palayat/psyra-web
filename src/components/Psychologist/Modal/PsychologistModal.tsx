@@ -33,8 +33,6 @@ export function PsychologistModal({
     therapyType: "",
   });
 
-  console.log(bookingData, "THRHHRHRHRHHRHR");
-
   const fetchBookedSlots = async (date: string) => {
     try {
       const selectedDate = new Date(date);
