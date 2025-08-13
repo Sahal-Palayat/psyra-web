@@ -39,8 +39,6 @@ export default function PsychologistCarousel() {
   //   totalItems: data?.length,
   // });
 
-  console.log(data);
-
   const fetchPsychologists = async () => {
     try {
       const response = await axios.get(
