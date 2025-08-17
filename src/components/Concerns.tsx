@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { SectionHeader } from "./SectionTitle";
 
 const concerns = [
   { title: "Depression" },
@@ -23,28 +24,12 @@ export default function Concerns() {
   return (
     <div className="min-h-screen">
       {/* Concerns Grid Section */}
-      <section className="py-16 px-4">
+      <section className="py-8 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <motion.h2
-              whileInView={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: false, amount: 0.2 }}
-              className="text-teal-800 text-3xl md:text-4xl font-bold text-foreground mb-4"
-            >
-              What We Can Help You Overcome{" "}
-            </motion.h2>
-            {/* <motion.p
-              whileInView={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: false, amount: 0.2 }}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Click on any concern below to book a specialized session with our
-              experienced therapists.
-            </motion.p> */}
+              <div className="text-center mb-12">
+            <SectionHeader>What We Can Help You Overcome</SectionHeader>
+          </div>
           </div>
 
           <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -6,6 +6,7 @@ import AboutUs from "@/components/AboutUs";
 import MentalHealthLoader from "@/components/lazy/mental-health-loader";
 import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
 import Concerns from "@/components/Concerns";
+import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
 
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
@@ -43,13 +44,14 @@ export default function Home() {
       {/* Psychologist Carousel with themed loading */}
       <DynamicPsychologistCarousel />
 
+      <CarouselStats />
       <Concerns />
 
       {/* Our Specialties with themed loading */}
       {/* <DynamicOurSpecials /> */}
 
       {/* Contact Form with themed loading */}
-      <DynamicGetInTouch />
+      {/* <DynamicGetInTouch /> */}
 
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
