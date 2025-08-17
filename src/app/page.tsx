@@ -21,9 +21,9 @@ const DynamicPsychologistCarousel = dynamic(
 //   loading: () => <MentalHealthLoader />,
 // });
 
-const DynamicGetInTouch = dynamic(() => import("@/components/GetInTouch"), {
-  loading: () => <MentalHealthLoader />,
-});
+// const DynamicGetInTouch = dynamic(() => import("@/components/GetInTouch"), {
+//   loading: () => <MentalHealthLoader />,
+// });
 
 const DynamicFaq = dynamic(() => import("@/components/Faq"), {
   loading: () => <MentalHealthLoader />,

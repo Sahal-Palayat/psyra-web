@@ -6,7 +6,6 @@ import { Psychologist } from "@/types/psychologist";
 import { CarouselHeader } from "./carousel-header";
 // import { CarouselContainer } from "./carousel-container";
 // import { CarouselControls } from "./carousel-controls";
-import { CarouselStats } from "./carousel-stats";
 import axios from "axios";
 // import { PsychologistModal } from "../Modal/PsychologistModal";
 import Carousel3DMinimal from "@/components/Swiper";

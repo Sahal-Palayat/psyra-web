@@ -13,10 +13,10 @@ export function CarouselStats() {
     <div className="w-full py-8 mb-8 md:px-24 px-14">
       {/* Updated Title with Psymates */}
       <div className="text-center mb-10">
-        <h2 className="text-2xl sm:text-3xl font-bold text-teal-800 text-center leading-snug">
+        <h2 className="text-2xl sm:text-2xl font-bold text-teal-800 text-center leading-snug">
           A Safe Space for Our{" "}
           <span className="bg-[#3D985C] text-white px-2 shadow-md">
-            Psymates🤗
+            Psymates🤝
           </span>
         </h2>
 
