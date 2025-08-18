@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Heart, HeartHandshake } from "lucide-react";
 
 const stats = [
   { value: "2500+", label: "Happy Psymates" },
@@ -15,8 +16,8 @@ export function CarouselStats() {
       <div className="text-center mb-10">
         <h2 className="text-2xl sm:text-2xl font-bold text-teal-800 text-center leading-snug">
           A Safe Space for Our{" "}
-          <span className="bg-[#3D985C] text-white px-2 shadow-md">
-            Psymates🤝
+          <span className="inline-flex items-center bg-[#3D985C] text-white px-2 shadow-md">
+            Psymates <HeartHandshake className="ml-1 w-6 h-6" />
           </span>
         </h2>
 
@@ -55,7 +56,10 @@ export function CarouselStats() {
       <div className="text-center mt-10">
         <p className="text-gray-600 italic text-lg">
           “We don’t call them customers — we call them{" "}
-          <span className="font-semibold text-[#00989D]">Psymates</span>💙”
+          <span className="inline-flex items-center font-semibold text-[#00989D]">
+            Psymates <Heart className="ml-1 w-5 h-5" />
+          </span>
+          ”
         </p>
       </div>
     </div>
