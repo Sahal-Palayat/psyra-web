@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export function CarouselHeader() {
   return (
     <div className="text-center mb-12">
-      <SectionHeader>Meet Our Therapists❤</SectionHeader>
+      <SectionHeader>Meet Our Therapists</SectionHeader>
       <motion.p
         whileInView={{ opacity: 1, x: 0 }}
         initial={{ opacity: 0, x: -50 }}

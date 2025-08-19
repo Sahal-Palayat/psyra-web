@@ -8,10 +8,10 @@ const AboutUs = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="py-8 px-6 m-8 md:py-8 md:px-10 md:m-10 relative overflow-hidden rounded-3xl"
+      className="py-8 px-3 md:px-6 m-8 md:py-8 md:px-10 md:m-10 relative overflow-hidden rounded-3xl"
       id="about"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto md:px-4">
         <motion.h2
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: -50 }}
