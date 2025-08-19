@@ -18,7 +18,7 @@ const concerns = [
 export default function Concerns() {
   const handleWhatsAppRedirect = (concern: string) => {
     const phoneNumber = "+918891724199";
-    const message = encodeURIComponent(`Hi, I need help with ${concern}?`);
+    const message = encodeURIComponent(`Hi, I need help with ${concern}`);
     window.open(`https://wa.me/${phoneNumber}?text=${message}`);
   };
   return (
