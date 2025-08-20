@@ -29,8 +29,8 @@ const Services = () => {
       route: "couple-therapy",
     },
     {
-      type: "Coffee with Psychologist",
-      subTitle: "Starts from ₹2749",
+      type: "Life Coaching",
+      subTitle: "Starts from ₹9999",
       img: Coffe,
       route: "coffe-with",
     },
