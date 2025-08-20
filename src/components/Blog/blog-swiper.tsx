@@ -19,6 +19,7 @@ import Individual from "../../../public/Couple Packages 3 (2).jpg";
 
 // import { PsychologistModal } from "./Psychologist/Modal/PsychologistModal"
 import Image from "next/image";
+import { SectionHeader } from "../SectionTitle";
 
 interface BlogPost {
   id: number;
@@ -97,7 +98,10 @@ export default function BlogSwiper() {
   }, []);
 
   return (
-    <div className="relative pb-8 mt-4">
+    <div className="relative px-6 mt-14">
+      <div className="text-center mb-12">
+        <SectionHeader>Our Blogs</SectionHeader>
+      </div>
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -166,7 +170,7 @@ export default function BlogSwiper() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.2 }}
-                  className="rounded-2xl overflow-hidden shadow-md flex flex-col h-[320px]"
+                  className="rounded-2xl bg-[#e4f0ef] overflow-hidden shadow-md flex flex-col h-[320px]"
                 >
                   {/* Top Image */}
                   <div className="w-full h-[160px] relative flex-shrink-0">
