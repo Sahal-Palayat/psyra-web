@@ -14,10 +14,15 @@ interface FeedbackFormProps {
 interface UserData {
   name: string;
   mobile: string;
+  psymateId: string;
 }
 
 const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
-  const [userData, setUserData] = useState<UserData>({ name: "", mobile: "" });
+  const [userData, setUserData] = useState<UserData>({
+    name: "",
+    mobile: "",
+    psymateId: "",
+  });
   const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,9 +41,13 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
     if (encodedData) {
       try {
         const decodedString = atob(encodedData);
-        const [name, mobile] = decodedString.split("|");
+        const [name, mobile , psymateId] = decodedString.split("|");
 
-        setUserData({ name: name || "", mobile: mobile || "" });
+        setUserData({
+          name: name || "",
+          mobile: mobile || "",
+          psymateId: psymateId || "",
+        });
       } catch (error) {
         console.error("Error decoding user data:", error);
       }
@@ -73,6 +82,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
           mobile: userData.mobile,
           feedback: feedback.trim(),
           rating,
+          psyMateId: userData.psymateId,
           timestamp: new Date().toISOString(),
         }),
       });
