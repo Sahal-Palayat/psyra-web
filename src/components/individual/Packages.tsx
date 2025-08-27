@@ -2,7 +2,8 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { motion } from "framer-motion";
-import { BookingModal } from "../BookingModal/bookingModal";
+// import { BookingModal } from "../BookingModal/bookingModal";
+import { useRouter } from "next/navigation";
 
 export interface PackageItem {
   type: string;
@@ -19,12 +20,19 @@ interface PackagesProps {
 }
 
 const Packages = ({ data }: PackagesProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<string>("");
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedPackage, setSelectedPackage] = useState<string>("");
+  const router = useRouter();
 
   const handleBookNow = (packageTitle: string, packageType: string) => {
-    setSelectedPackage(`${packageTitle} - ${packageType}`);
-    setIsModalOpen(true);
+    // setSelectedPackage(`${packageTitle} - ${packageType}`);
+    // setIsModalOpen(true);
+    const phoneNumber = "+918891724199";
+    const message = encodeURIComponent(
+      `Hi, I'm interested in the "${packageType}-${packageTitle}" package. Can you provide more details?`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+    router.push(`https://www.psyra.in/`);
   };
 
   return (
@@ -82,11 +90,11 @@ const Packages = ({ data }: PackagesProps) => {
       </div>
 
       {/* Booking Modal */}
-      <BookingModal
+      {/* <BookingModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         packageTitle={selectedPackage}
-      />
+      /> */}
     </div>
   );
 };

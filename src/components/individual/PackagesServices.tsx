@@ -2,6 +2,7 @@
 import { StaticImageData } from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export interface TherapyCardType {
   type: string;
@@ -32,7 +33,14 @@ const PackageServices = ({
   const handleBookNow = (packageTitle: string, packageType: string) => {
     setSelectedPackage(`${packageTitle} - ${packageType}`);
     setIsModal(true);
+    const phoneNumber = "+918891724199";
+    const message = encodeURIComponent(
+      `Hi, I'm interested in the "${packageType}-${packageTitle}" package. Can you provide more details?`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+    router.push(`https://www.psyra.in/`);
   };
+  const router = useRouter();
 
   return (
     <section className="py-2 px-14 " id="services">

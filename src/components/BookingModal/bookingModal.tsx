@@ -189,12 +189,15 @@ export function BookingModal({
         resetAndClose();
         window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
-        alert("Technincal issue");
+        // alert("Technincal issue");
+        console.log("TECHNICAL ISSUE");
       }
       // alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
-      alert("Technical issue");
+      // alert("Technical issue");
+      console.log("TECHNICAL ISSUE");
+
       // You can show an error toast or message here
     }
 

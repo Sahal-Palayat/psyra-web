@@ -1,27 +1,35 @@
-"use client"
-import { Swiper, SwiperSlide } from "swiper/react"
-import type { Swiper as SwiperType } from "swiper"
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/effect-coverflow"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useRef, useEffect, useState, useCallback } from "react"
-import { Button } from "@/components/ui/button"
-import type { Psychologist } from "@/types/psychologist"
-import { motion } from "framer-motion"
-import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal"
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+  Autoplay,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useEffect, useState, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import type { Psychologist } from "@/types/psychologist";
+import { motion } from "framer-motion";
+import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
+import { useRouter } from "next/navigation";
 
 export default function Carousel3DFixedTiming({
   data,
 }: {
-  data: Psychologist[]
+  data: Psychologist[];
 }) {
-  const swiperRef = useRef<SwiperType | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const router = useRouter();
+
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -31,19 +39,19 @@ export default function Carousel3DFixedTiming({
     experience: "",
     expertise: [],
     languages: [],
-  })
+  });
 
   useEffect(() => {
     const initCarousel = () => {
-      setIsLoaded(true)
+      setIsLoaded(true);
       if (swiperRef.current) {
-        swiperRef.current.autoplay.start()
-        swiperRef.current.update()
+        swiperRef.current.autoplay.start();
+        swiperRef.current.update();
       }
-    }
-    const timer = setTimeout(initCarousel, 200)
-    return () => clearTimeout(timer)
-  }, [data])
+    };
+    const timer = setTimeout(initCarousel, 200);
+    return () => clearTimeout(timer);
+  }, [data]);
 
   // Pause/resume autoplay based on hover state
   // useEffect(() => {
@@ -57,11 +65,17 @@ export default function Carousel3DFixedTiming({
   // }, [hoveredCard]);
 
   const handleBookNow = useCallback((psychologist: Psychologist) => {
-    console.log("Booking consultation with:", psychologist.name)
-    setIsModalOpen(true)
-    setPsychologist(psychologist)
+    console.log("Booking consultation with:", psychologist.name);
+    const phoneNumber = "+918891724199";
+    const message = encodeURIComponent(
+      `Hi, I wanna book a slot with "${psychologist.name} Mam". Can you provide more details?`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+    router.push(`https://www.psyra.in/`);
+    // setIsModalOpen(true)
+    // setPsychologist(psychologist)
     // Add your booking logic here
-  }, [])
+  }, []);
 
   return (
     <div className="relative pb-8 mt-4">
@@ -109,11 +123,11 @@ export default function Carousel3DFixedTiming({
           }}
           onSwiper={(swiper) => {
             // ADDED: Assign swiper instance to ref
-            swiperRef.current = swiper
+            swiperRef.current = swiper;
             setTimeout(() => {
-              swiper.autoplay.start()
-              swiper.update()
-            }, 100)
+              swiper.autoplay.start();
+              swiper.update();
+            }, 100);
           }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="bg-white relative"
@@ -155,7 +169,9 @@ export default function Carousel3DFixedTiming({
                       <h2 className="text-lg sm:text-xl font-bold text-teal">
                         {psychologist.name || "Unknown Doctor"}
                       </h2>
-                      <p className="text-teal/90 text-sm mb-2">{psychologist.specialization || "General Psychology"}</p>
+                      <p className="text-teal/90 text-sm mb-2">
+                        {psychologist.specialization || "General Psychology"}
+                      </p>
                     </>
                     <motion.button
                       onClick={() => handleBookNow(psychologist)}
@@ -176,7 +192,7 @@ export default function Carousel3DFixedTiming({
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slidePrev() // Simplified call
+            swiperRef.current?.slidePrev(); // Simplified call
           }}
           className="absolute rounded-full left-0 md:-left-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -186,7 +202,7 @@ export default function Carousel3DFixedTiming({
           variant="outline"
           size="icon"
           onClick={() => {
-            swiperRef.current?.slideNext() // Simplified call
+            swiperRef.current?.slideNext(); // Simplified call
           }}
           className="absolute rounded-full right-0 md:-right-16 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border-2 border-gray-200 text-teal-600 hover:text-teal-700 z-20 shadow-lg hover:shadow-xl transition-all duration-300"
         >
@@ -259,7 +275,7 @@ export default function Carousel3DFixedTiming({
           opacity: 0.8 !important;
           transform: scale(1.2);
         }
-        
+
         /* Fix for mobile z-index issues during 3D transforms */
         .swiper-slide {
           backface-visibility: hidden;
@@ -273,7 +289,11 @@ export default function Carousel3DFixedTiming({
           -webkit-transform: translateZ(0);
         }
       `}</style>
-      <PsychologistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={psychologist} />
+      <PsychologistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={psychologist}
+      />
     </div>
-  )
+  );
 }

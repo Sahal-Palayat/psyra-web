@@ -155,11 +155,13 @@ Looking forward to your confirmation. Thank you!`
         resetAndClose();
         window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
-        alert("Technical issue");
+        // alert("Technical issue");
+        console.log("TECHNICAL ISSUE")
       }
     } catch (error) {
       console.error("Booking failed", error);
-      alert("Technical issue");
+      // alert("Technical issue");
+      console.log("TECHNICAL ISSUE")
     }
   };
 
