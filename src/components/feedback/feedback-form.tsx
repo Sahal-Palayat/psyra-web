@@ -6,17 +6,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
 
 interface FeedbackFormProps {
   encodedData?: string;
 }
 
 interface UserData {
-  name: string;
+  name: string; 
   mobile: string;
   psymateId: string;
 }
-
+ 
 const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
   const [userData, setUserData] = useState<UserData>({
     name: "",
@@ -41,7 +42,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
     if (encodedData) {
       try {
         const decodedString = atob(encodedData);
-        const [name, mobile , psymateId] = decodedString.split("|");
+        const [name, mobile, psymateId] = decodedString.split("|");
 
         setUserData({
           name: name || "",
@@ -72,20 +73,17 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
 
     try {
       // Simulate API call - replace with your actual API endpoint
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/feedback`,
+        {
           name: userData.name,
           mobile: userData.mobile,
           feedback: feedback.trim(),
           rating,
-          psyMateId: userData.psymateId,
+          psymateId: userData.psymateId,
           timestamp: new Date().toISOString(),
-        }),
-      });
+        }
+      );
 
       setShowSuccess(true);
       setFeedback("");

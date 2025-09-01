@@ -8,6 +8,9 @@ function FeedbackPageContent() {
   const searchParams = useSearchParams();
   const encodedData = searchParams.get("data");
 
+  console.log(encodedData,"ENCODEDD DATAAAA");
+  
+
   return (
     <>
       <FeedbackForm encodedData={encodedData || undefined} />
