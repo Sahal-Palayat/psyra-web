@@ -1,20 +1,17 @@
 "use client";
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import FeedbackForm from "@/components/feedback/feedback-form";
-import FeedbackLinkGenerator from "@/components/feedback/feedback-link-generator";
 
 function FeedbackPageContent() {
   const searchParams = useSearchParams();
   const encodedData = searchParams.get("data");
 
-  console.log(encodedData,"ENCODEDD DATAAAA");
-  
+  console.log(encodedData, "ENCODEDD DATAAAA");
 
   return (
     <>
       <FeedbackForm encodedData={encodedData || undefined} />
-      <FeedbackLinkGenerator />
     </>
   );
 }

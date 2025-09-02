@@ -7,17 +7,18 @@ import { Send, CheckCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface FeedbackFormProps {
   encodedData?: string;
 }
 
 interface UserData {
-  name: string; 
+  name: string;
   mobile: string;
   psymateId: string;
 }
- 
+
 const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
   const [userData, setUserData] = useState<UserData>({
     name: "",
@@ -29,6 +30,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
+  const router = useRouter();
 
   // Emoji feedback options
   const emojiOptions = [
@@ -235,7 +237,10 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
               </p>
 
               <Button
-                onClick={() => setShowSuccess(false)}
+                onClick={() => {
+                  setShowSuccess(false);
+                  router.push("/")
+                }}
                 className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-6 py-2 rounded-lg font-medium"
               >
                 Close
