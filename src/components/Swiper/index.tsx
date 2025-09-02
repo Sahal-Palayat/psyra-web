@@ -21,6 +21,7 @@ export default function Carousel3DFixedTiming({
   const swiperRef = useRef<SwiperType | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  console.log("HELLO HAII")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
