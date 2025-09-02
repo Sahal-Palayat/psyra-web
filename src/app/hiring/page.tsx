@@ -39,12 +39,6 @@ export default function PsyraChiefPsychologistApplication() {
     workExperience: "",
     qualification: "",
     specializedAreas: "",
-    socialMediaAccounts: "",
-    recentPhoto: "",
-    resume: "",
-    videoPresentation: "",
-    whyJoinPsyra: "",
-    mentalHealthIdea: "",
     additionalInfo: "",
   });
 
@@ -56,12 +50,7 @@ export default function PsyraChiefPsychologistApplication() {
       !formData.fullName ||
       !formData.mobileNumber ||
       !formData.workExperience ||
-      !formData.qualification ||
-      !formData.recentPhoto ||
-      !formData.resume ||
-      !formData.videoPresentation ||
-      !formData.whyJoinPsyra ||
-      !formData.mentalHealthIdea
+      !formData.qualification
     ) {
       return;
     }
@@ -74,7 +63,7 @@ export default function PsyraChiefPsychologistApplication() {
 
     try {
       const url =
-        "https://script.google.com/macros/s/AKfycbx-t84uXlDX7OZa0nKqvgmvtrlbrrQ73ftXd8e-XdA7rNy0AP17nktxC9lTU2TKTAz1WQ/exec";
+        "https://script.google.com/macros/s/AKfycbzbwiDjVcM7Pi3pVfMdAyNg89sTz01u4ty-_VWcGv3oiDQaQ3kt61CraMCHjNNHYJD00Q/exec";
 
       const submitData = new URLSearchParams();
       submitData.append("Timestamp", new Date().toISOString());
@@ -83,17 +72,8 @@ export default function PsyraChiefPsychologistApplication() {
       submitData.append("WorkExperience", formData.workExperience);
       submitData.append("Qualifications", formData.qualification);
       submitData.append("SpecializedAreas", formData.specializedAreas);
-      submitData.append(
-        "ActiveSocialMediaAccounts",
-        formData.socialMediaAccounts
-      );
-      submitData.append("ARecentPhoto", formData.recentPhoto);
-      submitData.append("Resume", formData.resume);
-      submitData.append("MinuteVideoPresentatio", formData.videoPresentation); // Note: keeping the typo as in the script
-      submitData.append("Looking", formData.whyJoinPsyra);
       submitData.append("PreferredRole", "Chief Psychologist");
       // Additional fields that might not be in the original script but are important
-      submitData.append("MentalHealthIdea", formData.mentalHealthIdea);
       submitData.append("AdditionalInfo", formData.additionalInfo);
 
       const response = await fetch(url, {
@@ -115,12 +95,6 @@ export default function PsyraChiefPsychologistApplication() {
           workExperience: "",
           qualification: "",
           specializedAreas: "",
-          socialMediaAccounts: "",
-          recentPhoto: "",
-          resume: "",
-          videoPresentation: "",
-          whyJoinPsyra: "",
-          mentalHealthIdea: "",
           additionalInfo: "",
         });
       } else {
@@ -145,8 +119,7 @@ export default function PsyraChiefPsychologistApplication() {
           <div className="mb-6">
             <div className=" mb-4 inline-flex items-center justify-center bg-[#00989D] p-2 rounded-[10px]">
               <Image src={Logo} alt="Psyra Logo" width={200} height={40} />
-            </div>
-            {" "}
+            </div>{" "}
             <h2 className="text-3xl font-semibold text-teal-700 mb-6">
               Chief Psychologist Application
             </h2>
@@ -334,7 +307,7 @@ export default function PsyraChiefPsychologistApplication() {
           </Card>
 
           {/* Digital Presence & Documents */}
-          <Card className="border-emerald-200 shadow-lg">
+          {/* <Card className="border-emerald-200 shadow-lg">
             <CardHeader>
               <CardTitle className="text-2xl">
                 Digital Presence & Documents
@@ -447,20 +420,20 @@ export default function PsyraChiefPsychologistApplication() {
                 />
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
 
           {/* Vision & Ideas */}
           <Card className="border-emerald-200 shadow-lg">
-            <CardHeader>
+            {/* <CardHeader>
               <CardTitle className="text-2xl text-[black]">
                 Your Vision & Ideas
               </CardTitle>
               <CardDescription className="text-[black]">
                 Help us understand your perspective and vision
               </CardDescription>
-            </CardHeader>
+            </CardHeader> */}
             <CardContent className="space-y-6 pt-6">
-              <div>
+              {/* <div>
                 <Label
                   htmlFor="whyJoinPsyra"
                   className="text-lg font-medium text-[black]"
@@ -478,9 +451,9 @@ export default function PsyraChiefPsychologistApplication() {
                   rows={5}
                   required
                 />
-              </div>
+              </div> */}
 
-              <div>
+              {/* <div>
                 <Label
                   htmlFor="mentalHealthIdea"
                   className="text-lg font-medium text-[black]"
@@ -502,7 +475,7 @@ export default function PsyraChiefPsychologistApplication() {
                   rows={5}
                   required
                 />
-              </div>
+              </div> */}
 
               <div>
                 <Label
