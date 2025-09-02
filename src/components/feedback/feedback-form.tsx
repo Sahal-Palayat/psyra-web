@@ -87,14 +87,14 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
         }
       );
 
-      setShowSuccess(true);
-      setFeedback("");
-      setRating(0);
-      setSelectedEmoji(null);
-      //   if (response.ok) {
-      //   } else {
-      //     throw new Error("Failed to submit feedback")
-      //   }
+      if (response) {
+        setShowSuccess(true);
+        setFeedback("");
+        setRating(0);
+        setSelectedEmoji(null);
+      } else {
+        throw new Error("Failed to submit feedback");
+      }
     } catch (error) {
       console.error("Error submitting feedback:", error);
       alert("Failed to submit feedback. Please try again.");
@@ -239,7 +239,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
               <Button
                 onClick={() => {
                   setShowSuccess(false);
-                  router.push("/")
+                  router.push("/");
                 }}
                 className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white px-6 py-2 rounded-lg font-medium"
               >
