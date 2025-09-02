@@ -126,8 +126,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
             Share Your Experience
           </h1>
           <p className="text-teal-100 text-sm">
-            {userData.name ? `Hi ${userData.name}!` : "Hi there!"} We had love to
-            hear about your session
+            We had love to hear about your session
           </p>
         </div>
 
