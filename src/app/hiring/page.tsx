@@ -535,7 +535,7 @@ export default function PsyraChiefPsychologistApplication() {
           </DialogHeader>
           <div className="bg-emerald-50 rounded-lg p-4 mt-4">
             <p className="text-emerald-800 text-center font-medium">
-              Our team will get back to you.
+              Our team will get back to you soon.
             </p>
           </div>
           <div className="flex justify-center mt-6">
