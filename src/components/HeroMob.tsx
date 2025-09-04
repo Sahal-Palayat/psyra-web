@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ImageS3 from "../../public/Web Site A (2).jpg"; // Desktop Image
 import MobileHero from "../../public/HERO-hand.webp"; // Mobile Image
 import Modal from "./Modal";
@@ -35,6 +35,25 @@ const HeroMob = () => {
     if (ref === "true") {
       setEventModal(true);
     }
+  }, []);
+
+  const languages = [
+    { text: "Psyra", lang: "English", size: "text-[32px]" },
+    { text: "साइरा", lang: "Hindi", size: "text-[28px]" },
+    { text: "സൈറ", lang: "Malayalam", size: "text-[21px]" },
+    { text: "ಸೈರಾ", lang: "Kannada", size: "text-[26px]" },
+    { text: "சைரா", lang: "Tamil", size: "text-[22px]" },
+    { text: "सायरा", lang: "Marathi", size: "text-[28px]" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % languages.length);
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -74,7 +93,24 @@ const HeroMob = () => {
           >
             You are not alone,
             <br />
-            <span className="text-white">Psyra</span> is here for you
+            <span className="text-white inline-block">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentIndex}
+                  initial={{ opacity: 0, y: 20, rotateX: -90 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  exit={{ opacity: 0, y: -20, rotateX: 90 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }}
+                  className={`${languages[currentIndex].size}`}
+                >
+                  {languages[currentIndex].text}
+                </motion.span>
+              </AnimatePresence>
+            </span>{" "}
+            is here for you
           </motion.p>
           <motion.div className="px-12">
             <motion.img
