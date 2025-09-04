@@ -51,7 +51,7 @@ const HeroMob = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % languages.length);
-    }, 2000); // Change every 2 seconds
+    }, 4000); // Change every 2 seconds
 
     return () => clearInterval(interval);
   }, []);
