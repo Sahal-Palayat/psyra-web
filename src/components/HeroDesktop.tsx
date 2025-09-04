@@ -90,7 +90,7 @@ const HeroDesktop = () => {
                     }}
                     className={`inline-block ${languages[currentIndex].size}`}
                   >
-                    {languages[currentIndex].text}.
+                    {languages[currentIndex].text}
                   </motion.span>
                 </AnimatePresence>
               </span>{" "}
