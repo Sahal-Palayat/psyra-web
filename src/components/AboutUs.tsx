@@ -70,7 +70,7 @@ const AboutUs = () => {
             viewport={{ once: false, amount: 0.2 }}
             className="hidden md:block md:flex-1"
           >
-            <div className="relative w-full h-[280px] lg:h-[360px] xl:h-[400px] overflow-hidden rounded-2xl">
+            <div className="relative w-full h-[230px] lg:h-[360px] xl:h-[350px] overflow-hidden rounded-2xl">
               <img
                 src="/woman-relaxing-chair-home.png" /* put your PNG here */
                 alt="Illustration representing supportive mental health therapy"
