@@ -39,11 +39,11 @@ const HeroMob = () => {
 
   const languages = [
     { text: "Psyra", lang: "English", size: "text-[32px]" },
-    { text: "साइरा", lang: "Hindi", size: "text-[28px]" },
-    { text: "സൈറ", lang: "Malayalam", size: "text-[21px]" },
-    { text: "ಸೈರಾ", lang: "Kannada", size: "text-[26px]" },
-    { text: "சைரா", lang: "Tamil", size: "text-[22px]" },
-    { text: "सायरा", lang: "Marathi", size: "text-[28px]" },
+    { text: "साइरा", lang: "Hindi", size: "text-[32px]" },
+    { text: "സൈറ", lang: "Malayalam", size: "text-[30px]" },
+    { text: "ಸೈರಾ", lang: "Kannada", size: "text-[30px]" },
+    { text: "சைரா", lang: "Tamil", size: "text-[30px]" },
+    { text: "सायरा", lang: "Marathi", size: "text-[30px]" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
