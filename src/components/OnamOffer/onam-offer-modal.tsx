@@ -109,7 +109,10 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
             {/* Happy Onam text */}
             <div className="flex flex-col items-center mb-8 mr-16">
               {/* Happy Onam image */}
-              <img
+              <motion.img
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
                 src="/Onam-12.png"
                 alt="Happy Onam"
                 className="w-40 h-auto" // adjust size as needed
