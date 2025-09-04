@@ -82,12 +82,12 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-4xl rounded-2xl shadow-xl overflow-hidden flex"
+          className="relative w-full max-w-[460px] rounded-2xl shadow-xl overflow-hidden flex"
         >
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors z-20"
+            className="absolute top-4 bg-white right-4 p-2 hover:bg-gray-100 rounded-full transition-colors z-20"
             aria-label="Close modal"
           >
             <svg
@@ -107,26 +107,23 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
 
           <div className="flex-[10]  bg-white p-8 flex flex-col justify-center">
             {/* Happy Onam text */}
-            <div className="mb-6">
-              <div className="text-teal-600 font-bold text-lg tracking-wider mb-1">
-                HAPPY
-              </div>
-              <div
-                className="text-teal-600 font-bold text-5xl italic leading-none mb-4"
-                style={{ fontFamily: "cursive" }}
-              >
-                Onam
-              </div>
-            </div>
+            <div className="flex flex-col items-center mb-8 mr-16">
+              {/* Happy Onam image */}
+              <img
+                src="/Onam-12.png"
+                alt="Happy Onam"
+                className="w-40 h-auto" // adjust size as needed
+              />
 
-            {/* Get Your Offer Now button */}
-            <button className="bg-lime-400 hover:bg-lime-500 text-gray-800 font-bold py-3 px-6 rounded-full text-sm mb-6 transition-colors w-fit">
-              GET YOUR OFFER NOW
-            </button>
+              {/* Get Your Offer Now button */}
+              <button className="font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
+                GET YOUR OFFER NOW
+              </button>
 
-            {/* 40% OFF text */}
-            <div className="text-teal-600 font-bold text-6xl sm:text-4xl leading-none mb-8">
-              40% OFF
+              {/* 40% OFF text */}
+              <div className="text-teal-600 font-bold text-4xl md:text-4xl leading-none">
+                40% OFF
+              </div>
             </div>
 
             {/* Mobile input */}
@@ -142,34 +139,36 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
             </div>
 
             {/* Apply Coupon button */}
-            <button
-              onClick={handleApplyCoupon}
-              disabled={isApplied}
-              className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 ${
-                isApplied
-                  ? "bg-green-500 cursor-not-allowed"
-                  : "bg-teal-600 hover:bg-teal-700 transform hover:scale-105"
-              }`}
-            >
-              {isApplied ? (
-                <span className="flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Coupon Applied!
-                </span>
-              ) : (
-                "Apply Coupon"
-              )}
-            </button>
+            <div className="flex justify-center mr-10 mb-4">
+              <button
+                onClick={handleApplyCoupon}
+                disabled={isApplied}
+                className={`w-[200px] py-2 px-6 rounded-full font-semibold text-white transition-all duration-300 ${
+                  isApplied
+                    ? "bg-green-500 cursor-not-allowed"
+                    : "bg-teal-600 hover:bg-teal-700 transform hover:scale-105"
+                }`}
+              >
+                {isApplied ? (
+                  <span className="flex items-center justify-center">
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Coupon Applied!
+                  </span>
+                ) : (
+                  "Apply Coupon"
+                )}
+              </button>
+            </div>
           </div>
 
           <div className="flex-[3] bg-teal-600 relative flex items-center justify-center"></div>
