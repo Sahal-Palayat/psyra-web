@@ -56,16 +56,16 @@ export default function TherapistsCard() {
     const now = new Date();
 
     // Loop through each slot and check
-    for (let slot of slots) {
+    for (const slot of slots) {
       const [start] = slot.split(" - "); // take the start time
       const slotDate = new Date();
       const [time, modifier] = start.split(" ");
-      let [hours, minutes] = time.split(":").map(Number);
+      let [hours] = time.split(":").map(Number);
 
       if (modifier === "PM" && hours !== 12) hours += 12;
       if (modifier === "AM" && hours === 12) hours = 0;
 
-      slotDate.setHours(hours, minutes, 0, 0);
+      slotDate.setHours(hours, 0, 0);
 
       if (slotDate > now) {
         return slot;
@@ -144,14 +144,14 @@ export default function TherapistsCard() {
 
                 <div className="flex-1 text-white">
                   <h2 className="text-xl font-bold mb-1 text-gray-900">
-                    {therapist.name}
+                    {therapist?.name}
                   </h2>
                   <p className="text-gray-800 text-sm font-medium mb-2">
-                    {therapist.specialization}
+                    {therapist?.specialization}
                   </p>
 
                   <div className="space-y-1 text-sm">
-                    <p className="text-gray-700">{therapist.experience}</p>
+                    <p className="text-gray-700">{therapist?.experience}</p>
                     <p className="text-gray-700">
                       Starts at INR{" "}
                       <span className="font-bold text-gray-900">
