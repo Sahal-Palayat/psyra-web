@@ -31,7 +31,7 @@ export default function PsychologistCarousel() {
       imageUrl: "",
       experience: "",
       expertise: [],
-      languages: [],
+      languages: []
     },
   ]);
   // const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({

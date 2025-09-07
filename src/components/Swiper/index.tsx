@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import type { Psychologist } from "@/types/psychologist";
@@ -169,7 +169,7 @@ export default function Carousel3DFixedTiming({
                       onClick={() => handleBookNow(psychologist)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
-                      className="bg-white py-2 px-8 sm:px-12 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
+                      className="bg-white py-1 px-2 sm:px-4 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
                     >
                       Book Now
                     </motion.button>
@@ -202,7 +202,18 @@ export default function Carousel3DFixedTiming({
         </Button>
       </div>
       {/* Pagination */}
-      <div className="carousel-pagination flex justify-center space-x-3 mt-16"></div>
+      {/* <div className="carousel-pagination flex justify-center space-x-3 mt-16"></div> */}
+      <div className="flex flex-col items-center justify-center text-center mt-8 relative z-10">
+        <motion.button
+          onClick={() => handleBookNow(psychologist)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          className="bg-[#00989D] py-2 px-4 sm:px-8 text-white rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10 flex items-center gap-2"
+        >
+          <span>View all therapists</span>
+          <MoveRight className="w-4 h-4" />
+        </motion.button>
+      </div>
       <style jsx global>{`
         .perspective-1000 {
           perspective: 1000px;
