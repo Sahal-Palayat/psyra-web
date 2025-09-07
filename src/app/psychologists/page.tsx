@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Star, MessageCircle, Video } from "lucide-react"
-import { useEffect, useState } from "react"
-import axios from "axios"
-import type { Psychologist } from "@/types/psychologist"
-import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistModal"
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Star, MessageCircle, Video } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import type { Psychologist } from "@/types/psychologist";
+import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistModal";
 
 const SkeletonCard = () => (
   <Card className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl shadow-xl overflow-hidden">
@@ -27,7 +27,10 @@ const SkeletonCard = () => (
 
           <div className="flex items-center gap-1 my-2">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="w-3 h-3 bg-gray-700/30 rounded animate-pulse" />
+              <div
+                key={i}
+                className="w-3 h-3 bg-gray-700/30 rounded animate-pulse"
+              />
             ))}
           </div>
 
@@ -57,10 +60,10 @@ const SkeletonCard = () => (
       <div className="h-8 bg-gray-700 rounded-full animate-pulse w-16" />
     </div>
   </Card>
-)
+);
 
 export default function TherapistsCard() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Psychologist[]>([
     {
       _id: "",
@@ -74,7 +77,7 @@ export default function TherapistsCard() {
       price: "",
       rating: "",
     },
-  ])
+  ]);
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -84,29 +87,31 @@ export default function TherapistsCard() {
     experience: "",
     expertise: [],
     languages: [],
-  })
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchPsychologists = async () => {
     try {
-      setIsLoading(true)
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/psychologists`)
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
+      );
 
-      setData(response?.data)
+      setData(response?.data);
     } catch (error) {
-      console.log(error)
-      alert("technical issue")
+      console.log(error);
+      alert("technical issue");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchPsychologists()
-  }, [])
+    fetchPsychologists();
+  }, []);
 
   function getNextSlot(slots: string[]) {
-    const now = new Date()
+    const now = new Date();
 
     for (const slot of slots) {
       const [start] = slot.split(" - "); // take the start time
@@ -114,17 +119,17 @@ export default function TherapistsCard() {
       const [time, modifier] = start.split(" ");
       let [hours] = time.split(":").map(Number);
 
-      if (modifier === "PM" && hours !== 12) hours += 12
-      if (modifier === "AM" && hours === 12) hours = 0
+      if (modifier === "PM" && hours !== 12) hours += 12;
+      if (modifier === "AM" && hours === 12) hours = 0;
 
       slotDate.setHours(hours, 0, 0);
 
       if (slotDate > now) {
-        return slot
+        return slot;
       }
     }
 
-    return null
+    return null;
   }
 
   const handleBookNow = (therapist: Psychologist) => {
@@ -137,33 +142,44 @@ export default function TherapistsCard() {
   //   };
 
   const renderStars = (rating: string) => {
-    const rateNum = Number.parseInt(rating)
-    const fullStars = Math.floor(rateNum)
-    const hasHalfStar = rateNum % 1 !== 0
-    const stars = []
+    const rateNum = Number.parseInt(rating);
+    const fullStars = Math.floor(rateNum);
+    const hasHalfStar = rateNum % 1 !== 0;
+    const stars = [];
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)
+      stars.push(
+        <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+      );
     }
 
     if (hasHalfStar) {
-      stars.push(<Star key="half" className="w-3 h-3 fill-yellow-400/50 text-yellow-400" />)
+      stars.push(
+        <Star
+          key="half"
+          className="w-3 h-3 fill-yellow-400/50 text-yellow-400"
+        />
+      );
     }
 
-    const emptyStars = 5 - Math.ceil(rateNum)
+    const emptyStars = 5 - Math.ceil(rateNum);
     for (let i = 0; i < emptyStars; i++) {
-      stars.push(<Star key={`empty-${i}`} className="w-3 h-3 text-gray-300" />)
+      stars.push(<Star key={`empty-${i}`} className="w-3 h-3 text-gray-300" />);
     }
 
-    return stars
-  }
+    return stars;
+  };
 
   return (
     <div className="min-h-screen mb-12">
       <div className="">
         <div className="text-center mb-8 pb-10 pt-28 bg-[#00BEA5]">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Find Your Perfect Therapist</h1>
-          <p className="text-lg text-gray-600">Connect with licensed professionals who understand your needs</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Find Your Perfect Therapist
+          </h1>
+          <p className="text-lg text-gray-600">
+            Connect with licensed professionals who understand your needs
+          </p>
         </div>
 
         {isLoading ? (
@@ -181,28 +197,35 @@ export default function TherapistsCard() {
               >
                 <div className="flex p-6">
                   <div className="flex-shrink-0 mr-6">
-                    <div className="w-44 h-44 bg-white rounded-xl p-1 shadow-lg">
+                    <div className="md:w-44 md:h-44 w-24 h-44 bg-white rounded-xl p-1 shadow-lg">
                       <img
                         src={therapist.imageUrl || "/placeholder.svg"}
                         alt={therapist.name}
-                        className="w-full h-full  rounded-lg object-contain"
+                        className="w-full h-full rounded-lg md:object-contain :object-cover"
                       />
                     </div>
                   </div>
 
                   <div className="flex-1 text-white">
-                    <h2 className="text-xl font-bold mb-1 text-gray-900">{therapist.name}</h2>
-                    <p className="text-gray-800 text-sm font-medium mb-2">{therapist.specialization}</p>
+                    <h2 className="text-xl font-bold mb-1 text-gray-900">
+                      {therapist.name}
+                    </h2>
+                    <p className="text-gray-800 text-sm font-medium mb-2">
+                      {therapist.specialization}
+                    </p>
 
                     <div className="space-y-1 text-sm">
                       <p className="text-gray-700">{therapist.experience}</p>
                       <p className="text-gray-700">
-                        Starts at INR <span className="font-bold text-gray-900">{therapist?.price}</span>
+                        Starts at INR{" "}
+                        <span className="font-bold text-gray-900">999</span>
                       </p>
 
                       <div className="flex items-center gap-1 my-2">
                         {renderStars(therapist?.rating || "")}
-                        <span className="text-gray-800 text-xs ml-1">({therapist?.rating})</span>
+                        <span className="text-gray-800 text-xs ml-1">
+                          ({therapist?.rating})
+                        </span>
                       </div>
 
                       <div className="flex flex-wrap gap-1 mb-2">
@@ -242,9 +265,13 @@ export default function TherapistsCard() {
 
                 <div className="bg-gray-900 px-6 py-4 flex items-center justify-between">
                   <div className="text-white">
-                    <p className="text-xs text-gray-400">Next available slot:</p>
+                    <p className="text-xs text-gray-400">
+                      Next available slot:
+                    </p>
                     <p className="text-sm font-medium text-emerald-400">
-                      Today {getNextSlot(therapist?.monthlySlots) || "Slot not available"}
+                      Today{" "}
+                      {getNextSlot(therapist?.monthlySlots) ||
+                        "Slot not available"}
                     </p>
                   </div>
 
@@ -262,7 +289,11 @@ export default function TherapistsCard() {
           </div>
         )}
       </div>
-      <PsychologistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={psychologist} />
+      <PsychologistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        data={psychologist}
+      />
     </div>
-  )
+  );
 }

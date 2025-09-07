@@ -7,8 +7,7 @@ import MentalHealthLoader from "@/components/lazy/mental-health-loader";
 import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
 import Concerns from "@/components/Concerns";
 import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
-import { OnamOfferModal } from "@/components/OnamOffer/onam-offer-modal";
-import { useEffect, useState } from "react";
+
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
 // Dynamically import components with the themed loader
@@ -33,19 +32,8 @@ const DynamicFaq = dynamic(() => import("@/components/Faq"), {
 });
 
 export default function Home() {
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModal(true);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <main className="min-h-screen bg-white">
-      <OnamOfferModal isOpen={showModal} onClose={() => setShowModal(false)} />
       {/* Welcome Animation Overlay - This will appear only on the first visit */}
       <WelcomeAnimationOverlay />
 
