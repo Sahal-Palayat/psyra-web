@@ -212,7 +212,7 @@ export default function Carousel3DFixedTiming({
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
-          className="bg-[#00989D] py-2 px-4 sm:px-8 text-white rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10 flex items-center gap-2"
+          className="bg-[#00989D] py-2 px-4 sm:px-8 text-white rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm transition-colors relative z-10 flex items-center gap-2"
         >
           <span>View all therapists</span>
           <MoveRight className="w-4 h-4" />
