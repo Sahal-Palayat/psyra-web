@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight, MoveRight, Router } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import type { Psychologist } from "@/types/psychologist";
@@ -29,7 +29,7 @@ export default function Carousel3DFixedTiming({
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   console.log("HELLO HAII");
   const [isModalOpen, setIsModalOpen] = useState(false);
-   const router = useRouter();
+  const router = useRouter();
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -207,8 +207,8 @@ export default function Carousel3DFixedTiming({
       {/* <div className="carousel-pagination flex justify-center space-x-3 mt-16"></div> */}
       <div className="flex flex-col items-center justify-center text-center mt-8 relative z-10">
         <motion.button
-          onClick={() =>{
-            router.push("psychologists")
+          onClick={() => {
+            router.push("psychologists");
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
