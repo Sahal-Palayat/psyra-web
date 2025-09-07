@@ -11,12 +11,13 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveRight, Router } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import type { Psychologist } from "@/types/psychologist";
 import { motion } from "framer-motion";
 import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
+import { useRouter } from "next/navigation";
 
 export default function Carousel3DFixedTiming({
   data,
@@ -28,6 +29,7 @@ export default function Carousel3DFixedTiming({
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   console.log("HELLO HAII");
   const [isModalOpen, setIsModalOpen] = useState(false);
+   const router = useRouter();
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -205,7 +207,9 @@ export default function Carousel3DFixedTiming({
       {/* <div className="carousel-pagination flex justify-center space-x-3 mt-16"></div> */}
       <div className="flex flex-col items-center justify-center text-center mt-8 relative z-10">
         <motion.button
-          onClick={() => handleBookNow(psychologist)}
+          onClick={() =>{
+            router.push("psychologists")
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           className="bg-[#00989D] py-2 px-4 sm:px-8 text-white rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10 flex items-center gap-2"
