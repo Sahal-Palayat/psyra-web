@@ -4,6 +4,16 @@ import type React from "react"
 import { motion, type Transition } from "framer-motion"
 import { useEffect, useRef, useState, useMemo } from "react"
 
+interface AnimationProperties {
+  filter?: string
+  opacity?: number
+  y?: number
+  x?: number
+  scale?: number
+  rotate?: number
+  [key: string]: string | number | undefined
+}
+
 interface BlurTextProps {
   text?: string
   delay?: number
@@ -12,17 +22,17 @@ interface BlurTextProps {
   direction?: "top" | "bottom"
   threshold?: number
   rootMargin?: string
-  animationFrom?: Record<string, any>
-  animationTo?: Record<string, any>[]
+  animationFrom?: AnimationProperties
+  animationTo?: AnimationProperties[]
   easing?: (t: number) => number
   onAnimationComplete?: () => void
   stepDuration?: number
 }
 
-const buildKeyframes = (from: Record<string, any>, steps: Record<string, any>[]): Record<string, any> => {
+const buildKeyframes = (from: AnimationProperties, steps: AnimationProperties[]): AnimationProperties => {
   const keys = new Set([...Object.keys(from), ...steps.flatMap((s) => Object.keys(s))])
 
-  const keyframes: Record<string, any> = {}
+  const keyframes: AnimationProperties = {}
   keys.forEach((k) => {
     keyframes[k] = [from[k], ...steps.map((s) => s[k])]
   })
@@ -63,13 +73,13 @@ const BlurText: React.FC<BlurTextProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [threshold, rootMargin])
 
-  const defaultFrom: Record<string, any> = useMemo(
+  const defaultFrom: AnimationProperties = useMemo(
     () =>
       direction === "top" ? { filter: "blur(10px)", opacity: 0, y: -50 } : { filter: "blur(10px)", opacity: 0, y: 50 },
     [direction],
   )
 
-  const defaultTo: Record<string, any>[] = useMemo(
+  const defaultTo: AnimationProperties[] = useMemo(
     () => [
       {
         filter: "blur(5px)",
@@ -81,8 +91,8 @@ const BlurText: React.FC<BlurTextProps> = ({
     [direction],
   )
 
-  const fromSnapshot: Record<string, any> = animationFrom ?? defaultFrom
-  const toSnapshots: Record<string, any>[] = animationTo ?? defaultTo
+  const fromSnapshot: AnimationProperties = animationFrom ?? defaultFrom
+  const toSnapshots: AnimationProperties[] = animationTo ?? defaultTo
 
   const stepCount: number = toSnapshots.length + 1
   const totalDuration: number = stepDuration * (stepCount - 1)
