@@ -1,19 +1,8 @@
 "use client"
 
 import type React from "react"
-
-import { motion } from "framer-motion"
+import { motion, type Transition } from "framer-motion"
 import { useEffect, useRef, useState, useMemo } from "react"
-
-interface AnimationStep {
-  filter?: string
-  opacity?: number
-  y?: number
-  x?: number
-  scale?: number
-  rotate?: number
-  [key: string]: any
-}
 
 interface BlurTextProps {
   text?: string
@@ -23,17 +12,17 @@ interface BlurTextProps {
   direction?: "top" | "bottom"
   threshold?: number
   rootMargin?: string
-  animationFrom?: AnimationStep
-  animationTo?: AnimationStep[]
+  animationFrom?: Record<string, any>
+  animationTo?: Record<string, any>[]
   easing?: (t: number) => number
   onAnimationComplete?: () => void
   stepDuration?: number
 }
 
-const buildKeyframes = (from: AnimationStep, steps: AnimationStep[]): Record<string, any[]> => {
+const buildKeyframes = (from: Record<string, any>, steps: Record<string, any>[]): Record<string, any> => {
   const keys = new Set([...Object.keys(from), ...steps.flatMap((s) => Object.keys(s))])
 
-  const keyframes: Record<string, any[]> = {}
+  const keyframes: Record<string, any> = {}
   keys.forEach((k) => {
     keyframes[k] = [from[k], ...steps.map((s) => s[k])]
   })
@@ -74,13 +63,13 @@ const BlurText: React.FC<BlurTextProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [threshold, rootMargin])
 
-  const defaultFrom: AnimationStep = useMemo(
+  const defaultFrom: Record<string, any> = useMemo(
     () =>
       direction === "top" ? { filter: "blur(10px)", opacity: 0, y: -50 } : { filter: "blur(10px)", opacity: 0, y: 50 },
     [direction],
   )
 
-  const defaultTo: AnimationStep[] = useMemo(
+  const defaultTo: Record<string, any>[] = useMemo(
     () => [
       {
         filter: "blur(5px)",
@@ -92,8 +81,8 @@ const BlurText: React.FC<BlurTextProps> = ({
     [direction],
   )
 
-  const fromSnapshot: AnimationStep = animationFrom ?? defaultFrom
-  const toSnapshots: AnimationStep[] = animationTo ?? defaultTo
+  const fromSnapshot: Record<string, any> = animationFrom ?? defaultFrom
+  const toSnapshots: Record<string, any>[] = animationTo ?? defaultTo
 
   const stepCount: number = toSnapshots.length + 1
   const totalDuration: number = stepDuration * (stepCount - 1)
@@ -108,12 +97,12 @@ const BlurText: React.FC<BlurTextProps> = ({
       {elements.map((segment: string, index: number) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots)
 
-        const spanTransition = {
+        const spanTransition: Transition = {
           duration: totalDuration,
           times,
           delay: (index * delay) / 1000,
+          ease: easing,
         }
-        spanTransition.ease = easing
 
         return (
           <motion.span
