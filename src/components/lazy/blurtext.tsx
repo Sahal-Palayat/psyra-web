@@ -5,13 +5,13 @@ import { motion, type Transition } from "framer-motion"
 import { useEffect, useRef, useState, useMemo } from "react"
 
 interface AnimationProperties {
-  filter?: string
-  opacity?: number
-  y?: number
-  x?: number
-  scale?: number
-  rotate?: number
-  [key: string]: string | number | undefined
+  filter?: string | string[]
+  opacity?: number | number[]
+  y?: number | number[]
+  x?: number | number[]
+  scale?: number | number[]
+  rotate?: number | number[]
+  [key: string]: string | number | undefined | (string | number | undefined)[]
 }
 
 interface BlurTextProps {
@@ -82,11 +82,10 @@ const BlurText: React.FC<BlurTextProps> = ({
   const defaultTo: AnimationProperties[] = useMemo(
     () => [
       {
-        filter: "blur(5px)",
-        opacity: 0.5,
-        y: direction === "top" ? 5 : -5,
+        filter: ["blur(5px)", "blur(0px)"],
+        opacity: [0.5, 1],
+        y: direction === "top" ? [5, 0] : [-5, 0],
       },
-      { filter: "blur(0px)", opacity: 1, y: 0 },
     ],
     [direction],
   )
