@@ -72,7 +72,7 @@ export default function Carousel3DFixedTiming({
   }, []);
 
   return (
-    <div className="relative pb-8 mt-4">
+    <div className="relative pb-8 mt-4 bg-[#F7F8F2]">
       <div
         className={`max-w-260 mx-auto relative transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -124,7 +124,7 @@ export default function Carousel3DFixedTiming({
             }, 100);
           }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-          className="bg-white relative"
+          className="bg-[#F7F8F2] relative"
         >
           {data?.map((psychologist: Psychologist) => (
             <SwiperSlide key={psychologist?._id} className="">
