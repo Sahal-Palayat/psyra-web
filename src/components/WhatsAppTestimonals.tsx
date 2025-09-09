@@ -113,7 +113,7 @@ export const WhatsAppTestimonials: React.FC = () => {
 
           <div className="px-8 md:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 justify-items-center">
-              {getVisibleTestimonials().map((testimonial, index) => (
+              {getVisibleTestimonials().map((testimonial) => (
                 <div
                   key={testimonial.key}
                   className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 w-full max-w-sm"

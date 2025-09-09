@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useRef, useState, useEffect } from "react"
-import { SectionHeader } from "./SectionTitle"
+import type React from "react";
+import { useRef, useState, useEffect } from "react";
+import { SectionHeader } from "./SectionTitle";
+import Image from "next/image";
 
 // Sample testimonials data (since the external import might not exist)
 const testimonials = [
@@ -36,74 +37,97 @@ const testimonials = [
       name: "StartupXYZ",
       logo: "https://images.pexels.com/photos/3363967/pexels-photo-3363967.jpeg",
     },
-    imageUrl: "https://images.pexels.com/photos/3363967/pexels-photo-3363967.jpeg",
+    imageUrl:
+      "https://images.pexels.com/photos/3363967/pexels-photo-3363967.jpeg",
   },
-]
+];
 
 // Custom Arrow Components (replacing react-icons dependency)
 const ArrowLeft = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 19l-7-7 7-7"
+    />
   </svg>
-)
+);
 
 const ArrowRight = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 5l7 7-7 7"
+    />
   </svg>
-)
+);
 
 export const TestimonialsSlider: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [animating, setAnimating] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto-play functionality
   useEffect(() => {
     const startAutoplay = () => {
       intervalRef.current = setInterval(() => {
-        nextSlide()
-      }, 4000)
-    }
+        nextSlide();
+      }, 4000);
+    };
 
-    startAutoplay()
+    startAutoplay();
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const nextSlide = () => {
-    if (animating) return
-    setAnimating(true)
+    if (animating) return;
+    setAnimating(true);
     setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % testimonials.length)
-      setAnimating(false)
-    }, 250)
-  }
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+      setAnimating(false);
+    }, 250);
+  };
 
   const prevSlide = () => {
-    if (animating) return
-    setAnimating(true)
+    if (animating) return;
+    setAnimating(true);
     setTimeout(() => {
-      setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-      setAnimating(false)
-    }, 250)
-  }
+      setCurrentSlide(
+        (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      );
+      setAnimating(false);
+    }, 250);
+  };
 
   const pauseAutoplay = () => {
     if (intervalRef.current) {
-      clearInterval(intervalRef.current)
+      clearInterval(intervalRef.current);
     }
-  }
+  };
 
   const resumeAutoplay = () => {
     intervalRef.current = setInterval(() => {
-      nextSlide()
-    }, 4000)
-  }
+      nextSlide();
+    }, 4000);
+  };
 
   return (
     <main className="lg:min-h-screen  xl:min-h-screen bg-gray-50 py-12">
@@ -112,7 +136,9 @@ export const TestimonialsSlider: React.FC = () => {
           <SectionHeader>What Our Customers Say</SectionHeader>
           <h1 className="text-4xl font-bold text-gray-900 mb-4"></h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what real customers have to say about their experience.
+            {
+              "Don't just take our word for it. Here's what real customers have to say about their experience."
+            }{" "}
           </p>
         </div>
         <div className="flex w-full max-w-4xl mx-auto px-4">
@@ -171,18 +197,24 @@ export const TestimonialsSlider: React.FC = () => {
                   onMouseLeave={resumeAutoplay}
                 >
                   <div className="relative">
-                    <div className={`transition-opacity duration-500 ${animating ? "opacity-0" : "opacity-100"}`}>
+                    <div
+                      className={`transition-opacity duration-500 ${
+                        animating ? "opacity-0" : "opacity-100"
+                      }`}
+                    >
                       <div className="bg-white rounded-lg p-6 md:p-8">
                         <div className="flex items-center justify-between flex-row gap-4 md:gap-6">
                           {/* Content Section */}
                           <div className="w-3/5 md:w-3/5 flex-1">
                             <blockquote className="text-sm md:text-xl font-medium text-gray-800 leading-relaxed mb-4 md:mb-6">
-                              "{testimonials[currentSlide].quote}"
+                             { "{testimonials[currentSlide].quote}"}
                             </blockquote>
 
                             <div className="space-y-2 md:space-y-3">
                               <p className="text-xs md:text-lg">
-                                <span className="font-semibold text-gray-900">{testimonials[currentSlide].name}</span>
+                                <span className="font-semibold text-gray-900">
+                                  {testimonials[currentSlide].name}
+                                </span>
                                 {testimonials[currentSlide].designation && (
                                   <span className="text-gray-600 ml-1 md:ml-2">
                                     | {testimonials[currentSlide].designation}
@@ -191,9 +223,11 @@ export const TestimonialsSlider: React.FC = () => {
                               </p>
 
                               {testimonials[currentSlide].company.logo && (
-                                <img
+                                <Image
                                   src={
-                                    testimonials[currentSlide].company.logo || "/placeholder.svg" || "/placeholder.svg"
+                                    testimonials[currentSlide].company.logo ||
+                                    "/placeholder.svg" ||
+                                    "/placeholder.svg"
                                   }
                                   alt={testimonials[currentSlide].company.name}
                                   className="h-6 md:h-12 object-contain"
@@ -206,8 +240,12 @@ export const TestimonialsSlider: React.FC = () => {
                           {testimonials[currentSlide].imageUrl && (
                             <div className="w-2/5 md:w-2/5 flex justify-center md:justify-end">
                               <div className="relative">
-                                <img
-                                  src={testimonials[currentSlide].imageUrl || "/placeholder.svg" || "/placeholder.svg"}
+                                <Image
+                                  src={
+                                    testimonials[currentSlide].imageUrl ||
+                                    "/placeholder.svg" ||
+                                    "/placeholder.svg"
+                                  }
                                   alt={testimonials[currentSlide].name}
                                   className="w-20 h-20 md:w-40 md:h-40 object-cover rounded-full border-2 md:border-4 border-gray-100 shadow-lg"
                                 />
@@ -229,11 +267,11 @@ export const TestimonialsSlider: React.FC = () => {
                         }`}
                         onClick={() => {
                           if (!animating) {
-                            setAnimating(true)
+                            setAnimating(true);
                             setTimeout(() => {
-                              setCurrentSlide(index)
-                              setAnimating(false)
-                            }, 250)
+                              setCurrentSlide(index);
+                              setAnimating(false);
+                            }, 250);
                           }
                         }}
                         aria-label={`Go to testimonial ${index + 1}`}
@@ -247,5 +285,5 @@ export const TestimonialsSlider: React.FC = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
