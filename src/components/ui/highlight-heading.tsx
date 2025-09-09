@@ -10,7 +10,7 @@ export const HighlightHeading: React.FC<HighlightHeadingProps> = ({
   color = "text-teal-800",
 }) => {
   return (
-    <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
+    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
       <span
         className={`${color} relative font-semibold italic`}
         style={{ fontFamily: "'Workbench', cursive" }} // try with a script font
