@@ -17,7 +17,7 @@ const Hero = () => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  return <div>{isMobile ? <HeroMob /> : <HeroDesktop />}</div>;
+  return <div className="bg-[#F7F8F2]">{isMobile ? <HeroMob /> : <HeroDesktop />}</div>;
 };
 
 export default Hero;

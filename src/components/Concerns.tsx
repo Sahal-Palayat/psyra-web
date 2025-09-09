@@ -11,7 +11,6 @@ const concerns = [
   { title: "Stress" },
   { title: "Sexual issues" },
   { title: "Relationship issues" },
-  { title: "Crisis intervention" },
   { title: "Work related issues" },
 ];
 
@@ -22,7 +21,7 @@ export default function Concerns() {
     window.open(`https://wa.me/${phoneNumber}?text=${message}`);
   };
   return (
-    <div className="min-h-screen">
+    <div className="mb-12">
       {/* Concerns Grid Section */}
       <section className="py-8 px-4">
         <div className="max-w-6xl mx-auto">
