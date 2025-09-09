@@ -94,7 +94,7 @@ const HeroDesktop = () => {
                   </motion.span>
                 </AnimatePresence>
               </span>{" "}
-              is here for you
+              here for you
             </motion.p>
           </div>
         </motion.div>

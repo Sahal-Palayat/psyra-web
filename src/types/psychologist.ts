@@ -7,6 +7,8 @@ export interface Psychologist {
   languages: string[];
   expertise: string[];
   imageUrl: string;
+  price?:string;
+  rating?:string;
   createdAt?: string;
   updatedAt?: string;
 }

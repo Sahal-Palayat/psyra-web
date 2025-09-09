@@ -110,7 +110,7 @@ const HeroMob = () => {
                 </motion.span>
               </AnimatePresence>
             </span>{" "}
-            is here for you
+            here for you
           </motion.p>
           <motion.div className="px-12">
             <motion.img

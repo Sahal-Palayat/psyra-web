@@ -31,7 +31,7 @@ export default function PsychologistCarousel() {
       imageUrl: "",
       experience: "",
       expertise: [],
-      languages: [],
+      languages: []
     },
   ]);
   // const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
@@ -64,7 +64,7 @@ export default function PsychologistCarousel() {
   // }, []);
 
   return (
-    <section id="psychologists">
+    <section id="psychologists bg-[#F7F8F2]">
       <div className="container mx-auto">
         <CarouselHeader />
 

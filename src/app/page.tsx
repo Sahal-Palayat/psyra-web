@@ -35,7 +35,7 @@ const DynamicFaq = dynamic(() => import("@/components/Faq"), {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#F7F8F2]">
       {/* Welcome Animation Overlay - This will appear only on the first visit */}
       <WelcomeAnimationOverlay />
 
