@@ -1,6 +1,5 @@
 "use client";
 
-import { HighlightHeading } from "@/components/ui/highlight-heading";
 import { motion } from "framer-motion";
 import { Heart, HeartHandshake } from "lucide-react";
 
@@ -26,8 +25,7 @@ export function CarouselStats() {
             className={`text-teal-800 relative font-semibold italic`}
             style={{ fontFamily: "'Workbench', cursive" }} // try with a script font
           >
-            A Safe Space for Our{" "}
-            {/* underline stroke */}
+            A Safe Space for Our {/* underline stroke */}
             <span className="inline-flex items-center px-2 shadow-md">
               Psymates <HeartHandshake className="ml-1 w-6 h-6" />
             </span>{" "}

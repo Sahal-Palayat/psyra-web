@@ -2,7 +2,6 @@
 
 import type React from "react";
 import { useRef, useState, useEffect } from "react";
-import { SectionHeader } from "./SectionTitle";
 import Image from "next/image";
 
 // Sample testimonials data (since the external import might not exist)
