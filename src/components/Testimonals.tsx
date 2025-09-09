@@ -130,10 +130,9 @@ export const TestimonialsSlider: React.FC = () => {
   };
 
   return (
-    <main className="lg:min-h-screen  xl:min-h-screen bg-gray-50 py-12">
+    <main className="lg:min-h-screen  xl:min-h-screen bg-teal-500 py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <SectionHeader>What Our Customers Say</SectionHeader>
           <h1 className="text-4xl font-bold text-gray-900 mb-4"></h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             {

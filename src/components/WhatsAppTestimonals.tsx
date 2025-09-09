@@ -80,10 +80,10 @@ export const WhatsAppTestimonials: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-12 px-4">
+    <div className="bg-[#F7F8F2] py-12 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <HighlightHeading main="What Our" highlight=" Customers Say" />
+          <HighlightHeading highlight="What People Say About Us" />
 
           <p className="text-gray-600 mt-2 text-sm">
             Real conversations with our happy customers
