@@ -8,7 +8,6 @@ import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay
 import Concerns from "@/components/Concerns";
 import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
 // import { TestimonialsSlider } from "@/components/Testimonals";
-import { SectionHeader } from "@/components/SectionTitle";
 import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
@@ -57,7 +56,7 @@ export default function Home() {
 
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
-      <WhatsAppTestimonials/>
+      <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
 
       {/* FAQ Section with themed loading */}

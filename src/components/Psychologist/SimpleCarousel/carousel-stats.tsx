@@ -1,34 +1,40 @@
-"use client"
+"use client";
 
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion"
-import { HeartHandshake } from "lucide-react"
-import { useEffect, useRef } from "react"
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { HeartHandshake } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const stats = [
   { value: 2500, label: "Happy Psymates", suffix: "+" },
   { value: 15, label: "Expert Therapists", suffix: "+" },
   { value: 12, label: "Countries", suffix: "+" },
-]
+];
 
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const motionValue = useMotionValue(0)
-  const springValue = useSpring(motionValue, { duration: 2000 })
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+function AnimatedCounter({
+  value,
+  suffix = "",
+}: {
+  value: number;
+  suffix?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { duration: 2000 });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
     if (isInView) {
-      motionValue.set(value)
+      motionValue.set(value);
     }
-  }, [motionValue, isInView, value])
+  }, [motionValue, isInView, value]);
 
   useEffect(() => {
     springValue.on("change", (latest) => {
       if (ref.current) {
-        ref.current.textContent = Math.floor(latest) + suffix
+        ref.current.textContent = Math.floor(latest) + suffix;
       }
-    })
-  }, [springValue, suffix])
+    });
+  }, [springValue, suffix]);
 
   return (
     <div
@@ -37,7 +43,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
     >
       0{suffix}
     </div>
-  )
+  );
 }
 
 export function CarouselStats() {
@@ -84,7 +90,9 @@ export function CarouselStats() {
             className="flex flex-col justify-center items-center md:h-54 p-12 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
           >
             <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-            <div className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed text-center">{stat.label}</div>
+            <div className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed text-center">
+              {stat.label}
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -92,13 +100,13 @@ export function CarouselStats() {
       {/* About Psymates Note */}
       <div className="text-center mt-10">
         <p className="text-gray-600 italic text-lg">
-          "We don't call them clients — we call them{" "}
+          “We don’t call them clients — we call them{" "}
           <span className="inline-flex items-center font-semibold text-[#00989D]">
             Psymates <HeartHandshake className="ml-1 w-5 h-5" />
           </span>
-          "
+          ”
         </p>
       </div>
     </div>
-  )
+  );
 }
