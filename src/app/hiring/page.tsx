@@ -253,8 +253,8 @@ export default function PsyraChiefPsychologistApplication() {
                     <SelectValue placeholder="Select your years of experience" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="3">1 years</SelectItem>
-                    <SelectItem value="3">2 years</SelectItem>
+                    <SelectItem value="1">1 years</SelectItem>
+                    <SelectItem value="2">2 years</SelectItem>
                     <SelectItem value="3">3 years</SelectItem>
                     <SelectItem value="4">4 years</SelectItem>
                     <SelectItem value="5">5 years</SelectItem>
