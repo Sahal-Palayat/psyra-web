@@ -4,6 +4,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { testimonials } from "@/constants/testimonals";
 import { HighlightHeading } from "./ui/highlight-heading";
+import { SectionHeader } from "./SectionTitle";
 
 const DoubleCheckIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -83,7 +84,7 @@ export const WhatsAppTestimonials: React.FC = () => {
     <div className="bg-[#F7F8F2] py-12 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <HighlightHeading highlight="What People Say About Us" />
+          <SectionHeader>What People Say About Us</SectionHeader>
 
           <p className="text-gray-600 mt-2 text-sm">
             Real conversations with our happy customers
