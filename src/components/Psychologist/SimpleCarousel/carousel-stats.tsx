@@ -1,5 +1,6 @@
 "use client";
 
+import { SectionHeader } from "@/components/SectionTitle";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { HeartHandshake } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -57,17 +58,12 @@ export function CarouselStats() {
             Psymates <HeartHandshake className="ml-1 w-6 h-6" />
           </span>
         </h2> */}
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-          <span
-            className={`text-teal-800 relative font-semibold italic`}
-            style={{ fontFamily: "'Workbench', cursive" }} // try with a script font
-          >
-            A Safe Space for Our {/* underline stroke */}
-            <span className="inline-flex items-center px-2 shadow-md">
-              Psymates <HeartHandshake className="ml-1 w-6 h-6" />
-            </span>{" "}
-          </span>
-        </h2>
+        <SectionHeader>
+          A Safe Space for Our {/* underline stroke */}
+          <span className="inline-flex items-center px-2 shadow-md">
+            Psymates <HeartHandshake className="ml-1 w-6 h-6" />
+          </span>{" "}
+        </SectionHeader>
         {/* <p className="text-gray-600 mt-3 text-lg">
           Together, we're building a supportive community for mental well-being.
         </p> */}
