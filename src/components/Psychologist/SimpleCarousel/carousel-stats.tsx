@@ -1,44 +1,14 @@
-"use client"
+"use client";
 
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion"
-import { HeartHandshake } from "lucide-react"
-import { useEffect, useRef } from "react"
+import { HighlightHeading } from "@/components/ui/highlight-heading";
+import { motion } from "framer-motion";
+import { Heart, HeartHandshake } from "lucide-react";
 
 const stats = [
-  { value: 2500, label: "Happy Psymates", suffix: "+" },
-  { value: 15, label: "Expert Therapists", suffix: "+" },
-  { value: 12, label: "Countries", suffix: "+" },
-]
-
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const motionValue = useMotionValue(0)
-  const springValue = useSpring(motionValue, { duration: 2000 })
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value)
-    }
-  }, [motionValue, isInView, value])
-
-  useEffect(() => {
-    springValue.on("change", (latest) => {
-      if (ref.current) {
-        ref.current.textContent = Math.floor(latest) + suffix
-      }
-    })
-  }, [springValue, suffix])
-
-  return (
-    <div
-      ref={ref}
-      className="text-4xl md:text-4xl font-bold bg-gradient-to-r from-[#00989D] to-[#00B4BA] bg-clip-text text-transparent"
-    >
-      0{suffix}
-    </div>
-  )
-}
+  { value: "2500+", label: "Happy Psymates" },
+  { value: "15+", label: "Expert Therapists" },
+  { value: "12+", label: "Countries" },
+];
 
 export function CarouselStats() {
   return (
@@ -47,13 +17,12 @@ export function CarouselStats() {
       <div className="text-center mb-10">
         <h2 className="text-2xl sm:text-2xl font-bold text-teal-800 text-center leading-snug">
           A Safe Space for Our{" "}
-          <span className="inline-flex items-center text-[#3D985C] px-2 shadow-md">
+          <span className="inline-flex items-center bg-[#3D985C] text-white px-2 shadow-md">
             Psymates <HeartHandshake className="ml-1 w-6 h-6" />
           </span>
         </h2>
-
         {/* <p className="text-gray-600 mt-3 text-lg">
-          Together, we're building a supportive community for mental well-being.
+          Together, we’re building a supportive community for mental well-being.
         </p> */}
       </div>
 
@@ -73,8 +42,12 @@ export function CarouselStats() {
             whileHover={{ scale: 1.05, y: -5 }}
             className="flex flex-col justify-center items-center md:h-54 p-12 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
           >
-            <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-            <div className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed text-center">{stat.label}</div>
+            <div className="text-4xl md:text-4xl font-bold bg-gradient-to-r from-[#00989D] to-[#00B4BA] bg-clip-text text-transparent">
+              {stat.value}
+            </div>
+            <div className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed text-center">
+              {stat.label}
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -82,13 +55,13 @@ export function CarouselStats() {
       {/* About Psymates Note */}
       <div className="text-center mt-10">
         <p className="text-gray-600 italic text-lg">
-          "We don't call them clients — we call them{" "}
+          “We don’t call them customers — we call them{" "}
           <span className="inline-flex items-center font-semibold text-[#00989D]">
             Psymates <HeartHandshake className="ml-1 w-5 h-5" />
           </span>
-          "
+          ”
         </p>
       </div>
     </div>
-  )
+  );
 }
