@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { SectionHeader } from "./SectionTitle";
+import { HighlightHeading } from "./ui/highlight-heading";
 
 const concerns = [
   { title: "Depression" },
@@ -26,9 +26,9 @@ export default function Concerns() {
       <section className="py-8 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-              <div className="text-center mb-12">
-            <SectionHeader>What We Can Help You Overcome</SectionHeader>
-          </div>
+            <div className="text-center mb-12">
+              <HighlightHeading highlight="What We Can Help You Overcome" />
+            </div>
           </div>
 
           <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
