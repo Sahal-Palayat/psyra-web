@@ -3,7 +3,6 @@
 import type React from "react";
 import { useState, useEffect } from "react";
 import { testimonials } from "@/constants/testimonals";
-import { HighlightHeading } from "./ui/highlight-heading";
 import { SectionHeader } from "./SectionTitle";
 
 const DoubleCheckIcon = ({ className }: { className?: string }) => (
