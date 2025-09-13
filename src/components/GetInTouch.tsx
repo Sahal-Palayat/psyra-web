@@ -73,7 +73,7 @@ const GetInTouch = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Get In Touch
+               <h1>Contact us</h1>
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
