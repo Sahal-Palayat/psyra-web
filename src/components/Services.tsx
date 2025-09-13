@@ -6,7 +6,6 @@ import Individual from "../../public/Single Cover.jpg";
 import Couple from "../../public/Couple Cover.jpg";
 import Coffe from "../../public/Coffee.png";
 import { useRouter } from "next/navigation";
-import { BookNowButton } from "./book-now-button";
 
 export interface TherapyCardType {
   type: string;
@@ -86,6 +85,12 @@ const Services = () => {
                 {/* This wrapper pushes price + button to bottom */}
                 <div className="mt-auto">
                   <div className="flex justify-center">
+                    <button
+                      className="bg-white px-6 py-2 text-teal text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      BOOK NOW
+                    </button>
                     {/* <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() => handleWhatsAppRedirect(item)}
@@ -93,7 +98,6 @@ const Services = () => {
                       Book Now
                     </button> */}
                   </div>
-                  <BookNowButton onClick={() => handleWhatsAppRedirect(item)} />
                 </div>
               </div>
             </motion.div>
