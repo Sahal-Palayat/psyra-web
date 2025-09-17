@@ -121,7 +121,7 @@ export default function PsyraChiefPsychologistApplication() {
               <Image src={Logo} alt="Psyra Logo" width={200} height={40} />
             </div>{" "}
             <h2 className="text-3xl font-semibold text-teal-700 mb-6">
-              Chief Psychologist Application
+              Psychologist Application
             </h2>
           </div>
 
@@ -143,7 +143,7 @@ export default function PsyraChiefPsychologistApplication() {
                 Minimum Requirements:
               </h3>
               <ul className="text-left text-gray-700 space-y-2">
-                <li>• 3+ years of professional experience in psychology</li>
+                <li>• 1+ years of professional experience in psychology</li>
                 <li>• Strong presentation & communication skills</li>
                 <li>• Strong work ethic with a focus on impact</li>
                 <li>• Based in or willing to relocate to Kochi</li>
@@ -253,6 +253,8 @@ export default function PsyraChiefPsychologistApplication() {
                     <SelectValue placeholder="Select your years of experience" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="1">1 years</SelectItem>
+                    <SelectItem value="2">2 years</SelectItem>
                     <SelectItem value="3">3 years</SelectItem>
                     <SelectItem value="4">4 years</SelectItem>
                     <SelectItem value="5">5 years</SelectItem>

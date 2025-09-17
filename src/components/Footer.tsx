@@ -272,14 +272,25 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Psyra. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-yellow-200 transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
+
+            <Link
+              href="/terms-conditions"
+              className="hover:text-yellow-200 transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
-              Cookie Policy
+
+            <Link
+              href="/refund-policy"
+              className="hover:text-yellow-200 transition-colors"
+            >
+              Refund Policy
             </Link>
           </div>
         </div>
