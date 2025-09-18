@@ -50,12 +50,12 @@ export default function TestPaymentPage() {
             Test Instructions:
           </h3>
           <ul className="text-sm text-blue-700 space-y-1">
-            <li>• Click "Test Razorpay Payment" button</li>
-            <li>• Use test card: 4111 1111 1111 1111</li>
-            <li>• Use any future expiry date</li>
+            <li>{'• Click "Test Razorpay Payment" button'}</li>
+            <li>{"• Use test card: 4111 1111 1111 1111"}</li>
+            {/* <li>• Use any future expiry date</li>
             <li>• Use any CVV (e.g., 123)</li>
             <li>• Check browser console for detailed logs</li>
-            <li>• Payment will be processed with live Razorpay keys</li>
+            <li>• Payment will be processed with live Razorpay keys</li> */}
           </ul>
         </div>
       </div>
