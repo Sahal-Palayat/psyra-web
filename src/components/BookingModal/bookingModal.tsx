@@ -234,9 +234,9 @@ export function BookingModal({
       agreeToTerms,
       sessionType,
       therapyType: bookingData.therapyType,
-      packageTitle,
+      packageTitle: packageTitle || "Therapy Session",
       date: adjustedDate.toISOString().split("T")[0],
-      timeSlot,
+      timeSlot: timeSlot || "10:00-11:00",
       totalAmount: 100 // You can make this dynamic based on package
     };
 

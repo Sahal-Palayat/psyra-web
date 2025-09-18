@@ -241,9 +241,9 @@ Looking forward to your confirmation. Thank you!`
       agreeToTerms,
       sessionType,
       therapyType,
-      packageTitle,
+      packageTitle: packageTitle || "Therapy Session",
       date: adjustedDate.toISOString().split("T")[0],
-      timeSlot,
+      timeSlot: timeSlot || "10:00-11:00",
       psychologistId: data?._id,
       totalAmount: 100 // You can make this dynamic based on package
     };
