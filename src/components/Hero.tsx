@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import HeroMob from "./HeroMob";
-import HeroDesktop from "./HeroDesktop";
+// import HeroMob from "./HeroMob";
+// import HeroDesktop from "./HeroDesktop";
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -17,7 +17,11 @@ const Hero = () => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  return <div className="bg-[#F7F8F2]">{isMobile ? <HeroMob /> : <HeroDesktop />}</div>;
+  return (
+    <div className="bg-[#F7F8F2]">
+      <h1>🚧 Site Under Maintenance 🚧</h1>
+    </div>
+  );
 };
 
 export default Hero;
