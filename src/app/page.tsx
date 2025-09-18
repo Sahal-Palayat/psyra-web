@@ -12,13 +12,13 @@ import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
 // Dynamically import components with the themed loader
-const DynamicPsychologistCarousel = dynamic(
-  () =>
-    import("@/components/Psychologist/SimpleCarousel/psychologist-carousel"),
-  {
-    loading: () => <MentalHealthLoader />,
-  }
-);
+// const DynamicPsychologistCarousel = dynamic(
+//   () =>
+//     import("@/components/Psychologist/SimpleCarousel/psychologist-carousel"),
+//   {
+//     loading: () => <MentalHealthLoader />,
+//   }
+// );
 
 // const DynamicOurSpecials = dynamic(() => import("@/components/OurSpecials"), {
 //   loading: () => <MentalHealthLoader />,
@@ -45,7 +45,7 @@ export default function Home() {
       <AboutUs />
 
       {/* Psychologist Carousel with themed loading */}
-      <DynamicPsychologistCarousel />
+      {/* <DynamicPsychologistCarousel /> */}
 
       <CarouselStats />
       <Concerns />
