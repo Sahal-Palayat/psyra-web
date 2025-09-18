@@ -10,6 +10,7 @@ import {
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
+import { processPayment, type BookingPaymentData } from "@/lib/payment-integration";
 import axios from "axios";
 // import DemoPayment from "./demo-payment";
 
@@ -202,6 +203,58 @@ export function BookingModal({
     // await axios.post('/api/book-slot', variable);
   };
 
+  const handlePaymentAndBooking = async () => {
+    const {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      packageTitle,
+      date,
+      timeSlot,
+    } = bookingData;
+
+    const adjustedDate =
+      date instanceof Date
+        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+        : new Date();
+
+    // Prepare payment data
+    const paymentData: BookingPaymentData = {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      therapyType: bookingData.therapyType,
+      packageTitle,
+      date: adjustedDate.toISOString().split("T")[0],
+      timeSlot,
+      totalAmount: 100 // You can make this dynamic based on package
+    };
+
+    // Process payment
+    await processPayment(
+      paymentData,
+      // On success - call the original booking API
+      async (response) => {
+        console.log('Payment successful, now booking session...', response);
+        await createSlot();
+      },
+      // On error
+      (error) => {
+        console.error('Payment failed:', error);
+      }
+    );
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -263,7 +316,7 @@ export function BookingModal({
               <div className="mt-4 w-full bg-[#005657]/30 rounded-full h-1">
                 <div
                   className="bg-white h-1 rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${(step / 3) * 100}%` }}
+                  style={{ width: `${(step / 2) * 100}%` }}
                 />
               </div>
             </div>
@@ -298,22 +351,6 @@ export function BookingModal({
                     onUpdate={updateBookingData}
                   />
                 )}
-                {/* {step === 3 && (
-                    <div className="p-6 text-center">
-                      <h3 className="text-lg font-medium text-[#005657] mb-4">
-                        Payment Integration
-                      </h3>
-                      <p className="text-gray-600 mb-6">
-                        Razorpay integration will be implemented here
-                      </p>
-                      <button
-                        onClick={handlePaymentComplete}
-                        className="px-6 py-2 bg-[#005657] text-white rounded-md hover:bg-[#005657]/90 transition-colors"
-                      >
-                        Complete Payment (Demo)
-                      </button>
-                    </div>
-                  )} */}
               </div>
             </div>
 
@@ -343,7 +380,7 @@ export function BookingModal({
                   <button
                     onClick={() => {
                       if (canProceedFromStep2()) {
-                        createSlot();
+                        handlePaymentAndBooking();
                       } else {
                         alert("Please fill in all required fields correctly.");
                       }
@@ -355,7 +392,7 @@ export function BookingModal({
                         : "bg-[#005657] hover:bg-[#005657]/90"
                     }`}
                   >
-                    Continue
+                    Book Session
                   </button>
                 )}
               </div>

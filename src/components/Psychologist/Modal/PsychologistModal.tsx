@@ -9,6 +9,7 @@ import type {
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
+import { processPayment, type BookingPaymentData } from "@/lib/payment-integration";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
@@ -208,10 +209,64 @@ Looking forward to your confirmation. Thank you!`
     }
   };
 
+  const handlePaymentAndBooking = async () => {
+    const {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      therapyType,
+      packageTitle,
+      date,
+      timeSlot,
+    } = bookingData;
+
+    const adjustedDate =
+      date instanceof Date
+        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+        : new Date();
+
+    // Prepare payment data
+    const paymentData: BookingPaymentData = {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      therapyType,
+      packageTitle,
+      date: adjustedDate.toISOString().split("T")[0],
+      timeSlot,
+      psychologistId: data?._id,
+      totalAmount: 100 // You can make this dynamic based on package
+    };
+
+    // Process payment
+    await processPayment(
+      paymentData,
+      // On success - call the original booking API
+      async (response) => {
+        console.log('Payment successful, now booking session...', response);
+        await createSlot();
+      },
+      // On error
+      (error) => {
+        console.error('Payment failed:', error);
+      }
+    );
+  };
+
   const handleNext = () => {
     if (step === 4) {
       if (canProceedFromStep4()) {
-        createSlot();
+        handlePaymentAndBooking();
       } else {
         alert("Please fill in all required fields correctly.");
       }
