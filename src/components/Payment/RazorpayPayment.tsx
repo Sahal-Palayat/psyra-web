@@ -5,12 +5,13 @@ import {
   openRazorpayPayment, 
   RAZORPAY_CONFIG,
   type PaymentData,
-  type RazorpayOptions 
+  type RazorpayOptions,
+  type RazorpayPaymentResponse
 } from '@/lib/razorpay';
 
 interface RazorpayPaymentProps {
-  onPaymentSuccess?: (response: any) => void;
-  onPaymentError?: (error: any) => void;
+  onPaymentSuccess?: (response: RazorpayPaymentResponse) => void;
+  onPaymentError?: (error: Error) => void;
 }
 
 export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPaymentProps) => {
@@ -55,7 +56,7 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
         name: 'Psyra',
         description: `Payment for ${dummyPaymentData.sessionDetails.packageTitle}`,
         order_id: orderResponse.order_id, // From backend response
-         handler: async (response: any) => {
+         handler: async (response: RazorpayPaymentResponse) => {
            console.log('Payment response:', response);
            
            // Payment successful - no verification needed
@@ -90,7 +91,8 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
       console.error('Payment error:', error);
       setPaymentStatus('failed');
       setIsLoading(false);
-      onPaymentError?.(error);
+      const errorInstance = error instanceof Error ? error : new Error('Payment failed');
+      onPaymentError?.(errorInstance);
       alert('Payment failed. Please try again.');
     }
   };

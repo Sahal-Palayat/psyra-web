@@ -4,7 +4,8 @@ import {
   openRazorpayPayment, 
   RAZORPAY_CONFIG,
   type PaymentData,
-  type RazorpayOptions 
+  type RazorpayOptions,
+  type RazorpayPaymentResponse,
 } from './razorpay';
 
 // Payment data interface for booking
@@ -50,9 +51,9 @@ export const convertToPaymentData = (bookingData: BookingPaymentData): PaymentDa
 // Main payment function for Book Session button
 export const processPayment = async (
   bookingData: BookingPaymentData,
-  onSuccess?: (response: any) => void,
-  onError?: (error: any) => void
-) => {
+  onSuccess?: (response: RazorpayPaymentResponse) => void,
+  onError?: (error: Error) => void
+): Promise<void> => {
   try {
     console.log('Starting payment process...', bookingData);
     
@@ -72,7 +73,7 @@ export const processPayment = async (
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle}`,
       order_id: orderResponse.order_id, // From backend response
-      handler: async (response: any) => {
+      handler: async (response: RazorpayPaymentResponse) => {
         console.log('Payment response:', response);
         
         // Payment successful
@@ -102,7 +103,8 @@ export const processPayment = async (
 
   } catch (error) {
     console.error('Payment error:', error);
-    onError?.(error);
+    const errorInstance = error instanceof Error ? error : new Error('Payment failed');
+    onError?.(errorInstance);
     alert('Payment failed. Please try again.');
   }
 };
