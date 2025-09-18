@@ -153,7 +153,8 @@ export default function RootLayout({
       </head>
       <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
-        {children}
+        <h1>🚧 Site Under Maintenance 🚧</h1>
+        {/* {children} */}
         <Footer />
       </body>
     </html>
