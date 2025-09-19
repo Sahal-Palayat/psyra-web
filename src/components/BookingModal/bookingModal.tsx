@@ -181,23 +181,25 @@ export function BookingModal({
         variable
       ); // Update endpoint
 
-      if (response?.status) {
-        console.log("Booking successful", response.data);
-        // const phoneNumber = "+918891724199";
-        // const message = encodeURIComponent(
-        //   `Hi, I would like to book the following therapy session. Please share the payment details:
+      // if (response?.status) {
+      //   console.log("Booking successful", response.data);
+      //   // const phoneNumber = "+918891724199";
+      //   // const message = encodeURIComponent(
+      //   //   `Hi, I would like to book the following therapy session. Please share the payment details:
 
-        // Name: ${name}
-        // Age: ${age}
-        // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-        // Time Slot: ${timeSlot}
+      //   // Name: ${name}
+      //   // Age: ${age}
+      //   // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+      //   // Time Slot: ${timeSlot}
 
-        // Looking forward to your confirmation. Thank you!`
-        // );
-        // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-      } else {
-        alert("Technincal issue");
-      }
+      //   // Looking forward to your confirmation. Thank you!`
+      //   // );
+      //   // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+      // } else {
+      //   alert("Technincal issue");
+      // }
+      console.log(response,"TO TEST");
+      
       // alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
