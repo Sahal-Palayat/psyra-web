@@ -99,7 +99,7 @@ const Navbar = () => {
               Services
             </Link>
             <Link
-              href="/psychologists"
+              href="/"
               className={`text-[#005657] hover:text-white ${
                 isScrolled ? " text-[#005657]" : "text-white"
               }`}
