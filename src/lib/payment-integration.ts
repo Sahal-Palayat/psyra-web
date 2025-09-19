@@ -44,7 +44,7 @@ export const convertToPaymentData = (bookingData: BookingPaymentData): PaymentDa
       therapyType: bookingData.therapyType,
       packageTitle: bookingData.packageTitle
     },
-    totalAmount: bookingData.totalAmount
+    totalAmount: bookingData.totalAmount 
   };
 };
 
@@ -58,7 +58,7 @@ export const processPayment = async (
     console.log('Starting payment process...', bookingData);
     
     // Convert booking data to payment format
-    const paymentData = convertToPaymentData(bookingData);
+    const paymentData = await convertToPaymentData(bookingData);
     
     // Step 1: Create payment order with backend
     console.log('Creating payment order...', paymentData);

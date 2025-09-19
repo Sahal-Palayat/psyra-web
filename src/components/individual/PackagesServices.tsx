@@ -23,14 +23,21 @@ interface PackageServicesCard {
   PackagesObj: PackageItem[];
   setSelectedPackage: React.Dispatch<React.SetStateAction<string>>;
   setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
 }
 const PackageServices = ({
   PackagesObj,
   setSelectedPackage,
   setIsModal,
+  setSelectedPrice,
 }: PackageServicesCard) => {
-  const handleBookNow = (packageTitle: string, packageType: string) => {
+  const handleBookNow = (
+    packageTitle: string,
+    packageType: string,
+    packagePrice: string
+  ) => {
     setSelectedPackage(`${packageTitle} - ${packageType}`);
+    setSelectedPrice(packagePrice);
     setIsModal(true);
   };
 
@@ -78,7 +85,9 @@ const PackageServices = ({
                   <div className="flex justify-center">
                     <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      onClick={() => handleBookNow(item.title, item?.type)}
+                      onClick={() =>
+                        handleBookNow(item.title, item?.type, item?.price)
+                      }
                     >
                       Book Now
                     </button>

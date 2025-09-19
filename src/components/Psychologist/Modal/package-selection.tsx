@@ -67,7 +67,7 @@ export function PackageSelection({
     {
       id: "single",
       title: "Single Session",
-      price: "₹1,499",
+      price: "1499",
       originalPrice: null,
       sessions: 1,
       popular: false,
@@ -76,7 +76,7 @@ export function PackageSelection({
     {
       id: "package-5",
       title: "5 Sessions Package",
-      price: "₹6,995",
+      price: "6995",
       originalPrice: "₹7,495",
       sessions: 5,
       popular: true,
@@ -85,7 +85,7 @@ export function PackageSelection({
     {
       id: "package-10",
       title: "10 Sessions Package",
-      price: "₹12,490",
+      price: "12490",
       originalPrice: "₹14,990",
       sessions: 10,
       popular: false,

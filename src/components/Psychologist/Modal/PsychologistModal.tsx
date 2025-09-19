@@ -9,7 +9,10 @@ import type {
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
-import { processPayment, type BookingPaymentData } from "@/lib/payment-integration";
+import {
+  processPayment,
+  type BookingPaymentData,
+} from "@/lib/payment-integration";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
@@ -32,6 +35,7 @@ export function PsychologistModal({
     sessionType: "",
     packageTitle: "",
     therapyType: "",
+    packageAmount: 999,
   });
 
   const fetchBookedSlots = async (date: string) => {
@@ -68,6 +72,7 @@ export function PsychologistModal({
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
+      packageAmount: 999,
     });
     onClose();
   };
@@ -141,20 +146,16 @@ export function PsychologistModal({
       );
 
       if (response?.status) {
-        const phoneNumber = "+918891724199";
-        const message = encodeURIComponent(
-          `Hi, I would like to book the following therapy session. Please share the payment details:
-          
-Name: ${name}
-Age: ${age}
-
-Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-Time Slot: ${timeSlot}
-
-Looking forward to your confirmation. Thank you!`
-        );
-        resetAndClose();
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+        //         const phoneNumber = "+918891724199";
+        //         const message = encodeURIComponent(
+        //           `Hi, I would like to book the following therapy session. Please share the payment details:
+        // Name: ${name}
+        // Age: ${age}
+        // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+        // Time Slot: ${timeSlot}
+        // Looking forward to your confirmation. Thank you!`
+        //         );
+        // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
         alert("Technical issue");
       }
@@ -223,6 +224,7 @@ Looking forward to your confirmation. Thank you!`
       packageTitle,
       date,
       timeSlot,
+      packageAmount,
     } = bookingData;
 
     const adjustedDate =
@@ -245,20 +247,20 @@ Looking forward to your confirmation. Thank you!`
       date: adjustedDate.toISOString().split("T")[0],
       timeSlot: timeSlot || "10:00-11:00",
       psychologistId: data?._id,
-      totalAmount: 100 // You can make this dynamic based on package
+      totalAmount: packageAmount, // You can make this dynamic based on package
     };
-
+    await createSlot();
     // Process payment
     await processPayment(
       paymentData,
       // On success - call the original booking API
       async (response) => {
-        console.log('Payment successful, now booking session...', response);
-        await createSlot();
+        console.log("Payment successful, now booking session...", response);
+        resetAndClose();
       },
       // On error
       (error) => {
-        console.error('Payment failed:', error);
+        console.error("Payment failed:", error);
       }
     );
   };

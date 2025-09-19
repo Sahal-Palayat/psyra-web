@@ -20,6 +20,7 @@ interface PackagesProps {
 const HeroPackages = ({ data }: PackagesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
+  const [packagePrice, setPackagePrice] = useState<string>("");
 
   return (
     <div className="mb-12">
@@ -78,12 +79,14 @@ const HeroPackages = ({ data }: PackagesProps) => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           packageTitle={selectedPackage}
+          price={packagePrice}
         />
       </div>
       <div className="relative z-10 -mt-34 md:-mt-28">
         <PackageServices
           setIsModal={setIsModalOpen}
           setSelectedPackage={setSelectedPackage}
+          setSelectedPrice={setPackagePrice}
           PackagesObj={data}
         />
       </div>

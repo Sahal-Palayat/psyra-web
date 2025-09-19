@@ -10,7 +10,10 @@ import {
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
-import { processPayment, type BookingPaymentData } from "@/lib/payment-integration";
+import {
+  processPayment,
+  type BookingPaymentData,
+} from "@/lib/payment-integration";
 import axios from "axios";
 // import DemoPayment from "./demo-payment";
 
@@ -18,9 +21,12 @@ export function BookingModal({
   isOpen,
   onClose,
   packageTitle,
+  price,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+
+  console.log(price, packageTitle, "pricepricepricepricepriceprice");
 
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
@@ -33,15 +39,15 @@ export function BookingModal({
     packageTitle: packageTitle,
     sessionType: "",
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
+    packageAmount: parseInt(price),
   });
-
-  console.log(packageTitle?.includes("couple"), "PAKCAGE TITLE");
 
   useEffect(() => {
     setBookingData((prev) => ({
       ...prev,
       packageTitle: packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
+      packageAmount: parseInt(price),
     }));
   }, [packageTitle]);
 
@@ -96,6 +102,7 @@ export function BookingModal({
       agreeToTerms: false,
       packageTitle: packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
+      packageAmount: 0,
     });
     onClose();
   };
@@ -176,19 +183,18 @@ export function BookingModal({
 
       if (response?.status) {
         console.log("Booking successful", response.data);
-        const phoneNumber = "+918891724199";
-        const message = encodeURIComponent(
-          `Hi, I would like to book the following therapy session. Please share the payment details:
-        
-        Name: ${name}
-        Age: ${age}
-        Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-        Time Slot: ${timeSlot}
-        
-        Looking forward to your confirmation. Thank you!`
-        );
-        resetAndClose();
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+        // const phoneNumber = "+918891724199";
+        // const message = encodeURIComponent(
+        //   `Hi, I would like to book the following therapy session. Please share the payment details:
+
+        // Name: ${name}
+        // Age: ${age}
+        // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+        // Time Slot: ${timeSlot}
+
+        // Looking forward to your confirmation. Thank you!`
+        // );
+        // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
         alert("Technincal issue");
       }
@@ -216,6 +222,7 @@ export function BookingModal({
       packageTitle,
       date,
       timeSlot,
+      packageAmount,
     } = bookingData;
 
     const adjustedDate =
@@ -233,24 +240,25 @@ export function BookingModal({
       issue,
       agreeToTerms,
       sessionType,
+      psychologistId: "687a42319c601751727e7b1f",
       therapyType: bookingData.therapyType,
       packageTitle: packageTitle || "Therapy Session",
       date: adjustedDate.toISOString().split("T")[0],
       timeSlot: timeSlot || "10:00-11:00",
-      totalAmount: 100 // You can make this dynamic based on package
+      totalAmount: packageAmount, // You can make this dynamic based on package
     };
-
+    createSlot();
     // Process payment
     await processPayment(
       paymentData,
       // On success - call the original booking API
       async (response) => {
-        console.log('Payment successful, now booking session...', response);
-        await createSlot();
+        console.log("Payment successful, now booking session...", response);
+        resetAndClose();
       },
       // On error
       (error) => {
-        console.error('Payment failed:', error);
+        console.error("Payment failed:", error);
       }
     );
   };

@@ -19,7 +19,7 @@ export default function Individual() {
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
-      price: "₹999",
+      price: "999",
       cta: "Start Your Journey Today",
     },
     {
@@ -32,7 +32,7 @@ export default function Individual() {
         "Explore your thoughts and emotions",
         "Develop practical coping strategies",
       ],
-      price: "₹4,495", // 599 x 5
+      price: "4495", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {
@@ -45,7 +45,7 @@ export default function Individual() {
         "Chat through assistance",
         "Sustained guidance",
       ],
-      price: "₹8,490", // 549 x 10
+      price: "8490", // 549 x 10
       cta: "Commit to a Better You",
     },
   ];
