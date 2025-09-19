@@ -13,10 +13,17 @@ export interface RazorpayPaymentResponse {
 
 // Razorpay order response interface
 export interface RazorpayOrderResponse {
-  order_id: string;
+  orderId: string;
   amount: number;
   currency: string;
-  status: string;
+  orderDbId: string;
+}
+
+// Backend API response interface
+export interface CreateOrderResponse {
+  status: boolean;
+  message: string;
+  data: RazorpayOrderResponse;
 }
 
 // Razorpay instance interface
@@ -92,8 +99,13 @@ export const createPaymentOrder = async (paymentData: PaymentData): Promise<Razo
       throw new Error('Failed to create payment order');
     }
 
-    const data: RazorpayOrderResponse = await response.json();
-    return data;
+    const apiResponse: CreateOrderResponse = await response.json();
+    
+    if (!apiResponse.status) {
+      throw new Error(apiResponse.message || 'Failed to create payment order');
+    }
+
+    return apiResponse.data;
   } catch (error) {
     console.error('Error creating payment order:', error);
     throw error;

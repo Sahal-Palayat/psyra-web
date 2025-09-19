@@ -72,7 +72,7 @@ export const processPayment = async (
       currency: 'INR',
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle}`,
-      order_id: orderResponse.order_id, // From backend response
+      order_id: orderResponse.orderId, // From backend response
       handler: async (response: RazorpayPaymentResponse) => {
         console.log('Payment response:', response);
         
