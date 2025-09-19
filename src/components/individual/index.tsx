@@ -19,7 +19,7 @@ export default function Individual() {
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
-      price: "999",
+      price: "1",
       cta: "Start Your Journey Today",
     },
     {
