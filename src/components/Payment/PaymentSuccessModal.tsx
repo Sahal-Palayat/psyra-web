@@ -19,7 +19,6 @@ interface PaymentSuccessModalProps {
 export const PaymentSuccessModal = ({
     isOpen,
     onClose,
-    paymentData,
 }: PaymentSuccessModalProps) => {
     if (!isOpen) return null;
 
