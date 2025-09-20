@@ -8,6 +8,7 @@ import {
   type RazorpayOptions,
   type RazorpayPaymentResponse
 } from '@/lib/razorpay';
+import { toast } from '@/lib/toast';
 
 interface RazorpayPaymentProps {
   onPaymentSuccess?: (response: RazorpayPaymentResponse) => void;
@@ -50,19 +51,19 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
 
       // Step 2: Configure Razorpay options
       const razorpayOptions: RazorpayOptions = {
-        key: RAZORPAY_CONFIG.key_id,
+        key: RAZORPAY_CONFIG.key_id || '' ,
         amount: dummyPaymentData.totalAmount * 100, // Convert to paise
         currency: 'INR',
         name: 'Psyra',
-        description: `Payment for ${dummyPaymentData.sessionDetails.packageTitle}`,
+        description: `Payment for ${dummyPaymentData.sessionDetails.packageTitle || "Therapy Session"}`,
         order_id: orderResponse.orderId, // From backend response
          handler: async (response: RazorpayPaymentResponse) => {
            console.log('Payment response:', response);
            
            // Payment successful - no verification needed
            setPaymentStatus('success');
+           toast.success('Payment Successful!', 'Your session has been booked successfully.', 0);
            onPaymentSuccess?.(response);
-           alert('Payment successful! Your session has been booked.');
          },
         prefill: {
           name: dummyPaymentData.sessionDetails.name,
@@ -92,8 +93,8 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
       setPaymentStatus('failed');
       setIsLoading(false);
       const errorInstance = error instanceof Error ? error : new Error('Payment failed');
+      toast.error('Payment Failed', 'Please try again or contact support.');
       onPaymentError?.(errorInstance);
-      alert('Payment failed. Please try again.');
     }
   };
 

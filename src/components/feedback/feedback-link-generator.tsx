@@ -4,6 +4,7 @@ import { Copy, Check, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { generateFeedbackUrl } from "../../lib/utils"
+import { toast } from "@/lib/toast"
 
 /**
  * Component for generating feedback links (for admin/internal use)
@@ -16,7 +17,7 @@ const FeedbackLinkGenerator = () => {
 
   const handleGenerate = () => {
     if (!name.trim() || !mobile.trim()) {
-      alert("Please enter both name and mobile number")
+      toast.error("Please enter both name and mobile number")
       return
     }
 
@@ -39,7 +40,7 @@ const FeedbackLinkGenerator = () => {
     // You can integrate with SMS services like Twilio, AWS SNS, etc.
     const message = `Hi ${name}, please share your feedback about your recent session: ${generatedUrl}`
     console.log("SMS to send:", message)
-    alert("SMS integration not implemented. Check console for message content.")
+    toast.error("SMS integration not implemented. Check console for message content.")
   }
 
   return (

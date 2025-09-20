@@ -14,6 +14,8 @@ import {
   processPayment,
   type BookingPaymentData,
 } from "@/lib/payment-integration";
+import { toast } from "@/lib/toast";
+import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
 // import DemoPayment from "./demo-payment";
 
@@ -25,6 +27,16 @@ export function BookingModal({
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successData, setSuccessData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    packageTitle: "",
+    date: "",
+    timeSlot: "",
+    amount: 0,
+  });
 
   console.log(price, packageTitle, "pricepricepricepricepriceprice");
 
@@ -203,7 +215,7 @@ export function BookingModal({
       // alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
-      alert("Technical issue");
+      toast.error("Technical issue");
       // You can show an error toast or message here
     }
 
@@ -253,10 +265,23 @@ export function BookingModal({
     // Process payment
     await processPayment(
       paymentData,
-      // On success - call the original booking API
+      // On success - show success modal
       async (response) => {
         console.log("Payment successful, now booking session...", response);
-        resetAndClose();
+        
+        // Set success data for modal
+        setSuccessData({
+          name: name || "",
+          email: email || "",
+          phone: phone || "",
+          packageTitle: packageTitle || "Therapy Session",
+          date: adjustedDate.toISOString().split("T")[0],
+          timeSlot: timeSlot || "10:00-11:00",
+          amount: packageAmount || 0,
+        });
+
+        // Show success modal
+        setShowSuccessModal(true);
       },
       // On error
       (error) => {
@@ -432,6 +457,16 @@ export function BookingModal({
           )}
         </motion.div>
       </div>
+
+      {/* Payment Success Modal */}
+      <PaymentSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => {
+          setShowSuccessModal(false);
+          resetAndClose();
+        }}
+        paymentData={successData}
+      />
     </div>
   );
 }

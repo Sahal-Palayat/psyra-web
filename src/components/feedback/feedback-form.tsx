@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "@/lib/toast";
 
 interface FeedbackFormProps {
   encodedData?: string;
@@ -67,7 +68,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
     e.preventDefault();
 
     if (!feedback.trim() || rating === 0) {
-      alert("Please provide feedback and select a rating");
+      toast.error("Please provide feedback and select a rating");
       return;
     }
 
@@ -97,7 +98,7 @@ const FeedbackForm = ({ encodedData }: FeedbackFormProps) => {
       }
     } catch (error) {
       console.error("Error submitting feedback:", error);
-      alert("Failed to submit feedback. Please try again.");
+      toast.error("Failed to submit feedback. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

@@ -17,11 +17,9 @@ export default function TestPaymentPage() {
         <RazorpayPayment 
           onPaymentSuccess={(response) => {
             console.log('Payment successful:', response);
-            alert('Payment completed successfully! Check console for details.');
           }}
           onPaymentError={(error) => {
             console.error('Payment error:', error);
-            alert('Payment failed. Check console for error details.');
           }}
         />
 

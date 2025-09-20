@@ -13,6 +13,8 @@ import {
   processPayment,
   type BookingPaymentData,
 } from "@/lib/payment-integration";
+import { toast } from "@/lib/toast";
+import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
@@ -24,6 +26,16 @@ export function PsychologistModal({
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successData, setSuccessData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    packageTitle: "",
+    date: "",
+    timeSlot: "",
+    amount: 0,
+  });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
     name: "",
     email: "",
@@ -35,7 +47,7 @@ export function PsychologistModal({
     sessionType: "",
     packageTitle: "",
     therapyType: "",
-    packageAmount: 999,
+    packageAmount: 1,
   });
 
   const fetchBookedSlots = async (date: string) => {
@@ -137,7 +149,29 @@ export function PsychologistModal({
       timeSlot,
       therapyType,
       sessionType,
+      packageAmount: bookingData.packageAmount || data?.price || 0,
     };
+
+    // Validate required fields
+    const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType', 'packageAmount'];
+    const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
+    
+    if (missingFields.length > 0) {
+      console.error("Missing required fields:", missingFields);
+      toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
+      return;
+    }
+
+    if (!data?._id) {
+      console.error("Psychologist ID is missing");
+      toast.error("Invalid Psychologist", "Please select a valid psychologist.");
+      return;
+    }
+
+    console.log("Sending data to psychologist-booking API:", variable);
+    console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`);
+    console.log("Booking data from state:", bookingData);
+    console.log("Psychologist data:", data);
 
     try {
       const response = await axios.post(
@@ -157,11 +191,12 @@ export function PsychologistModal({
         //         );
         // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
-        alert("Technical issue");
+        toast.error("Technical issue");
       }
-    } catch (error) {
+    } catch (error: Error | unknown) {
       console.error("Booking failed", error);
-      alert("Technical issue");
+      toast.error("Technical issue");
+      
     }
   };
 
@@ -253,10 +288,26 @@ export function PsychologistModal({
     // Process payment
     await processPayment(
       paymentData,
-      // On success - call the original booking API
+      // On success - show success modal
       async (response) => {
         console.log("Payment successful, now booking session...", response);
-        resetAndClose();
+
+        // Call the original booking API
+        await createSlot();
+
+        // Set success data for modal
+        setSuccessData({
+          name: name || "",
+          email: email || "",
+          phone: phone || "",
+          packageTitle: packageTitle || "Therapy Session",
+          date: adjustedDate.toISOString().split("T")[0],
+          timeSlot: timeSlot || "10:00-11:00",
+          amount: packageAmount || 0,
+        });
+
+        // Show success modal
+        setShowSuccessModal(true);
       },
       // On error
       (error) => {
@@ -270,7 +321,7 @@ export function PsychologistModal({
       if (canProceedFromStep4()) {
         handlePaymentAndBooking();
       } else {
-        alert("Please fill in all required fields correctly.");
+        toast.error("Please fill all the details");
       }
     } else {
       nextStep();
@@ -386,11 +437,10 @@ export function PsychologistModal({
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${
-                  !canProceed()
+                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed()
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-[#005657] hover:bg-[#005657]/90"
-                }`}
+                  }`}
               >
                 {getNextButtonText()}
               </button>
@@ -398,6 +448,16 @@ export function PsychologistModal({
           </div>
         </motion.div>
       </div>
+
+      {/* Payment Success Modal */}
+      <PaymentSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => {
+          setShowSuccessModal(false);
+          resetAndClose();
+        }}
+        paymentData={successData}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 // Razorpay configuration and service
 export const RAZORPAY_CONFIG = {
-  key_id: "rzp_live_RIlnITlLDQ7xrk",
-  key_secret: "uvrrdPpz7egI45pBkC2EoaT7",
+  key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+  key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET,
 };
 
 // Razorpay payment response interface

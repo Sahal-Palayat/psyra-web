@@ -7,6 +7,7 @@ import {
   type RazorpayOptions,
   type RazorpayPaymentResponse,
 } from './razorpay';
+import { toast } from './toast';
 
 // Payment data interface for booking
 export interface BookingPaymentData {
@@ -67,18 +68,17 @@ export const processPayment = async (
 
     // Step 2: Configure Razorpay options
     const razorpayOptions: RazorpayOptions = {
-      key: RAZORPAY_CONFIG.key_id,
+      key: RAZORPAY_CONFIG.key_id || "rzp_live_RIlnITlLDQ7xrk",
       amount: paymentData.totalAmount * 100, // Convert to paise
       currency: 'INR',
       name: 'Psyra',
-      description: `Payment for ${paymentData.sessionDetails.packageTitle}`,
+      description: `Payment for ${paymentData.sessionDetails.packageTitle || "Therapy Session"}`,
       order_id: orderResponse.orderId, // From backend response
       handler: async (response: RazorpayPaymentResponse) => {
         console.log('Payment response:', response);
-        
-        // Payment successful
-        onSuccess?.(response);
-        alert('Payment successful! Your session has been booked.');
+
+          // Payment successful - call success callback (modal will be shown by parent component)
+          onSuccess?.(response);
       },
       prefill: {
         name: paymentData.sessionDetails.name,
@@ -104,7 +104,7 @@ export const processPayment = async (
   } catch (error) {
     console.error('Payment error:', error);
     const errorInstance = error instanceof Error ? error : new Error('Payment failed');
+    toast.error('Payment Failed', 'Please try again or contact support.');
     onError?.(errorInstance);
-    alert('Payment failed. Please try again.');
   }
 };
