@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { CheckCircle, Calendar, Clock, User, Mail, Phone } from "lucide-react";
+import { CheckCircle} from "lucide-react";
 
 interface PaymentSuccessModalProps {
     isOpen: boolean;
