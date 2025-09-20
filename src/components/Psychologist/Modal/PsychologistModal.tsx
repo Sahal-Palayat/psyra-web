@@ -149,11 +149,10 @@ export function PsychologistModal({
       timeSlot,
       therapyType,
       sessionType,
-      packageAmount: bookingData.packageAmount || data?.price || 0,
     };
 
     // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType', 'packageAmount'];
+    const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
     const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
     
     if (missingFields.length > 0) {

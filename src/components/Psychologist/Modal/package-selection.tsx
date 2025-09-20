@@ -102,7 +102,12 @@ export function PackageSelection({
   }, [bookingData]);
 
   const handlePackageSelect = (packageId: string) => {
-    onUpdate({ packageTitle: packageId });
+    const selectedPackage = packages.find(pkg => pkg.id === packageId);
+    const amount = selectedPackage ? parseInt(selectedPackage.price.replace(/[₹,]/g, '')) : 0;
+    onUpdate({ 
+      packageTitle: packageId,
+      packageAmount: amount
+    });
   };
 
   return (
