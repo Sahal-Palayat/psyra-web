@@ -47,7 +47,7 @@ export function PsychologistModal({
     sessionType: "",
     packageTitle: "",
     therapyType: "",
-    packageAmount: 1,
+    packageAmount: typeof data?.price === 'number' ? data.price : 0,
   });
 
   const fetchBookedSlots = async (date: string) => {
@@ -84,7 +84,7 @@ export function PsychologistModal({
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
-      packageAmount: 999,
+      packageAmount: typeof data?.price === 'number' ? data.price : 0,
     });
     onClose();
   };
@@ -268,6 +268,9 @@ export function PsychologistModal({
         : new Date();
 
     // Prepare payment data
+    console.log('Package amount from booking data:', packageAmount);
+    console.log('Psychologist price:', data?.price);
+    
     const paymentData: BookingPaymentData = {
       name,
       email,
@@ -284,6 +287,8 @@ export function PsychologistModal({
       psychologistId: data?._id,
       totalAmount: packageAmount, // You can make this dynamic based on package
     };
+    
+    console.log('Final payment data totalAmount:', paymentData.totalAmount);
     await createSlot();
     // Process payment
     await processPayment(
