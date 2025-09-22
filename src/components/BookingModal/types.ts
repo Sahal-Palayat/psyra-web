@@ -17,12 +17,14 @@ export interface BookingData {
   therapyType: string;
   // Package info
   packageTitle?: string;
+  packageAmount: number;
 }
 
 export interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   packageTitle: string;
+  price: string;
 }
 
 export interface PsychologistModalProps {

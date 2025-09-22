@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Psychologist } from "@/types/psychologist";
 import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistModal";
+import { toast } from "@/lib/toast";
 
 const SkeletonCard = () => (
   <Card className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl shadow-xl overflow-hidden">
@@ -100,7 +101,7 @@ export default function TherapistsCard() {
       setData(response?.data);
     } catch (error) {
       console.log(error);
-      alert("technical issue");
+      toast.error("Technical issue");
     } finally {
       setIsLoading(false);
     }

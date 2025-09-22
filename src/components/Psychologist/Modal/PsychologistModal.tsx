@@ -9,6 +9,12 @@ import type {
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
+import {
+  processPayment,
+  type BookingPaymentData,
+} from "@/lib/payment-integration";
+import { toast } from "@/lib/toast";
+import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
@@ -20,6 +26,16 @@ export function PsychologistModal({
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successData, setSuccessData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    packageTitle: "",
+    date: "",
+    timeSlot: "",
+    amount: 0,
+  });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
     name: "",
     email: "",
@@ -31,6 +47,7 @@ export function PsychologistModal({
     sessionType: "",
     packageTitle: "",
     therapyType: "",
+    packageAmount: typeof data?.price === 'number' ? data.price : 0,
   });
 
   const fetchBookedSlots = async (date: string) => {
@@ -67,6 +84,7 @@ export function PsychologistModal({
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
+      packageAmount: typeof data?.price === 'number' ? data.price : 0,
     });
     onClose();
   };
@@ -133,6 +151,27 @@ export function PsychologistModal({
       sessionType,
     };
 
+    // Validate required fields
+    const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
+    const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
+    
+    if (missingFields.length > 0) {
+      console.error("Missing required fields:", missingFields);
+      toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
+      return;
+    }
+
+    if (!data?._id) {
+      console.error("Psychologist ID is missing");
+      toast.error("Invalid Psychologist", "Please select a valid psychologist.");
+      return;
+    }
+
+    console.log("Sending data to psychologist-booking API:", variable);
+    console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`);
+    console.log("Booking data from state:", bookingData);
+    console.log("Psychologist data:", data);
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`,
@@ -140,26 +179,23 @@ export function PsychologistModal({
       );
 
       if (response?.status) {
-        const phoneNumber = "+918891724199";
-        const message = encodeURIComponent(
-          `Hi, I would like to book the following therapy session. Please share the payment details:
-          
-Name: ${name}
-Age: ${age}
-
-Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-Time Slot: ${timeSlot}
-
-Looking forward to your confirmation. Thank you!`
-        );
-        resetAndClose();
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+        //         const phoneNumber = "+918891724199";
+        //         const message = encodeURIComponent(
+        //           `Hi, I would like to book the following therapy session. Please share the payment details:
+        // Name: ${name}
+        // Age: ${age}
+        // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+        // Time Slot: ${timeSlot}
+        // Looking forward to your confirmation. Thank you!`
+        //         );
+        // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
       } else {
-        alert("Technical issue");
+        toast.error("Technical issue");
       }
-    } catch (error) {
+    } catch (error: Error | unknown) {
       console.error("Booking failed", error);
-      alert("Technical issue");
+      toast.error("Technical issue");
+      
     }
   };
 
@@ -208,12 +244,88 @@ Looking forward to your confirmation. Thank you!`
     }
   };
 
+  const handlePaymentAndBooking = async () => {
+    const {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      therapyType,
+      packageTitle,
+      date,
+      timeSlot,
+      packageAmount,
+    } = bookingData;
+
+    const adjustedDate =
+      date instanceof Date
+        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+        : new Date();
+
+    // Prepare payment data
+    console.log('Package amount from booking data:', packageAmount);
+    console.log('Psychologist price:', data?.price);
+    
+    const paymentData: BookingPaymentData = {
+      name,
+      email,
+      phone,
+      age,
+      modeOfTherapy,
+      issue,
+      agreeToTerms,
+      sessionType,
+      therapyType,
+      packageTitle: packageTitle || "Therapy Session",
+      date: adjustedDate.toISOString().split("T")[0],
+      timeSlot: timeSlot || "10:00-11:00",
+      psychologistId: data?._id,
+      totalAmount: packageAmount, // You can make this dynamic based on package
+    };
+    
+    console.log('Final payment data totalAmount:', paymentData.totalAmount);
+    await createSlot();
+    // Process payment
+    await processPayment(
+      paymentData,
+      // On success - show success modal
+      async (response) => {
+        console.log("Payment successful, now booking session...", response);
+
+        // Call the original booking API
+        await createSlot();
+
+        // Set success data for modal
+        setSuccessData({
+          name: name || "",
+          email: email || "",
+          phone: phone || "",
+          packageTitle: packageTitle || "Therapy Session",
+          date: adjustedDate.toISOString().split("T")[0],
+          timeSlot: timeSlot || "10:00-11:00",
+          amount: packageAmount || 0,
+        });
+
+        // Show success modal
+        setShowSuccessModal(true);
+      },
+      // On error
+      (error) => {
+        console.error("Payment failed:", error);
+      }
+    );
+  };
+
   const handleNext = () => {
     if (step === 4) {
       if (canProceedFromStep4()) {
-        createSlot();
+        handlePaymentAndBooking();
       } else {
-        alert("Please fill in all required fields correctly.");
+        toast.error("Please fill all the details");
       }
     } else {
       nextStep();
@@ -329,11 +441,10 @@ Looking forward to your confirmation. Thank you!`
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${
-                  !canProceed()
+                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed()
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-[#005657] hover:bg-[#005657]/90"
-                }`}
+                  }`}
               >
                 {getNextButtonText()}
               </button>
@@ -341,6 +452,16 @@ Looking forward to your confirmation. Thank you!`
           </div>
         </motion.div>
       </div>
+
+      {/* Payment Success Modal */}
+      <PaymentSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => {
+          setShowSuccessModal(false);
+          resetAndClose();
+        }}
+        paymentData={successData}
+      />
     </div>
   );
 }

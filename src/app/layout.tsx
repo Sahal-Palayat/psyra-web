@@ -4,6 +4,7 @@ import { Geist_Mono, Onest } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ToastContainer } from "@/components/ui/toast";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -155,6 +156,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
