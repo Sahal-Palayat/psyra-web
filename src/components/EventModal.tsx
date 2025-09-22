@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, User, Phone, MapPin } from "lucide-react";
+import { toast } from "@/lib/toast";
 
 interface EventModalProps {
   isOpen: boolean;
@@ -18,7 +19,8 @@ const EventModal = ({ isOpen, onClose }: EventModalProps) => {
     e.preventDefault();
 
     if (!name || !phone || !place) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
+
       return;
     }
 

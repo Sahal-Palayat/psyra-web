@@ -9,6 +9,7 @@ import { CarouselHeader } from "./carousel-header";
 import axios from "axios";
 // import { PsychologistModal } from "../Modal/PsychologistModal";
 import Carousel3DMinimal from "@/components/Swiper";
+import { toast } from "@/lib/toast";
 
 export default function PsychologistCarousel() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +49,7 @@ export default function PsychologistCarousel() {
       // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);
-      alert("technical issue");
+      toast.error("Technical issue");
     }
   };
 
