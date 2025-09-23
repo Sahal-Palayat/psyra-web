@@ -41,7 +41,7 @@ const AboutUs = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <h2 className="text-2xl md:text-2xl lg:text-4xl font-bold text-teal-600 leading-tight mb-8">
-                When the world doesn't <br /> understand your silence Psyra
+               {" When the world doesn't "}<br /> understand your silence Psyra
                 does.
               </h2>
             </motion.div>
@@ -53,12 +53,7 @@ const AboutUs = () => {
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             >
               <p className="text-gray-600 text-lg md:text-xl mb-10">
-                Behind every smile, there are battles no one sees. Sleepless
-                nights, racing thoughts, a weight you can't explain. You don't
-                need another person telling you to "be strong" or "move on."
-                What you need... is a space that finally feels safe. That's why
-                Psyra exists. Not as a clinic. Not as an app. But as a sanctuary
-                for your mind.
+               {" Behind every smile, there are battles no one sees. Sleepless nights, racing thoughts, a weight you can't explain. You don't need another person telling you to 'be strong' or 'move on.'   What you need... is a space that finally feels safe. That's why Psyra exists. Not as a clinic. Not as an app. But as a sanctuary for your mind."}
               </p>
             </motion.div>
 
@@ -69,7 +64,7 @@ const AboutUs = () => {
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
             >
               <h3 className="text-2xl md:text-3xl font-bold text-teal-600 mb-8">
-                At Psyra, you'll find:
+               {" At Psyra, you'll find:"}
               </h3>
 
               <div className="space-y-6">
