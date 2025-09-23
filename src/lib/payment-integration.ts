@@ -68,7 +68,7 @@ export const processPayment = async (
 
     // Step 2: Configure Razorpay options
     const razorpayOptions: RazorpayOptions = {
-      key: RAZORPAY_CONFIG.key_id || "rzp_live_RIlnITlLDQ7xrk",
+      key: RAZORPAY_CONFIG.key_id || "",
       amount: paymentData.totalAmount * 100, // Convert to paise
       currency: 'INR',
       name: 'Psyra',
