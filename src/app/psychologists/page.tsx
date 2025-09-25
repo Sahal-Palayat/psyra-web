@@ -160,7 +160,7 @@ export default function TherapistsCard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10 pb-8 items-stretch">
             {data && data.length > 0 ? (
               data.map((therapist) => (
-                <div className="w-full h-full">
+                <div key={therapist._id} className="w-full h-full">
                   <div className="relative w-full bg-[#00BEA5] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[360px] flex flex-col">
                     {/* Top right icons */}
                     <div className="absolute top-3 right-3 flex gap-2 z-10">
