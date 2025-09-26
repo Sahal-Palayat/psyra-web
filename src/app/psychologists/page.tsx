@@ -177,9 +177,9 @@ export default function TherapistsCard() {
                           alt={therapist.name}
                           className="w-full h-full object-cover rounded-l-2xl"
                         />
-                        <Button className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-sm px-4 md:px-6 py-1.5 md:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200">
+                        {/* <Button className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-sm px-4 md:px-6 py-1.5 md:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200">
                           View Profile
-                        </Button>
+                        </Button> */}
                       </div>
 
                       {/* Right: Content */}
