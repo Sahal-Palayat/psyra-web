@@ -201,7 +201,7 @@ const Navbar = () => {
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
-                Therapistssss
+                Therapists
               </Link>
               <Link
                 href="#contact"
