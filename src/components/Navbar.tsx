@@ -197,11 +197,11 @@ const Navbar = () => {
                 Services
               </Link>
               <Link
-                href="#psychologists"
+                href="/psychologists"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
-                Therapists
+                Therapistssss
               </Link>
               <Link
                 href="#contact"
