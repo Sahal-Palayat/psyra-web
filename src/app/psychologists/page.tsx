@@ -1,5 +1,5 @@
 import TherapistsCard from "@/components/Psychologist/Therapists/TherapiComp";
-import { SkeletonCard } from "@/components/Psychologist/Therapists/TherapistLoder";
+import { Loader } from "@/components/Psychologist/Therapists/TherapistLoder";
 import { Suspense } from "react";
 
 export default function PsychologistsPage() {
@@ -7,7 +7,7 @@ export default function PsychologistsPage() {
     <Suspense
       fallback={
         <div>
-          <SkeletonCard />{" "}
+          <Loader />{" "}
         </div>
       }
     >
