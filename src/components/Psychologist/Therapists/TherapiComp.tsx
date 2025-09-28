@@ -214,15 +214,16 @@ export default function TherapistsCard() {
                     {/* Layout → always row */}
                     <div className="flex flex-row h-full">
                       {/* Left: Image (same as before) */}
-                      <div className="relative w-2/5 sm:w-1/3 flex-shrink-0 m-6 bg-[#22CEB8] rounded-[12px]">
+                      <div className="relative flex-shrink-0 w-32 h-72 sm:w-40 sm:h-70 md:w-52 md:h-72 m-4 sm:m-6 bg-[#22CEB8] rounded-xl overflow-hidden">
                         <img
                           src={therapist.imageUrl || "/placeholder.svg"}
                           alt={therapist.name}
-                          className="w-full h-full object-cover rounded-l-2xl"
+                          className="w-full h-full object-cover"
                         />
+
                         <Button
                           onClick={() => handleBookNow(therapist)}
-                          className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-sm px-4 md:px-6 py-1.5 md:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                          className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs sm:text-sm md:text-base px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
                         >
                           Book Now
                         </Button>
@@ -273,18 +274,10 @@ export default function TherapistsCard() {
                             </div>
 
                             {/* Expertise */}
-                            <div className="flex flex-wrap gap-1 mb-1 md:mb-2">
-                              {therapist.expertise.map((exp, i) => (
-                                <span
-                                  key={i}
-                                  className="text-gray-700 text-[14px]"
-                                >
-                                  {exp}
-                                  {i < therapist.expertise.length - 1
-                                    ? ", "
-                                    : ""}
-                                </span>
-                              ))}
+                            <div className="mb-1 md:mb-2 h-8 line-clamp-2">
+                              <span className="text-gray-700 text-[14px]">
+                                {therapist.expertise.join(", ")}
+                              </span>
                             </div>
                           </div>
                         </div>
