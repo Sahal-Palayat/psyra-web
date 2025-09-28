@@ -8,6 +8,7 @@ import axios from "axios"
 import type { Psychologist } from "@/types/psychologist"
 import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistModal"
 import { toast } from "@/lib/toast"
+import { useSearchParams } from "next/navigation"
 
 const SkeletonCard = () => (
   <Card className="w-full bg-[#00BEA5] rounded-2xl shadow-xl overflow-hidden">
@@ -63,6 +64,7 @@ const SkeletonCard = () => (
 export default function TherapistsCard() {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState<Psychologist[]>([])
+  const [allData, setAllData] = useState<Psychologist[]>([])
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
@@ -75,12 +77,25 @@ export default function TherapistsCard() {
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const searchParams = useSearchParams()
+  const langFilterRaw = searchParams.get("lang") || ""
+  const langFilter = langFilterRaw.trim().toLowerCase()
+
   const fetchPsychologists = async () => {
     try {
       setIsLoading(true)
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/psychologists`)
 
-      setData(Array.isArray(response?.data) ? response.data : [])
+      const list = Array.isArray(response?.data) ? response.data : []
+      setAllData(list)
+      setData(
+        langFilter
+          ? list.filter(
+              (p: Psychologist) =>
+                Array.isArray(p.languages) && p.languages.some((l) => String(l).toLowerCase().includes(langFilter)),
+            )
+          : list,
+      )
     } catch (error) {
       console.log(error)
       toast.error("Technical issue")
@@ -92,6 +107,19 @@ export default function TherapistsCard() {
   useEffect(() => {
     fetchPsychologists()
   }, [])
+
+  useEffect(() => {
+    if (!isLoading) {
+      setData(
+        langFilter
+          ? allData.filter(
+              (p) =>
+                Array.isArray(p.languages) && p.languages.some((l) => String(l).toLowerCase().includes(langFilter)),
+            )
+          : allData,
+      )
+    }
+  }, [langFilter, allData, isLoading])
 
   function getNextSlot(slots: string[]) {
     const now = new Date()
@@ -185,9 +213,7 @@ export default function TherapistsCard() {
                       {/* Right: Content */}
                       <div className="flex-1 text-white p-3 md:p-6 flex flex-col justify-between">
                         <div>
-                          <h2 className="text-base md:text-2xl font-bold mb-1 text-gray-900">
-                            {therapist.name}
-                          </h2>
+                          <h2 className="text-base md:text-2xl font-bold mb-1 text-gray-900">{therapist.name}</h2>
                           <p className="text-gray-800 text-sm md:text-base font-medium mb-2">
                             {therapist.specialization}
                           </p>
@@ -195,10 +221,7 @@ export default function TherapistsCard() {
                           <div className="space-y-1 text-xs md:text-sm">
                             <p className="text-gray-700">{therapist.experience}</p>
                             <p className="text-gray-700">
-                              Starts at INR{" "}
-                              <span className="font-bold text-gray-900">
-                                {therapist.price || "999"}
-                              </span>
+                              Starts at INR <span className="font-bold text-gray-900">{therapist.price || "999"}</span>
                             </p>
 
                             {/* Rating */}
@@ -236,9 +259,7 @@ export default function TherapistsCard() {
                         {/* Bottom row */}
                         <div className="mt-3 md:mt-4 flex items-center justify-between">
                           <div>
-                            <p className="text-[10px] md:text-xs text-gray-200">
-                              Next available slot:
-                            </p>
+                            <p className="text-[10px] md:text-xs text-gray-200">Next available slot:</p>
                             <p className="text-xs md:text-sm font-medium text-white">
                               Today {getNextSlot(therapist?.monthlySlots) || "Slot not available"}
                             </p>
@@ -259,7 +280,6 @@ export default function TherapistsCard() {
               <p className="text-center text-gray-600 col-span-full">No therapists found.</p>
             )}
           </div>
-
         )}
       </div>
       <PsychologistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} data={psychologist} />
