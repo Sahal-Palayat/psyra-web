@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Star, MessageCircle, Video } from "lucide-react";
+import { Video, Mic } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Psychologist } from "@/types/psychologist";
@@ -207,8 +207,8 @@ export default function TherapistsCard() {
                   <div className="relative w-full bg-[#9EE0D6] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[360px] flex flex-col">
                     {/* Top right icons */}
                     <div className="absolute top-3 right-3 flex gap-2 z-10">
-                      <Video className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                      <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                      <Video className="w-5 h-5 md:w-6 md:h-6 text-green" />
+                      <Mic className="w-5 h-5 md:w-6 md:h-6 text-green" />
                     </div>
 
                     {/* Layout → always row */}
@@ -230,7 +230,7 @@ export default function TherapistsCard() {
                       </div>
 
                       {/* Right: Content */}
-                      <div className="flex-1 text-white p-6 md:p-6 flex flex-col justify-center">
+                      <div className="flex-1 text-white pr-6 flex flex-col justify-center">
                         <div>
                           <h2 className="text-base md:text-2xl font-bold mb-1 text-gray-900">
                             {therapist.name}
