@@ -236,9 +236,10 @@ export default function TherapistsCard() {
                       {/* Right: Content */}
                       <div className="flex-1 text-white pr-6 flex flex-col justify-center">
                         <div>
-                          <h2 className="text-[22px] sm:text-[16px] font-bold text-[#00989B]">
+                          <h2 className="text-[22px] sm:text-[16px] font-bold text-[#00989B] truncate w-full">
                             {therapist.name}
                           </h2>
+
                           <p className="text-[#00989B] text-[14px] md:text-[18px] font-medium mb-1">
                             {therapist.specialization}
                           </p>
