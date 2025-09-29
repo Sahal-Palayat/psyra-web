@@ -189,7 +189,7 @@ export default function TherapistsCard() {
             Find Your Perfect Therapist
           </h1>
           <p className="text-lg text-gray-600">
-            Connect with licensed professionals who understand your needs
+            Breaking Barriers: Connect with Professionals in Your Language
           </p>
         </div>
 
@@ -204,11 +204,15 @@ export default function TherapistsCard() {
             {data && data.length > 0 ? (
               data.map((therapist) => (
                 <div key={therapist._id} className="w-full h-full">
-                  <div className="relative w-full bg-[#9EE0D6] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[360px] flex flex-col">
+                  <div className="relative w-full bg-[#9EE0D6] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[160px] flex flex-col">
                     {/* Top right icons */}
                     <div className="absolute top-3 right-3 flex gap-2 z-10">
-                      <Video className="w-5 h-5 md:w-6 md:h-6 text-green" />
-                      <Mic className="w-5 h-5 md:w-6 md:h-6 text-green" />
+                      <div className="p-1 border border-[#009A99] rounded-[10px] flex items-center justify-center">
+                        <Video className="w-4 h-4 md:w-4 md:h-4 text-[#009A99]" />
+                      </div>
+                      <div className="p-1 border border-[#009A99] rounded-[10px] flex items-center justify-center">
+                        <Mic className="w-4 h-4 md:w-4 md:h-4 text-[#009A99]" />
+                      </div>
                     </div>
 
                     {/* Layout → always row */}
@@ -232,14 +236,14 @@ export default function TherapistsCard() {
                       {/* Right: Content */}
                       <div className="flex-1 text-white pr-6 flex flex-col justify-center">
                         <div>
-                          <h2 className="text-base md:text-2xl font-bold mb-1 text-gray-900">
+                          <h2 className="text-base text-[22px] font-bold text-[#00989B]">
                             {therapist.name}
                           </h2>
-                          <p className="text-gray-800 text-sm md:text-base font-medium mb-2">
+                          <p className="text-[#00989B] font-medium mb-1">
                             {therapist.specialization}
                           </p>
 
-                          <div className="space-y-1 text-[16px]">
+                          <div className="text-[16px]">
                             <p className="text-gray-700">
                               {therapist.experience} of experience
                             </p>
@@ -259,11 +263,11 @@ export default function TherapistsCard() {
                             </div> */}
 
                             {/* Languages */}
-                            <div className="flex flex-wrap gap-1 mb-1 md:mb-2">
+                            <div className="flex flex-wrap gap-1 mb-1">
                               {therapist.languages.map((lang, i) => (
                                 <span
                                   key={i}
-                                  className="text-gray-700 text-[18px]"
+                                  className="text-gray-700 text-[14px] md:text-[18px]"
                                 >
                                   {lang}
                                   {i < therapist.languages.length - 1
@@ -283,7 +287,7 @@ export default function TherapistsCard() {
                         </div>
 
                         {/* Bottom row */}
-                        <div className="mt-3 md:mt-4 p-4 rounded-[12px] flex items-center justify-between bg-[#00989D]">
+                        <div className="p-4 rounded-[12px] flex items-center justify-between bg-[#00989D]">
                           <div>
                             <p className="text-[14px] md:text-xs text-gray-200">
                               Next available slot:
