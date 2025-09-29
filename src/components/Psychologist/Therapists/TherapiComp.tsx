@@ -227,7 +227,7 @@ export default function TherapistsCard() {
 
                         <Button
                           onClick={() => handleBookNow(therapist)}
-                          className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs sm:text-sm md:text-base px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                          className="hidden sm:flex absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs sm:text-sm md:text-base px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
                         >
                           Book Now
                         </Button>
@@ -237,7 +237,7 @@ export default function TherapistsCard() {
                       <div className="flex flex-col justify-center mt-4">
                         <div className="text-white w-full pr-6 justify-center">
                           <div>
-                            <h2 className="text-[22px] sm:text-[18px] font-bold text-[#00989B] truncate w-full">
+                            <h2 className="text-[22px] mt-4 md:mt-0 sm:text-[18px] font-bold text-[#00989B] truncate w-full">
                               {therapist.name}
                             </h2>
 
@@ -289,7 +289,7 @@ export default function TherapistsCard() {
                           </div>
                         </div>
                         {/* Bottom row */}
-                        <div className="p-4 w-[420px] rounded-[12px] flex items-center justify-between bg-[#00989D]">
+                        <div className="p-4 w-[420px] rounded-[12px] flex items-center justify-between bg-[#00989D] hidden sm:flex">
                           <div>
                             <p className="text-[14px] md:text-xs text-gray-200">
                               Next available slot:
@@ -308,6 +308,24 @@ export default function TherapistsCard() {
                           </Button> */}
                         </div>
                       </div>
+                    </div>
+                    <div className="p-4 w-full mb-3 flex items-center justify-between bg-[#00989D] block sm:hidden">
+                      <div>
+                        <p className="text-[14px] md:text-xs text-gray-200">
+                          Next available slot:
+                        </p>
+                        <p className="text-xs md:text-sm font-medium text-white">
+                          Today{" "}
+                          {getNextSlot(therapist?.monthlySlots) ||
+                            "Slot not available"}
+                        </p>
+                      </div>
+                      <Button
+                        onClick={() => handleBookNow(therapist)}
+                        className="bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-base px-4 md:px-8 py-2 md:py-3 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                      >
+                        BOOK NOW
+                      </Button>
                     </div>
                   </div>
                 </div>
