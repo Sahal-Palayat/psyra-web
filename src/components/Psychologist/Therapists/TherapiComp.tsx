@@ -218,7 +218,7 @@ export default function TherapistsCard() {
                     {/* Layout → always row */}
                     <div className="flex flex-row h-full">
                       {/* Left: Image (same as before) */}
-                      <div className="relative flex-shrink-0 w-32 h-72 sm:w-40 sm:h-70 md:w-52 md:h-72 m-4 sm:m-6 bg-[#22CEB8] rounded-xl overflow-hidden">
+                      <div className="relative flex-shrink-0 w-32 h-42 sm:w-40 sm:h-70 md:w-52 md:h-72 m-4 sm:m-6 bg-[#22CEB8] rounded-xl overflow-hidden">
                         <img
                           src={therapist.imageUrl || "/placeholder.svg"}
                           alt={therapist.name}
@@ -234,7 +234,7 @@ export default function TherapistsCard() {
                       </div>
 
                       {/* Right: Content */}
-                      <div className="flex flex-col justify-center">
+                      <div className="flex flex-col justify-center mt-4">
                         <div className="text-white w-full pr-6 justify-center">
                           <div>
                             <h2 className="text-[22px] sm:text-[18px] font-bold text-[#00989B] truncate w-full">
@@ -269,7 +269,7 @@ export default function TherapistsCard() {
                                 {therapist.languages.map((lang, i) => (
                                   <span
                                     key={i}
-                                    className="text-gray-700 text-[14px] md:text-[18px]"
+                                    className="text-gray-700 text-[14px] md:text-[16px]"
                                   >
                                     {lang}
                                     {i < therapist.languages.length - 1
