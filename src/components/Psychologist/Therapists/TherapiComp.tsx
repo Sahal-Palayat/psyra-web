@@ -234,61 +234,62 @@ export default function TherapistsCard() {
                       </div>
 
                       {/* Right: Content */}
-                      <div className="flex-1 text-white pr-6 flex flex-col justify-center">
-                        <div>
-                          <h2 className="text-[22px] sm:text-[16px] font-bold text-[#00989B] truncate w-full">
-                            {therapist.name}
-                          </h2>
+                      <div className="flex flex-col justify-center">
+                        <div className="text-white w-full pr-6 justify-center">
+                          <div>
+                            <h2 className="text-[22px] sm:text-[18px] font-bold text-[#00989B] truncate w-full">
+                              {therapist.name}
+                            </h2>
 
-                          <p className="text-[#00989B] text-[14px] md:text-[18px] font-medium mb-1">
-                            {therapist.specialization}
-                          </p>
-
-                          <div className="text-[16px]">
-                            <p className="text-gray-700">
-                              {therapist.experience} of experience
-                            </p>
-                            <p className="text-gray-700">
-                              Starts at INR{" "}
-                              <span className="font-bold text-gray-900">
-                                {therapist.price || "999"}
-                              </span>
+                            <p className="text-[#00989B] text-[14px] md:text-[16px] font-medium mb-1">
+                              {therapist.specialization}
                             </p>
 
-                            {/* Rating */}
-                            {/* <div className="flex items-center gap-1 my-1 md:my-2">
+                            <div className="text-[16px]">
+                              <p className="text-gray-700">
+                                {therapist.experience} of experience
+                              </p>
+                              <p className="text-gray-700">
+                                Starts at INR{" "}
+                                <span className="font-bold text-gray-900">
+                                  {therapist.price || "999"}
+                                </span>
+                              </p>
+
+                              {/* Rating */}
+                              {/* <div className="flex items-center gap-1 my-1 md:my-2">
                               {renderStars(therapist?.rating || "0")}
                               <span className="text-gray-800 text-[10px] md:text-xs ml-1">
                                 ({therapist?.rating || "0"})
                               </span>
                             </div> */}
 
-                            {/* Languages */}
-                            <div className="flex flex-wrap gap-1 mb-1">
-                              {therapist.languages.map((lang, i) => (
-                                <span
-                                  key={i}
-                                  className="text-gray-700 text-[14px] md:text-[18px]"
-                                >
-                                  {lang}
-                                  {i < therapist.languages.length - 1
-                                    ? ", "
-                                    : ""}
-                                </span>
-                              ))}
-                            </div>
+                              {/* Languages */}
+                              <div className="flex flex-wrap gap-1 mb-1">
+                                {therapist.languages.map((lang, i) => (
+                                  <span
+                                    key={i}
+                                    className="text-gray-700 text-[14px] md:text-[18px]"
+                                  >
+                                    {lang}
+                                    {i < therapist.languages.length - 1
+                                      ? ", "
+                                      : ""}
+                                  </span>
+                                ))}
+                              </div>
 
-                            {/* Expertise */}
-                            <div className="mb-1 md:mb-2 h-8 line-clamp-2">
-                              <span className="text-gray-700 text-[14px]">
-                                {therapist.expertise.join(", ")}
-                              </span>
+                              {/* Expertise */}
+                              <div className="mb-1 md:mb-2 h-8 line-clamp-2">
+                                <span className="text-gray-700 text-[14px]">
+                                  {therapist.expertise.join(", ")}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-
                         {/* Bottom row */}
-                        <div className="p-4 rounded-[12px] flex items-center justify-between bg-[#00989D]">
+                        <div className="p-4 w-[420px] rounded-[12px] flex items-center justify-between bg-[#00989D]">
                           <div>
                             <p className="text-[14px] md:text-xs text-gray-200">
                               Next available slot:
