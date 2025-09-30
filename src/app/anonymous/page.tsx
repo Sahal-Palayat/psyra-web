@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Heart, Sparkles, ArrowRight } from "lucide-react";
 
-const page = () => {
+const Anonymous = () => {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showOfferDialog, setShowOfferDialog] = useState(false);
@@ -47,7 +47,7 @@ const page = () => {
   };
 
   return (
-    <>
+        <>
       <div className="min-h-screen bg-[#F5F5F0]">
         <div className="container mx-auto px-4 py-12 md:py-20">
           <div className="max-w-3xl mx-auto">
@@ -61,8 +61,8 @@ const page = () => {
                 </CardTitle>
                 <CardDescription className="text-lg md:text-xl text-foreground/80 leading-relaxed text-balance max-w-2xl mx-auto">
                   Is there something you have been wanting to share for a very
-                  long time but couldn't? Because you were scared that people
-                  would judge you? Or maybe you didn't have someone to share
+                  long time but could not? Because you were scared that people
+                  would judge you? Or maybe you didn not have someone to share
                   with?
                 </CardDescription>
               </CardHeader>
@@ -84,7 +84,7 @@ const page = () => {
                       required
                     />
                     <p className="text-xs text-muted-foreground">
-                      Your submission is completely anonymous. We don't collect
+                      Your submission is completely anonymous. We do not collect
                       any identifying information.
                     </p>
                   </div>
@@ -119,7 +119,7 @@ const page = () => {
                     Thank You for Sharing
                   </DialogTitle>
                   <DialogDescription className="text-base leading-relaxed">
-                    We're proud of you for taking this step. Sharing your
+                    We are proud of you for taking this step. Sharing your
                     feelings is the first step towards healing.
                   </DialogDescription>
                 </DialogHeader>
@@ -167,4 +167,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Anonymous;
