@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   Card,
@@ -58,7 +58,7 @@ const Anonymous = () => {
 
   if (step === 1) {
     return (
-      <div className="min-h-screen bg-[#232323]  flex items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-[#B1DFAE]  flex items-center justify-center relative overflow-hidden">
         <div className="container mx-auto px-4 py-16 relative z-10">
           {/* Main Content */}
           <div className="max-w-2xl mx-auto text-center space-y-8">
@@ -67,9 +67,15 @@ const Anonymous = () => {
             {/* Animated character with snake movement and emotion changes */}
             <div className="">
               {/* Character container with snake animation */}
-              <div className="bg-[green] h-48 w-full rounded-full flex items-center">
-                {/* Character body - blob shape */}
-
+              <motion.div
+                className="bg-[green] h-48 w-full rounded-full flex items-center"
+                animate={{ x: ["100vw", "10vw", "-120vw"]}}
+                transition={{
+                  duration: 9,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              >
                 {/* Face with animated emotions */}
                 <div className="ml-21 flex  flex-col items-center">
                   {/* Eyes with emotion animation */}
@@ -78,10 +84,10 @@ const Anonymous = () => {
                     <div className="w-3 h-3 bg-white rounded-full" />
                   </div>
 
-                  {/* Mouth with emotion animation */}
-                  <div className="w-10 h-10 border-b-4 border-white rounded-b-full"></div>
+                  {/* Mouth */}
+                  <div className="w-10 h-10 border-b-4 border-white rounded-full border-t-0"></div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Get Started Button */}
               <Button
