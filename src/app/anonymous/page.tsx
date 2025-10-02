@@ -44,7 +44,6 @@ const Anonymous = () => {
       }
     } catch (error) {
       console.log(error);
-      
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -56,7 +55,7 @@ const Anonymous = () => {
   };
 
   const handleTakeTherapy = () => {
-    window.location.href = "/psychologists?claim-offer=true";
+    window.location.href = "/psychologists?offer-claim=true";
   };
 
   return (
