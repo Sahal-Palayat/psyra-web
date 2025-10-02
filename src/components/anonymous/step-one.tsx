@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function StepOne({ onNext }: { onNext: () => void }) {
-  const [showBubble, setShowBubble] = useState(false);
   const bobRef = useRef<HTMLDivElement | null>(null);
   const shadowRef = useRef<HTMLDivElement | null>(null);
   const bubbleRef = useRef<HTMLDivElement | null>(null);
@@ -55,16 +54,6 @@ export function StepOne({ onNext }: { onNext: () => void }) {
 
     return () => ctx.current?.revert();
   }, []);
-
-  useEffect(() => {
-    if (showBubble && bubbleRef.current) {
-      gsap.fromTo(
-        bubbleRef.current,
-        { autoAlpha: 0, scale: 0.9, y: 8 },
-        { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: "power2.out" }
-      );
-    }
-  }, [showBubble]);
 
   return (
     <div className="max-w-2xl mx-auto text-center space-y-8">
