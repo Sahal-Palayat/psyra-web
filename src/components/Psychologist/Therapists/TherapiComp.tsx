@@ -268,7 +268,7 @@ export default function TherapistsCard() {
                                     </p>
                                     <p>
                                       Starts at INR{" "}
-                                      <span className="font-bold text-green-600">
+                                      <span className="font-bold text-teal-800">
                                         {formatPrice(
                                           applyOfferDiscount(
                                             parseInt(therapist.price || "999")
