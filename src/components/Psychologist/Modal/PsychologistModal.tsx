@@ -23,6 +23,7 @@ export function PsychologistModal({
   isOpen,
   onClose,
   data,
+  hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
@@ -402,6 +403,7 @@ export function PsychologistModal({
                 <PackageSelection
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
+                  hasOfferClaim={hasOfferClaim}
                 />
               )}
 

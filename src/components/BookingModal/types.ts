@@ -31,6 +31,7 @@ export interface PsychologistModalProps {
   isOpen: boolean;
   onClose: () => void;
   data: Psychologist;
+  hasOfferClaim?: boolean;
 }
 
 export interface TherapyBooking {

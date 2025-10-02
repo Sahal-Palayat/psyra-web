@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 interface PackageSelectionProps {
   bookingData: PsychologistBookingData;
   onUpdate: (data: Partial<PsychologistBookingData>) => void;
+  hasOfferClaim?: boolean;
 }
 
 type Package = {
@@ -18,9 +19,20 @@ type Package = {
   savings: string | null;
 };
 
+// Utility function to apply 10% discount
+const applyOfferDiscount = (price: number): number => {
+  return Math.round(price * 0.9);
+};
+
+// Utility function to format price with rupee symbol
+const formatPriceWithSymbol = (price: number): string => {
+  return `₹${price.toLocaleString('en-IN')}`;
+};
+
 export function PackageSelection({
   bookingData,
   onUpdate,
+  hasOfferClaim = false,
 }: PackageSelectionProps) {
   const [packages, setPackages] = useState<Package[]>([
     {
@@ -98,8 +110,25 @@ export function PackageSelection({
       bookingData?.therapyType === "individual"
         ? individualPackage
         : couplePackage;
-    setPackages(data);
-  }, [bookingData]);
+    
+    // Apply offer discount if hasOfferClaim is true
+    if (hasOfferClaim) {
+      const discountedPackages = data.map(pkg => {
+        const originalPrice = parseInt(pkg.price.replace(/[₹,]/g, ''));
+        const discountedPrice = applyOfferDiscount(originalPrice);
+        
+        return {
+          ...pkg,
+          price: formatPriceWithSymbol(discountedPrice),
+          originalPrice: pkg.originalPrice || formatPriceWithSymbol(originalPrice),
+          savings: pkg.savings || `Save ₹${originalPrice - discountedPrice}`,
+        };
+      });
+      setPackages(discountedPackages);
+    } else {
+      setPackages(data);
+    }
+  }, [bookingData, hasOfferClaim]);
 
   const handlePackageSelect = (packageId: string) => {
     const selectedPackage = packages.find(pkg => pkg.id === packageId);
@@ -112,6 +141,13 @@ export function PackageSelection({
 
   return (
     <div className="space-y-6">
+      {hasOfferClaim && (
+        <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-4 rounded-lg text-center">
+          <h4 className="text-lg font-bold">🎉 Special Offer Active!</h4>
+          <p className="text-sm">You're getting 10% OFF on all packages</p>
+        </div>
+      )}
+      
       <div className="text-center">
         <h3 className="text-2xl font-bold text-[#005657] mb-2">
           Choose Your Package

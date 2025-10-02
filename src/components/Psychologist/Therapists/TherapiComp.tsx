@@ -10,6 +10,16 @@ import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistM
 import { toast } from "@/lib/toast";
 import { useSearchParams } from "next/navigation";
 
+// Utility function to apply 10% discount
+const applyOfferDiscount = (price: number): number => {
+  return Math.round(price * 0.9);
+};
+
+// Utility function to format price
+const formatPrice = (price: number): string => {
+  return price.toLocaleString('en-IN');
+};
+
 const SkeletonCard = () => (
   <Card className="w-full bg-[#00BEA5] rounded-2xl shadow-xl overflow-hidden">
     <div className="flex p-6">
@@ -83,6 +93,7 @@ export default function TherapistsCard() {
   const searchParams = useSearchParams();
   const langFilterRaw = searchParams.get("lang") || "";
   const langFilter = langFilterRaw.trim().toLowerCase();
+  const hasOfferClaim = searchParams.get("offer-claim") === "true";
 
   const fetchPsychologists = async () => {
     try {
@@ -191,6 +202,20 @@ export default function TherapistsCard() {
           <p className="text-lg text-gray-600">
             Breaking Barriers: Connect with Professionals in Your Language
           </p>
+          
+          {!hasOfferClaim && (
+            <div className="mt-6">
+              <Button
+                onClick={() => {
+                  const offerUrl = `${window.location.origin}/psychologists?offer-claim=true`;
+                  window.location.href = offerUrl;
+                }}
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-200"
+              >
+                🎁 Activate 10% Offer
+              </Button>
+            </div>
+          )}
         </div>
 
         {isLoading ? (
@@ -205,7 +230,7 @@ export default function TherapistsCard() {
               data.map((therapist) => (
                 <div key={therapist._id} className="w-full h-full">
                   <div className="relative w-full bg-[#9EE0D6] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[160px] flex flex-col">
-                    {/* Top right icons */}
+                    {/* Top right icons and offer badge */}
                     <div className="absolute top-3 right-3 flex gap-2 z-10">
                       <div className="p-1 border border-[#009A99] rounded-[10px] flex items-center justify-center">
                         <Video className="w-4 h-4 md:w-4 md:h-4 text-[#009A99]" />
@@ -249,12 +274,31 @@ export default function TherapistsCard() {
                               <p className="text-gray-700">
                                 {therapist.experience} of experience
                               </p>
-                              <p className="text-gray-700">
-                                Starts at INR{" "}
-                                <span className="font-bold text-gray-900">
-                                  {therapist.price || "999"}
-                                </span>
-                              </p>
+                              <div className="text-gray-700">
+                                {hasOfferClaim ? (
+                                  <div>
+                                    <p className="text-green-600 font-semibold text-sm">
+                                      🎉 10% OFF Special Offer!
+                                    </p>
+                                    <p>
+                                      Starts at INR{" "}
+                                      <span className="font-bold text-green-600">
+                                        {formatPrice(applyOfferDiscount(parseInt(therapist.price || "999")))}
+                                      </span>
+                                      <span className="text-gray-400 line-through ml-2 text-sm">
+                                        ₹{formatPrice(parseInt(therapist.price || "999"))}
+                                      </span>
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <p>
+                                    Starts at INR{" "}
+                                    <span className="font-bold text-gray-900">
+                                      {therapist.price || "999"}
+                                    </span>
+                                  </p>
+                                )}
+                              </div>
 
                               {/* Rating */}
                               {/* <div className="flex items-center gap-1 my-1 md:my-2">
@@ -280,10 +324,21 @@ export default function TherapistsCard() {
                               </div>
 
                               {/* Expertise */}
-                              <div className="mb-1 md:mb-2 h-8 line-clamp-2">
-                                <span className="text-gray-700 text-[14px]">
+                              <div className="mb-1 md:mb-2 h-8 line-clamp-2 relative group">
+                                <span 
+                                  className="text-gray-700 text-[14px] cursor-help"
+                                  title={therapist.expertise.join(", ")}
+                                >
                                   {therapist.expertise.join(", ")}
                                 </span>
+                                
+                                {/* Tooltip for full text */}
+                                {therapist.expertise.join(", ").length > 50 && (
+                                  <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20 max-w-xs whitespace-normal">
+                                    {therapist.expertise.join(", ")}
+                                    <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -342,6 +397,7 @@ export default function TherapistsCard() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         data={psychologist}
+        hasOfferClaim={hasOfferClaim}
       />
     </div>
   );
