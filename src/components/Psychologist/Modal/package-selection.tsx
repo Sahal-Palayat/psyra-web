@@ -144,7 +144,7 @@ export function PackageSelection({
       {hasOfferClaim && (
         <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-4 rounded-lg text-center">
           <h4 className="text-lg font-bold">🎉 Special Offer Active!</h4>
-          <p className="text-sm">You're getting 10% OFF on all packages</p>
+          <p className="text-sm">{"You're getting 10% OFF on all packages"}</p>
         </div>
       )}
       
