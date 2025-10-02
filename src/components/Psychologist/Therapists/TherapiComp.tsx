@@ -17,7 +17,7 @@ const applyOfferDiscount = (price: number): number => {
 
 // Utility function to format price
 const formatPrice = (price: number): string => {
-  return price.toLocaleString('en-IN');
+  return price.toLocaleString("en-IN");
 };
 
 const SkeletonCard = () => (
@@ -202,20 +202,6 @@ export default function TherapistsCard() {
           <p className="text-lg text-gray-600">
             Breaking Barriers: Connect with Professionals in Your Language
           </p>
-          
-          {!hasOfferClaim && (
-            <div className="mt-6">
-              <Button
-                onClick={() => {
-                  const offerUrl = `${window.location.origin}/psychologists?offer-claim=true`;
-                  window.location.href = offerUrl;
-                }}
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-200"
-              >
-                🎁 Activate 10% Offer
-              </Button>
-            </div>
-          )}
         </div>
 
         {isLoading ? (
@@ -283,10 +269,17 @@ export default function TherapistsCard() {
                                     <p>
                                       Starts at INR{" "}
                                       <span className="font-bold text-green-600">
-                                        {formatPrice(applyOfferDiscount(parseInt(therapist.price || "999")))}
+                                        {formatPrice(
+                                          applyOfferDiscount(
+                                            parseInt(therapist.price || "999")
+                                          )
+                                        )}
                                       </span>
                                       <span className="text-gray-400 line-through ml-2 text-sm">
-                                        ₹{formatPrice(parseInt(therapist.price || "999"))}
+                                        ₹
+                                        {formatPrice(
+                                          parseInt(therapist.price || "999")
+                                        )}
                                       </span>
                                     </p>
                                   </div>
@@ -325,13 +318,13 @@ export default function TherapistsCard() {
 
                               {/* Expertise */}
                               <div className="mb-1 md:mb-2 h-8 line-clamp-2 relative group">
-                                <span 
+                                <span
                                   className="text-gray-700 text-[14px] cursor-help"
                                   title={therapist.expertise.join(", ")}
                                 >
                                   {therapist.expertise.join(", ")}
                                 </span>
-                                
+
                                 {/* Tooltip for full text */}
                                 {therapist.expertise.join(", ").length > 50 && (
                                   <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20 max-w-xs whitespace-normal">
