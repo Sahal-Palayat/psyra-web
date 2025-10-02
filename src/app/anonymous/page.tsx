@@ -42,7 +42,10 @@ const Anonymous = () => {
       } else {
         throw new Error("Failed to submit application");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      
+    }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitting(false);

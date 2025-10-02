@@ -1,59 +1,59 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { useRef } from "react";
+// import { gsap } from "gsap";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function StepOne({ onNext }: { onNext: () => void }) {
   const bobRef = useRef<HTMLDivElement | null>(null);
   const shadowRef = useRef<HTMLDivElement | null>(null);
-  const bubbleRef = useRef<HTMLDivElement | null>(null);
+  //   const bubbleRef = useRef<HTMLDivElement | null>(null);
   const ctx = useRef<gsap.Context | null>(null);
 
-  useEffect(() => {
-    ctx.current = gsap.context(() => {
-      if (!bobRef.current || !shadowRef.current) return;
+  //   useEffect(() => {
+  //     ctx.current = gsap.context(() => {
+  //       if (!bobRef.current || !shadowRef.current) return;
 
-      // set initial position offscreen right
-      gsap.set([bobRef.current, shadowRef.current], { x: "100vw" });
+  //       // set initial position offscreen right
+  //       gsap.set([bobRef.current, shadowRef.current], { x: "100vw" });
 
-      gsap.set(shadowRef.current, {
-        transformOrigin: "50%",
-        opacity: 0.25,
-        scaleX: 1.1,
-        scaleY: 1,
-      });
+  //       gsap.set(shadowRef.current, {
+  //         transformOrigin: "50%",
+  //         opacity: 0.25,
+  //         scaleX: 1.1,
+  //         scaleY: 1,
+  //       });
 
-      // looping animation timeline
-      const loop = gsap.timeline({
-        defaults: { ease: "power3.inOut" },
-        repeat: -1, // 🔁 infinite loop
-      });
+  //       // looping animation timeline
+  //       const loop = gsap.timeline({
+  //         defaults: { ease: "power3.inOut" },
+  //         repeat: -1, // 🔁 infinite loop
+  //       });
 
-      loop
-        // from right → center
-        .to([bobRef.current, shadowRef.current], { x: 0, duration: 3 })
-        // center → left
-        .to([bobRef.current, shadowRef.current], { x: "-100vw", duration: 3 })
-        // reset instantly to right (offscreen) without flashing
-        .set([bobRef.current, shadowRef.current], { x: "100vw" })
-        // and continue loop
-        .to([bobRef.current, shadowRef.current], { x: 0, duration: 3 });
+  //       loop
+  //         // from right → center
+  //         .to([bobRef.current, shadowRef.current], { x: 0, duration: 3 })
+  //         // center → left
+  //         .to([bobRef.current, shadowRef.current], { x: "-100vw", duration: 3 })
+  //         // reset instantly to right (offscreen) without flashing
+  //         .set([bobRef.current, shadowRef.current], { x: "100vw" })
+  //         // and continue loop
+  //         .to([bobRef.current, shadowRef.current], { x: 0, duration: 3 });
 
-      // shadow idle breathing effect
-      gsap.to(shadowRef.current, {
-        scaleX: 0.85,
-        opacity: 0.3,
-        duration: 0.9,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      });
-    });
+  //       // shadow idle breathing effect
+  //       gsap.to(shadowRef.current, {
+  //         scaleX: 0.85,
+  //         opacity: 0.3,
+  //         duration: 0.9,
+  //         yoyo: true,
+  //         repeat: -1,
+  //         ease: "sine.inOut",
+  //       });
+  //     });
 
-    return () => ctx.current?.revert();
-  }, []);
+  //     return () => ctx.current?.revert();
+  //   }, []);
 
   return (
     <div className="max-w-2xl mx-auto text-center space-y-8">
