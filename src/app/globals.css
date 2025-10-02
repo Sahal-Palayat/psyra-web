@@ -120,7 +120,53 @@
   body {
     @apply bg-background text-foreground;
   }
+
+
+  .animate-snake-move {
+    animation: snake-move 8s ease-in-out infinite;
+  }
+
+  @keyframes emotion-eyes {
+
+    0%,
+    30% {
+      transform: scaleY(0.3);
+    }
+
+    40%,
+    60% {
+      transform: scaleY(1);
+    }
+
+    70%,
+    100% {
+      transform: scaleY(1.2);
+    }
+  }
+
+  .animate-emotion-eyes {
+    animation: emotion-eyes 2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  /* Added emotion animation for mouth - transitions from sad to neutral to happy smile */
+  @keyframes emotion-mouth {
+
+   
+
+    
+    100% {
+      /* Happy smile - curve up */
+      d: path("M 10 10 Q 30 30, 50 10");
+    }
+  }
+
+  .animate-emotion-mouth path {
+    animation: emotion-mouth 2s ease-in-out infinite;
+  }
 }
+
+
 
 
 
