@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function StepOne({ onNext }: { onNext: () => void }) {
-  const bobRef = useRef<HTMLDivElement | null>(null);
+//   const bobRef = useRef<HTMLDivElement | null>(null);
   const shadowRef = useRef<HTMLDivElement | null>(null);
   //   const bubbleRef = useRef<HTMLDivElement | null>(null);
-  const ctx = useRef<gsap.Context | null>(null);
+//   const ctx = useRef<gsap.Context | null>(null);
 
   //   useEffect(() => {
   //     ctx.current = gsap.context(() => {
