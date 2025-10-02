@@ -22,7 +22,7 @@ const Anonymous = () => {
     console.log(message, "MESSSSSSSSSSSSSSSSSSSS");
     try {
       const url =
-        "https://script.google.com/macros/s/AKfycbwiJHfPeU0L1loCgBbomVZRlZVA7_ouf6qXz8uyzhWJyn8y2R2dcbfW95ZhLg09ggWAdA/exec";
+        "https://script.google.com/macros/s/AKfycby43JZLQzf96G8sqX0jIj55eIAK5g3Bs42XeDotAkOXGJRm2ZxvfmsPQiFepQFLJi36Gw/exec";
       const submitData = new URLSearchParams();
       submitData.append("Openup", message);
 
