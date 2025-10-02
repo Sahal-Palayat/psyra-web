@@ -1,12 +1,12 @@
 "use client";
 
+import { Background } from "@/components/anonymous/background";
+import Confetti from "@/components/anonymous/confetti";
+import { StepOne } from "@/components/anonymous/step-one";
+import { StepThree } from "@/components/anonymous/step-three";
+import { StepTwo } from "@/components/anonymous/step-two";
 import type React from "react";
-import { motion } from "framer-motion";
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Heart, Sparkles, ArrowRight } from "lucide-react";
-import Confetti from "react-confetti";
 
 const Anonymous = () => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -16,408 +16,61 @@ const Anonymous = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!message.trim()) return;
 
     setIsSubmitting(true);
+    console.log(message, "MESSSSSSSSSSSSSSSSSSSS");
+    try {
+      const url =
+        "https://script.google.com/macros/s/AKfycbwiJHfPeU0L1loCgBbomVZRlZVA7_ouf6qXz8uyzhWJyn8y2R2dcbfW95ZhLg09ggWAdA/exec";
+      const submitData = new URLSearchParams();
+      submitData.append("Openup", message);
 
-    // Simulate submission (replace with actual API call)
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: submitData.toString(),
+      });
+
+      const result = await response.text();
+      console.log("Response from Google Apps Script:", result);
+
+      if (response.ok) {
+        console.log("LOGGED INN NN NN NN NNN");
+
+        // Reset form after successful submission
+      } else {
+        throw new Error("Failed to submit application");
+      }
+    } catch (error) {}
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
-
     setIsSubmitting(false);
-    setStep(3);
     setShowConfetti(true);
     setMessage("");
-
-    // Stop confetti after 5 seconds
+    setStep(3);
     setTimeout(() => setShowConfetti(false), 5000);
   };
 
   const handleTakeTherapy = () => {
-    // Redirect to therapy booking page or handle therapy signup
-    window.location.href = "/therapy";
+    window.location.href = "/psychologists?claim-offer=true";
   };
 
-  if (step === 1) {
-    return (
-      <div className="min-h-screen bg-[#B1DFAE] flex items-center justify-center relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Top left boxes */}
-          <motion.div
-            className="absolute top-12 left-8 w-16 h-16 border-4 border-white/30 rounded-lg"
-            animate={{ rotate: [12, 18, 12], y: [0, -10, 0] }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute top-32 left-32 w-12 h-12 border-3 border-white/20 rounded-lg -rotate-6" />
-
-          {/* Top right boxes */}
-          <motion.div
-            className="absolute top-20 right-16 w-20 h-20 border-4 border-white/25 rounded-lg"
-            animate={{ rotate: [-12, -18, -12], y: [0, 10, 0] }}
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute top-48 right-48 w-14 h-14 border-3 border-white/30 rounded-lg rotate-6" />
-
-          {/* Bottom left boxes */}
-          <motion.div
-            className="absolute bottom-24 left-16 w-18 h-18 border-4 border-white/20 rounded-lg"
-            animate={{ rotate: [45, 50, 45], x: [0, -5, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute bottom-48 left-48 w-10 h-10 border-3 border-white/25 rounded-lg -rotate-12" />
-          <div className="mt-16 p-4">
-            <h1 className="text-6xl md:text-7xl lg:text-6xl font-black leading-tight text-center">
-              <span className="text-white">GO FOR </span>
-              <span className="text-[#005657]">BETTER </span>
-              <span className="text-white">WITH MOE</span>
-            </h1>
-          </div>
-          {/* Bottom right boxes */}
-          <motion.div
-            className="absolute bottom-16 right-24 w-16 h-16 border-4 border-white/30 rounded-lg"
-            animate={{ rotate: [-6, -12, -6], x: [0, 5, 0] }}
-            transition={{
-              duration: 4.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute bottom-40 right-40 w-12 h-12 border-3 border-white/20 rounded-lg rotate-12" />
-
-          {/* Center scattered boxes */}
-          <div className="absolute top-1/3 left-1/4 w-10 h-10 border-3 border-white/15 rounded-lg rotate-3" />
-          <motion.div
-            className="absolute top-2/3 right-1/3 w-14 h-14 border-3 border-white/15 rounded-lg"
-            animate={{ rotate: [-3, 3, -3], y: [0, -8, 0] }}
-            transition={{
-              duration: 5.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
-
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          {/* Main Content */}
-          <div className="max-w-2xl mx-auto text-center space-y-8">
-            {/* Animated character with snake movement and emotion changes */}
-            <div className="">
-              {/* Character container with snake animation */}
-              <motion.div
-                className="bg-[#489C50] h-48 w-full rounded-full flex items-center"
-                animate={{
-                  x: ["100vw", "10vw"], // move across the screen
-                  width: ["100%", "12rem"], // from wide to same as height (48 = 12rem)
-                }}
-                transition={{
-                  duration: 9,
-                  ease: "easeInOut",
-                }}
-              >
-                {/* Face with animated emotions */}
-                <div className="ml-21 flex  flex-col items-center">
-                  {/* Eyes with emotion animation */}
-                  <div className="flex gap-6 animate-emotion-eyes">
-                    <div className="w-3 h-3 bg-white rounded-full" />
-                    <div className="w-3 h-3 bg-white rounded-full" />
-                  </div>
-
-                  {/* Mouth */}
-                  <div className="w-10 h-10 border-b-4 border-white rounded-full border-t-0"></div>
-                </div>
-              </motion.div>
-
-              {/* Get Started Button */}
-              <Button
-                onClick={() => setStep(2)}
-                size="lg"
-                className="text-lg h-14 px-8 bg-[#005657] hover:bg-[#004546] mt-8"
-              >
-                Get Started
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-        </div>
-      </div>
-    );
-  }
-
-  if (step === 2) {
-    return (
-      <div className="min-h-screen bg-[#B1DFAE] flex items-center justify-center relative overflow-hidden">
-        {/* Background decoration (same as step 1) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Top left boxes */}
-          <motion.div
-            className="absolute top-12 left-8 w-16 h-16 border-4 border-white/30 rounded-lg"
-            animate={{ rotate: [12, 18, 12], y: [0, -10, 0] }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute top-32 left-32 w-12 h-12 border-3 border-white/20 rounded-lg -rotate-6" />
-
-          {/* Top right boxes */}
-          <motion.div
-            className="absolute top-20 right-16 w-20 h-20 border-4 border-white/25 rounded-lg"
-            animate={{ rotate: [-12, -18, -12], y: [0, 10, 0] }}
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute top-48 right-48 w-14 h-14 border-3 border-white/30 rounded-lg rotate-6" />
-
-          {/* Bottom left boxes */}
-          <motion.div
-            className="absolute bottom-24 left-16 w-18 h-18 border-4 border-white/20 rounded-lg"
-            animate={{ rotate: [45, 50, 45], x: [0, -5, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute bottom-48 left-48 w-10 h-10 border-3 border-white/25 rounded-lg -rotate-12" />
-
-          {/* Bottom right boxes */}
-          <motion.div
-            className="absolute bottom-16 right-24 w-16 h-16 border-4 border-white/30 rounded-lg"
-            animate={{ rotate: [-6, -12, -6], x: [0, 5, 0] }}
-            transition={{
-              duration: 4.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="absolute bottom-40 right-40 w-12 h-12 border-3 border-white/20 rounded-lg rotate-12" />
-
-          {/* Center scattered boxes */}
-          <div className="absolute top-1/3 left-1/4 w-10 h-10 border-3 border-white/15 rounded-lg rotate-3" />
-          <motion.div
-            className="absolute top-2/3 right-1/3 w-14 h-14 border-3 border-white/15 rounded-lg"
-            animate={{ rotate: [-3, 3, -3], y: [0, -8, 0] }}
-            transition={{
-              duration: 5.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
-
-        {/* Step 2 content centered in the background - no Card */}
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <div className="max-w-2xl rounded-lg mx-auto text-center space-y-8 bg-[#F7F8F2] p-4">
-            <div className="mx-auto w-16 h-16 bg-[#005657] rounded-full flex items-center justify-center">
-              <Heart className="w-8 h-8 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-balance leading-tight text-[#0B332E]">
-              Hey There
-            </h2>
-            <p className="text-lg md:text-xl leading-relaxed text-balance max-w-2xl mx-auto text-[#0B332E]/80">
-              Is there something you have been wanting to share for a very long
-              time but couldn't? Because you were scared that people would judge
-              you? Or maybe you didn't have someone to share with?
-            </p>
-
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6 text-left max-w-2xl mx-auto"
-            >
-              <div className="space-y-3">
-                <label
-                  htmlFor="message"
-                  className="text-sm font-medium text-[#0B332E]/80"
-                >
-                  Share your thoughts anonymously. This is a safe space.
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder="Write whatever is on your mind... No one will know it's you."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="min-h-[200px] text-base resize-none"
-                  required
-                />
-                <p className="text-xs text-[#0B332E]/70">
-                  Your submission is completely anonymous. We don't collect any
-                  identifying information.
-                </p>
-              </div>
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full text-lg h-12 bg-[#005657] hover:bg-[#004546]"
-                disabled={isSubmitting || !message.trim()}
-              >
-                {isSubmitting ? (
-                  <span className="animate-pulse">Submitting...</span>
-                ) : (
-                  <>
-                    Share Anonymously
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </>
-                )}
-              </Button>
-            </form>
-          </div>
-        </div>
-
-        {/* Background blur decoration (same as step 1) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-[#B1DFAE] flex items-center justify-center relative overflow-hidden">
-      {/* Celebration confetti */}
-      {showConfetti && <Confetti recycle={false} numberOfPieces={500} />}
-
-      {/* Background decoration (same as step 1) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Top left boxes */}
-        <motion.div
-          className="absolute top-12 left-8 w-16 h-16 border-4 border-white/30 rounded-lg"
-          animate={{ rotate: [12, 18, 12], y: [0, -10, 0] }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
+    <Background>
+      {showConfetti && <Confetti count={120} duration={2.2} />}
+      {step === 1 && <StepOne onNext={() => setStep(2)} />}
+      {step === 2 && (
+        <StepTwo
+          message={message}
+          onMessageChange={setMessage}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
         />
-        <div className="absolute top-32 left-32 w-12 h-12 border-3 border-white/20 rounded-lg -rotate-6" />
-
-        {/* Top right boxes */}
-        <motion.div
-          className="absolute top-20 right-16 w-20 h-20 border-4 border-white/25 rounded-lg"
-          animate={{ rotate: [-12, -18, -12], y: [0, 10, 0] }}
-          transition={{
-            duration: 5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <div className="absolute top-48 right-48 w-14 h-14 border-3 border-white/30 rounded-lg rotate-6" />
-
-        {/* Bottom left boxes */}
-        <motion.div
-          className="absolute bottom-24 left-16 w-18 h-18 border-4 border-white/20 rounded-lg"
-          animate={{ rotate: [45, 50, 45], x: [0, -5, 0] }}
-          transition={{
-            duration: 6,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <div className="absolute bottom-48 left-48 w-10 h-10 border-3 border-white/25 rounded-lg -rotate-12" />
-
-        {/* Bottom right boxes */}
-        <motion.div
-          className="absolute bottom-16 right-24 w-16 h-16 border-4 border-white/30 rounded-lg"
-          animate={{ rotate: [-6, -12, -6], x: [0, 5, 0] }}
-          transition={{
-            duration: 4.5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-        <div className="absolute bottom-40 right-40 w-12 h-12 border-3 border-white/20 rounded-lg rotate-12" />
-
-        {/* Center scattered boxes */}
-        <div className="absolute top-1/3 left-1/4 w-10 h-10 border-3 border-white/15 rounded-lg rotate-3" />
-        <motion.div
-          className="absolute top-2/3 right-1/3 w-14 h-14 border-3 border-white/15 rounded-lg"
-          animate={{ rotate: [-3, 3, -3], y: [0, -8, 0] }}
-          transition={{
-            duration: 5.5,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      {/* Step 3 content centered in the background */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="max-w-2xl mx-auto text-center space-y-10">
-          <div className="flex flex-col items-center justify-center min-h-[40vh] space-y-8">
-            <div className="text-center space-y-6 max-w-2xl">
-              <div className="mx-auto w-20 h-20 bg-[#005657] rounded-full flex items-center justify-center animate-bounce-in">
-                <Sparkles className="w-10 h-10 text-white" />
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-balance">
-                Thank You for Sharing
-              </h1>
-              <p className="text-xl text-muted-foreground text-balance">
-                We're proud of you for taking this step. Sharing your feelings
-                is the first step towards healing.
-              </p>
-            </div>
-          </div>
-
-          {/* Inlined "Special Offer" (previously in dialog) */}
-          <div className="bg-[#005657]/5 rounded-lg p-6 space-y-4 border-2 border-[#005657]/20 max-w-xl mx-auto">
-            <div className="text-center">
-              <div className="inline-block bg-[#005657] text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
-                Special Offer
-              </div>
-              <h3 className="text-3xl font-bold text-foreground mb-2">
-                10% OFF
-              </h3>
-              <p className="text-lg font-semibold text-foreground/90">
-                Take Therapy Now
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Start your healing journey with professional support
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Button
-                onClick={handleTakeTherapy}
-                size="lg"
-                className="w-full text-base h-12 bg-[#005657] hover:bg-[#004546]"
-              >
-                Claim Your 10% Discount
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Background blur decoration (same as step 1) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#005657]/5 rounded-full blur-3xl" />
-      </div>
-    </div>
+      )}
+      {step === 3 && <StepThree onTakeTherapy={handleTakeTherapy} />}
+    </Background>
   );
 };
+
 export default Anonymous;
