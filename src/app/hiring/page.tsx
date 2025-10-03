@@ -63,7 +63,7 @@ export default function PsyraChiefPsychologistApplication() {
 
     try {
       const url =
-        "https://script.google.com/macros/s/AKfycbyhZ95c8NNGlXGZTtwJWrbi1Wcovoa0x1n5ZhZ-4zrv223566fqZCHls25VuR4V95D6FA/exec";
+        "https://script.google.com/macros/s/AKfycbyvAoA1v38d6AjJsX1DgWIzUE7wTJhyit7aO-Qy9P2uzC5Aw4D3UFG2cwtrBYDxqRJf/exec";
 
       const submitData = new URLSearchParams();
       submitData.append("Timestamp", new Date().toISOString());
