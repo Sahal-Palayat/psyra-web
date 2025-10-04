@@ -57,27 +57,27 @@ export function PackageSelection({
     },
     {
       id: "package-5",
-      title: "5 Sessions Package",
-      price: "₹4,495",
-      originalPrice: "₹4,995",
-      sessions: 5,
+      title: "8 Sessions Package",
+      price: "₹6000",
+      originalPrice: "",
+      sessions: 8,
       popular: true,
-      savings: "Save ₹500",
+      savings: "25% OFF",
     },
     {
       id: "package-10",
-      title: "10 Sessions Package",
-      price: "₹8,490",
-      originalPrice: "₹9,990",
+      title: "24 Sessions Package",
+      price: "14400",
+      originalPrice: "",
       sessions: 10,
       popular: false,
-      savings: "Save ₹1,500",
+      savings: "40% OFF",
     },
   ];
 
   const couplePackage = [
     {
-      id: "single",
+      id: "single",  
       title: "Single Session",
       price: "1499",
       originalPrice: null,
@@ -92,7 +92,7 @@ export function PackageSelection({
       originalPrice: "₹7,495",
       sessions: 5,
       popular: true,
-      savings: "Save ₹500",
+      savings: "25% OFF",
     },
     {
       id: "package-10",
@@ -101,7 +101,7 @@ export function PackageSelection({
       originalPrice: "₹14,990",
       sessions: 10,
       popular: false,
-      savings: "Save ₹2,500",
+      savings: "40% OFF",
     },
   ];
 
@@ -121,7 +121,7 @@ export function PackageSelection({
           ...pkg,
           price: formatPriceWithSymbol(discountedPrice),
           originalPrice: pkg.originalPrice || formatPriceWithSymbol(originalPrice),
-          savings: pkg.savings || `Save ₹${originalPrice - discountedPrice}`,
+          savings: "10% OFF", // Always show 10% OFF when offer is active
         };
       });
       setPackages(discountedPackages);
