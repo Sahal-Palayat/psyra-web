@@ -19,29 +19,30 @@ const Anonymous = () => {
     if (!message.trim()) return;
 
     setIsSubmitting(true);
-    console.log(message, "MESSSSSSSSSSSSSSSSSSSS");
     try {
-      const url =
-        "https://script.google.com/macros/s/AKfycby43JZLQzf96G8sqX0jIj55eIAK5g3Bs42XeDotAkOXGJRm2ZxvfmsPQiFepQFLJi36Gw/exec";
-      const submitData = new URLSearchParams();
-      submitData.append("Openup", message);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/feedback`;
+
+      // Build payload: static values + dynamic feedback text
+      const payload = {
+        name: "Anonymous",
+        mobile: "0000000000", // static placeholder required by API
+        feedback: message.trim(),
+        rating: 0,
+        psymateId: "anonymous",
+        timestamp: new Date().toISOString(),
+      };
 
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: submitData.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.text();
-      console.log("Response from Google Apps Script:", result);
-
-      if (response.ok) {
-        console.log("LOGGED INN NN NN NN NNN");
-
-        // Reset form after successful submission
-      } else {
-        throw new Error("Failed to submit application");
+      if (!response.ok) {
+        throw new Error("Failed to submit feedback");
       }
+
+      // Success
     } catch (error) {
       console.log(error);
     }
