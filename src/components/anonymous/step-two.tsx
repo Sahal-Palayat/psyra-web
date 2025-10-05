@@ -181,7 +181,7 @@ export function StepTwo({
           </div>
 
           <p ref={descRef} className="text-lg md:text-xl leading-relaxed text-balance text-center text-slate-700">
-            Is there something you've wanted to share for a long time but couldn't? This is a{" "}
+            {"Is there something you've wanted to share for a long time but couldn't? This is a"}{" "}
             <span className="font-semibold text-teal-600">safe, anonymous space</span>.
           </p>
 
@@ -213,7 +213,7 @@ export function StepTwo({
                     clipRule="evenodd"
                   />
                 </svg>
-                Your submission is completely anonymous. We don't collect any identifying information.
+                {"Your submission is completely anonymous. We don't collect any identifying information."}
               </p>
             </div>
 
