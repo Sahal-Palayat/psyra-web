@@ -161,7 +161,7 @@ export function StepTwo({
 
       {/* Main Content Card with Glassmorphism */}
       <div className="relative z-10 max-w-2xl w-full mx-auto">
-        <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl shadow-teal-500/10 rounded-3xl p-8 md:p-12 space-y-8">
+        <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl shadow-teal-500/10 rounded-3xl p-4 md:p-12 space-y-8">
           {/* Handwritten Heading with Animation */}
           <div className="text-center space-y-4">
           <h2
