@@ -46,7 +46,7 @@ export default function Individual() {
         " Unlimited Access to all Online Programs",
         " Continuous Support & Care",
         "Holistic approach to long-term well-being",
-        "Chat through assistance",
+
       ],
       price: " ₹14400", // 549 x 10
       cta: "Commit to a Better You",
