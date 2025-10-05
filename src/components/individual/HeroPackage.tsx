@@ -70,7 +70,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
               transition={{ duration: 1 }}
             >
               Choose The
-              <span className="text-white"> Package</span> for you,
+              <span className="text-white"> Package</span> for you
             </motion.p>
           </div>
         </motion.div>

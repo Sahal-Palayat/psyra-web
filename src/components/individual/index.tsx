@@ -19,33 +19,36 @@ export default function Individual() {
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
-      price: "999",
+      price: " ₹999",
       cta: "Start Your Journey Today",
     },
     {
       type: "individual",
-      title: "Growth Package (5 Sessions - ₹899 per session)",
+      title: "Growth Package ( 8-Session Package - ₹750 per session)",
       tagline: "Build clarity and consistency",
       list: [
-        "5 guided therapy sessions",
+        "Valid for 8 months",
+        "1 Exclusive Offline Event entry",
+        "Anytime Chat Support",
         "Address specific issues",
         "Explore your thoughts and emotions",
-        "Develop practical coping strategies",
       ],
-      price: "4495", // 599 x 5
+      price: " ₹6000", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {
       type: "individual",
-      title: "Transformation Package (10 Sessions - ₹849 per session)",
-      tagline: "Deepen healing and growth-",
+      title: "Annual Wellness Plan ( 24-Session - ₹600 per session)",
+      tagline: "A Full Year of Mindful Living",
       list: [
-        "10 comprehensive therapy sessions",
+        " 1 year validity",
+        " 3 Free Entries to exclusive Psyra Events",
+        " Unlimited Access to all Online Programs",
+        " Continuous Support & Care",
         "Holistic approach to long-term well-being",
         "Chat through assistance",
-        "Sustained guidance",
       ],
-      price: "8490", // 549 x 10
+      price: " ₹14400", // 549 x 10
       cta: "Commit to a Better You",
     },
   ];
