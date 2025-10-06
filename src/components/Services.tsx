@@ -77,10 +77,10 @@ const Services = () => {
 
               {/* Content */}
               <div className="p-5 text-[#005657] flex flex-col flex-grow text-center">
-                <h2 className="font-bold text-[24px] leading-none">
+                <h2 className="font-bold text-[24px] leading-none mb-3">
                   {item?.type}
                 </h2>
-                <p className="text-[18px] italic mb-3">{item?.subTitle}</p>
+                {/* <p className="text-[18px] italic mb-3">{item?.subTitle}</p> */}
 
                 {/* This wrapper pushes price + button to bottom */}
                 <div className="mt-auto">
