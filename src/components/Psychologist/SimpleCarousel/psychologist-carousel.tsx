@@ -32,7 +32,7 @@ export default function PsychologistCarousel() {
       imageUrl: "",
       experience: "",
       expertise: [],
-      languages: []
+      languages: [],
     },
   ]);
   // const { currentIndex, nextSlide, prevSlide, goToSlide } = useCarousel({
@@ -45,7 +45,9 @@ export default function PsychologistCarousel() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      setData(response?.data);
+      const shuffledData = response?.data.sort(() => Math.random() - 0.5);
+
+      setData(shuffledData);
       // setPsychologist(response?.data);
     } catch (error) {
       console.log(error);

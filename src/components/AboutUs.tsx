@@ -41,8 +41,8 @@ const AboutUs = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <h2 className="text-2xl md:text-2xl lg:text-4xl font-bold text-teal-600 leading-tight mb-8">
-               {" When the world doesn't "}<br /> understand your silence Psyra
-                does.
+                {" When the world doesn't "}
+                <br /> understand your silence Psyra does.
               </h2>
             </motion.div>
 
@@ -52,49 +52,21 @@ const AboutUs = () => {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             >
-              <p className="text-gray-600 text-lg md:text-xl mb-10">
-               {" Behind every smile, there are battles no one sees. Sleepless nights, racing thoughts, a weight you can't explain. You don't need another person telling you to 'be strong' or 'move on.'   What you need... is a space that finally feels safe. That's why Psyra exists. Not as a clinic. Not as an app. But as a sanctuary for your mind."}
+              <p className="text-gray-600 text-lg md:text-xl mb-4">
+                {
+                  " Behind every smile, there are battles no one sees. Sleepless nights, racing thoughts, a weight you can't explain. You don't need another person telling you to 'be strong' or 'move on.'   What you need... is a space that finally feels safe. That's why Psyra exists. Not as a clinic. Not as an app. But as a sanctuary for your mind."
+                }
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-            >
-              <h3 className="text-2xl md:text-3xl font-bold text-teal-600 mb-8">
-               {" At Psyra, you'll find:"}
-              </h3>
-
-              <div className="space-y-6">
-                {features.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{
-                      duration: 0.6,
-                      ease: "easeOut",
-                      delay: 0.6 + index * 0.1,
-                    }}
-                    className="flex items-start space-x-4"
-                  >
-                    <div className="flex-shrink-0 mt-2">
-                      <div className="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[12px] border-b-teal-500 rotate-90"></div>
-                    </div>
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                      <h4 className="text-xl font-bold text-teal-600">
-                        {feature.title}
-                      </h4>
-                      <p className="text-gray-600 text-lg md:text-xl">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              <p className="text-gray-600 text-lg md:text-xl mb-10">
+                At Psyra, you will find listeners, not judges therapists who
+                meet you where you are, offering a refuge of privacy where your
+                story remains yours alone. You will experience support that adapts
+                to your life, with no rigid systems only what truly works for
+                you. Here, care comes without shame, because seeking help should
+                never feel like weakness. Psyra is not just about therapy; it is
+                about giving your mind the home it is been searching for. Because
+                you deserve more than just surviving you deserve peace
+              </p>
             </motion.div>
           </div>
 

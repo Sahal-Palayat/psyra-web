@@ -45,9 +45,9 @@ export default function Home() {
       <AboutUs />
 
       {/* Psychologist Carousel with themed loading */}
+      <CarouselStats />
       <DynamicPsychologistCarousel />
 
-      <CarouselStats />
       <Concerns />
 
       {/* <BlogSwiper /> */}
