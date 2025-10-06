@@ -108,7 +108,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/#contact"
+              href="/contact-us"
               className={`text-[#005657] hover:text-white ${
                 isScrolled ? " text-[#005657]" : "text-white"
               }`}
