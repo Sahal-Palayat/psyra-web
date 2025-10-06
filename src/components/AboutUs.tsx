@@ -3,24 +3,6 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const AboutUs = () => {
-  const features = [
-    {
-      title: "Listeners, not judges",
-      description: "therapists who meet you where you are.",
-    },
-    {
-      title: "A refuge of privacy",
-      description: "your story is yours alone.",
-    },
-    {
-      title: "Support that bends to your life",
-      description: "no rigid systems, only what works for you.",
-    },
-    {
-      title: "Care without shame",
-      description: "because seeking help should never feel like weakness.",
-    },
-  ];
   return (
     <motion.section
       initial={{ opacity: 0, y: 50 }}
@@ -60,12 +42,13 @@ const AboutUs = () => {
               <p className="text-gray-600 text-lg md:text-xl mb-10">
                 At Psyra, you will find listeners, not judges therapists who
                 meet you where you are, offering a refuge of privacy where your
-                story remains yours alone. You will experience support that adapts
-                to your life, with no rigid systems only what truly works for
-                you. Here, care comes without shame, because seeking help should
-                never feel like weakness. Psyra is not just about therapy; it is
-                about giving your mind the home it is been searching for. Because
-                you deserve more than just surviving you deserve peace
+                story remains yours alone. You will experience support that
+                adapts to your life, with no rigid systems only what truly works
+                for you. Here, care comes without shame, because seeking help
+                should never feel like weakness. Psyra is not just about
+                therapy; it is about giving your mind the home it is been
+                searching for. Because you deserve more than just surviving you
+                deserve peace
               </p>
             </motion.div>
           </div>
