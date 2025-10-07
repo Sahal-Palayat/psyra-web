@@ -1,60 +1,62 @@
 "use client";
-import Packages from "./Packages";
+// import Packages from "./Packages";
 // import HeroIndividual from "./HeroIndividual";
-import individual from "../../../public/Packages 2.jpg";
-import individual1 from "../../../public/Packages 1.jpg";
-import individual2 from "../../../public/Packages 3.jpg";
+// import individual from "../../../public/Packages 2.jpg";
+// import individual1 from "../../../public/Packages 1.jpg";
+// import individual2 from "../../../public/Packages 3.jpg";
 import Faq from "../Faq";
+import HeroPackages from "./HeroPackage";
 
 export default function Individual() {
   const individualTypes = [
     {
       type: "individual",
-      img: individual, // Replace with actual image import
       title: "Single Session (1 Session - ₹999)",
-      tagline: "Discover Clarity",
+      tagline: "Start your journey",
       list: [
         "Duration: 50–60 minutes",
-        "One-on-one personalized guidance",
+        "Build rapport with your therapist",
         "Address your immediate concerns",
         "Take the first step toward mental wellness",
       ],
-      price: "₹999",
+      price: " ₹999",
       cta: "Start Your Journey Today",
     },
     {
       type: "individual",
-      img: individual2, // Replace with actual image import
-      title: "Growth Package (5 Sessions - ₹899 per session)",
-      tagline: "Deepen Your Healing",
+      title: "Growth Package ( 8-Session Package - ₹750 per session)",
+      tagline: "Build clarity and consistency",
       list: [
-        "5 guided therapy sessions",
-        "Build rapport with your therapist",
+        "Valid for 8 months",
+        "1 Exclusive Offline Event entry",
+        "Anytime Chat Support",
+        "Address specific issues",
         "Explore your thoughts and emotions",
-        "Develop practical coping strategies",
       ],
-      price: "₹4,495", // 599 x 5
+      price: " ₹6000", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {
       type: "individual",
-      img: individual1, // Replace with actual image import
-      title: "Transformation Package (10 Sessions - ₹849 per session)",
-      tagline: "Transform Your Mindset",
+      title: "Annual Wellness Plan ( 24-Session - ₹600 per session)",
+      tagline: "A Full Year of Mindful Living",
       list: [
-        "10 comprehensive therapy sessions",
+        " 1 year validity",
+        " 3 Free Entries to exclusive Psyra Events",
+        " Unlimited Access to all Online Programs",
+        " Continuous Support & Care",
         "Holistic approach to long-term well-being",
-        "Set and achieve personal goals",
-        "Ongoing support for sustainable change",
+
       ],
-      price: "₹8,490", // 549 x 10
+      price: " ₹14400", // 549 x 10
       cta: "Commit to a Better You",
     },
   ];
   return (
     <div className="flex flex-col min-h-screen bg-9EE0D6">
       {/* <HeroIndividual /> */}
-      <Packages data={individualTypes} />
+      <HeroPackages data={individualTypes} />
+      {/* <Packages data={individualTypes} /> */}
       <Faq />
     </div>
   );

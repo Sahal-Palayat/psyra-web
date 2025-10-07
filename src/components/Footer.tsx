@@ -258,22 +258,39 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      <div className="text-center mt-4 p-2">
+        <p className="text-sm md:text-lg mt-3 text-[yellow]">
+          Psyra does not deal with medical or psychological emergencies. We are
+          not designed to offer support in crisis situations
+        </p>
+      </div>
 
       {/* Footer Bottom */}
-      <div className="container mx-auto px-8 mt-12 pt-6 border-t border-white/20">
+      <div className="container mx-auto px-8 pt-6 border-t border-white/20">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-white/80 text-sm mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} Psyra. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-yellow-200 transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
+
+            <Link
+              href="/terms-conditions"
+              className="hover:text-yellow-200 transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="#" className="hover:text-yellow-200 transition-colors">
-              Cookie Policy
+
+            <Link
+              href="/refund-policy"
+              className="hover:text-yellow-200 transition-colors"
+            >
+              Refund Policy
             </Link>
           </div>
         </div>

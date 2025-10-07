@@ -29,8 +29,8 @@ const Services = () => {
       route: "couple-therapy",
     },
     {
-      type: "Coffee with Psychologist",
-      subTitle: "Starts from ₹2749",
+      type: "Life Coaching",
+      subTitle: "Starts from ₹9999",
       img: Coffe,
       route: "coffe-with",
     },
@@ -43,14 +43,16 @@ const Services = () => {
       const message = encodeURIComponent(
         `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
       );
-      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+      router.push(`https://www.psyra.in/`);
     }
     router.push(`/${item?.route}`);
+
     console.log(item);
   };
 
   return (
-    <section className="py-16 px-8 sm:px-6 md:px-16" id="services">
+    <section className="py-2 px-14 " id="services">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {obj.map((item, index) => (
@@ -63,7 +65,7 @@ const Services = () => {
               className="bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col"
             >
               {/* Top Image */}
-              <div className="w-full h-[200px] relative">
+              <div className="w-full hidden sm:block h-[200px] relative">
                 <Image
                   src={item?.img || "/placeholder.svg"}
                   alt={`Feature ${item?.type}`}
@@ -74,19 +76,27 @@ const Services = () => {
               </div>
 
               {/* Content */}
-              <div className="p-5 text-black flex flex-col flex-grow text-center">
-                <h3 className="font-bold text-xl mb-1">{item?.type}</h3>
-                <p className="italic mb-3">{item?.subTitle}</p>
+              <div className="p-5 text-[#005657] flex flex-col flex-grow text-center">
+                <h2 className="font-bold text-[24px] leading-none mb-3">
+                  {item?.type}
+                </h2>
+                {/* <p className="text-[18px] italic mb-3">{item?.subTitle}</p> */}
 
                 {/* This wrapper pushes price + button to bottom */}
                 <div className="mt-auto">
                   <div className="flex justify-center">
                     <button
+                      className="bg-white px-6 py-2 text-teal text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      BOOK NOW
+                    </button>
+                    {/* <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() => handleWhatsAppRedirect(item)}
                     >
                       Book Now
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

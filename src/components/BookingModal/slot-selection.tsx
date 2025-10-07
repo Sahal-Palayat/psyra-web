@@ -3,33 +3,35 @@ import { useEffect, useRef, useState } from "react";
 import { format, isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import {
-  ALL_TIME_SLOTS,
-  BookedSlot,
-  BookingData,
-  TherapyBooking,
-} from "./types";
-import axios from "axios";
-// import type { BookingData, BookedSlot } from "../../types/booking"
-// import { ALL_TIME_SLOTS } from "../../types/booking"
+import { BookedSlot, BookingData } from "./types";
 
 interface SlotSelectionProps {
   bookingData: BookingData;
   onUpdate: (data: Partial<BookingData>) => void;
   bookedSlots?: BookedSlot[]; // Backend data for booked slots
+  allTimeSlots: string[];
 }
 
-export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
+export function SlotSelection({
+  bookingData,
+  onUpdate,
+  allTimeSlots,
+  bookedSlots,
+}: SlotSelectionProps) {
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
-  const [bookedSlots, setBookedSlot] = useState<TherapyBooking[]>([]);
+  // const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+
+  console.log(bookedSlots, "BOOKEDDD SLOTSS");
 
   useEffect(() => {
     if (bookingData.date) {
       const formattedDate = format(bookingData.date, "yyyy-MM-dd");
       // Filter booked slots for the selected date
       const bookedForThisDate = bookedSlots
-        .filter((slot) => slot.date === formattedDate)
-        .map((slot) => slot.timeSlot);
+        ? bookedSlots
+            .filter((slot: BookedSlot) => slot.date === formattedDate)
+            .map((slot: BookedSlot) => slot.timeSlot)
+        : [];
 
       setBookedSlotsForDate(bookedForThisDate);
 
@@ -44,30 +46,6 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
     }
   }, [bookingData.date, bookedSlots]);
 
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      // Convert the string to a Date object
-      const selectedDate = new Date(date);
-
-      // Subtract one day
-      selectedDate.setDate(selectedDate.getDate() + 1);
-
-      // Convert back to YYYY-MM-DD string
-      const adjustedDate = selectedDate.toISOString().split("T")[0];
-
-      const res = await axios.get(
-        `https://kochimetrocalc.me/consultation/booked-slots?date=${adjustedDate}`
-      );
-
-      console.log("Adjusted Date (1 day less):", adjustedDate);
-      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
-
-      setBookedSlot(res?.data?.data);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
-    }
-  };
-
   const handleDateSelect = (date: Date) => {
     // Scroll to slot selection when date is updated (especially in mobile)
     if (window.innerWidth < 768) {
@@ -81,7 +59,6 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
       }, 150); // short delay for DOM to update
     }
     onUpdate({ date, timeSlot: "" });
-    fetchBookedSlots(date.toISOString().split("T")[0]);
   };
 
   const handleTimeSelect = (timeSlot: string) => {
@@ -181,8 +158,8 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
   //   return null;
   // };
 
-  const unavailableSlots = ALL_TIME_SLOTS.filter(
-    (slot) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
+  const unavailableSlots = allTimeSlots.filter(
+    (slot: string) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
   );
 
   return (
@@ -236,21 +213,22 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
             animate={{ opacity: 1 }}
             className="bg-[#B6E5DF]/10 rounded-lg p-3 sm:p-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
-              {ALL_TIME_SLOTS.map((slot) => (
-                <button
-                  key={slot}
-                  type="button"
-                  disabled={
-                    isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
-                  }
-                  className={`flex items-center justify-center px-2 sm:px-3 py-2 rounded-md border text-xs sm:text-sm transition-colors ${getSlotButtonClass(
-                    slot
-                  )}`}
-                  onClick={() => handleTimeSelect(slot)}
-                  title={getSlotTooltip(slot)}
-                >
-                  {/* <svg
+            {allTimeSlots?.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
+                {allTimeSlots?.map((slot) => (
+                  <button
+                    key={slot}
+                    type="button"
+                    disabled={
+                      isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
+                    }
+                    className={`flex items-center justify-center px-2 sm:px-3 py-2 rounded-md border text-xs sm:text-sm transition-colors ${getSlotButtonClass(
+                      slot
+                    )}`}
+                    onClick={() => handleTimeSelect(slot)}
+                    title={getSlotTooltip(slot)}
+                  >
+                    {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 flex-shrink-0"
                     fill="none"
@@ -264,14 +242,37 @@ export function SlotSelection({ bookingData, onUpdate }: SlotSelectionProps) {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg> */}
-                  <span className="truncate text-center leading-tight">
-                    {slot}
-                  </span>
-                  {/* {getUnavailableSlotIcon(slot)} */}
-                </button>
-              ))}
-            </div>
-
+                    <span className="truncate text-center leading-tight">
+                      {slot}
+                    </span>
+                    {/* {getUnavailableSlotIcon(slot)} */}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-center p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300 text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-gray-400 mb-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 9.75h.008v.008H9.75V9.75zm4.5 0h.008v.008h-.008V9.75zm-7.5 0A7.5 7.5 0 1118.75 9.75 7.5 7.5 0 016.75 9.75z"
+                  />
+                </svg>
+                <p className="text-sm sm:text-base font-medium">
+                  No slots available
+                </p>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  Please check another date or try again later.
+                </p>
+              </div>
+            )}
             {bookingData.timeSlot && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}

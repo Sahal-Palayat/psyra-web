@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
 // import HeroIndividual from "../individual/HeroIndividual";
-import Packages from "../individual/Packages";
-import sampleImage from "../../../public/Couple Packages 1.jpg";
-import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
-import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
+// import sampleImage from "../../../public/Couple Packages 1.jpg";
+// import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
+// import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
 import Faq from "../Faq";
+import HeroPackages from "../individual/HeroPackage";
 
 const CoupleIndex = () => {
   const couplePackages = [
     {
       type: "couple",
-      img: sampleImage, // Replace with actual image import
       title: "Single Session (1 Session - ₹1499)",
-      tagline: "Reconnect and Reflect",
+      tagline: "Space to begin together",
       list: [
         "Duration: 50–60 minutes",
         "Personalized guidance for couples",
@@ -25,30 +24,30 @@ const CoupleIndex = () => {
     },
     {
       type: "couple",
-      img: sampleImage2, // Replace with actual image import
-      title: "Harmony Package (5 Sessions - ₹1399 per session)",
+      title: " 4-Couple Session Plan ( 4-Session - ₹1200 per session)",
       tagline: "Build a Stronger Connection",
       list: [
-        "4 guided couple therapy sessions",
-        "Enhance communication and mutual understanding",
-        "Work through challenges as a team",
+        "4 months validity",
+        "1 Free Entry to exclusive Psyra Event",
+        "Unlimited Access to all Online Webinars",
+        "Continuous Support & Car",
         "Strengthen your emotional bond",
       ],
-      price: "₹6,995", 
+      price: "₹4800",
       cta: "Invest in Your Relationship",
     },
     {
       type: "couple",
-      img: sampleImage3, // Replace with actual image import
-      title: "Lasting Love Package (10 Sessions - ₹1249 per session)",
-      tagline: "Deepen Your Relationship",
+      title: " 8-Couple Session Plan ( 8-Session - ₹1000 per session)",
+      tagline: "Grow together deeply.",
       list: [
-        "10 comprehensive couple therapy sessions",
-        "Develop lasting communication skills",
-        "Address underlying issues with professional guidance",
-        "Foster long-term harmony and growth",
+        "8 months validity",
+        "2 Free Entry to exclusive Psyra Event",
+        "Unlimited Access to all Online Webinars",
+        "Continuous Support & Car",
+        "In depth work on deeper relationship pattrens",
       ],
-      price: "₹12,490", 
+      price: "₹8000",
       cta: "Create Lasting Love",
     },
   ];
@@ -56,7 +55,7 @@ const CoupleIndex = () => {
   return (
     <div>
       {/* <HeroIndividual /> */}
-      <Packages data={couplePackages} />
+      <HeroPackages data={couplePackages} />
       <Faq />
     </div>
   );

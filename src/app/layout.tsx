@@ -4,6 +4,7 @@ import { Geist_Mono, Onest } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ToastContainer } from "@/components/ui/toast";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -17,12 +18,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Psyra - Mental Health Support",
+  title: "Online Counseling Psychology",
   description:
-    "Professional mental health services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
+    "Professional mental health Online services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
   keywords: [
+    "online counseling",
+    "online psychology",
     "mental health",
     "therapy",
+    "online therapy",
     "counseling",
     "psychology",
     "wellness",
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Psyra - Mental Health Support",
     description:
-      "Professional mental health services with licensed therapists and psychologists",
+      "Professional mental health Online services with licensed therapists and psychologists",
     url: "https://psyra.in", // Replace with your actual domain
     siteName: "Psyra",
     images: [
@@ -62,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Psyra - Mental Health Support",
     description:
-      "Professional mental health services with licensed therapists and psychologists",
+      "Professional mental health Online services with licensed therapists and psychologists",
     images: ["/og-image.png"],
   },
   robots: {
@@ -126,7 +130,7 @@ export default function RootLayout({
               url: "https://psyra.in", // Replace with your actual domain
               logo: "https://psyra.in/icon.png", // Replace with your actual domain
               description:
-                "Professional mental health services with licensed therapists and psychologists",
+                "Professional mental health Online services with licensed therapists and psychologists",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+91-88917-24199",
@@ -152,6 +156,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
