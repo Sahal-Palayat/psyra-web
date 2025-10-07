@@ -9,6 +9,7 @@ import Concerns from "@/components/Concerns";
 import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
 // import { TestimonialsSlider } from "@/components/Testimonals";
 import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
+import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
 // Dynamically import components with the themed loader
@@ -61,6 +62,7 @@ export default function Home() {
 
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
+      <WhatsAppChat />
     </main>
   );
 }
