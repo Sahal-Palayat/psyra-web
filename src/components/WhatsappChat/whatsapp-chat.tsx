@@ -1,7 +1,7 @@
 "use client"
 
 function buildWhatsAppHref() {
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "15551234567" // replace with your number in Project Settings
+  const phone = "+91 88917 24199" // replace with your number in Project Settings
   const message = "Hello! I'd like to chat with you."
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 }
