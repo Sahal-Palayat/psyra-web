@@ -33,7 +33,7 @@ export function StepThree({ onTakeTherapy }: { onTakeTherapy: () => void }) {
       <div className="bg-[#005657]/5 rounded-lg p-6 space-y-4 border-2 border-[#005657]/20 max-w-xl mx-auto">
         <div className="text-center">
           <div className="inline-block bg-[#005657] text-white px-4 py-1 rounded-full text-sm font-bold mb-3">
-            Special Offer
+            Special Offer Gift
           </div>
           <h3 className="text-3xl font-bold mb-2">10% OFF</h3>
           <p className="text-lg font-semibold">Take Therapy Now</p>
