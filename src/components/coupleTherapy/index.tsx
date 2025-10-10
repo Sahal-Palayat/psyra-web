@@ -19,7 +19,7 @@ const CoupleIndex = () => {
         "Address relationship challenges",
         "Gain clarity and understanding together",
       ],
-      price: "₹1499",
+      price: "1499",
       cta: "Strengthen Your Bond Today",
     },
     {
@@ -33,7 +33,7 @@ const CoupleIndex = () => {
         "Continuous Support & Car",
         "Strengthen your emotional bond",
       ],
-      price: "₹4800",
+      price: "4800",
       cta: "Invest in Your Relationship",
     },
     {
@@ -47,7 +47,7 @@ const CoupleIndex = () => {
         "Continuous Support & Car",
         "In depth work on deeper relationship pattrens",
       ],
-      price: "₹8000",
+      price: "8000",
       cta: "Create Lasting Love",
     },
   ];
