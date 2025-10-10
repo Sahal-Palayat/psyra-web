@@ -6,21 +6,21 @@ import { QuestionDisplay } from "@/components/Survey/question-display";
 import { SurveyHeader } from "@/components/Survey/survey-header";
 import { useSurveyLogic } from "@/hooks/use-survey-logic";
 import { basicQuestions } from "@/components/Survey/data/survey-questions";
-import { ResultsModal } from "@/components/Survey/completion-modal";
+// import { ResultsModal } from "@/components/Survey/completion-modal";
 
 export default function SurveyQuestions() {
   const {
     value,
     setValue,
     surveyQuestions,
-    showCompletionModal,
-    setShowCompletionModal,
+    // showCompletionModal,
+    // setShowCompletionModal,
     currentQuestion,
     answers,
     isTransitioning,
     handleOptionSelect,
     handlePrevious,
-    router,
+    // router,
   } = useSurveyLogic();
 
   const question = surveyQuestions[currentQuestion];
@@ -57,15 +57,15 @@ export default function SurveyQuestions() {
         </div>
       </main>
 
-      <ResultsModal
+      {/* <ResultsModal
         isOpen={showCompletionModal}
         onClose={() => {
           setShowCompletionModal(false);
           router.push("/");
         }}
-        answers={answers}
+        // answers={answers}
         totalQuestions={surveyQuestions.length}
-      />
+      /> */}
     </div>
   );
 }

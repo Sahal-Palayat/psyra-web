@@ -1,59 +1,74 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useEffect, useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { CheckCircle, AlertTriangle, AlertCircle, Share2, Download, Brain } from "lucide-react"
+import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import {
+  CheckCircle,
+  AlertTriangle,
+  AlertCircle,
+  Share2,
+  Download,
+  Brain,
+} from "lucide-react";
 
 interface ResultsModalProps {
-  isOpen: boolean
-  onClose: () => void
-  answers: Record<number, number>
-  totalQuestions: number
+  isOpen: boolean;
+  onClose: () => void;
+  answers: Record<number, number>;
+  totalQuestions: number;
 }
 
 interface ScoreRange {
-  min: number
-  max: number
-  title: string
-  description: string
-  icon: React.ReactNode
-  color: string
-  bgColor: string
-  borderColor: string
+  min: number;
+  max: number;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  bgColor: string;
+  borderColor: string;
 }
 
 export function ResultsModal({ isOpen, onClose, answers }: ResultsModalProps) {
-  const [score, setScore] = useState(0)
-  const [animatedScore, setAnimatedScore] = useState(0)
+  const [score, setScore] = useState(0);
+  const [animatedScore, setAnimatedScore] = useState(0);
 
   // Calculate total score based on numeric answers only
   useEffect(() => {
     if (isOpen && Object.keys(answers).length > 0) {
-      const numericAnswers = Object.values(answers).filter((value) => typeof value === "number")
-      const totalScore = numericAnswers.reduce((sum, value) => sum + value, 0)
+      const numericAnswers = Object.values(answers).filter(
+        (value) => typeof value === "number"
+      );
+      const totalScore = numericAnswers.reduce((sum, value) => sum + value, 0);
 
-      setScore(totalScore)
+      setScore(totalScore);
 
       // Animate score counting
-      let current = 0
-      const increment = totalScore / 50
+      let current = 0;
+      const increment = totalScore / 50;
       const timer = setInterval(() => {
-        current += increment
+        current += increment;
         if (current >= totalScore) {
-          setAnimatedScore(totalScore)
-          clearInterval(timer)
+          setAnimatedScore(totalScore);
+          clearInterval(timer);
         } else {
-          setAnimatedScore(Math.floor(current))
+          setAnimatedScore(Math.floor(current));
         }
-      }, 30)
+      }, 30);
 
-      return () => clearInterval(timer)
+      return () => clearInterval(timer);
     }
-  }, [isOpen, answers])
+  }, [isOpen, answers]);
 
   const scoreRanges: ScoreRange[] = [
     {
@@ -89,18 +104,21 @@ export function ResultsModal({ isOpen, onClose, answers }: ResultsModalProps) {
       bgColor: "bg-red-50",
       borderColor: "border-red-200",
     },
-  ]
+  ];
 
   const getCurrentRange = (): ScoreRange => {
-    return scoreRanges.find((range) => score >= range.min && score <= range.max) || scoreRanges[2]
-  }
+    return (
+      scoreRanges.find((range) => score >= range.min && score <= range.max) ||
+      scoreRanges[2]
+    );
+  };
 
-  const currentRange = getCurrentRange()
-  const maxPossibleScore = 180 // Based on your scoring system
-  const scorePercentage = (score / maxPossibleScore) * 100
+  const currentRange = getCurrentRange();
+  const maxPossibleScore = 180; // Based on your scoring system
+  const scorePercentage = (score / maxPossibleScore) * 100;
 
   const handleShare = async () => {
-    const shareText = `I scored ${score}/180 on my mental health assessment. ${currentRange.title}`
+    const shareText = `I scored ${score}/180 on my mental health assessment. ${currentRange.title}`;
 
     if (navigator.share) {
       try {
@@ -108,14 +126,14 @@ export function ResultsModal({ isOpen, onClose, answers }: ResultsModalProps) {
           title: "Mental Health Assessment Results",
           text: shareText,
           url: window.location.href,
-        })
+        });
       } catch (error) {
-        console.log("Error sharing:", error)
+        console.log("Error sharing:", error);
       }
     } else {
-      navigator.clipboard.writeText(shareText)
+      navigator.clipboard.writeText(shareText);
     }
-  }
+  };
 
   const handleDownload = () => {
     const reportContent = `Mental Health Assessment Report
@@ -130,25 +148,29 @@ ${currentRange.description}
 Assessment Date: ${new Date().toLocaleDateString()}
 
 Note: This assessment is for informational purposes only and does not replace professional medical advice.
-`
+`;
 
-    const blob = new Blob([reportContent], { type: "text/plain" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `mental-health-assessment-${new Date().toISOString().split("T")[0]}.txt`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+    const blob = new Blob([reportContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `mental-health-assessment-${
+      new Date().toISOString().split("T")[0]
+    }.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-white border-gray-200 sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <div className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-full p-4 shadow-lg`}>
+            <div
+              className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-full p-4 shadow-lg`}
+            >
               <div className={currentRange.color}>{currentRange.icon}</div>
             </div>
           </div>
@@ -164,27 +186,37 @@ Note: This assessment is for informational purposes only and does not replace pr
               <span className="text-2xl text-gray-500">/180</span>
             </div>
             <Progress value={scorePercentage} className="h-2 bg-gray-200" />
-            <div className="text-sm text-gray-600">{Math.round(scorePercentage)}% Overall Score</div>
+            <div className="text-sm text-gray-600">
+              {Math.round(scorePercentage)}% Overall Score
+            </div>
           </div>
         </DialogHeader>
 
         <div className="space-y-4 mt-6">
           {/* Current Score Range */}
-          <div className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-lg p-4`}>
+          <div
+            className={`${currentRange.bgColor} ${currentRange.borderColor} border-2 rounded-lg p-4`}
+          >
             <div className="flex items-start space-x-3">
               <div className={currentRange.color}>{currentRange.icon}</div>
               <div className="flex-1">
-                <h3 className={`text-lg font-semibold ${currentRange.color} mb-2`}>
+                <h3
+                  className={`text-lg font-semibold ${currentRange.color} mb-2`}
+                >
                   {currentRange.min} – {currentRange.max}: {currentRange.title}
                 </h3>
-                <p className="text-gray-700 text-sm leading-relaxed">{currentRange.description}</p>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  {currentRange.description}
+                </p>
               </div>
             </div>
           </div>
 
           {/* All Score Ranges Reference */}
           <div className="space-y-2">
-            <h4 className="font-semibold text-gray-800 text-center text-sm">Score Reference Guide</h4>
+            <h4 className="font-semibold text-gray-800 text-center text-sm">
+              Score Reference Guide
+            </h4>
             {scoreRanges.map((range, index) => (
               <div
                 key={index}
@@ -194,7 +226,13 @@ Note: This assessment is for informational purposes only and does not replace pr
                     : "bg-gray-50 border border-gray-200"
                 }`}
               >
-                <div className={score >= range.min && score <= range.max ? range.color : "text-gray-400"}>
+                <div
+                  className={
+                    score >= range.min && score <= range.max
+                      ? range.color
+                      : "text-gray-400"
+                  }
+                >
                   {range.icon}
                 </div>
                 <div>
@@ -235,9 +273,10 @@ Note: This assessment is for informational purposes only and does not replace pr
 
         <DialogDescription className="text-center text-xs text-gray-500 mt-4 p-3 bg-gray-50 rounded-lg border">
           <AlertTriangle className="h-3 w-3 inline mr-1" />
-          This assessment is for informational purposes only and does not replace professional medical advice.
+          This assessment is for informational purposes only and does not
+          replace professional medical advice.
         </DialogDescription>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
