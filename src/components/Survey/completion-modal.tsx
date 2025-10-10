@@ -26,7 +26,7 @@ interface ScoreRange {
   borderColor: string
 }
 
-export function ResultsModal({ isOpen, onClose, answers, totalQuestions }: ResultsModalProps) {
+export function ResultsModal({ isOpen, onClose, answers }: ResultsModalProps) {
   const [score, setScore] = useState(0)
   const [animatedScore, setAnimatedScore] = useState(0)
 
