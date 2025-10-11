@@ -58,9 +58,10 @@ export default function Home() {
 
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
+      <CommunityEvents />
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
-      <CommunityEvents />
+    
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
       <WhatsAppChat />
