@@ -10,6 +10,7 @@ import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel
 // import { TestimonialsSlider } from "@/components/Testimonals";
 import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
+import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
 // Dynamically import components with the themed loader
@@ -59,7 +60,7 @@ export default function Home() {
       {/* <DynamicGetInTouch /> */}
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
-
+      <CommunityEvents />
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
       <WhatsAppChat />
