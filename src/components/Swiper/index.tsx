@@ -161,7 +161,7 @@ export default function Carousel3DFixedTiming({
                   <div className="flex flex-col items-center justify-center text-center mt-6 relative z-10">
                     <>
                       <h2 className="text-lg sm:text-xl font-bold text-teal">
-                        {psychologist.name || "Unknown Doctor"}
+                        {psychologist.name || "Unknown Psychologist"}
                       </h2>
                       <p className="text-teal/90 text-sm mb-2">
                         {psychologist.specialization || "General Psychology"}
