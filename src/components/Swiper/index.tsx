@@ -137,7 +137,7 @@ export default function Carousel3DFixedTiming({
                 <div className="flex flex-col items-center justify-center mt-8 w-full h-full text-center">
                   <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center mb-4">
                     {/* Background glow positioned first with proper z-index */}
-                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm shadow-2xl z-0 mt-[33px]"></div>
+                    <div className="absolute w-42 h-40 rounded-full bg-[#9EE0D6] backdrop-blur-sm z-0 mt-[33px]"></div>
 
                     {/* Image container with higher z-index */}
                     <div className="relative w-50 h-55 flex items-center justify-center z-20">
