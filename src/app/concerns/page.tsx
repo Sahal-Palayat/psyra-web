@@ -1,4 +1,3 @@
-import { SectionHeader } from "@/components/SectionTitle";
 import { Card, CardContent } from "@/components/ui/card";
 
 const concerns = [
