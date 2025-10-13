@@ -107,6 +107,15 @@ const Navbar = () => {
               Therapists
             </Link>
 
+             <Link
+              href="/concerns"
+              className={`text-[#005657] hover:text-white ${
+                isScrolled ? " text-[#005657]" : "text-white"
+              }`}
+            >
+              Concerns
+            </Link>
+
             <Link
               href="/contact-us"
               className={`text-[#005657] hover:text-white ${
@@ -202,6 +211,13 @@ const Navbar = () => {
                 onClick={toggleMenu}
               >
                 Therapists
+              </Link>
+                  <Link
+                href="/concerns"
+                className="text-white text-lg font-medium"
+                onClick={toggleMenu}
+              >
+                Concerns
               </Link>
               <Link
                 href="#contact"
