@@ -83,7 +83,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/#about"
+              href="/about-us"
               className={`text-[#005657] hover:text-white ${
                 isScrolled ? " text-[#005657]" : "text-white"
               }`}
@@ -192,7 +192,7 @@ const Navbar = () => {
                 Home
               </Link>
               <Link
-                href="#about"
+                href="/about-us"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >

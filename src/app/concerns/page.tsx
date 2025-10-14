@@ -19,8 +19,8 @@ export default function Concerns() {
   return (
     <div className="mb-12">
       <div className="text-center mb-8 pb-10 pt-28 bg-[#00BEA5]">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          What We Can Help You Overcome
+        <h1 className="text-2xl md:text-2xl lg:text-4xl font-bold text-white leading-tight mb-8">
+          We Can Help You!!
         </h1>
       </div>
       {/* Concerns Grid Section */}
