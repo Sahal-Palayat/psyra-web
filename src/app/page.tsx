@@ -50,7 +50,6 @@ export default function Home() {
       <CarouselStats />
       <DynamicPsychologistCarousel />
 
-      <Concerns />
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}
@@ -59,6 +58,7 @@ export default function Home() {
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
       <CommunityEvents />
+      <Concerns />
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
     
