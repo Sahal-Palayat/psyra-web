@@ -11,15 +11,16 @@ export default function Individual() {
   const individualTypes = [
     {
       type: "individual",
-      title: "Single Session (1 Session - ₹999)",
+      title: "4-Session Package (4 sessions - per session ₹800)",
       tagline: "Start your journey",
       list: [
-        "Duration: 50–60 minutes",
+        "6 months validity",
         "Build rapport with your therapist",
         "Address your immediate concerns",
-        "Take the first step toward mental wellness",
+        "Continuous Support & Car",
+        "Build clarity and consistency",
       ],
-      price: " 999",
+      price: "3200",
       cta: "Start Your Journey Today",
     },
     {
@@ -33,7 +34,7 @@ export default function Individual() {
         "Address specific issues",
         "Explore your thoughts and emotions",
       ],
-      price: " 6000", // 599 x 5
+      price: "6000", // 599 x 5
       cta: "Invest in Your Well-Being",
     },
     {
@@ -48,7 +49,7 @@ export default function Individual() {
         "Holistic approach to long-term well-being",
 
       ],
-      price: " 14400", // 549 x 10
+      price: "14400", // 549 x 10
       cta: "Commit to a Better You",
     },
   ];

@@ -79,7 +79,7 @@ const PackageServices = ({
                 <div className="mt-auto">
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-black">
-                      {item.price}
+                    ₹{item.price}
                     </span>
                   </div>
                   <div className="flex justify-center">
