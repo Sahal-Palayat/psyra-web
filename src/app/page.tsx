@@ -11,6 +11,8 @@ import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel
 import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 import { CommunityEvents } from "@/components/EventSection";
+import { useEffect, useState } from "react";
+import { OnamOfferModal } from "@/components/Diwali-Offer/page";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 
 // Dynamically import components with the themed loader
@@ -35,11 +37,20 @@ const DynamicFaq = dynamic(() => import("@/components/Faq"), {
 });
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <main className="min-h-screen bg-[#F7F8F2]">
       {/* Welcome Animation Overlay - This will appear only on the first visit */}
       <WelcomeAnimationOverlay />
-
+      <OnamOfferModal isOpen={showModal} onClose={() => setShowModal(false)} />
       {/* Hero Section */}
       <Hero />
 
