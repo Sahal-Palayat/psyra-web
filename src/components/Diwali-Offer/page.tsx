@@ -144,7 +144,7 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
                   }`}
               >
 
-                Apply Coupon
+                Apply Offer
 
               </button>
             </div>
