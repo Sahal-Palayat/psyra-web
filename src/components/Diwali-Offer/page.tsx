@@ -26,7 +26,7 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
       const formData = new URLSearchParams();
       formData.append("mobileNumber", mobileNumber);
       formData.append("timestamp", new Date().toISOString());
-      formData.append("offer", "Onam 40% Off");
+      formData.append("offer", "Diwali 10% Off");
 
       fetch(url, {
         method: "POST",
