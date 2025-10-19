@@ -156,7 +156,7 @@ export function OnamOfferModal({ isOpen, onClose }: OnamOfferModalProps) {
             <img
               src="https://png.pngtree.com/png-vector/20250608/ourmid/pngtree-family-with-diwali-lamp-and-flowers-png-image_16502154.png"
               alt="King Mahabali"
-              className="w-90 h-70 object-cover mt-28"
+              className="w-70 h-60 mt-36 sm:w-80 sm:h-70 sm:mt-25 object-cover"
             />
           </div>
         </motion.div>
