@@ -56,7 +56,7 @@ export function PackageSelection({
       savings: null,
     },
     {
-      id: "package-5",
+      id: "8-sessions",
       title: "8 Sessions Package",
       price: "₹6000",
       originalPrice: "",
@@ -65,7 +65,7 @@ export function PackageSelection({
       savings: "25% OFF",
     },
     {
-      id: "package-10",
+      id: "24-sessions",
       title: "24 Sessions Package",
       price: "14400",
       originalPrice: "",
@@ -86,7 +86,7 @@ export function PackageSelection({
       savings: null,
     },
     {
-      id: "package-5",
+      id: "package-4",
       title: "4-Couple Session Plan",
       price: "₹4800",
       originalPrice: "₹5996",
@@ -95,7 +95,7 @@ export function PackageSelection({
       savings: "20% OFF",
     },
     {
-      id: "package-10",
+      id: "package-8",
       title: " 8-Couple Session Plan",
       price: "₹8000",
       originalPrice: "₹11992",
