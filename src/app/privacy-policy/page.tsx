@@ -1,4 +1,4 @@
-"use client";
+import { Metadata } from "next";
 import { motion } from "framer-motion";
 import {
   Shield,
@@ -13,6 +13,10 @@ import {
   ExternalLink,
   RefreshCw,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy Best online counseling",
+};
 
 export default function PrivacyPolicy() {
   const privacySections = [
