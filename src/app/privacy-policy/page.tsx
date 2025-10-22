@@ -1,5 +1,4 @@
-"use client";
-import { motion } from "framer-motion";
+import { Metadata } from "next";
 import {
   Shield,
   Eye,
@@ -13,6 +12,10 @@ import {
   ExternalLink,
   RefreshCw,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy Best online counseling",
+};
 
 export default function PrivacyPolicy() {
   const privacySections = [
@@ -165,11 +168,7 @@ export default function PrivacyPolicy() {
       {/* Header */}
       <div className="bg-[#005657] text-white py-16">
         <div className="max-w-4xl  mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <div className="flex mt-14 items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-[#B6E5DF] rounded-full flex items-center justify-center">
                 <Shield className="w-6 h-6 text-[#005657]" />
@@ -180,7 +179,7 @@ export default function PrivacyPolicy() {
               Your privacy is our priority. Learn how we protect and handle your
               personal information.
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -189,12 +188,7 @@ export default function PrivacyPolicy() {
         {/* Effective Date */}
 
         {/* Introduction */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-xl shadow-lg p-8 mb-8"
-        >
+        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-bold text-[#005657] mb-4">
             Our Commitment to Your Privacy
           </h2>
@@ -213,18 +207,12 @@ export default function PrivacyPolicy() {
               health care.
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Main Privacy Sections */}
         <div className="space-y-6 mb-12">
-          {privacySections.map((section, index) => (
-            <motion.div
-              key={section.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg p-8"
-            >
+          {privacySections.map((section) => (
+            <div key={section.id} className="bg-white rounded-xl shadow-lg p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-[#B6E5DF] rounded-full flex items-center justify-center text-[#005657]">
                   {section.icon}
@@ -273,18 +261,15 @@ export default function PrivacyPolicy() {
                   ))}
                 </ul>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Additional Sections */}
         <div className="space-y-6 mb-12">
-          {additionalSections.map((section, index) => (
-            <motion.div
+          {additionalSections.map((section) => (
+            <div
               key={section.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
               className="bg-white rounded-xl shadow-lg p-8"
             >
               <div className="flex items-center gap-3 mb-4">
@@ -306,17 +291,12 @@ export default function PrivacyPolicy() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Contact for Privacy Concerns */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
-          className="bg-gradient-to-r from-[#005657] to-[#007A7B] rounded-xl p-8 text-white"
-        >
+        <div className="bg-gradient-to-r from-[#005657] to-[#007A7B] rounded-xl p-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <Shield className="w-8 h-8 text-[#B6E5DF]" />
             <h3 className="text-2xl font-bold">
@@ -343,7 +323,7 @@ export default function PrivacyPolicy() {
               business days.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
