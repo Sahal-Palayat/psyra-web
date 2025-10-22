@@ -1,4 +1,4 @@
-import type { SurveyQuestion } from "../types/survey"
+import type { SurveyQuestion } from "../types/survey";
 
 export const studentQuestions: SurveyQuestion[] = [
   {
@@ -15,7 +15,8 @@ export const studentQuestions: SurveyQuestion[] = [
   },
   {
     id: "pressure_handling",
-    question: "I have healthy ways to deal with pressure or difficult emotions.",
+    question:
+      "I have healthy ways to deal with pressure or difficult emotions.",
     options: [],
     type: "rating",
   },
@@ -75,25 +76,29 @@ export const studentQuestions: SurveyQuestion[] = [
   },
   {
     id: "academic_pressure",
-    question: "I don't feel that expectations from teachers and parents are too high",
+    question:
+      "I don't feel that expectations from teachers and parents are too high",
     options: [],
     type: "rating",
   },
   {
     id: "safe_environment",
-    question: "My school/college provides a safe and respectful environment for learning.",
+    question:
+      "My school/college provides a safe and respectful environment for learning.",
     options: [],
     type: "rating",
   },
   {
     id: "teacher_support",
-    question: "Teachers are approachable and supportive when I face academic difficulties.",
+    question:
+      "Teachers are approachable and supportive when I face academic difficulties.",
     options: [],
     type: "rating",
   },
   {
     id: "mental_health_services",
-    question: "My school/college offers mental health support or counseling services.",
+    question:
+      "My school/college offers mental health support or counseling services.",
     options: [],
     type: "rating",
   },
@@ -105,11 +110,12 @@ export const studentQuestions: SurveyQuestion[] = [
   },
   {
     id: "empathy_towards_others",
-    question: "I always try to understand others' mental health condition and help them.",
+    question:
+      "I always try to understand others' mental health condition and help them.",
     options: [],
     type: "rating",
   },
-]
+];
 
 export const profQuestions: SurveyQuestion[] = [
   {
@@ -126,7 +132,8 @@ export const profQuestions: SurveyQuestion[] = [
   },
   {
     id: "emotion_handling",
-    question: "I have healthy ways to deal with pressure or difficult emotions.",
+    question:
+      "I have healthy ways to deal with pressure or difficult emotions.",
     options: [],
     type: "rating",
   },
@@ -186,13 +193,15 @@ export const profQuestions: SurveyQuestion[] = [
   },
   {
     id: "manager_approach",
-    question: "I can approach my manager or team leader if I'm feeling overwhelmed",
+    question:
+      "I can approach my manager or team leader if I'm feeling overwhelmed",
     options: [],
     type: "rating",
   },
   {
     id: "org_support",
-    question: "My mental well-being is respected and supported by my organization.",
+    question:
+      "My mental well-being is respected and supported by my organization.",
     options: [],
     type: "rating",
   },
@@ -204,23 +213,26 @@ export const profQuestions: SurveyQuestion[] = [
   },
   {
     id: "deadline_pressure",
-    question: "I don't feel constant pressure to meet unrealistic deadlines or expectations",
+    question:
+      "I don't feel constant pressure to meet unrealistic deadlines or expectations",
     options: [],
     type: "rating",
   },
   {
     id: "sleep_disturbance",
-    question: "I have never experienced sleep disturbances or fatigue due to work stress.",
+    question:
+      "I have never experienced sleep disturbances or fatigue due to work stress.",
     options: [],
     type: "rating",
   },
   {
     id: "workplace_recommendation",
-    question: "I would recommend my workplace to others based on its atmosphere",
+    question:
+      "I would recommend my workplace to others based on its atmosphere",
     options: [],
     type: "rating",
   },
-]
+];
 
 export const basicQuestions: SurveyQuestion[] = [
   {
@@ -276,4 +288,92 @@ export const basicQuestions: SurveyQuestion[] = [
     ],
     type: "drop-down",
   },
-]
+];
+
+export const howIsMindQues: SurveyQuestion[] = [
+  {
+    id: "q1",
+    question: "How are you feeling right now?",
+    options: [
+      "Happy / Content",
+      "Neutral / Okay",
+      "Stressed / Anxious",
+      "Sad / Low",
+    ],
+    type: "options",
+  },
+  {
+    id: "q2",
+    question: "How was your sleep last night?",
+    options: ["Very good", "Okay", "Poor", "Didn’t sleep well"],
+    type: "options",
+  },
+  {
+    id: "q3",
+    question: "How motivated do you feel to start your day?",
+    options: [
+      "Very motivated",
+      "Somewhat motivated",
+      "Not motivated",
+      "Dreading it",
+    ],
+    type: "options",
+  },
+  {
+    id: "q4",
+    question: "Are you feeling connected to people around you?",
+    options: [
+      "Very connected",
+      "Neutral",
+      "Somewhat isolated",
+      "Very isolated",
+    ],
+    type: "options",
+  },
+  {
+    id: "q5",
+    question: "How is your energy level right now?",
+    options: ["High / Alert", "Moderate", "Low", "Exhausted"],
+    type: "options",
+  },
+  {
+    id: "q6",
+    question: "Are you stressed about work/school/life today?",
+    options: ["Not at all", "Slightly", "Moderately", "Very stressed"],
+    type: "options",
+  },
+  {
+    id: "q7",
+    question: "How is your focus today?",
+    options: ["Excellent", "Okay", "Distracted", "Unable to focus"],
+    type: "options",
+  },
+  {
+    id: "q8",
+    question: "How would you rate your mood overall?",
+    options: [
+      "Positive / Happy",
+      "Neutral",
+      "Negative / Frustrated",
+      "Low / Sad",
+    ],
+    type: "options",
+  },
+  {
+    id: "q9",
+    question: "How are you managing your emotions today?",
+    options: ["Very well", "Okay", "Struggling a bit", "Very hard"],
+    type: "options",
+  },
+  {
+    id: "q10",
+    question: "What kind of support do you need today?",
+    options: [
+      "Motivation / Productivity tips",
+      "Relaxation / Stress relief",
+      "Emotional guidance / Comfort",
+      "Just tracking my mood",
+    ],
+    type: "options",
+  },
+];
