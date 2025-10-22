@@ -68,7 +68,7 @@ const HeroDesktop = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="container mx-auto px-4 py-24 md:py-24 relative z-10 text-center"
         >
-          <div className="max-w-3xl mx-auto mb-16 mt-6 text-center">
+          <div className="max-w-3xl mx-auto mb-8 mt-6 text-center">
             <motion.p
               className="font-bold text-[#9EE0D6] text-[40px] leading-none"
               initial={{ opacity: 0, y: 20 }}
@@ -96,6 +96,20 @@ const HeroDesktop = () => {
               </span>{" "}
               here for you
             </motion.p>
+          </div>
+          <div className="mb-12 flex justify-center">
+            <button
+              className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+              // onClick={() => handleWhatsAppRedirect(item)}
+            >
+              How's your mind today?
+            </button>
+            {/* <button
+                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      Book Now
+                    </button> */}
           </div>
         </motion.div>
 

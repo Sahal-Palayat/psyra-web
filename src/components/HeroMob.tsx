@@ -58,80 +58,61 @@ const HeroMob = () => {
 
   return (
     <>
-      <section className="relative bg-teal-600 text-white">
+      <section className="mb-10 relative bg-teal-600 text-white">
         {/* Background Image Animation */}
-        <motion.div
-          initial={{ opacity: 0, scale: 1.2 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className=""
-          id="home"
-        >
-          <Image
-            src={isMobile ? MobileHero : ImageS3} // Conditionally show images
-            alt="Background"
-            fill
-            className=""
-            priority
-          />
-        </motion.div>
-
-        {/* Content Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="container px-2 py-24 md:py-24 relative z-10 text-left"
-        >
-          <motion.p
-            className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[32px] md:text-2xl leading-none"
-            initial={{ opacity: 0, y: 20 }}
+        <div className="px-2 pb-10 pt-24" >
+          {/* Content Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="container relative z-10 text-left"
           >
-            You are not alone,
-            <br />
-            <span className="text-white inline-block">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={currentIndex}
-                  initial={{ opacity: 0, y: 20, rotateX: -90 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  exit={{ opacity: 0, y: -20, rotateX: 90 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  }}
-                  className={`${languages[currentIndex].size}`}
-                >
-                  {languages[currentIndex].text}
-                </motion.span>
-              </AnimatePresence>
-            </span>{" "}
-            here for you
-          </motion.p>
-          <motion.div className="px-12">
-            <motion.img
-              src="/emojiihero.png"
-              alt="Team"
-              width={100}
-              height={100}
-              initial={{ opacity: 1 }}
-              animate={{
-                opacity: 1,
-                rotate: [-5, 5, -5], // Slight rotation (degrees)
-              }}
-              transition={{
-                duration: 2, // Time for one full back-and-forth rotation
-                repeat: Infinity, // Infinite repeat
-                repeatType: "loop", // Continuous loop
-                ease: "easeInOut", // Smooth easing
-              }}
-            />
+            <motion.p
+              className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[32px] md:text-2xl leading-none"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1 }}
+            >
+              You are not alone,
+              <br />
+              <span className="text-white inline-block">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={currentIndex}
+                    initial={{ opacity: 0, y: 20, rotateX: -90 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    exit={{ opacity: 0, y: -20, rotateX: 90 }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeInOut",
+                    }}
+                    className={`${languages[currentIndex].size}`}
+                  >
+                    {languages[currentIndex].text}
+                  </motion.span>
+                </AnimatePresence>
+              </span>{" "}
+              here for you
+            </motion.p>
           </motion.div>
-        </motion.div>
+          <div className="mt-8 flex justify-center">
+            <button
+              className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
+              // onClick={() => handleWhatsAppRedirect(item)}
+            >
+              How's your mind today?
+            </button>
+            {/* <button
+                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
+                      onClick={() => handleWhatsAppRedirect(item)}
+                    >
+                      Book Now
+                    </button> */}
+          </div>
+        </div>
         {/* <Services /> */}
 
         <Modal
