@@ -274,7 +274,7 @@ export default function Concerns() {
   return (
     <div className="mb-12 ">
       {/* Concerns Grid Section */}
-      <section className="p-12 bg-[#F7F8F2]">
+      <section className="py-12 px-4 bg-[#F7F8F2]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <SectionHeader>What We Can Help You Overcome</SectionHeader>
