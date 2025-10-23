@@ -192,7 +192,7 @@ export default function Footer() {
             </h3>
             <div className="flex space-x-4">
               <Link
-                href="#"
+                href="https://www.facebook.com/p/Psyra-61574368229866/"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Facebook size={24} />
@@ -220,7 +220,7 @@ export default function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="https://www.youtube.com/@YourMentalWellnessPartner"
+                href="https://www.youtube.com/@YourHappinessPartner"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Youtube size={24} />
