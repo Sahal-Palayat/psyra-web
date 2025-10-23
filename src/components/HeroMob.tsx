@@ -60,7 +60,7 @@ const HeroMob = () => {
     <>
       <section className="mb-10 relative bg-teal-600 text-white">
         {/* Background Image Animation */}
-        <div className="px-2 pb-10 pt-24" >
+        <div className="px-2 pb-10 pt-24">
           {/* Content Section */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -102,6 +102,9 @@ const HeroMob = () => {
             <button
               className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
               // onClick={() => handleWhatsAppRedirect(item)}
+              onClick={() => {
+                window.location.href = "/how-is-mind";
+              }}
             >
               How's your mind today?
             </button>
