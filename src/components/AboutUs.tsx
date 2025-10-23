@@ -46,7 +46,7 @@ const AboutUs = () => {
                 adapts to your life, with no rigid systems only what truly works
                 for you. Here, care comes without shame, because seeking help
                 should never feel like weakness. Psyra is not just about
-                therapy; it is about giving your mind the home it's been
+                therapy; it is about giving your mind the home it`s been
                 searching for. Because you deserve more than just surviving you
                 deserve peace
               </p>
