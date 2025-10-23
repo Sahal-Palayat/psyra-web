@@ -61,7 +61,7 @@ export default function Footer() {
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
-                    href="#"
+                    href="/concerns"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Anxiety
@@ -69,7 +69,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/concerns"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Depression
@@ -77,7 +77,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/concerns"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Stress
@@ -85,7 +85,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/concerns"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Trauma
@@ -93,7 +93,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/concerns"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Relationships
@@ -110,7 +110,7 @@ export default function Footer() {
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
-                    href="#"
+                    href="/individual"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Individual Therapy
@@ -118,26 +118,10 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/couple-therapy"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Couples Therapy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-yellow-200 transition-colors"
-                  >
-                    Group Sessions
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-yellow-200 transition-colors"
-                  >
-                    Online Counseling
                   </Link>
                 </li>
               </ul>
