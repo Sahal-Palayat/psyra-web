@@ -86,7 +86,7 @@ export const WhatsAppTestimonials: React.FC = () => {
           <SectionHeader>What People Say About Us</SectionHeader>
 
           <p className="text-gray-600 mt-2 text-sm">
-            Real conversations with our happy customers
+            Real conversations with our happy psymates
           </p>
         </div>
 
