@@ -220,7 +220,7 @@ const Navbar = () => {
                 Concerns
               </Link>
               <Link
-                href="#contact"
+                href="/contact-us"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
