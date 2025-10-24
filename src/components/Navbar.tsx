@@ -199,7 +199,7 @@ const Navbar = () => {
                 About us
               </Link>
               <Link
-                href="#services"
+                href="/#services"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
@@ -220,7 +220,7 @@ const Navbar = () => {
                 Concerns
               </Link>
               <Link
-                href="#contact"
+                href="/contact-us"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
