@@ -44,7 +44,7 @@ const Faq = () => {
     {
       question: "Can I have sessions in my preferred language?",
       answer:
-        "Yes! We offer sessions in multiple languages, including [insert languages]. Your comfort is our priority.",
+        "Yes! We offer sessions in multiple languages, including Malayalam,English,Hindi,Tamil,Kannada. Your comfort is our priority.",
     },
     {
       question: "Is online therapy really effective?",
