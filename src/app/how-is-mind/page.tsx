@@ -10,8 +10,10 @@ import {
   basicQuestions,
   howIsMindQues,
 } from "@/components/Survey/data/survey-questions";
-import { SurveyAnswers, SurveyQuestion } from "@/components/Survey/types/survey";
-import { ResultsModal } from "@/components/Survey/completion-modal";
+import type {
+  SurveyAnswers,
+  SurveyQuestion,
+} from "@/components/Survey/types/survey";
 
 export default function SurveyQuestions() {
   const [surveyQuestions, setSurveyQuestions] =
@@ -19,10 +21,9 @@ export default function SurveyQuestions() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
-  const [value, setValue] = useState("");
   const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [value, setValue] = useState("");
 
-  // 🧠 New: AI loading + response state
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
@@ -36,18 +37,20 @@ export default function SurveyQuestions() {
     "Almost there — preparing your mental health insights...",
   ];
 
-  // Function to simulate typing effect (like ChatGPT)
-  const typeText = (text: string) => {
+  useEffect(() => {
+    if (!aiResponse || isAiLoading) return;
+
     let index = 0;
     const interval = setInterval(() => {
-      if (index < text.length) {
-        setTypedResponse((prev) => prev + text.charAt(index));
-        index++;
-      } else {
+      setTypedResponse(aiResponse.slice(0, index + 1));
+      index++;
+      if (index >= aiResponse.length) {
         clearInterval(interval);
       }
-    }, 30);
-  };
+    }, 30); // Adjust speed here (lower = faster)
+
+    return () => clearInterval(interval);
+  }, [aiResponse, isAiLoading]);
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
@@ -60,7 +63,6 @@ export default function SurveyQuestions() {
   };
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
-    console.log("finalAnswers", finalAnswers);
     try {
       const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
         method: "POST",
@@ -68,9 +70,7 @@ export default function SurveyQuestions() {
         body: JSON.stringify(finalAnswers),
       });
       const data = await response.json();
-      console.log("Survey submitted successfully:", data);
 
-      // 🧠 New: simulate 3 seconds of AI thinking before showing results
       setIsAiLoading(true);
       const randomMsg =
         loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
@@ -79,14 +79,16 @@ export default function SurveyQuestions() {
       setTimeout(() => {
         setIsAiLoading(false);
         const aiText =
-          data?.suggestion ||
-          "Here’s something for you today — take a deep breath, slow down, and focus on one good thing that makes you smile. You’re doing better than you think 💚";
+          data?.data?.aiResponse ||
+          "Here's something for you today — take a deep breath, slow down, and focus on one good thing that makes you smile. You're doing better than you think 💚";
         setAiResponse(aiText);
         setTypedResponse("");
-        typeText(aiText);
       }, 3000);
+
+      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers));
     } catch (error) {
       console.error("Error submitting survey:", error);
+      setIsAiLoading(false);
     }
   };
 
@@ -102,7 +104,6 @@ export default function SurveyQuestions() {
         [surveyQuestions[currentQuestion].id]: option,
       };
       submitSurvey(finalAnswers);
-      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers));
       return;
     }
 
@@ -119,19 +120,31 @@ export default function SurveyQuestions() {
 
   const question = surveyQuestions[currentQuestion];
 
-  // 🧘‍♀️ Loading screen
   const AiTherapistLoading = () => (
-    <div className="flex flex-col items-center justify-center text-center p-10 space-y-6">
+    <div className="flex flex-col items-center justify-center text-center p-12 space-y-8">
       <motion.div
-        className="w-12 h-12 border-4 border-teal-300 border-t-transparent rounded-full animate-spin"
+        className="flex gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-      />
+      >
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={i}
+            className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{
+              duration: 1.5,
+              delay: i * 0.2,
+              repeat: Number.POSITIVE_INFINITY,
+            }}
+          />
+        ))}
+      </motion.div>
       <motion.p
-        className="text-gray-700 text-lg font-medium"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="text-gray-600 text-lg font-medium max-w-md"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
         {loadingMessage}
@@ -139,25 +152,47 @@ export default function SurveyQuestions() {
     </div>
   );
 
-  // 💬 AI response view
   const AiResponseDisplay = () => (
-    <div className="flex flex-col items-center justify-center text-center p-10 space-y-6">
-      <motion.h2
-        className="text-2xl font-semibold text-emerald-700"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
+    <div className="flex flex-col items-center justify-center text-center p-12 space-y-8">
+      <motion.div
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
+        className="w-full"
       >
-        Your Mindful Tip 💚
-      </motion.h2>
-      <motion.p
-        className="text-gray-700 text-lg max-w-2xl leading-relaxed whitespace-pre-line"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        {typedResponse}
-      </motion.p>
+        <motion.h2
+          className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-8"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Your Mindful Insight 💚
+        </motion.h2>
+
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-200/50 shadow-lg">
+          <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-wrap font-medium">
+            {typedResponse}
+            {typedResponse.length < aiResponse.length && (
+              <span className="inline-block w-1 h-6 ml-1 bg-emerald-500 rounded-sm" />
+            )}
+          </p>
+        </div>
+      </motion.div>
+
+      {typedResponse.length === aiResponse.length && (
+        <motion.button
+          onClick={() => {
+            setAiResponse("");
+            setTypedResponse("");
+            setCurrentQuestion(0);
+            setAnswers({});
+          }}
+          className="mt-6 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          Take Survey Again
+        </motion.button>
+      )}
     </div>
   );
 
@@ -165,8 +200,8 @@ export default function SurveyQuestions() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
       <BackgroundElements />
 
-      <main className="p-14 flex items-center justify-center min-h-screen px-4 relative z-10">
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-teal-500/10 border border-white/50 w-full max-w-4xl min-h-[600px] p-8">
+      <main className="p-6 md:p-14 flex items-center justify-center min-h-screen relative z-10">
+        <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12">
           {isAiLoading ? (
             <AiTherapistLoading />
           ) : aiResponse ? (
