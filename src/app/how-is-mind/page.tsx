@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { BackgroundElements } from "@/components/Survey/background-elements";
 import { QuestionContent } from "@/components/Survey/question-content";
 import { QuestionDisplay } from "@/components/Survey/question-display";
 import { SurveyHeader } from "@/components/Survey/survey-header";
@@ -14,6 +13,7 @@ import type {
   SurveyAnswers,
   SurveyQuestion,
 } from "@/components/Survey/types/survey";
+import { Background } from "@/components/anonymous/background";
 
 export default function SurveyQuestions() {
   const [surveyQuestions, setSurveyQuestions] =
@@ -153,7 +153,7 @@ export default function SurveyQuestions() {
   );
 
   const AiResponseDisplay = () => (
-    <div className="flex flex-col items-center justify-center text-center p-12 space-y-8">
+    <div className="flex flex-col items-center justify-center text-center space-y-8">
       <motion.div
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -197,44 +197,44 @@ export default function SurveyQuestions() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
-      <BackgroundElements />
-
-      <main className="p-6 md:p-14 flex items-center justify-center min-h-screen relative z-10">
-        <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12">
-          {isAiLoading ? (
-            <AiTherapistLoading />
-          ) : aiResponse ? (
-            <AiResponseDisplay />
-          ) : (
-            <>
-              <SurveyHeader
-                currentQuestion={currentQuestion}
-                totalQuestions={surveyQuestions.length}
-                showBackButton={currentQuestion > 0}
-                onPrevious={handlePrevious}
-                isTransitioning={isTransitioning}
-                showProgress={surveyQuestions.length > basicQuestions.length}
-              />
-
-              <QuestionDisplay
-                question={question?.question}
-                isTransitioning={isTransitioning}
-              />
-
-              <div className="space-y-4">
-                <QuestionContent
-                  question={question}
-                  answers={answers}
-                  value={value}
-                  setValue={setValue}
-                  onOptionSelect={handleOptionSelect}
+    <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
+      <Background>
+        <main className="mt-8 flex items-center justify-center min-h-screen relative z-10">
+          <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12">
+            {isAiLoading ? (
+              <AiTherapistLoading />
+            ) : aiResponse ? (
+              <AiResponseDisplay />
+            ) : (
+              <>
+                <SurveyHeader
+                  currentQuestion={currentQuestion}
+                  totalQuestions={surveyQuestions.length}
+                  showBackButton={currentQuestion > 0}
+                  onPrevious={handlePrevious}
+                  isTransitioning={isTransitioning}
+                  showProgress={surveyQuestions.length > basicQuestions.length}
                 />
-              </div>
-            </>
-          )}
-        </div>
-      </main>
+
+                <QuestionDisplay
+                  question={question?.question}
+                  isTransitioning={isTransitioning}
+                />
+
+                <div className="space-y-4">
+                  <QuestionContent
+                    question={question}
+                    answers={answers}
+                    value={value}
+                    setValue={setValue}
+                    onOptionSelect={handleOptionSelect}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </main>
+      </Background>
     </div>
   );
 }
