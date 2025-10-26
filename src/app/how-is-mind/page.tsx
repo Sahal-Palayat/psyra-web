@@ -16,12 +16,10 @@ import type {
 import { Background } from "@/components/anonymous/background";
 
 export default function SurveyQuestions() {
-  const [surveyQuestions, setSurveyQuestions] =
-    useState<SurveyQuestion[]>(howIsMindQues);
+  const surveyQuestions = howIsMindQues;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
-  const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [value, setValue] = useState("");
 
   const [isAiLoading, setIsAiLoading] = useState(false);
