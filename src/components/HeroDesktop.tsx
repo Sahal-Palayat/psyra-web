@@ -100,7 +100,9 @@ const HeroDesktop = () => {
           <div className="mb-12 flex justify-center">
             <button
               className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
-              // onClick={() => handleWhatsAppRedirect(item)}
+              onClick={() => {
+                window.location.href = "/how-is-mind";
+              }}
             >
               How`s your mind today?
             </button>
