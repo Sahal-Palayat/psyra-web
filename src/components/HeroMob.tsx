@@ -1,9 +1,6 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import ImageS3 from "../../public/Web Site A (2).jpg"; // Desktop Image
-import MobileHero from "../../public/HERO-hand.webp"; // Mobile Image
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import Services from "./Services";
@@ -11,19 +8,6 @@ import Services from "./Services";
 const HeroMob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventModal, setEventModal] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect screen size on mount & window resize
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768); // Adjust breakpoint as needed
-    };
-
-    checkScreenSize(); // Initial check
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
 
   useEffect(() => {
     // const eventQrParam = searchParams.get("eventQr");

@@ -102,7 +102,7 @@ const HeroDesktop = () => {
               className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
               // onClick={() => handleWhatsAppRedirect(item)}
             >
-              How's your mind today?
+              How`s your mind today?
             </button>
             {/* <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
