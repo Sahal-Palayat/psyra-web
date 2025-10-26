@@ -11,7 +11,6 @@ import {
 } from "@/components/Survey/data/survey-questions";
 import type {
   SurveyAnswers,
-  SurveyQuestion,
 } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
 
