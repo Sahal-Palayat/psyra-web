@@ -9,9 +9,7 @@ import {
   basicQuestions,
   howIsMindQues,
 } from "@/components/Survey/data/survey-questions";
-import type {
-  SurveyAnswers,
-} from "@/components/Survey/types/survey";
+import type { SurveyAnswers } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
 
 export default function SurveyQuestions() {
@@ -61,6 +59,7 @@ export default function SurveyQuestions() {
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
     try {
+      setIsAiLoading(true);
       const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,7 +67,6 @@ export default function SurveyQuestions() {
       });
       const data = await response.json();
 
-      setIsAiLoading(true);
       const randomMsg =
         loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
       setLoadingMessage(randomMsg);
