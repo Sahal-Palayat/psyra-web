@@ -90,7 +90,7 @@ const HeroMob = () => {
                 window.location.href = "/how-is-mind";
               }}
             >
-              How's your mind today?
+              How`s your mind today?
             </button>
             {/* <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
