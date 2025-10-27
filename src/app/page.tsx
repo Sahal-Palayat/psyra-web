@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import AboutUs from "@/components/AboutUs";
+// import AboutUs from "@/components/AboutUs";
 import MentalHealthLoader from "@/components/lazy/mental-health-loader";
 import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
 import Concerns from "@/components/Concerns";
@@ -44,7 +44,7 @@ export default function Home() {
       <Hero />
 
       {/* Why Psyra Section */}
-      <AboutUs />
+      {/* <AboutUs /> */}
 
       {/* Psychologist Carousel with themed loading */}
       <CarouselStats />

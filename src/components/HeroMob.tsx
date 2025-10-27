@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
-import Services from "./Services";
+import { MoveRight } from "lucide-react";
+import { CarouselStats } from "./Psychologist/SimpleCarousel/carousel-stats";
 
 const HeroMob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,12 +23,12 @@ const HeroMob = () => {
   }, []);
 
   const languages = [
-    { text: "Psyra", lang: "English", size: "text-[32px]" },
-    { text: "साइरा", lang: "Hindi", size: "text-[32px]" },
-    { text: "സൈറ", lang: "Malayalam", size: "text-[30px]" },
-    { text: "ಸೈರಾ", lang: "Kannada", size: "text-[30px]" },
-    { text: "சைரா", lang: "Tamil", size: "text-[30px]" },
-    { text: "सायरा", lang: "Marathi", size: "text-[30px]" },
+    { text: "Psyra", lang: "English", size: "text-[22px]" },
+    { text: "साइरा", lang: "Hindi", size: "text-[22px]" },
+    { text: "സൈറ", lang: "Malayalam", size: "text-[20px]" },
+    { text: "ಸೈರಾ", lang: "Kannada", size: "text-[20px]" },
+    { text: "சைரா", lang: "Tamil", size: "text-[20px]" },
+    { text: "सायरा", lang: "Marathi", size: "text-[20px]" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,19 +43,19 @@ const HeroMob = () => {
 
   return (
     <>
-      <section className="mb-10 relative bg-teal-600 text-white">
+      <section className="mb-4 relative bg-teal-600 text-white rounded-lg m-2">
         {/* Background Image Animation */}
-        <div className="px-2 pb-10 pt-24">
+        <div className="px-2 pb-10 pt-24 ">
           {/* Content Section */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="container relative z-10 text-left"
+            className="container relative z-10 text-left "
           >
             <motion.p
-              className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[32px] md:text-2xl leading-none"
+              className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[22px] md:text-2xl leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -83,24 +84,87 @@ const HeroMob = () => {
             </motion.p>
           </motion.div>
           <div className="mt-8 flex justify-center">
-            <button
-              className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
-              // onClick={() => handleWhatsAppRedirect(item)}
-              onClick={() => {
-                window.location.href = "/how-is-mind";
-              }}
-            >
-              How`s your mind today?
-            </button>
-            {/* <button
-                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      onClick={() => handleWhatsAppRedirect(item)}
-                    >
-                      Book Now
-                    </button> */}
+            <div className="flex gap-2 w-full max-w-2xl">
+              {/* Online Therapy Card */}
+              <motion.div
+                className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 1 }}
+              >
+                <div className="flex flex-col gap-4 justify-between">
+                  <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
+                    <img
+                      src="/19198727-removebg-preview.png"
+                      alt="Illustration representing supportive mental health therapy"
+                      className="h-full w-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
+                    Take Your Online Therapy
+                  </p>
+                  <p className="text-black text-[12px] md:text-2xl leading-tight">
+                    Get your online session heal your mind
+                  </p>
+                  <div
+                    onClick={() => {
+                      window.location.href = "/services";
+                    }}
+                    className="flex flex-row items-center text-teal-800 text-[14px] gap-1"
+                  >
+                    <span>Boook Now</span>
+                    <MoveRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Find Your Therapist Card */}
+              <motion.div
+                className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 1, delay: 0.1 }}
+              >
+                <div className="flex flex-col gap-4 ">
+                  <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
+                    <img
+                      src="/woman-relaxing-chair-home.png"
+                      alt="Illustration representing supportive mental health therapy"
+                      className="h-full w-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
+                    Take Your Quick Assesment
+                  </p>
+                  <p className="text-black text-[12px] md:text-2xl leading-tight">
+                    Know your mental health status qucikly
+                  </p>
+                  <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
+                    <span>Start Now</span>
+                    <MoveRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+          {/* <CarouselStats /> */}
+          <div className="flex-1 mt-4 bg-gradient-to-br from-[#F0FDF9] to-[#D1FAE5] text-black rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow">
+            <div className="flex mb-2 flex-row items-center text-teal-800 text-[14px] gap-1">
+              <p className="font-bold text-teal-800 text-[18px] md:text-2xl leading-tight">
+                Find Your Right Therapist
+              </p>
+              <MoveRight className="w-4 h-4" />
+            </div>
+
+            <p className="text-black text-[12px] md:text-2xl leading-tight">
+              Choose your therapist and start your session.
+            </p>
           </div>
         </div>
-        {/* <Services /> */}
 
         <Modal
           isOpen={isModalOpen}
@@ -109,7 +173,18 @@ const HeroMob = () => {
         />
         <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
       </section>
-      <Services />
+      <div className="flex-1 mt-4 bg-gradient-to-br from-[#00989D]/10 via-[#00B4BA]/20 to-white text-black backdrop-blur-md rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow border border-teal-100">
+        <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
+          <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
+            Find Your Right Therapist
+          </p>
+          <MoveRight className="w-4 h-4" />
+        </div>
+
+        <p className="text-black text-[12px] md:text-2xl leading-tight">
+          Choose your therapist start your session
+        </p>
+      </div>
     </>
   );
 };
