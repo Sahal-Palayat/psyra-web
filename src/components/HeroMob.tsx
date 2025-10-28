@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import { MoveRight } from "lucide-react";
-import { CarouselStats } from "./Psychologist/SimpleCarousel/carousel-stats";
 
 const HeroMob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

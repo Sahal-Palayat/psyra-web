@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionHeader } from "@/components/SectionTitle";
+// import { SectionHeader } from "@/components/SectionTitle";
 import { motion } from "framer-motion";
 
 export function CarouselHeader() {

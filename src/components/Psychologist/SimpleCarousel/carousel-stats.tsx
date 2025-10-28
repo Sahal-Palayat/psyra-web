@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionHeader } from "@/components/SectionTitle";
+// import { SectionHeader } from "@/components/SectionTitle";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { HeartHandshake } from "lucide-react";
 import { useEffect, useRef } from "react";

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
-import Services from "./Services";
-import { MoveRight } from "lucide-react";
 import HeroBox from "./Hero/HeroBox";
 
 const HeroDesktop = () => {
