@@ -40,7 +40,7 @@ function AnimatedCounter({
   return (
     <div
       ref={ref}
-      className="text-4xl md:text-4xl font-bold bg-gradient-to-r from-[#00989D] to-[#00B4BA] bg-clip-text text-transparent"
+      className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#00989D] to-[#00B4BA] bg-clip-text text-transparent"
     >
       0{suffix}
     </div>
@@ -49,32 +49,18 @@ function AnimatedCounter({
 
 export function CarouselStats() {
   return (
-    <div className="w-full py-8 mb-8 md:px-24 px-14">
-      {/* Updated Title with Psymates */}
-      <div className="text-center mb-10">
-        {/* <h2 className="text-2xl sm:text-2xl font-bold text-teal-800 text-center leading-snug">
-          A Safe Space for Our{" "}
-          <span className="inline-flex items-center text-[#3D985C] px-2 shadow-md">
-            Psymates <HeartHandshake className="ml-1 w-6 h-6" />
-          </span>
-        </h2> */}
-        <SectionHeader>
-          A Safe Space for Our {/* underline stroke */}
-          <span className="inline-flex items-center px-2 shadow-md">
-            Psymates <HeartHandshake className="ml-1 w-6 h-6" />
-          </span>{" "}
-        </SectionHeader>
-        {/* <p className="text-gray-600 mt-3 text-lg">
-          Together, we're building a supportive community for mental well-being.
-        </p> */}
+    <div className="w-full py-4 mb-8 md:px-14 px-2">
+      <div className="text-center mb-4">
+        <p className="text-gray-600 italic text-sm md:text-2xl">
+           A Safe Space for Our Psymates
+        </p>
       </div>
-
       {/* Stats Grid */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"
+        className="max-w-6xl mx-auto flex gap-2 md:gap-6"
       >
         {stats.map((stat, index) => (
           <motion.div
@@ -83,10 +69,10 @@ export function CarouselStats() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 * index, duration: 0.5 }}
             whileHover={{ scale: 1.05, y: -5 }}
-            className="flex flex-col justify-center items-center md:h-54 p-12 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+            className="flex-1 text-center mt-2 bg-gradient-to-br from-[#00989D]/10 via-[#00B4BA]/20 to-white text-black backdrop-blur-md rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow border border-teal-100"
           >
             <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-            <div className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed text-center">
+            <div className="text-[10px] md:text-xl font-medium text-gray-700 leading-relaxed text-center">
               {stat.label}
             </div>
           </motion.div>
@@ -94,9 +80,9 @@ export function CarouselStats() {
       </motion.div>
 
       {/* About Psymates Note */}
-      <div className="text-center mt-10">
-        <p className="text-gray-600 italic text-lg">
-          “We don’t call them clients — we call them{" "}
+      <div className="text-center mt-5">
+        <p className="text-gray-600 italic text-[12px] md:text-xl">
+          “We don’t call them clients ,we call them{" "}
           <span className="inline-flex items-center font-semibold text-[#00989D]">
             Psymates <HeartHandshake className="ml-1 w-5 h-5" />
           </span>

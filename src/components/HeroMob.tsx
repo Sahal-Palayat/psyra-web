@@ -93,10 +93,15 @@ const HeroMob = () => {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 1 }}
               >
-                <div className="flex flex-col gap-4 justify-between">
+                <div
+                  onClick={() => {
+                    window.location.href = "/services";
+                  }}
+                  className="flex flex-col gap-4 justify-between"
+                >
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
-                      src="/19198727-removebg-preview.png"
+                      src="/onlineCartoon.png"
                       alt="Illustration representing supportive mental health therapy"
                       className="h-full w-full"
                       loading="lazy"
@@ -108,12 +113,7 @@ const HeroMob = () => {
                   <p className="text-black text-[12px] md:text-2xl leading-tight">
                     Get your online session heal your mind
                   </p>
-                  <div
-                    onClick={() => {
-                      window.location.href = "/services";
-                    }}
-                    className="flex flex-row items-center text-teal-800 text-[14px] gap-1"
-                  >
+                  <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
                     <span>Boook Now</span>
                     <MoveRight className="w-4 h-4" />
                   </div>
@@ -128,10 +128,13 @@ const HeroMob = () => {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 1, delay: 0.1 }}
               >
-                <div className="flex flex-col gap-4 ">
+                <div
+                  onClick={() => (window.location.href = "/how-is-mind")}
+                  className="flex flex-col gap-4 "
+                >
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
-                      src="/woman-relaxing-chair-home.png"
+                      src="/assess.png"
                       alt="Illustration representing supportive mental health therapy"
                       className="h-full w-full"
                       loading="lazy"
@@ -152,7 +155,10 @@ const HeroMob = () => {
             </div>
           </div>
           {/* <CarouselStats /> */}
-          <div className="flex-1 mt-4 bg-gradient-to-br from-[#F0FDF9] to-[#D1FAE5] text-black rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow">
+          <div
+            onClick={() => (window.location.href = "/psychologists")}
+            className="flex-1 mt-4 bg-gradient-to-br from-[#F0FDF9] to-[#D1FAE5] text-black rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
+          >
             <div className="flex mb-2 flex-row items-center text-teal-800 text-[14px] gap-1">
               <p className="font-bold text-teal-800 text-[18px] md:text-2xl leading-tight">
                 Find Your Right Therapist
@@ -173,18 +179,6 @@ const HeroMob = () => {
         />
         <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
       </section>
-      <div className="flex-1 mt-4 bg-gradient-to-br from-[#00989D]/10 via-[#00B4BA]/20 to-white text-black backdrop-blur-md rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow border border-teal-100">
-        <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
-          <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
-            Find Your Right Therapist
-          </p>
-          <MoveRight className="w-4 h-4" />
-        </div>
-
-        <p className="text-black text-[12px] md:text-2xl leading-tight">
-          Choose your therapist start your session
-        </p>
-      </div>
     </>
   );
 };

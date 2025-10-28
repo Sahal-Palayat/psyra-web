@@ -59,7 +59,7 @@ const Faq = () => {
   ];
 
   return (
-    <section className="pb-20 pt-4 mx-10 md:mx-16" id="faq">
+    <section className="pb-20 pt-4 mx-4 md:mx-16" id="faq">
       <div className="container">
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -68,7 +68,7 @@ const Faq = () => {
                 className="flex justify-between items-center w-full text-left focus:outline-none"
                 onClick={() => toggleFaq(index)}
               >
-                <span className="text-[20px] text-[#005657]">
+                <span className="text-[16px] md:text-[20px] text-[#005657]">
                   {faq.question}
                 </span>
                 {openIndex === index ? (
@@ -88,7 +88,9 @@ const Faq = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="mt-2 text-gray-600">{faq.answer}</p>
+                    <p className="mt-2 text-[15px] md:text-[19px] text-gray-600">
+                      {faq.answer}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>

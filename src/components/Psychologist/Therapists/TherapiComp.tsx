@@ -196,10 +196,10 @@ export default function TherapistsCard() {
     <div className="min-h-screen mb-12">
       <div className="">
         <div className="text-center mb-8 pb-10 pt-28 bg-[#00BEA5]">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl md:text-4xl font-bold text-black mb-2">
             Find Your Perfect Therapist
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-[14px] md:text-lg text-gray-600 px-2">
             Breaking Barriers: Connect with Professionals in Your Language
           </p>
         </div>
@@ -248,7 +248,7 @@ export default function TherapistsCard() {
                       <div className="flex flex-col justify-center mt-4">
                         <div className="text-white w-full pr-6 justify-center">
                           <div>
-                            <h2 className="text-[22px] mt-4 md:mt-0 sm:text-[18px] font-bold text-[#00989B] truncate w-full">
+                            <h2 className="text-[18px] md:text-[22px] mt-4 md:mt-0 sm:text-[18px] font-bold text-[#00989B] truncate w-full">
                               {therapist.name}
                             </h2>
 

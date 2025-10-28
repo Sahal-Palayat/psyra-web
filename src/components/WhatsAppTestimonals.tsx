@@ -238,7 +238,7 @@ export const WhatsAppTestimonials: React.FC = () => {
         </div>
       </div>
       <div className="text-center mt-10">
-        <p className="text-gray-600 italic text-lg">
+        <p className="text-gray-600 italic text-[12px] md:text-xl">
           “Some profiles are not displayed due to privacy reasons.”
         </p>
       </div>

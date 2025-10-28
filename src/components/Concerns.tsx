@@ -274,11 +274,11 @@ export default function Concerns() {
   return (
     <div className="mb-12 ">
       {/* Concerns Grid Section */}
-      <section className="py-12 px-4 bg-[#F7F8F2]">
+      <section className="py-12 px-4 bg-[#00BEA5]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <SectionHeader>What We Can Help You Overcome</SectionHeader>
-            <p className="text-gray-600 mt-2 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600  max-w-2xl mx-auto text-[10px] md:text-[16px]">
               We provide compassionate support for a wide range of mental health
               concerns
             </p>
@@ -303,7 +303,7 @@ export default function Concerns() {
                   >
                     <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-300" />
 
-                    <CardContent className="p-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
+                    <CardContent className="px-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
                       <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
                         <IconComponent />
                       </div>

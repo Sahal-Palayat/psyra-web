@@ -11,9 +11,9 @@ interface SectionHeaderProps {
 export function SectionHeader({ children }: SectionHeaderProps) {
   return (
     <>
-      <motion.h2 className="text-2xl sm:text-2xl font-bold text-teal-800 text-center leading-snug">
-        {children}
-      </motion.h2>
+      <div className="text-center">
+        <p className="text-gray-600 italic text-md md:text-2xl">{children}</p>
+      </div>
     </>
   );
 }

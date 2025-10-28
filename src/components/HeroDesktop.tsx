@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import Services from "./Services";
+import { MoveRight } from "lucide-react";
+import HeroBox from "./Hero/HeroBox";
 
 const HeroDesktop = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,7 +44,7 @@ const HeroDesktop = () => {
 
   return (
     <>
-      <section className="relative bg-teal-600 text-white flex items-center">
+      <section className="relative bg-teal-600 mb-10 text-white flex items-center">
         {/* Background Image Animation */}
         <motion.div
           initial={{ opacity: 0, scale: 1.2 }}
@@ -97,22 +99,7 @@ const HeroDesktop = () => {
               here for you
             </motion.p>
           </div>
-          <div className="mb-12 flex justify-center">
-            <button
-              className="bg-white px-6 py-2 text-black text-[12px] font-bold rounded-[50px] border border-gray-300 hover:bg-gray-100 transition"
-              onClick={() => {
-                window.location.href = "/how-is-mind";
-              }}
-            >
-              How`s your mind today?
-            </button>
-            {/* <button
-                      className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
-                      onClick={() => handleWhatsAppRedirect(item)}
-                    >
-                      Book Now
-                    </button> */}
-          </div>
+          <HeroBox />
         </motion.div>
 
         <Modal
@@ -122,9 +109,6 @@ const HeroDesktop = () => {
         />
         <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
       </section>
-      <div className="relative z-10 -mt-34 md:-mt-28">
-        <Services />
-      </div>
     </>
   );
 };

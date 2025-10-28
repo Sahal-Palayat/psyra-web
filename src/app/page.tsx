@@ -48,8 +48,8 @@ export default function Home() {
 
       {/* Psychologist Carousel with themed loading */}
       <CarouselStats />
+      <Concerns />
       <DynamicPsychologistCarousel />
-
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}
@@ -58,10 +58,9 @@ export default function Home() {
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
       <CommunityEvents />
-      <Concerns />
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
-    
+
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
       <WhatsAppChat />

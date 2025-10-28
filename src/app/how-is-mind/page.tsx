@@ -162,7 +162,7 @@ export default function SurveyQuestions() {
           Your Mindful Insight 💚
         </motion.h2>
 
-        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-200/50 shadow-lg">
+        <div className="">
           <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-wrap font-medium">
             {typedResponse}
             {typedResponse.length < aiResponse.length && (
@@ -175,17 +175,18 @@ export default function SurveyQuestions() {
       {typedResponse.length === aiResponse.length && (
         <motion.button
           onClick={() => {
-            setAiResponse("");
-            setTypedResponse("");
-            setCurrentQuestion(0);
-            setAnswers({});
+            // setAiResponse("");
+            // setTypedResponse("");
+            // setCurrentQuestion(0);
+            // setAnswers({});
+            window.location.href = "/";
           }}
           className="mt-6 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          Take Survey Again
+          Back To Home
         </motion.button>
       )}
     </div>
@@ -194,7 +195,7 @@ export default function SurveyQuestions() {
   return (
     <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
       <Background>
-        <main className="mt-8 flex items-center justify-center min-h-screen relative z-10">
+        <main className="mt-8 flex  justify-center relative z-10">
           <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12">
             {isAiLoading ? (
               <AiTherapistLoading />
