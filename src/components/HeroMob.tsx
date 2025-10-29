@@ -113,7 +113,7 @@ const HeroMob = () => {
                     Get your online session heal your mind
                   </p>
                   <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
-                    <span>Boook Now</span>
+                    <span>Book Now</span>
                     <MoveRight className="w-4 h-4" />
                   </div>
                 </div>
