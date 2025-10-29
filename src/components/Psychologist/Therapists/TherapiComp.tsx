@@ -74,6 +74,32 @@ const SkeletonCard = () => (
   </Card>
 );
 
+const ExpandableText = ({ text }: { text: string }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const MAX_WORDS = 3; // adjust this number as you like
+  const words = text.split(" "); // split text into array of words
+  const isLong = words.length > MAX_WORDS;
+  const displayText = expanded ? text : words.slice(0, MAX_WORDS).join(" ");
+
+  return (
+    <div className="text-gray-700 w-full md:max-w-[280px] text-[14px] break-words leading-snug">
+      <span>
+        {displayText}
+        {/* {!expanded && isLong ? "" : ""} */}
+      {isLong && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-[#00989B] font-medium underline"
+        >
+          {expanded ? "See less" : "..See more"}
+        </button>
+      )}
+      </span>
+    </div>
+  );
+};
+
 export default function TherapistsCard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Psychologist[]>([]);
@@ -317,21 +343,10 @@ export default function TherapistsCard() {
                               </div>
 
                               {/* Expertise */}
-                              <div className="mb-1 md:mb-2 h-8 line-clamp-2 relative group">
-                                <span
-                                  className="text-gray-700 text-[14px] cursor-help"
-                                  title={therapist.expertise.join(", ")}
-                                >
-                                  {therapist.expertise.join(", ")}
-                                </span>
-
-                                {/* Tooltip for full text */}
-                                {therapist.expertise.join(", ").length > 50 && (
-                                  <div className="absolute bottom-full left-0 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20 max-w-xs whitespace-normal">
-                                    {therapist.expertise.join(", ")}
-                                    <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
-                                  </div>
-                                )}
+                              <div className="mb-1 md:mb-2 mr-2">
+                                <ExpandableText
+                                  text={therapist.expertise.join(", ")}
+                                />
                               </div>
                             </div>
                           </div>
