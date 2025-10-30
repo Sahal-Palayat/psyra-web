@@ -14,7 +14,7 @@ const CoupleIndex = () => {
       title: "Single Session (1 Session - ₹1499)",
       tagline: "Space to begin together",
       list: [
-        "Duration: 50–60 minutes",
+        "Duration: 1 hour 30 minutes",
         "Personalized guidance for couples",
         "Address relationship challenges",
         "Gain clarity and understanding together",
