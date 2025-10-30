@@ -36,7 +36,6 @@ export default function SurveyQuestions() {
             totalQuestions={surveyQuestions.length}
             showBackButton={currentQuestion > 0}
             onPrevious={handlePrevious}
-            isTransitioning={isTransitioning}
             showProgress={surveyQuestions.length > basicQuestions.length}
           />
 
