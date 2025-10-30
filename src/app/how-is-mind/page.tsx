@@ -5,12 +5,56 @@ import { motion } from "framer-motion";
 import { QuestionContent } from "@/components/Survey/question-content";
 import { QuestionDisplay } from "@/components/Survey/question-display";
 import { SurveyHeader } from "@/components/Survey/survey-header";
+import { UserInfoForm } from "@/components/Survey/user-info-form";
 import {
   basicQuestions,
   howIsMindQues,
 } from "@/components/Survey/data/survey-questions";
 import type { SurveyAnswers } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
+
+function getMentalHealthFeedback(score: number) {
+  const maxScore = 36;
+  const wellbeingPercent = Math.round(((maxScore - score) / maxScore) * 100);
+
+  let stressLevel = "";
+  let color = "";
+
+  if (score <= 7) {
+    stressLevel = "Low Stress";
+    color = "from-green-500 to-emerald-500";
+  } else if (score <= 14) {
+    stressLevel = "Mild Stress";
+    color = "from-yellow-500 to-amber-500";
+  } else if (score <= 21) {
+    stressLevel = "Moderate Stress";
+    color = "from-orange-500 to-red-500";
+  } else {
+    stressLevel = "High Stress";
+    color = "from-red-600 to-rose-600";
+  }
+
+  let message = "";
+
+  if (score <= 7) message = "You seem to be managing stress well!";
+  else if (score <= 14)
+    message =
+      "You're showing mild signs of stress — try some relaxation today.";
+  else if (score <= 21)
+    message =
+      "You might be experiencing moderate stress. Consider taking a break or talking to someone.";
+  else
+    message =
+      "You appear to be under high stress. It's a good time to seek emotional support or professional help.";
+
+  return {
+    score,
+    wellbeingPercent,
+    message,
+    stressLevel,
+    color,
+  };
+}
 
 export default function SurveyQuestions() {
   const surveyQuestions = howIsMindQues;
@@ -19,10 +63,13 @@ export default function SurveyQuestions() {
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
   const [value, setValue] = useState("");
 
+  const [surveyComplete, setSurveyComplete] = useState(false);
+
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [aiResponse, setAiResponse] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
   const [loadingMessage, setLoadingMessage] = useState("");
+  const [score, setScore] = useState<Record<string, string | number>>({});
 
   const loadingMessages = [
     "Your AI Therapist is reflecting on your responses...",
@@ -42,7 +89,7 @@ export default function SurveyQuestions() {
       if (index >= aiResponse.length) {
         clearInterval(interval);
       }
-    }, 30); // Adjust speed here (lower = faster)
+    }, 30);
 
     return () => clearInterval(interval);
   }, [aiResponse, isAiLoading]);
@@ -60,16 +107,35 @@ export default function SurveyQuestions() {
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
     try {
       setIsAiLoading(true);
-      const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalAnswers),
-      });
-      const data = await response.json();
-
       const randomMsg =
         loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
       setLoadingMessage(randomMsg);
+
+      const payload = {
+        personDetails: {
+          name: finalAnswers.name,
+          mobile: finalAnswers.contact,
+        },
+        questionAnswers: {
+          ...Object.fromEntries(
+            Object.entries(finalAnswers).filter(
+              ([key]) => key !== "name" && key !== "contact"
+            )
+          ),
+        },
+      };
+
+      console.log(payload, "payloddddd");
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+      const data = await response.json();
 
       setTimeout(() => {
         setIsAiLoading(false);
@@ -80,25 +146,25 @@ export default function SurveyQuestions() {
         setTypedResponse("");
       }, 3000);
 
-      sessionStorage.setItem("surveyAnswers", JSON.stringify(finalAnswers));
+      sessionStorage.setItem("surveyAnswers", JSON.stringify(payload));
     } catch (error) {
       console.error("Error submitting survey:", error);
       setIsAiLoading(false);
     }
   };
 
-  const handleOptionSelect = (option: string | number) => {
+  const handleOptionSelect = (option: string | number, index: number) => {
     setAnswers((prev) => ({
       ...prev,
       [surveyQuestions[currentQuestion].question]: option,
     }));
+    setScore((prev) => ({
+      ...prev,
+      [surveyQuestions[currentQuestion].question]: index,
+    }));
 
     if (currentQuestion + 1 === surveyQuestions?.length) {
-      const finalAnswers = {
-        ...answers,
-        [surveyQuestions[currentQuestion].id]: option,
-      };
-      submitSurvey(finalAnswers);
+      setSurveyComplete(true);
       return;
     }
 
@@ -111,6 +177,19 @@ export default function SurveyQuestions() {
         }, 300);
       }
     }, 300);
+  };
+
+  const handleUserInfoSubmit = (userInfo: {
+    name: string;
+    contact: string;
+  }) => {
+    const finalAnswers = {
+      ...answers,
+      [surveyQuestions[currentQuestion].id]: value,
+      name: userInfo.name,
+      contact: userInfo.contact,
+    };
+    submitSurvey(finalAnswers);
   };
 
   const question = surveyQuestions[currentQuestion];
@@ -147,50 +226,84 @@ export default function SurveyQuestions() {
     </div>
   );
 
-  const AiResponseDisplay = () => (
-    <div className="flex flex-col items-center justify-center text-center space-y-8">
-      <motion.div
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full"
-      >
-        <motion.h2
-          className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-8"
-          animate={{ opacity: 1, y: 0 }}
+  const AiResponseDisplay = () => {
+    const totalScore = Object.values(score as Record<string, number>).reduce(
+      (sum, val) => sum + val,
+      0
+    );
+
+    const feedback = getMentalHealthFeedback(totalScore);
+
+    return (
+      <div className="flex flex-col items-center justify-center text-center space-y-8">
+        <motion.div
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
+          className="w-full"
         >
-          Your Mindful Insight 💚
-        </motion.h2>
+          <motion.h2
+            className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-3"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Your Mindful Insight 💚
+          </motion.h2>
 
-        <div className="">
-          <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-wrap font-medium">
-            {typedResponse}
-            {typedResponse.length < aiResponse.length && (
-              <span className="inline-block w-1 h-6 ml-1 bg-emerald-500 rounded-sm" />
-            )}
-          </p>
-        </div>
-      </motion.div>
+          <div className="mb-4 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border-2 border-emerald-200">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className=""
+            >
+              <div className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                {feedback.wellbeingPercent}%
+                <p className="text-sm text-gray-600 mt-1">Wellbeing</p>
+              </div>
+              <div
+                className={`text-xl font-semibold bg-gradient-to-r ${feedback.color} bg-clip-text text-transparent`}
+              >
+                {feedback.stressLevel}
+              </div>
+              {/* <p className="text-sm text-gray-600 mt-2">
+               You have the Stress: {feedback.score}/36
+              </p> */}
+              <p className="text-sm text-gray-700 font-medium italic mt-3">
+                {feedback.message}
+              </p>
+              {/* <p className="text-xs text-gray-500 mt-2">
+                Score Range: 0-7 (Low) | 8-14 (Mild) | 15-21 (Moderate) | 22-36
+                (High)
+              </p> */}
+            </motion.div>
+          </div>
 
-      {typedResponse.length === aiResponse.length && (
-        <motion.button
-          onClick={() => {
-            // setAiResponse("");
-            // setTypedResponse("");
-            // setCurrentQuestion(0);
-            // setAnswers({});
-            window.location.href = "/";
-          }}
-          className="mt-6 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          Back To Home
-        </motion.button>
-      )}
-    </div>
-  );
+          <div className="">
+            <p className="text-gray-700 text-md md:text-lg leading-relaxed whitespace-pre-wrap font-medium">
+              {typedResponse}
+              {typedResponse.length < aiResponse.length && (
+                <span className="inline-block w-1 h-6 ml-1 bg-emerald-500 rounded-sm" />
+              )}
+            </p>
+          </div>
+        </motion.div>
+
+        {typedResponse.length === aiResponse.length && (
+          <motion.button
+            onClick={() => {
+              window.location.href = "/";
+            }}
+            className="mt-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            Back To Home
+          </motion.button>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
@@ -201,6 +314,11 @@ export default function SurveyQuestions() {
               <AiTherapistLoading />
             ) : aiResponse ? (
               <AiResponseDisplay />
+            ) : surveyComplete ? (
+              <UserInfoForm
+                onSubmit={handleUserInfoSubmit}
+                isLoading={isAiLoading}
+              />
             ) : (
               <>
                 <SurveyHeader
@@ -208,7 +326,7 @@ export default function SurveyQuestions() {
                   totalQuestions={surveyQuestions.length}
                   showBackButton={currentQuestion > 0}
                   onPrevious={handlePrevious}
-                  isTransitioning={isTransitioning}
+                  // isTransitioning={isTransitioning}
                   showProgress={surveyQuestions.length > basicQuestions.length}
                 />
 

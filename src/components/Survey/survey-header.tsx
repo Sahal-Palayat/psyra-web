@@ -1,44 +1,68 @@
-"use client"
+"use client";
 
-import { ArrowLeft } from "lucide-react"
+import { motion } from "framer-motion";
+import { ChevronLeft } from "lucide-react";
 
 interface SurveyHeaderProps {
-  currentQuestion: number
-  totalQuestions: number
-  showBackButton: boolean
-  onPrevious: () => void
-  isTransitioning: boolean
-  showProgress: boolean
+  currentQuestion: number;
+  totalQuestions: number;
+  showBackButton: boolean;
+  onPrevious: () => void;
+  // isTransitioning: boolean
+  showProgress: boolean;
 }
 
-export const SurveyHeader = ({
+export function SurveyHeader({
   currentQuestion,
   totalQuestions,
   showBackButton,
   onPrevious,
-  isTransitioning,
+  // isTransitioning,
   showProgress,
-}: SurveyHeaderProps) => {
+}: SurveyHeaderProps) {
+  const progress = (currentQuestion / totalQuestions) * 100;
+
   return (
-    <header className="mb-6">
+    <div className="mb-8 space-y-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          {showBackButton && (
-            <button
-              onClick={onPrevious}
-              disabled={isTransitioning}
-              className="p-3 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:from-teal-600 hover:to-emerald-600 transition-all duration-300 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          )}
-        </div>
+        {showBackButton ? (
+          <motion.button
+            onClick={onPrevious}
+            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
+            whileHover={{ x: -4 }}
+          >
+            <ChevronLeft size={20} />
+            Back
+          </motion.button>
+        ) : (
+          <div />
+        )}
+
         {showProgress && (
-          <div className="px-4 py-2 rounded-full bg-gradient-to-r from-teal-100 to-emerald-100 text-teal-700 font-medium text-sm border border-teal-200/50">
-            {currentQuestion + 1} / {totalQuestions}
-          </div>
+          <motion.span
+            className="text-sm font-semibold text-gray-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            Question {currentQuestion + 1} of {totalQuestions}
+          </motion.span>
         )}
       </div>
-    </header>
-  )
+
+      {showProgress && (
+        <motion.div
+          className="w-full h-2 bg-gray-200 rounded-full overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <motion.div
+            className="h-full bg-gradient-to-r from-emerald-500 to-teal-500"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </motion.div>
+      )}
+    </div>
+  );
 }

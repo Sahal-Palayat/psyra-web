@@ -1,18 +1,22 @@
-"use client"
+"use client";
 
 interface OptionButtonsProps {
-  options: string[]
-  selectedAnswer: string | number | undefined
-  onSelect: (option: string) => void
+  options: string[];
+  selectedAnswer: string | number | undefined;
+  onSelect: (option: string, index: number) => void;
 }
 
-export const OptionButtons = ({ options, selectedAnswer, onSelect }: OptionButtonsProps) => {
+export const OptionButtons = ({
+  options,
+  selectedAnswer,
+  onSelect,
+}: OptionButtonsProps) => {
   return (
     <div className="space-y-4">
       {options.map((option, index) => (
         <button
           key={index}
-          onClick={() => onSelect(option)}
+          onClick={() => onSelect(option, index)}
           className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-[1.02] group ${
             selectedAnswer === option
               ? "bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-300 text-gray-800 shadow-lg shadow-teal-500/20"
@@ -26,5 +30,5 @@ export const OptionButtons = ({ options, selectedAnswer, onSelect }: OptionButto
         </button>
       ))}
     </div>
-  )
-}
+  );
+};
