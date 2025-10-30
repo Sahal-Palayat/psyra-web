@@ -25,7 +25,7 @@ export const QuestionContent = ({
     return (
       <div className="flex justify-center py-8">
         <StarRating
-          onRatingSelect={(rating) => onOptionSelect(rating)}
+          onRatingSelect={(rating) => onOptionSelect(rating, 2)}
           currentRating={answers[question?.id] as number}
           questionId={question?.id}
           answers={answers}
@@ -41,7 +41,7 @@ export const QuestionContent = ({
           value={value}
           onChange={setValue}
           handle={(value: string) => {
-            onOptionSelect(value);
+            onOptionSelect(value, 2);
             setValue("");
           }}
           options={question?.options}
@@ -58,7 +58,7 @@ export const QuestionContent = ({
           value={value}
           onChange={setValue}
           handle={(value: string) => {
-            onOptionSelect(value);
+            onOptionSelect(value, 2);
             setValue("");
           }}
           options={question?.options}
