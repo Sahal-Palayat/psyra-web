@@ -74,6 +74,26 @@ export const processPayment = async (
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle || "Therapy Session"}`,
       order_id: orderResponse.orderId, // From backend response
+      config: {
+        display: {
+          blocks: {
+            gpay: {
+              name: 'Google Pay',
+              instruments: [
+                {
+                  method: 'upi',
+                  flows: ['intent'],
+                  apps: ['google_pay']
+                }
+              ]
+            }
+          },
+          sequence: ['block.gpay', 'block.upi', 'block.card', 'block.netbanking', 'block.wallet'],
+          preferences: {
+            show_default_blocks: true
+          }
+        }
+      },
       handler: async (response: RazorpayPaymentResponse) => {
         console.log('Payment response:', response);
 

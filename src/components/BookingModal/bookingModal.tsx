@@ -28,6 +28,7 @@ export function BookingModal({
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
     email: "",
@@ -262,7 +263,8 @@ export function BookingModal({
       totalAmount: packageAmount, // You can make this dynamic based on package
     };
     createSlot();
-    // Process payment
+    // Process payment with loading state until Razorpay window opens
+    setIsPaying(true);
     await processPayment(
       paymentData,
       // On success - show success modal
@@ -288,6 +290,8 @@ export function BookingModal({
         console.error("Payment failed:", error);
       }
     );
+    // At this point, Razorpay window has been opened (openRazorpayPayment resolves immediately after opening)
+    setIsPaying(false);
   };
 
   if (!isOpen) return null;
@@ -420,14 +424,37 @@ export function BookingModal({
                         alert("Please fill in all required fields correctly.");
                       }
                     }}
-                    disabled={!canProceedFromStep2()}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
-                      !canProceedFromStep2()
+                    disabled={!canProceedFromStep2() || isPaying}
+                    aria-busy={isPaying}
+                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
+                      !canProceedFromStep2() || isPaying
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
                     }`}
                   >
-                    Book Session
+                    {isPaying && (
+                      <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        />
+                      </svg>
+                    )}
+                    {isPaying ? "Processing..." : "Book Session"}
                   </button>
                 )}
               </div>

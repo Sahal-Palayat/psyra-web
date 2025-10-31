@@ -82,6 +82,25 @@ export interface RazorpayOptions {
   modal?: {
     ondismiss: () => void;
   };
+  // Optional UI configuration for Checkout display blocks (e.g., GPay first)
+  config?: {
+    display?: {
+      blocks?: Record<string, {
+        name: string;
+        instruments: Array<{
+          method: string;
+          flows?: string[];
+          apps?: string[];
+        }>;
+      }>;
+      sequence?: string[];
+      preferences?: {
+        show_default_blocks?: boolean;
+      };
+    };
+  };
+  // Allow additional vendor-supported fields without type errors
+  [key: string]: unknown;
 }
 
 // Create payment order
