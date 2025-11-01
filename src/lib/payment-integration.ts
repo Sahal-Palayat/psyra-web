@@ -74,30 +74,23 @@ export const processPayment = async (
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle || "Therapy Session"}`,
       order_id: orderResponse.orderId, // From backend response
+      // Enable UPI payment method (required for Google Pay)
       method: {
-        upi: {
-          flow: 'intent',
-          vpa: '',
-          apps: ['google_pay']
-        }
+        upi: true
       },
+      // Top-level UPI config to highlight Google Pay first
+      upi: {
+        mode: 'intent',
+        apps: ['gpay'] // Google Pay package identifier
+      },
+      // Display configuration to prioritize Google Pay
       config: {
         display: {
-          blocks: {
-            gpay: {
-              name: 'Google Pay',
-              instruments: [
-                {
-                  method: 'upi',
-                  flows: ['intent'],
-                  apps: ['google_pay']
-                }
-              ]
+          payment_method: {
+            upi: {
+              rp_branding: true,
+              preferred_apps_order: ['com.google.android.apps.nbu.paisa.user'] // Google Pay first
             }
-          },
-          sequence: ['block.gpay', 'block.upi', 'block.card', 'block.netbanking', 'block.wallet'],
-          preferences: {
-            show_default_blocks: true
           }
         }
       },
