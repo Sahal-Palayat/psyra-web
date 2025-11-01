@@ -57,6 +57,13 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
         name: 'Psyra',
         description: `Payment for ${dummyPaymentData.sessionDetails.packageTitle || "Therapy Session"}`,
         order_id: orderResponse.orderId, // From backend response
+        method: {
+          upi: {
+            flow: 'intent',
+            vpa: '',
+            apps: ['google_pay']
+          }
+        },
         config: {
           display: {
             blocks: {

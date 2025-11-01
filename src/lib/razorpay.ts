@@ -82,6 +82,14 @@ export interface RazorpayOptions {
   modal?: {
     ondismiss: () => void;
   };
+  // Optional method configuration to show specific payment method prominently
+  method?: {
+    upi?: {
+      flow?: string;
+      vpa?: string;
+      apps?: string[];
+    };
+  };
   // Optional UI configuration for Checkout display blocks (e.g., GPay first)
   config?: {
     display?: {

@@ -74,6 +74,13 @@ export const processPayment = async (
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle || "Therapy Session"}`,
       order_id: orderResponse.orderId, // From backend response
+      method: {
+        upi: {
+          flow: 'intent',
+          vpa: '',
+          apps: ['google_pay']
+        }
+      },
       config: {
         display: {
           blocks: {
