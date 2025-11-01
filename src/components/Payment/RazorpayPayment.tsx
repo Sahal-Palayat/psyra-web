@@ -57,22 +57,25 @@ export const RazorpayPayment = ({ onPaymentSuccess, onPaymentError }: RazorpayPa
         name: 'Psyra',
         description: `Payment for ${dummyPaymentData.sessionDetails.packageTitle || "Therapy Session"}`,
         order_id: orderResponse.orderId, // From backend response
-        // Enable UPI payment method (required for Google Pay)
+        // Enable payment methods - UPI is primary, others as fallback
         method: {
-          upi: true
+          upi: true,
+          card: true,
+          netbanking: true,
+          wallet: true
         },
-        // Top-level UPI config to highlight Google Pay first
-        upi: {
-          mode: 'intent',
-          apps: ['gpay'] // Google Pay package identifier
-        },
-        // Display configuration to prioritize Google Pay
+        // Display configuration to prioritize Google Pay while showing all UPI apps
         config: {
           display: {
             payment_method: {
               upi: {
                 rp_branding: true,
-                preferred_apps_order: ['com.google.android.apps.nbu.paisa.user'] // Google Pay first
+                preferred_apps_order: [
+                  'com.google.android.apps.nbu.paisa.user', // Google Pay first
+                  'com.phonepe.app', // PhonePe
+                  'net.one97.paytm', // Paytm
+                  'com.cred.club.cred', // CRED UPI
+                ]
               }
             }
           }
