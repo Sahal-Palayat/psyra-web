@@ -34,6 +34,10 @@ const DynamicFaq = dynamic(() => import("@/components/Faq"), {
   loading: () => <MentalHealthLoader />,
 });
 
+const DynamicBlogSection = dynamic(() => import("@/components/Blog/blog-section"), {
+  loading: () => <MentalHealthLoader />,
+});
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#F7F8F2]">
@@ -60,6 +64,8 @@ export default function Home() {
       <CommunityEvents />
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
+      {/* Blog Section */}
+      <DynamicBlogSection />
 
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
