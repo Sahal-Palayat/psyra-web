@@ -151,7 +151,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               value ? "text-gray-900" : "text-gray-500"
             } border-gray-200 hover:border-[#B6E5DF]`}
           >
-            <span className="truncate">{value || placeholder}</span>
+            <span className="truncate text-[14px]">{value || placeholder}</span>
             <svg
               className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
                 isOpen ? "rotate-180" : ""
@@ -207,10 +207,10 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
   }, [openDropdown]);
 
   return (
-    <div ref={formRef} className="space-y-6">
+    <div ref={formRef} className="space-y-6 p-4 md:p-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <div className="space-y-2">
+        <div className="space-y-6">
+          <div className="space-y-1">
             <label htmlFor="name" className="block text-[#005657] font-medium">
               Full Name <span className="text-red-500">*</span>
             </label>
@@ -222,8 +222,9 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               onBlur={handleBlur}
               placeholder="Enter your full name"
               required
-              className={getInputClassName("name")}
+              className={`${getInputClassName("name")} px-4 py- text-sm`}
             />
+
             {touched.name && errors.name && (
               <p className="text-sm text-red-600 flex items-center gap-1">
                 <svg
@@ -246,7 +247,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
 
           <div className="space-y-2">
             <label htmlFor="email" className="block text-[#005657] font-medium">
-              Email Address <span className="text-red-500">*</span>
+              Email <span className="text-red-500">*</span>
             </label>
             <input
               id="email"
@@ -257,7 +258,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               onBlur={handleBlur}
               placeholder="Enter your email address"
               required
-              className={getInputClassName("email")}
+              className={`${getInputClassName("email")} px-4 py- text-sm`}
             />
             {touched.email && errors.email && (
               <p className="text-sm text-red-600 flex items-center gap-1">
@@ -291,7 +292,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               onBlur={handleBlur}
               placeholder="Enter your phone number"
               required
-              className={getInputClassName("phone")}
+              className={`${getInputClassName("phone")} px-4 py- text-sm`}
             />
             {touched.phone && errors.phone && (
               <p className="text-sm text-red-600 flex items-center gap-1">
@@ -326,7 +327,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
               placeholder="Enter your age"
               required
               maxLength={3}
-              className={getInputClassName("age")}
+              className={`${getInputClassName("age")} px-4 py- text-sm`}
             />
             {touched.age && errors.age && (
               <p className="text-sm text-red-600 flex items-center gap-1">
@@ -349,7 +350,7 @@ export function DetailsForm({ bookingData, onUpdate }: DetailsFormProps) {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <CustomSelect
             label="Mode of Therapy"
             value={bookingData.modeOfTherapy}
