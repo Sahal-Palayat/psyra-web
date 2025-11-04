@@ -82,6 +82,48 @@ export interface RazorpayOptions {
   modal?: {
     ondismiss: () => void;
   };
+  // Optional method configuration to enable/disable payment methods
+  method?: {
+    upi?: boolean | {
+      flow?: string;
+      vpa?: string;
+      apps?: string[];
+    };
+    card?: boolean;
+    netbanking?: boolean;
+    wallet?: boolean;
+    paylater?: boolean;
+  };
+  // Optional top-level UPI configuration (alternative approach)
+  upi?: {
+    mode?: string;
+    apps?: string[];
+  };
+  // Optional UI configuration for Checkout display (e.g., GPay first)
+  config?: {
+    display?: {
+      payment_method?: {
+        upi?: {
+          rp_branding?: boolean;
+          preferred_apps_order?: string[];
+        };
+      };
+      blocks?: Record<string, {
+        name: string;
+        instruments: Array<{
+          method: string;
+          flows?: string[];
+          apps?: string[];
+        }>;
+      }>;
+      sequence?: string[];
+      preferences?: {
+        show_default_blocks?: boolean;
+      };
+    };
+  };
+  // Allow additional vendor-supported fields without type errors
+  [key: string]: unknown;
 }
 
 // Create payment order

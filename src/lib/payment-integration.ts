@@ -74,6 +74,29 @@ export const processPayment = async (
       name: 'Psyra',
       description: `Payment for ${paymentData.sessionDetails.packageTitle || "Therapy Session"}`,
       order_id: orderResponse.orderId, // From backend response
+      // Enable payment methods - UPI is primary, others as fallback
+      method: {
+        upi: true,
+        card: true,
+        netbanking: true,
+        wallet: true
+      },
+      // Display configuration to prioritize Google Pay while showing all UPI apps
+      config: {
+        display: {
+          payment_method: {
+            upi: {
+              rp_branding: true,
+              preferred_apps_order: [
+                'com.google.android.apps.nbu.paisa.user', // Google Pay first
+                'com.phonepe.app', // PhonePe
+                'net.one97.paytm', // Paytm
+                'com.cred.club.cred', // CRED UPI
+              ]
+            }
+          }
+        }
+      },
       handler: async (response: RazorpayPaymentResponse) => {
         console.log('Payment response:', response);
 

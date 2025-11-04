@@ -28,6 +28,7 @@ export function BookingModal({
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
     email: "",
@@ -262,32 +263,49 @@ export function BookingModal({
       totalAmount: packageAmount, // You can make this dynamic based on package
     };
     createSlot();
-    // Process payment
-    await processPayment(
-      paymentData,
-      // On success - show success modal
-      async (response) => {
-        console.log("Payment successful, now booking session...", response);
-        
-        // Set success data for modal
-        setSuccessData({
-          name: name || "",
-          email: email || "",
-          phone: phone || "",
-          packageTitle: packageTitle || "Therapy Session",
-          date: adjustedDate.toISOString().split("T")[0],
-          timeSlot: timeSlot || "10:00-11:00",
-          amount: packageAmount || 0,
-        });
+    // Process payment with loading state until Razorpay window opens
+    setIsPaying(true);
+    
+    // Use requestAnimationFrame to ensure state update renders on mobile
+    await new Promise(resolve => requestAnimationFrame(() => {
+      requestAnimationFrame(resolve);
+    }));
+    
+    try {
+      await processPayment(
+        paymentData,
+        // On success - show success modal
+        async (response) => {
+          console.log("Payment successful, now booking session...", response);
+          
+          // Set success data for modal
+          setSuccessData({
+            name: name || "",
+            email: email || "",
+            phone: phone || "",
+            packageTitle: packageTitle || "Therapy Session",
+            date: adjustedDate.toISOString().split("T")[0],
+            timeSlot: timeSlot || "10:00-11:00",
+            amount: packageAmount || 0,
+          });
 
-        // Show success modal
-        setShowSuccessModal(true);
-      },
-      // On error
-      (error) => {
-        console.error("Payment failed:", error);
-      }
-    );
+          // Show success modal
+          setShowSuccessModal(true);
+        },
+        // On error
+        (error) => {
+          console.error("Payment failed:", error);
+          setIsPaying(false);
+        }
+      );
+      // At this point, Razorpay window has been opened
+      // Keep loading state visible for a minimum duration to ensure it's visible on mobile
+      await new Promise(resolve => setTimeout(resolve, 300));
+      setIsPaying(false);
+    } catch (error) {
+      console.error("Payment error:", error);
+      setIsPaying(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -420,14 +438,41 @@ export function BookingModal({
                         alert("Please fill in all required fields correctly.");
                       }
                     }}
-                    disabled={!canProceedFromStep2()}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
-                      !canProceedFromStep2()
+                    disabled={!canProceedFromStep2() || isPaying}
+                    aria-busy={isPaying}
+                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
+                      !canProceedFromStep2() || isPaying
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
                     }`}
                   >
-                    Book Session
+                    {isPaying ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5 text-white flex-shrink-0"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                          />
+                        </svg>
+                        <span>Processing...</span>
+                      </>
+                    ) : (
+                      <span>Book Session</span>
+                    )}
                   </button>
                 )}
               </div>
