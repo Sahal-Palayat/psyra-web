@@ -49,7 +49,7 @@ export function PackageSelection({
     {
       id: "single",
       title: "Single Session",
-      price: "₹999",
+      price: "₹1200",
       originalPrice: null,
       sessions: 1,
       popular: false,
