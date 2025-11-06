@@ -140,7 +140,7 @@ const HeroMob = () => {
                     />
                   </div>
                   <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
-                    Take Your Quick Assesment
+                    Take Your Free Assesment
                   </p>
                   <p className="text-black text-[12px] md:text-2xl leading-tight">
                     Know your mental health status qucikly
