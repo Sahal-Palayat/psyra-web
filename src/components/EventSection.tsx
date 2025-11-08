@@ -123,6 +123,8 @@ export function CommunityEvents() {
               )} ${visibilityClass}`}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
+              onTouchStart={() => setHoveredId(item.id)}
+              onTouchEnd={() => setTimeout(() => setHoveredId(null), 200)}
             >
               {/* Media Content */}
               <div className="relative h-full w-full">
@@ -147,8 +149,8 @@ export function CommunityEvents() {
                     }`}
                 >
                   {/* Watch Reel Text - Top Center */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div className="text-white text-xs md:text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/30">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="text-white text-[10px] sm:text-xs md:text-sm font-medium bg-white/20 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded-full border border-white/30 whitespace-nowrap">
                       Watch Reel
                     </div>
                   </div>
