@@ -115,6 +115,7 @@ export default function SurveyQuestions() {
         personDetails: {
           name: finalAnswers.name,
           mobile: finalAnswers.contact,
+          score,
         },
         questionAnswers: {
           ...Object.fromEntries(
