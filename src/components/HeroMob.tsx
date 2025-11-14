@@ -121,7 +121,7 @@ const HeroMob = () => {
 
               {/* Find Your Therapist Card */}
               <motion.div
-                className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
+                className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow shimmer-card"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
@@ -129,7 +129,7 @@ const HeroMob = () => {
               >
                 <div
                   onClick={() => (window.location.href = "/how-is-mind")}
-                  className="flex flex-col gap-4 "
+                  className="flex flex-col gap-4 cursor-pointer"
                 >
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
@@ -139,12 +139,15 @@ const HeroMob = () => {
                       loading="lazy"
                     />
                   </div>
+
                   <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
-                    Take Your Free Assesment
+                    Take Your Free Assessment
                   </p>
+
                   <p className="text-black text-[12px] md:text-2xl leading-tight">
-                    Know your mental health status qucikly
+                    Know your mental health status quickly
                   </p>
+
                   <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
                     <span>Start Now</span>
                     <MoveRight className="w-4 h-4" />

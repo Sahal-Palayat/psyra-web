@@ -11,7 +11,7 @@ const HeroBox = () => {
       link: "/services",
     },
     {
-      title: "Take Your Quick Assessment",
+      title: "Take Your Free Assessment",
       subtitle: "Know your mental health status quickly",
       image: "/assess.png",
       buttonText: "Start Now",

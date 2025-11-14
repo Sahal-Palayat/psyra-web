@@ -152,9 +152,9 @@
   /* Added emotion animation for mouth - transitions from sad to neutral to happy smile */
   @keyframes emotion-mouth {
 
-   
 
-    
+
+
     100% {
       /* Happy smile - curve up */
       d: path("M 10 10 Q 30 30, 50 10");
@@ -164,6 +164,38 @@
   .animate-emotion-mouth path {
     animation: emotion-mouth 2s ease-in-out infinite;
   }
+
+  /* Shimmer highlight effect */
+  .shimmer-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.45) 50%,
+        transparent 100%);
+    transform: skewX(-20deg);
+    animation: shimmerMove 2s infinite;
+  }
+
+  @keyframes shimmerMove {
+    0% {
+      left: -150%;
+    }
+
+    100% {
+      left: 150%;
+    }
+  }
+
 }
 
 
