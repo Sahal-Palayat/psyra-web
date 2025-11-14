@@ -2,7 +2,7 @@ export const testimonials = [
   {
     name: "Elsa Thomas P",
     designation: "College Student",
-    imageUrl: "/student-avatar.jpg",
+    imageUrl: "/std-avatar.png",                     //  /student-avatar.jpg
     hideName: false,
     messages: [
       {
@@ -20,7 +20,7 @@ export const testimonials = [
   {
     name: "Rahul Menon",
     designation: "IT Professional",
-    imageUrl: "/it-professional-avatar.jpg",
+    imageUrl: "/std-avatar.png",                //  /it-professional-avatar.jpg
     hideName: false,
     messages: [
       {
@@ -38,7 +38,7 @@ export const testimonials = [
   {
     name: "Nisha Varghese",
     designation: "Homemaker",
-    imageUrl: "/homemaker-avatar.jpg",
+    imageUrl: "/std-avatar.png",             //  /homemaker-avatar.jpg
     hideName: true, // 🔒 hide this name
     messages: [
       {
@@ -56,7 +56,7 @@ export const testimonials = [
   {
     name: "Arjun R",
     designation: "Entrepreneur",
-    imageUrl: "/entrepreneur-avatar.jpg",
+    imageUrl: "/std-avatar.png",                        // /entrepreneur-avatar.jpg
     hideName: false,
     messages: [
       {
@@ -74,7 +74,7 @@ export const testimonials = [
   {
     name: "Sneha Pillai",
     designation: "Teacher",
-    imageUrl: "/teacher-avatar.jpg",
+    imageUrl: "/std-avatar.png",                                // /teacher-avatar.jpg
     hideName: true, // 🔒 hide this one too
     messages: [
       {
