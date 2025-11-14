@@ -111,10 +111,16 @@ export default function SurveyQuestions() {
         loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
       setLoadingMessage(randomMsg);
 
+      const totalScore = Object.values(score as Record<string, number>).reduce(
+        (sum, val) => sum + val,
+        0
+      );
+
       const payload = {
         personDetails: {
           name: finalAnswers.name,
           mobile: finalAnswers.contact,
+          score: totalScore,
         },
         questionAnswers: {
           ...Object.fromEntries(
@@ -185,10 +191,10 @@ export default function SurveyQuestions() {
   }) => {
     const finalAnswers = {
       ...answers,
-      [surveyQuestions[currentQuestion].id]: value,
       name: userInfo.name,
       contact: userInfo.contact,
     };
+
     submitSurvey(finalAnswers);
   };
 
