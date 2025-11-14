@@ -32,7 +32,9 @@ const HeroBox = () => {
         {cards.map((card, index) => (
           <div
             key={index}
-            className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
+            className={`flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow ${
+              card.image === "/assess.png" ? "shimmer-card" : ""
+            } `}
           >
             <div className="flex flex-col gap-4 justify-between h-full">
               <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 justify-center rounded-lg flex">
@@ -43,6 +45,7 @@ const HeroBox = () => {
                   loading="lazy"
                 />
               </div>
+
               <div className="text-left">
                 <p className="font-semibold text-teal-600 text-[16px] md:text-xl leading-snug">
                   {card.title}
