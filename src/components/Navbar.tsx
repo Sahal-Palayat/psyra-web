@@ -76,41 +76,51 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link
               href="/#hero"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               Home
             </Link>
             <Link
               href="/about-us"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               About us
             </Link>
             <Link
               href="/services"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               Services
             </Link>
             <Link
               href="/psychologists"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               Therapists
             </Link>
 
-             <Link
+            <Link
               href="/concerns"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               Concerns
@@ -118,8 +128,10 @@ const Navbar = () => {
 
             <Link
               href="/contact-us"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
+              className={`transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#005657] hover:text-[#00989D]"
+                  : "text-white hover:text-[#A7F3F3]"
               }`}
             >
               Contact us
@@ -212,7 +224,7 @@ const Navbar = () => {
               >
                 Therapists
               </Link>
-                  <Link
+              <Link
                 href="/concerns"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
