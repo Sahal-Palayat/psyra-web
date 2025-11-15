@@ -63,6 +63,7 @@ export const WhatsAppTestimonials: React.FC = () => {
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
     );
   };
+  
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -115,10 +116,7 @@ export const WhatsAppTestimonials: React.FC = () => {
           <div className="px-8 md:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 justify-items-center">
               {getVisibleTestimonials().map((testimonial) => (
-                <div
-                  key={testimonial.key}
-                  className="w-full max-w-sm flex"
-                >
+                <div key={testimonial.key} className="w-full max-w-sm flex">
                   <div className="bg-white rounded-xl shadow-lg p-5 relative border border-gray-100 w-full transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full min-h-[320px]">
                     {/* Top-right highlighted corner */}
                     <div
@@ -133,7 +131,7 @@ export const WhatsAppTestimonials: React.FC = () => {
                     ></div>
 
                     {/* User photo */}
-                     <div className="flex justify-center mb-3">
+                    <div className="flex justify-center mb-3">
                       {testimonial.imageUrl ? (
                         <Image
                           src={testimonial.imageUrl}
@@ -191,7 +189,7 @@ export const WhatsAppTestimonials: React.FC = () => {
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? "bg-[#00989D] scale-110"         // #25D366
+                  ? "bg-[#00989D] scale-110" // #25D366
                   : "bg-gray-300 hover:bg-gray-400"
               }`}
               onClick={() => setCurrentIndex(index)}
