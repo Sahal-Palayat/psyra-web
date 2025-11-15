@@ -76,51 +76,75 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link
               href="/#hero"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Home
             </Link>
             <Link
               href="/about-us"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               About us
             </Link>
             <Link
               href="/services"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Services
             </Link>
             <Link
               href="/psychologists"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Therapists
             </Link>
 
-             <Link
+            <Link
               href="/concerns"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Concerns
             </Link>
 
             <Link
               href="/contact-us"
-              className={`text-[#005657] hover:text-white ${
-                isScrolled ? " text-[#005657]" : "text-white"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Contact us
             </Link>
@@ -212,7 +236,7 @@ const Navbar = () => {
               >
                 Therapists
               </Link>
-                  <Link
+              <Link
                 href="/concerns"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
