@@ -63,7 +63,6 @@ export const WhatsAppTestimonials: React.FC = () => {
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
     );
   };
-  
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -132,21 +131,13 @@ export const WhatsAppTestimonials: React.FC = () => {
 
                     {/* User photo */}
                     <div className="flex justify-center mb-3">
-                      {testimonial.imageUrl ? (
-                        <Image
-                          src={testimonial.imageUrl}
-                          alt="User photo"
-                          width={64}
-                          height={64}
-                          className="rounded-full object-cover border-2 border-[#00989D]"
-                        />
-                      ) : (
-                        <div className="w-16 h-16 rounded-full bg-[#00989D] border-2 border-[#00989D] flex items-center justify-center">
-                          <span className="text-white text-xl font-semibold">
-                            {testimonial.name?.charAt(0)?.toUpperCase() || "U"}
-                          </span>
-                        </div>
-                      )}
+                      <Image
+                        src={testimonial.imageUrl || "/std-avatar.png"} // fallback image
+                        alt="User photo"
+                        width={64}
+                        height={64}
+                        className="rounded-full object-cover border-2 border-[#00989D]"
+                      />
                     </div>
 
                     {/* User name */}
