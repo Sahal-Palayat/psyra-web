@@ -76,63 +76,75 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <Link
               href="/#hero"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Home
             </Link>
             <Link
               href="/about-us"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               About us
             </Link>
             <Link
               href="/services"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Services
             </Link>
             <Link
               href="/psychologists"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Therapists
             </Link>
 
             <Link
               href="/concerns"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Concerns
             </Link>
 
             <Link
               href="/contact-us"
-              className={`transition-colors duration-200 ${
-                isScrolled
-                  ? "text-[#005657] hover:text-[#00989D]"
-                  : "text-white hover:text-[#A7F3F3]"
-              }`}
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
             >
               Contact us
             </Link>
