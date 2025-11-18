@@ -164,10 +164,13 @@ export default function SurveyQuestions() {
       ...prev,
       [surveyQuestions[currentQuestion].question]: option,
     }));
-    setScore((prev) => ({
-      ...prev,
-      [surveyQuestions[currentQuestion].question]: index,
-    }));
+
+    if (currentQuestion !== 12) {
+      setScore((prev) => ({
+        ...prev,
+        [surveyQuestions[currentQuestion].question]: index,
+      }));
+    }
 
     if (currentQuestion + 1 === surveyQuestions?.length) {
       setSurveyComplete(true);
