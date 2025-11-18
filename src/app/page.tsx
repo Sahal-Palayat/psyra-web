@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 // import AboutUs from "@/components/AboutUs";
 import MentalHealthLoader from "@/components/lazy/mental-health-loader";
-import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
+// import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
 import Concerns from "@/components/Concerns";
 import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
 // import { TestimonialsSlider } from "@/components/Testimonals";
@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#F7F8F2]">
       {/* Welcome Animation Overlay - This will appear only on the first visit */}
-      <WelcomeAnimationOverlay />
+      {/* <WelcomeAnimationOverlay /> */}
       {/* <OnamOfferModal isOpen={showModal} onClose={() => setShowModal(false)} /> */}
       {/* Hero Section */}
       <Hero />
