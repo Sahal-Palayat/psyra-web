@@ -9,25 +9,12 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [showIntroModal, setShowIntroModal] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setMounted(true);
-    // Show modal automatically on first visit
-    const hasVisited = sessionStorage.getItem("hasVisitedAssessment");
-    if (!hasVisited) {
-      setShowIntroModal(true);
-      sessionStorage.setItem("hasVisitedAssessment", "true");
-    }
-  }, []);
 
   const handleStartAssessment = () => {
     // setShowIntroModal(false);
     router.push("/how-is-mind");
   };
-
-  if (!mounted) return null;
 
   return (
     <div className="bg-[#F7F8F2] pt-12">
@@ -109,7 +96,9 @@ export default function Home() {
               </p>
 
               <p className="text-black text-[12px] md:text-base leading-tight">
-                Know your mental health status quickly
+                Know your mental health status quickly with our
+                scientifically-backed assessment. Get personalized insights in
+                just 5 minutes.{" "}
               </p>
             </div>
           </motion.div>
@@ -155,7 +144,7 @@ export default function Home() {
             {/* Learn More — NOW the Outline Button */}
             <motion.button
               onClick={() => setShowIntroModal(true)}
-              className="flex items-center justify-center gap-2 px-8 py-4 border-2 border-emerald-500 text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all w-full"
+              className="flex items-center justify-center gap-2 px-8 py-4 border-1 border-emerald-500 text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all w-full"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
