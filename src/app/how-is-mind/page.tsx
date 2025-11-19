@@ -307,7 +307,7 @@ export default function SurveyQuestions() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            Back To Home
+            Take your first step
           </motion.button>
         )}
       </div>
