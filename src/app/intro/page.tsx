@@ -5,10 +5,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { IntroModal } from "@/components/HowIsMyMind/intro-modal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [showIntroModal, setShowIntroModal] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -21,7 +23,8 @@ export default function Home() {
   }, []);
 
   const handleStartAssessment = () => {
-    setShowIntroModal(false);
+    // setShowIntroModal(false);
+    router.push("/how-is-mind");
   };
 
   if (!mounted) return null;
@@ -52,7 +55,7 @@ export default function Home() {
       />
 
       {/* Main Content - Responsive two-column layout for desktop */}
-      <main className="relative z-10 flex flex-col lg:flex-row items-center lg:justify-center min-h-screen px-4 py-12 gap-8 lg:gap-16">
+      <main className="relative z-10 flex flex-col lg:flex-row items-center lg:justify-center px-4 py-12 gap-8 lg:gap-16">
         <motion.div
           className="hidden lg:flex flex-1 justify-center items-center"
           initial={{ opacity: 0, x: -40 }}
@@ -156,7 +159,7 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>Learn More mbileee</span>
+              <span>Learn More</span>
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </motion.div>
