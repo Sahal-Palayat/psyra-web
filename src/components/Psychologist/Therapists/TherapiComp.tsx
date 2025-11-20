@@ -129,7 +129,7 @@ export default function TherapistsCard() {
       );
 
       const list = Array.isArray(response?.data?.psychologists)
-        ? response.data?.psychologists
+        ? response?.data?.psychologists
         : [];
       setAllData(list);
       setData(
