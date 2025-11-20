@@ -33,7 +33,7 @@ export default function Carousel3DFixedTiming({
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
-    specialization: "",
+    designation: "",
     monthlySlots: [],
     imageUrl: "",
     experience: "",
