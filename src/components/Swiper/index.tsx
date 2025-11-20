@@ -164,7 +164,7 @@ export default function Carousel3DFixedTiming({
                         {psychologist.name || "Unknown Psychologist"}
                       </h2>
                       <p className="text-teal/90 text-sm mb-2">
-                        {psychologist.specialization || "General Psychology"}
+                        {psychologist.designation || "General Psychology"}
                       </p>
                     </>
                     <motion.button
