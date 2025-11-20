@@ -107,7 +107,7 @@ export default function TherapistsCard() {
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
-    specialization: "",
+    designation: "",
     monthlySlots: [],
     imageUrl: "",
     experience: "",
@@ -281,7 +281,7 @@ export default function TherapistsCard() {
                             </h2>
 
                             <p className="text-[#00989B] text-[14px] md:text-[16px] font-medium mb-1">
-                              {therapist.specialization}
+                              {therapist.designation}
                             </p>
 
                             <div className="text-[16px]">
