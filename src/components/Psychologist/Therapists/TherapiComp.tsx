@@ -87,14 +87,14 @@ const ExpandableText = ({ text }: { text: string }) => {
       <span>
         {displayText}
         {/* {!expanded && isLong ? "" : ""} */}
-      {isLong && (
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-[#00989B] font-medium underline"
-        >
-          {expanded ? "See less" : "..See more"}
-        </button>
-      )}
+        {isLong && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-[#00989B] font-medium underline"
+          >
+            {expanded ? "See less" : "..See more"}
+          </button>
+        )}
       </span>
     </div>
   );
@@ -128,7 +128,9 @@ export default function TherapistsCard() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      const list = Array.isArray(response?.data) ? response.data : [];
+      const list = Array.isArray(response?.data?.psychologists)
+        ? response.data?.psychologists
+        : [];
       setAllData(list);
       setData(
         langFilter
