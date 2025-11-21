@@ -87,14 +87,14 @@ const ExpandableText = ({ text }: { text: string }) => {
       <span>
         {displayText}
         {/* {!expanded && isLong ? "" : ""} */}
-      {isLong && (
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-[#00989B] font-medium underline"
-        >
-          {expanded ? "See less" : "..See more"}
-        </button>
-      )}
+        {isLong && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-[#00989B] font-medium underline"
+          >
+            {expanded ? "See less" : "..See more"}
+          </button>
+        )}
       </span>
     </div>
   );
@@ -109,7 +109,7 @@ export default function TherapistsCard() {
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
     name: "",
-    specialization: "",
+    designation: "",
     monthlySlots: [],
     imageUrl: "",
     experience: "",
@@ -130,12 +130,9 @@ export default function TherapistsCard() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      console.log("Calling API:", process.env.NEXT_PUBLIC_API_URL + "/psychologists");
-console.log("Response:", response.data);
-
-
-      const list = Array.isArray(response?.data) ? response.data : [];
-      console.log("Psychologists list:", list);
+      const list = Array.isArray(response?.data?.psychologists)
+        ? response?.data?.psychologists
+        : [];
       setAllData(list);
       setData(
         langFilter
@@ -286,7 +283,7 @@ console.log("Response:", response.data);
                             </h2>
 
                             <p className="text-[#00989B] text-[14px] md:text-[16px] font-medium mb-1">
-                              {therapist.specialization}
+                              {therapist.designation}
                             </p>
 
                             <div className="text-[16px]">

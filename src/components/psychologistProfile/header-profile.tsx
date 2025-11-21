@@ -27,14 +27,14 @@ const ProfileHeader = ({ name, designation, imageUrl }: ProfileHeaderProps) => {
           {/* Therapist Image */}
           <div
             className="
-  w-24 h-24 md:w-36 md:h-36 lg:w-48 lg:h-48 
-  rounded-xl 
-  overflow-hidden 
-  border-4 border-white 
-  shadow-xl 
-  bg-[#BFE9F7]  /* soft brand background */
-  flex items-center justify-center
-"
+                  w-24 h-24 md:w-36 md:h-36 lg:w-48 lg:h-48 
+                  rounded-xl 
+                  overflow-hidden 
+                  border-4 border-white 
+                  shadow-xl 
+                  bg-[#BFE9F7]  /* soft brand background */
+                  flex items-center justify-center
+                "
           >
             <Image
               src={imageUrl}

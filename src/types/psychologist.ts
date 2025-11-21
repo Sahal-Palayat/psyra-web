@@ -1,29 +1,29 @@
-// Separate interface for specialization details
+export interface Psychologist {
+  _id: string;
+  name: string;
+  designation: string;
+  monthlySlots: string[];
+  experience: string;
+  languages: string[];
+  expertise: string[];
+  imageUrl: string;
+  price?:string;
+  rating?:string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface SpecializationDetail {
   name: string;
   desc: string;
 }
 
-// Main Psychologist interface (ONLY ONE)
-export interface Psychologist {
-  _id: string;
-  name: string;
-  specialization: string;
-  monthlySlots: string[];
-  imageUrl: string;
-  price: string;
-  rating: string;
-  experience: string;
-  languages: string[];
-  expertise: string[];
-  createdAt: string;
-  updatedAt: string;
-  __v?: number;
-  active?: boolean;
+export interface PsychologistProfile extends Psychologist {
   description: string;
   designation: string;
   specializations: SpecializationDetail[];
 }
+
 
 export interface CardProps {
   psychologist: Psychologist;
@@ -36,10 +36,4 @@ export interface CardProps {
 export interface CarouselState {
   currentIndex: number;
   isAutoPlay: boolean;
-}
-
-export interface MonthlySlot {
-  date: string;
-  time: string;
-  available: boolean;
 }

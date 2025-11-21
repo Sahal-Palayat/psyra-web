@@ -9,7 +9,7 @@ import Specializations from "@/components/psychologistProfile/specializations";
 import NextAvailableSlot from "@/components/psychologistProfile/nextAvailableSlot";
 import TestimonialSection from "@/components/psychologistProfile/testimonialSection";
 import CTASection from "@/components/psychologistProfile/CTA-section";
-import type { Psychologist } from "@/types/psychologist";
+import type { PsychologistProfile } from "@/types/psychologist";
 
 import { toast } from "@/lib/toast";
 import axios from "axios";
@@ -21,7 +21,7 @@ export default function TherapistDetailPage({
 }) {
   const { id } = use(params);
 
-  const [therapist, setTherapist] = useState<Psychologist | null>(null);
+  const [therapist, setTherapist] = useState<PsychologistProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
