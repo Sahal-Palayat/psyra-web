@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react"; // <-- ADDED useState
+import React, { useState } from "react";
 import {
   Brain,
   Heart,
@@ -37,7 +37,6 @@ function getIconForSpecialization(name: string): LucideIcon {
   return Zap; 
 }
 
-
 function TruncatedText({ text }: { text: string }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -47,17 +46,25 @@ function TruncatedText({ text }: { text: string }) {
   const shownText = expanded ? text : text.slice(0, limit) + (isLong ? "..." : "");
 
   return (
-    <div>
-      {/* Truncated / full text */}
-      <p className="text-gray-700 text-xs md:text-base leading-relaxed">
-        {shownText}
-      </p>
+    <div className="flex flex-col h-full">
+      {/* Scrollable text area */}
+      <div 
+        className="flex-1 overflow-y-auto pr-2 mb-2" 
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none"
+        }}
+      >
+        <p className="text-gray-700 text-xs md:text-base leading-relaxed">
+          {shownText}
+        </p>
+      </div>
 
-      {/* Read More / Read Less button */}
+      {/* Read More / Read Less button - always visible */}
       {isLong && (
         <button
           onClick={() => setExpanded((prev) => !prev)}
-          className="text-[#085B5D] font-semibold text-xs md:text-sm mt-1 underline"
+          className="text-[#085B5D] hover:text-[#064347] font-semibold text-xs md:text-sm underline text-left transition-colors"
         >
           {expanded ? "Read less" : "Read more"}
         </button>
@@ -97,26 +104,33 @@ export default function Specializations({
             <div
               key={idx}
               className={`group p-5 md:p-8 rounded-2xl bg-gradient-to-br ${gradient}
-              cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-lg`}
+              transition-all duration-300 hover:scale-[1.03] hover:shadow-lg h-[280px] flex flex-col`}
             >
-              <div className="flex items-start gap-4 md:flex-col md:gap-5">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/40 flex items-center justify-center shadow backdrop-blur-sm">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/40 flex items-center justify-center shadow backdrop-blur-sm flex-shrink-0">
                   <Icon size={26} className="text-[#085B5D]" />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-lg md:text-2xl text-[#2A4A4D] mb-2">
                     {spec.name}
                   </h3>
-
-                  <TruncatedText text={spec.desc} />
-
                 </div>
+              </div>
+
+              <div className="flex-1 min-h-0">
+                <TruncatedText text={spec.desc}  />
               </div>
             </div>
           );
         })}
       </div>
+
+      <style jsx>{`
+        .overflow-y-auto::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }

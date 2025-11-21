@@ -74,11 +74,14 @@ export default function TherapistDetailPage({
 
         <Specializations specialization={therapist.specializations} />
 
-        <NextAvailableSlot monthlySlots={therapist.monthlySlots} />
+        <NextAvailableSlot
+          monthlySlots={therapist.monthlySlots}
+          psychologist={therapist}
+        />
 
-        <TestimonialSection />
+        <TestimonialSection/>
 
-        <CTASection psychologist={therapist}/>
+        <CTASection psychologist={therapist} />
       </div>
     </main>
   );

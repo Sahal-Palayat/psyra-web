@@ -3,29 +3,31 @@
 import { useState, useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
 
+
+
 const testimonials = [
   {
-    name: "Sarah Johnson",
+    name: "Sara Thomas",
     role: "Marketing Professional",
-    text: "Working with this therapist completely transformed how I manage anxiety.",
+    text: "I struggled with overthinking and low confidence. The sessions helped me rebuild my routine and mindset step by step.",
     rating: 5,
   },
   {
-    name: "Michael Chen",
+    name: "Arjun Menon",
     role: "Software Engineer",
-    text: "The compassionate approach made all the difference.",
+    text: "I was burnt out for months. These sessions helped me gain clarity and set healthier boundaries at work.",
     rating: 5,
   },
   {
-    name: "Emma Rodriguez",
+    name: "Rithu Simon",
     role: "Teacher",
-    text: "Mindfulness techniques changed my routine for the better.",
+    text: "Talking to a professional helped me process things I had pushed aside for years. I feel lighter and more stable now.",
     rating: 5,
   },
   {
-    name: "David Patel",
-    role: "Business Owner",
-    text: "The trauma-informed approach helped me deeply.",
+    name: "Anandhu",
+    role: "Engineering student",
+    text: "I never realized how much stress I was holding until therapy helped me slow down. It genuinely changed how I approach my daily life.",
     rating: 5,
   },
 ];
@@ -34,12 +36,27 @@ export default function TestimonialsSlider() {
   const [visibleCount, setVisibleCount] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
 
   const TOTAL = testimonials.length;
   const LOOPED = [...testimonials, ...testimonials, ...testimonials];
 
   const SPEED = 4000;
   const [isPaused, setIsPaused] = useState(false);
+
+  const MAX_LENGTH = 100; // Characters before truncation
+
+  const toggleExpand = (index: number) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const updateVisible = () => {
@@ -113,33 +130,55 @@ export default function TestimonialsSlider() {
           msOverflowStyle: "none",
         }}
       >
-        {LOOPED.map((item, i) => (
-          <div key={i} className="min-w-[100%] md:min-w-[33.333%] p-3">
-            {/* HIGHLIGHTED OUTLINE CARD */}
-            <div className="p-6 bg-white border-2 border-[#00989D]/30 hover:border-[#00989D] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full group">
-              <div className="flex gap-1 mb-3">
-                {[...Array(item.rating)].map((_, j) => (
-                  <Star
-                    key={j}
-                    size={18}
-                    className="fill-amber-400 text-amber-400"
-                  />
-                ))}
-              </div>
+        {LOOPED.map((item, i) => {
+          const isExpanded = expandedCards.has(i);
+          const shouldTruncate = item.text.length > MAX_LENGTH;
+          const displayText = isExpanded || !shouldTruncate 
+            ? item.text 
+            : `${item.text.slice(0, MAX_LENGTH)}...`;
 
-              <Quote size={32} className="text-[#00989D]/30 group-hover:text-[#00989D]/50 transition-colors mb-3" />
+          return (
+            <div key={i} className="min-w-[100%] md:min-w-[33.333%] p-3">
+              {/* HIGHLIGHTED OUTLINE CARD */}
+              <div className="p-6 bg-white border-2 border-[#00989D]/30 hover:border-[#00989D] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-[320px] group flex flex-col">
+                <div className="flex gap-1 mb-3">
+                  {[...Array(item.rating)].map((_, j) => (
+                    <Star
+                      key={j}
+                      size={18}
+                      className="fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
 
-              <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-4">
-                “{item.text}”
-              </p>
+                <Quote size={32} className="text-[#00989D]/30 group-hover:text-[#00989D]/50 transition-colors mb-3" />
 
-              <div className="border-t border-gray-200 pt-3">
-                <p className="font-semibold text-gray-900">{item.name}</p>
-                <p className="text-xs text-gray-600">{item.role}</p>
+                <div className="flex-1 overflow-y-auto mb-2 pr-2" style={{
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none"
+                }}>
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                    "{displayText}"
+                  </p>
+                </div>
+
+                {shouldTruncate && (
+                  <button
+                    onClick={() => toggleExpand(i)}
+                    className="text-[#00989D] hover:text-[#007a7e] text-sm font-medium transition-colors mb-3 text-left"
+                  >
+                    {isExpanded ? "Read less" : "Read more"}
+                  </button>
+                )}
+
+                <div className="border-t border-gray-200 pt-3 mt-4">
+                  <p className="font-semibold text-gray-900">{item.name}</p>
+                  <p className="text-xs text-gray-600">{item.role}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="flex justify-center gap-2 mt-6">
@@ -165,6 +204,9 @@ export default function TestimonialsSlider() {
 
       <style jsx>{`
         .overflow-x-scroll::-webkit-scrollbar {
+          display: none;
+        }
+        .overflow-y-auto::-webkit-scrollbar {
           display: none;
         }
       `}</style>
