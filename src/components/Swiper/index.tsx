@@ -20,7 +20,7 @@ import { motion } from "framer-motion";
 // import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
+// import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 
 export default function Carousel3DFixedTiming({
   data,
@@ -31,19 +31,19 @@ export default function Carousel3DFixedTiming({
   const [isLoaded, setIsLoaded] = useState(false);
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   console.log("HELLO HAII");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
-  const psychologist = useState<Psychologist>({
-    _id: "",
-    name: "",
-    designation: "",
-    monthlySlots: [],
-    imageUrl: "",
-    experience: "",
-    expertise: [],
-    languages: [],
-  });
+  // const psychologist:Psychologist = ({
+  //   _id: "",
+  //   name: "",
+  //   designation: "",
+  //   monthlySlots: [],
+  //   imageUrl: "",
+  //   experience: "",
+  //   expertise: [],
+  //   languages: [],
+  // });
 
   useEffect(() => {
     const initCarousel = () => {
@@ -301,11 +301,11 @@ export default function Carousel3DFixedTiming({
           -webkit-transform: translateZ(0);
         }
       `}</style>
-      <PsychologistModal
+      {/* <PsychologistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        data={psychologist!}
-      />
+        data={psychologist}
+      /> */}
     </div>
   );
 }
