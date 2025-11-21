@@ -101,6 +101,8 @@ const ExpandableText = ({ text }: { text: string }) => {
 };
 
 export default function TherapistsCard() {
+   console.log("TherapiComp is rendering!")
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Psychologist[]>([]);
   const [allData, setAllData] = useState<Psychologist[]>([]);
@@ -128,7 +130,12 @@ export default function TherapistsCard() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
+      console.log("Calling API:", process.env.NEXT_PUBLIC_API_URL + "/psychologists");
+console.log("Response:", response.data);
+
+
       const list = Array.isArray(response?.data) ? response.data : [];
+      console.log("Psychologists list:", list);
       setAllData(list);
       setData(
         langFilter

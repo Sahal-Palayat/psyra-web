@@ -11,13 +11,15 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { Psychologist } from "@/types/psychologist";
 import { motion } from "framer-motion";
-import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
+// import { PsychologistModal } from "../Psychologist/Modal/PsychologistModal";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Carousel3DFixedTiming({
   data,
@@ -28,18 +30,9 @@ export default function Carousel3DFixedTiming({
   const [isLoaded, setIsLoaded] = useState(false);
   // const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   console.log("HELLO HAII");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
-  const [psychologist, setPsychologist] = useState<Psychologist>({
-    _id: "",
-    name: "",
-    specialization: "",
-    monthlySlots: [],
-    imageUrl: "",
-    experience: "",
-    expertise: [],
-    languages: [],
-  });
+  // const [psychologist, setPsychologist] = useState<Psychologist | null>(null);
 
   useEffect(() => {
     const initCarousel = () => {
@@ -64,12 +57,12 @@ export default function Carousel3DFixedTiming({
   //   }
   // }, [hoveredCard]);
 
-  const handleBookNow = useCallback((psychologist: Psychologist) => {
-    console.log("Booking consultation with:", psychologist.name);
-    setIsModalOpen(true);
-    setPsychologist(psychologist);
-    // Add your booking logic here
-  }, []);
+  // const handleBookNow = useCallback((psychologist: Psychologist) => {
+  //   console.log("Booking consultation with:", psychologist.name);
+  //   setIsModalOpen(true);
+  //   setPsychologist(psychologist);
+  //   // Add your booking logic here
+  // }, []);
 
   return (
     <div className="relative pb-8 mt-4 bg-[#F7F8F2]">
@@ -141,14 +134,14 @@ export default function Carousel3DFixedTiming({
 
                     {/* Image container with higher z-index */}
                     <div className="relative w-50 h-55 flex items-center justify-center z-20">
-                      <img
+                      <Image
                         src={
                           psychologist?.imageUrl ||
-                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg" ||
-                          "/placeholder.svg" ||
-                          "/placeholder.svg"
+                          "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
                         }
-                        alt="ALTERNATIVE IMAGE"
+                        alt={psychologist?.name || "Psychologist profile"}
+                        width={200}
+                        height={200}
                         className="w-50 h-50 object-cover rounded-full relative z-30"
                         style={{
                           backfaceVisibility: "hidden",
@@ -167,14 +160,15 @@ export default function Carousel3DFixedTiming({
                         {psychologist.specialization || "General Psychology"}
                       </p>
                     </>
-                    <motion.button
-                      onClick={() => handleBookNow(psychologist)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="bg-white py-1 px-2 sm:px-4 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
-                    >
-                      Book Now
-                    </motion.button>
+                    <Link href={`/profile/${psychologist._id}`}>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="bg-white py-1 px-2 sm:px-4 text-[#005657] rounded-full text-xs sm:text-sm font-medium border border-black shadow-sm hover:bg-teal-100 transition-colors relative z-10"
+                      >
+                        View Profile
+                      </motion.button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -296,11 +290,11 @@ export default function Carousel3DFixedTiming({
           -webkit-transform: translateZ(0);
         }
       `}</style>
-      <PsychologistModal
+      {/* <PsychologistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        data={psychologist}
-      />
+        data={psychologist!}
+      /> */}
     </div>
   );
 }
