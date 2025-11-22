@@ -6,7 +6,7 @@ import { HeartHandshake } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const stats = [
-  { value: 2500, label: "Happy Psymates", suffix: "+" },
+  { value: 3000, label: "Happy Psymates", suffix: "+" },
   { value: 15, label: "Expert Therapists", suffix: "+" },
   { value: 4, label: "Languages", suffix: "+" },
 ];
