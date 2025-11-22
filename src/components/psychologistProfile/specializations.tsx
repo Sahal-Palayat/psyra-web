@@ -104,7 +104,7 @@ export default function Specializations({
             <div
               key={idx}
               className={`group p-5 md:p-8 rounded-2xl bg-gradient-to-br ${gradient}
-              transition-all duration-300 hover:scale-[1.03] hover:shadow-lg h-[280px] flex flex-col`}
+              transition-all duration-300 hover:scale-[1.03] hover:shadow-lg h-[150px] md:h-[280px] xl:h-[280px] flex flex-col`}
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/40 flex items-center justify-center shadow backdrop-blur-sm flex-shrink-0">

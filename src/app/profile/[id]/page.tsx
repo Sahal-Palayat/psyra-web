@@ -9,6 +9,8 @@ import Specializations from "@/components/psychologistProfile/specializations";
 import NextAvailableSlot from "@/components/psychologistProfile/nextAvailableSlot";
 import TestimonialSection from "@/components/psychologistProfile/testimonialSection";
 import CTASection from "@/components/psychologistProfile/CTA-section";
+// import {PsychologistExpertise} from "@/components/psychologistProfile/expertise";
+
 import type { PsychologistProfile } from "@/types/psychologist";
 
 import { toast } from "@/lib/toast";
@@ -78,6 +80,8 @@ export default function TherapistDetailPage({
           monthlySlots={therapist.monthlySlots}
           psychologist={therapist}
         />
+        
+        {/* <PsychologistExpertise expertise={therapist.expertise} /> */}
 
         <TestimonialSection/>
 

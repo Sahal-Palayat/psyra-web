@@ -9,6 +9,7 @@ import type { Psychologist } from "@/types/psychologist";
 import { PsychologistModal } from "@/components/Psychologist/Modal/PsychologistModal";
 import { toast } from "@/lib/toast";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 // Utility function to apply 10% discount
 const applyOfferDiscount = (price: number): number => {
@@ -101,7 +102,7 @@ const ExpandableText = ({ text }: { text: string }) => {
 };
 
 export default function TherapistsCard() {
-   console.log("TherapiComp is rendering!")
+  console.log("TherapiComp is rendering!");
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Psychologist[]>([]);
@@ -266,12 +267,14 @@ export default function TherapistsCard() {
                           className="w-full h-full object-cover"
                         />
 
-                        <Button
-                          onClick={() => handleBookNow(therapist)}
-                          className="hidden sm:flex absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#00BEA5] hover:bg-gray-100 text-xs sm:text-sm md:text-base px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                        <Link
+                          href={`/profile/${therapist._id}`}
+                          className="flex absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20"
                         >
-                          Book Now
-                        </Button>
+                          <Button className="bg-white text-[#00BEA5] hover:bg-gray-100 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 h-auto font-semibold rounded-full shadow-md transition-all duration-200">
+                            View Profile
+                          </Button>
+                        </Link>
                       </div>
 
                       {/* Right: Content */}
@@ -367,12 +370,17 @@ export default function TherapistsCard() {
                                 "Slot not available"}
                             </p>
                           </div>
-                          {/* <Button
+                          <Button
                             onClick={() => handleBookNow(therapist)}
-                            className="bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-base px-4 md:px-8 py-2 md:py-3 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                            className="
+                                bg-white text-[#00BEA5] 
+                                hover:bg-white hover:border-[#00BEA5] hover:shadow-md
+                                border border-transparent
+                                text-xs md:text-sm px-4 py-2 
+                                h-auto font-semibold  transition-all"
                           >
-                            BOOK NOW
-                          </Button> */}
+                            Book Now
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -389,9 +397,14 @@ export default function TherapistsCard() {
                       </div>
                       <Button
                         onClick={() => handleBookNow(therapist)}
-                        className="bg-white text-[#00BEA5] hover:bg-gray-100 text-xs md:text-base px-4 md:px-8 py-2 md:py-3 h-auto font-semibold rounded-full shadow-md transition-all duration-200"
+                        className="
+                          bg-white text-[#00BEA5] 
+                          hover:bg-white hover:border-[#00BEA5] hover:shadow-md
+                          border border-transparent
+                          text-xs md:text-sm px-4 py-2 
+                          h-auto font-semibold  transition-all"
                       >
-                        BOOK NOW
+                        Book Now
                       </Button>
                     </div>
                   </div>

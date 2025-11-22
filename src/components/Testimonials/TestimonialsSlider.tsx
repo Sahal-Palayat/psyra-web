@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
 
-
-
 const testimonials = [
   {
     name: "Sara Thomas",
@@ -47,7 +45,7 @@ export default function TestimonialsSlider() {
   const MAX_LENGTH = 100; // Characters before truncation
 
   const toggleExpand = (index: number) => {
-    setExpandedCards(prev => {
+    setExpandedCards((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(index)) {
         newSet.delete(index);
@@ -133,9 +131,10 @@ export default function TestimonialsSlider() {
         {LOOPED.map((item, i) => {
           const isExpanded = expandedCards.has(i);
           const shouldTruncate = item.text.length > MAX_LENGTH;
-          const displayText = isExpanded || !shouldTruncate 
-            ? item.text 
-            : `${item.text.slice(0, MAX_LENGTH)}...`;
+          const displayText =
+            isExpanded || !shouldTruncate
+              ? item.text
+              : `${item.text.slice(0, MAX_LENGTH)}...`;
 
           return (
             <div key={i} className="min-w-[100%] md:min-w-[33.333%] p-3">
@@ -151,14 +150,20 @@ export default function TestimonialsSlider() {
                   ))}
                 </div>
 
-                <Quote size={32} className="text-[#00989D]/30 group-hover:text-[#00989D]/50 transition-colors mb-3" />
+                <Quote
+                  size={32}
+                  className="text-[#00989D]/30 group-hover:text-[#00989D]/50 transition-colors mb-3"
+                />
 
-                <div className="flex-1 overflow-y-auto mb-2 pr-2" style={{
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none"
-                }}>
+                <div
+                  className="flex-1 overflow-y-auto mb-2 pr-2"
+                  style={{
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                  }}
+                >
                   <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-                    "{displayText}"
+                    {`"${displayText}"`}
                   </p>
                 </div>
 
