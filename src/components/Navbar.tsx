@@ -39,10 +39,10 @@ const Navbar = () => {
 
   // Function to handle WhatsApp redirection
   const handleWhatsAppRedirect = () => {
-    const phoneNumber = "+918891724199";
-    const message = encodeURIComponent(`Hi, How can i connect with you?`);
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-    router.push(`https://www.psyra.in/`);
+    // const phoneNumber = "+918891724199";
+    // const message = encodeURIComponent(`Hi, How can i connect with you?`);
+    // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+    router.push(`/services`);
   };
 
   // Don't render navbar if on survey/questions pages

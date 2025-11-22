@@ -91,7 +91,7 @@ export function BookingModal({
 
       setBookedSlot(res?.data?.data);
     } catch (error) {
-      console.error("Error fetching booked slots:", error);
+      console.error("Error fetching booked slotsss:", error);
     }
   };
 

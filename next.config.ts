@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'pebby-uplods.s3.us-east-1.amazonaws.com', // your API images
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org', // default fallback image
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

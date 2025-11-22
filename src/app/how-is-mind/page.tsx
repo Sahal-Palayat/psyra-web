@@ -164,10 +164,13 @@ export default function SurveyQuestions() {
       ...prev,
       [surveyQuestions[currentQuestion].question]: option,
     }));
-    setScore((prev) => ({
-      ...prev,
-      [surveyQuestions[currentQuestion].question]: index,
-    }));
+
+    if (currentQuestion !== 12) {
+      setScore((prev) => ({
+        ...prev,
+        [surveyQuestions[currentQuestion].question]: index,
+      }));
+    }
 
     if (currentQuestion + 1 === surveyQuestions?.length) {
       setSurveyComplete(true);
@@ -297,14 +300,14 @@ export default function SurveyQuestions() {
         {typedResponse.length === aiResponse.length && (
           <motion.button
             onClick={() => {
-              window.location.href = "/";
+              window.location.href = "/services";
             }}
             className="mt-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            Back To Home
+            Take your first step
           </motion.button>
         )}
       </div>

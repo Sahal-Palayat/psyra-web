@@ -1,7 +1,7 @@
 export interface Psychologist {
   _id: string;
   name: string;
-  specialization: string;
+  designation: string;
   monthlySlots: string[];
   experience: string;
   languages: string[];
@@ -12,6 +12,18 @@ export interface Psychologist {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface SpecializationDetail {
+  name: string;
+  desc: string;
+}
+
+export interface PsychologistProfile extends Psychologist {
+  description: string;
+  designation: string;
+  specializations: SpecializationDetail[];
+}
+
 
 export interface CardProps {
   psychologist: Psychologist;

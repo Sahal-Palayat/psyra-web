@@ -27,7 +27,7 @@ export default function PsychologistCarousel() {
     {
       _id: "",
       name: "",
-      specialization: "",
+      designation: "",
       monthlySlots: [],
       imageUrl: "",
       experience: "",
@@ -45,7 +45,7 @@ export default function PsychologistCarousel() {
         `${process.env.NEXT_PUBLIC_API_URL}/psychologists`
       );
 
-      const shuffledData = response?.data.sort(() => Math.random() - 0.5);
+      const shuffledData = response?.data?.psychologists?.sort(() => Math.random() - 0.5);
 
       setData(shuffledData);
       // setPsychologist(response?.data);

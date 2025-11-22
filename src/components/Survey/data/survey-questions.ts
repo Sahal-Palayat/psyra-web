@@ -429,4 +429,11 @@ export const howIsMindQues: SurveyQuestion[] = [
     ],
     type: "options",
   },
+  {
+    id: "q13",
+    question:
+      "Do you feel the need for someone who can listen to you openly without judgment and help you solve your problems?",
+    options: ["Always", "Sometimes", "No need"],
+    type: "options",
+  },
 ];

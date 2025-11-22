@@ -1,37 +1,48 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useEffect, useRef, useState } from "react"
-import { gsap } from "gsap"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles } from "lucide-react"
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 
 export function StepTwo({
   message,
   onMessageChange,
   onSubmit,
   isSubmitting,
+  setName,
+  setMobile,
+  name,
+  mobile,
 }: {
-  message: string
-  onMessageChange: (v: string) => void
-  onSubmit: (e: React.FormEvent) => void
-  isSubmitting: boolean
+  message: string;
+  onMessageChange: (v: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  isSubmitting: boolean;
+  setName: (name: string) => void;
+  setMobile: (mobile: string) => void;
+  name: string;
+  mobile: string;
 }) {
-  const rootRef = useRef<HTMLDivElement | null>(null)
-  const headingRef = useRef<HTMLHeadingElement | null>(null)
-  const descRef = useRef<HTMLParagraphElement | null>(null)
-  const formRef = useRef<HTMLFormElement | null>(null)
-  const floatingShapesRef = useRef<HTMLDivElement | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const descRef = useRef<HTMLParagraphElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const floatingShapesRef = useRef<HTMLDivElement | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   // Background animation
   useEffect(() => {
-    setMounted(true)
-    if (!floatingShapesRef.current) return
+    setMounted(true);
+    if (!floatingShapesRef.current) return;
 
-    const shapes = floatingShapesRef.current.querySelectorAll(".floating-shape")
-    const particles = floatingShapesRef.current.querySelectorAll(".particle")
+    const shapes =
+      floatingShapesRef.current.querySelectorAll(".floating-shape");
+    const particles = floatingShapesRef.current.querySelectorAll(".particle");
 
     // Animate floating shapes
     shapes.forEach((shape, i) => {
@@ -44,7 +55,7 @@ export function StepTwo({
         yoyo: true,
         ease: "sine.inOut",
         delay: i * 0.3,
-      })
+      });
 
       gsap.to(shape, {
         scale: "random(0.9, 1.1)",
@@ -53,8 +64,8 @@ export function StepTwo({
         yoyo: true,
         ease: "sine.inOut",
         delay: i * 0.2,
-      })
-    })
+      });
+    });
 
     // Animate particles
     particles.forEach((particle, i) => {
@@ -67,16 +78,22 @@ export function StepTwo({
         yoyo: true,
         ease: "sine.inOut",
         delay: i * 0.5,
-      })
-    })
-  }, [])
+      });
+    });
+  }, []);
 
   // Main content animation
   useEffect(() => {
-    if (!rootRef.current || !headingRef.current || !descRef.current || !formRef.current) return
+    if (
+      !rootRef.current ||
+      !headingRef.current ||
+      !descRef.current ||
+      !formRef.current
+    )
+      return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline()
+      const tl = gsap.timeline();
 
       // Handwriting animation for "Hey There"
       tl.from(headingRef.current, {
@@ -92,7 +109,7 @@ export function StepTwo({
             duration: 1.2,
             ease: "power2.inOut",
           },
-          "-=0.4",
+          "-=0.4"
         )
         .from(
           descRef.current,
@@ -102,7 +119,7 @@ export function StepTwo({
             duration: 0.8,
             ease: "power3.out",
           },
-          "-=0.4",
+          "-=0.4"
         )
         .from(
           formRef.current,
@@ -112,12 +129,12 @@ export function StepTwo({
             duration: 0.8,
             ease: "power3.out",
           },
-          "-=0.4",
-        )
-    }, rootRef)
+          "-=0.4"
+        );
+    }, rootRef);
 
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div
@@ -125,7 +142,10 @@ export function StepTwo({
       className="relative min-h-screen w-full overflow-hidden flex items-center justify-center p-4"
     >
       {/* Animated Background Elements */}
-      <div ref={floatingShapesRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div
+        ref={floatingShapesRef}
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+      >
         {/* Floating Gradient Blobs */}
         <div className="floating-shape absolute top-[10%] left-[10%] w-64 h-64 bg-gradient-to-br from-pink-200/40 to-pink-300/30 rounded-full blur-3xl" />
         <div className="floating-shape absolute top-[60%] right-[15%] w-80 h-80 bg-gradient-to-br from-cyan-200/40 to-cyan-300/30 rounded-full blur-3xl" />
@@ -133,7 +153,10 @@ export function StepTwo({
         <div className="floating-shape absolute top-[30%] right-[30%] w-56 h-56 bg-gradient-to-br from-teal-200/30 to-teal-300/25 rounded-full blur-3xl" />
 
         {/* Vector Shapes */}
-        <svg className="floating-shape absolute top-[20%] right-[10%] w-32 h-32 text-cyan-300/30" viewBox="0 0 100 100">
+        <svg
+          className="floating-shape absolute top-[20%] right-[10%] w-32 h-32 text-cyan-300/30"
+          viewBox="0 0 100 100"
+        >
           <polygon points="50,10 90,90 10,90" fill="currentColor" />
         </svg>
         <svg
@@ -142,8 +165,18 @@ export function StepTwo({
         >
           <circle cx="50" cy="50" r="40" fill="currentColor" />
         </svg>
-        <svg className="floating-shape absolute top-[50%] left-[5%] w-28 h-28 text-pink-300/30" viewBox="0 0 100 100">
-          <rect x="20" y="20" width="60" height="60" fill="currentColor" transform="rotate(45 50 50)" />
+        <svg
+          className="floating-shape absolute top-[50%] left-[5%] w-28 h-28 text-pink-300/30"
+          viewBox="0 0 100 100"
+        >
+          <rect
+            x="20"
+            y="20"
+            width="60"
+            height="60"
+            fill="currentColor"
+            transform="rotate(45 50 50)"
+          />
         </svg>
 
         {/* Glowing Particles */}
@@ -164,7 +197,7 @@ export function StepTwo({
         <div className="backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl shadow-teal-500/10 rounded-3xl p-4 md:p-12 space-y-8">
           {/* Handwritten Heading with Animation */}
           <div className="text-center space-y-4">
-          <h2
+            <h2
               ref={headingRef}
               className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 relative inline-block"
               style={{
@@ -180,14 +213,25 @@ export function StepTwo({
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-teal-400 to-transparent rounded-full" />
           </div>
 
-          <p ref={descRef} className="text-lg md:text-xl leading-relaxed text-balance text-center text-slate-700">
-            {"Is there something you've wanted to share for a long time but couldn't? This is a"}{" "}
-            <span className="font-semibold text-teal-600">safe, anonymous space</span>.
+          <p
+            ref={descRef}
+            className="text-lg md:text-xl leading-relaxed text-balance text-center text-slate-700"
+          >
+            {
+              "Is there something you've wanted to share for a long time but couldn't? This is a"
+            }{" "}
+            <span className="font-semibold text-teal-600">
+              safe, anonymous space
+            </span>
+            .
           </p>
 
           <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
             <div className="space-y-3">
-              <label htmlFor="message" className="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <label
+                htmlFor="message"
+                className="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
                 <span className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
                 Share your thoughts anonymously.
               </label>
@@ -206,15 +250,101 @@ export function StepTwo({
               </div>
 
               <p className="text-xs text-slate-600 flex items-center gap-2">
-                <svg className="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-4 h-4 text-teal-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                     clipRule="evenodd"
                   />
                 </svg>
-                {"Your submission is completely anonymous. We don't collect any identifying information."}
+                {
+                  "Your submission is completely anonymous. We don't collect any identifying information."
+                }
               </p>
+            </div>
+
+            <div className="space-y-4">
+              <button
+                type="button"
+                onClick={() => setShowHelp(!showHelp)}
+                className="w-full flex items-center justify-center gap-2 text-teal-600 hover:text-teal-700 font-medium text-sm transition-colors duration-200 group"
+              >
+                <span className="relative">
+                  Do you need any help?
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 group-hover:w-full transition-all duration-300" />
+                </span>
+                {showHelp ? (
+                  <ChevronUp className="w-4 h-4 transition-transform" />
+                ) : (
+                  <ChevronDown className="w-4 h-4 transition-transform" />
+                )}
+              </button>
+
+              {showHelp && (
+                <div className="space-y-4 p-6 backdrop-blur-sm bg-teal-50/50 border-2 border-teal-200/50 rounded-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+                  <p className="text-sm text-slate-700 text-center">
+                    {
+                      "If you'd like our psychologist to reach out to you, please provide your contact details below."
+                    }
+                  </p>
+
+                  <div className="space-y-3">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="text-sm font-medium text-slate-700 block mb-2"
+                      >
+                        Your Name
+                      </label>
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Enter your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="backdrop-blur-sm bg-white/80 border-2 border-teal-200/50 focus:border-teal-400 focus:ring-4 focus:ring-teal-400/20 rounded-xl transition-all duration-300"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="mobile"
+                        className="text-sm font-medium text-slate-700 block mb-2"
+                      >
+                        Mobile Number
+                      </label>
+                      <Input
+                        id="mobile"
+                        type="tel"
+                        placeholder="Enter your mobile number"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        className="backdrop-blur-sm bg-white/80 border-2 border-teal-200/50 focus:border-teal-400 focus:ring-4 focus:ring-teal-400/20 rounded-xl transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-600 flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4 text-teal-500 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    These details will only be used by our psychologist to
+                    contact you for support.
+                  </p>
+                </div>
+              )}
             </div>
 
             <Button
@@ -244,8 +374,11 @@ export function StepTwo({
 
       {/* Add Google Fonts for handwriting */}
       {mounted && (
-        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
+          rel="stylesheet"
+        />
       )}
     </div>
-  )
+  );
 }

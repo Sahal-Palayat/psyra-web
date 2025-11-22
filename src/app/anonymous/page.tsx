@@ -13,6 +13,8 @@ const Anonymous = () => {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +26,8 @@ const Anonymous = () => {
 
       // Build payload: static values + dynamic feedback text
       const payload = {
-        name: "Anonymous",
-        mobile: "0000000000", // static placeholder required by API
+        name: name || "Anonymous",
+        mobile: mobile || "0000000000", // static placeholder required by API
         feedback: message.trim(),
         rating: 0,
         psymateId: "anonymous",
@@ -69,6 +71,10 @@ const Anonymous = () => {
           onMessageChange={setMessage}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
+          setName={setName}
+          setMobile={setMobile}
+          name={name}
+          mobile={mobile}
         />
       )}
       {step === 3 && <StepThree onTakeTherapy={handleTakeTherapy} />}
