@@ -39,15 +39,14 @@ export default function AboutUs() {
                   }
                 </p>
                 <p className="text-gray-600 text-lg md:text-xl mb-10">
-                  At Psyra, you will find listeners, not judges therapists who
-                  meet you where you are, offering a refuge of privacy where
-                  your story remains yours alone. You will experience support
-                  that adapts to your life, with no rigid systems only what
-                  truly works for you. Here, care comes without shame, because
-                  seeking help should never feel like weakness. Psyra is not
-                  just about therapy; it is about giving your mind the home it
-                  is been searching for. Because you deserve more than just
-                  surviving you deserve peace
+                  At Psyra, you will find listeners, not judges, 
+                  but therapists who meet you where you are, 
+                  offering a refuge of privacy where your story remains yours alone. 
+                  You will experience support that adapts to your life, with no rigid systems-only what truly works for you. 
+                  Here, care comes without shame, because seeking help should never feel like weakness. 
+                  Psyra is not just about therapy; it is about giving your mind the home it has been searching for. 
+                  Because you deserve more than just surviving-you deserve peace.
+
                 </p>
               </div>
             </div>
