@@ -1,4 +1,6 @@
-export const blogs = [
+import type { Blog } from "@/types/blog";
+
+export const blogs: Blog[] = [
   {
     id: "1",
     title: "Why Therapy Works: What Actually Happens in a Session",
@@ -6,359 +8,422 @@ export const blogs = [
     category: "Therapy",
     shortDescription:
       "Understand what truly happens in therapy sessions and why therapy works for mental and emotional wellbeing.",
-    thumbnail: "/therapy-session.jpg",
+    thumbnail: "/therapy-session-banner.jpg",
     content: `
-     <!-- BLOG HEADER -->
 
-<div class="w-full bg-[#EEF0FF] p-6 rounded-xl mb-8 border border-[#DADFFF] shadow-sm">
-  <p class="text-sm text-[#6C63FF] font-semibold uppercase tracking-wide mb-2">Therapy • Mental Health</p>
-  <h1 class="text-4xl font-bold text-[#2E2E3A] leading-tight mb-4">
-    Why Therapy Works: What Actually Happens in a Session
-  </h1>
-
-  <div class="flex items-center gap-4 text-sm text-gray-600">
-    <p><strong>Author:</strong> Dr. Neha Rao, Clinical Psychologist</p>
-    <span>•</span>
-    <p>Published: Nov 23, 2025</p>
-    <span>•</span>
-    <p>Estimated reading time: 12 minutes</p>
-  </div>
-</div>
-
-<!-- FEATURED IMAGE -->
 <div class="mb-10">
   <img 
-    src="/therapy-session-banner.jpg" 
-    alt="Therapy session cover image" 
-    class="rounded-xl shadow-md w-full object-cover h-96"
+    src="/therapy-session.jpg" 
+    alt="Therapy session in a calm, welcoming room" 
+    class="rounded-2xl shadow-lg w-full object-cover h-[400px]"
   />
 </div>
 
-<!-- INTRO SECTION -->
-<div class="prose prose-lg max-w-none text-[#3A3A3A] leading-relaxed">
+<div class="flex items-center gap-4 text-sm text-gray-500 mb-8 pb-6 border-b border-gray-200">
+  <span class="font-medium text-[#00989D]">Dr. Neha Rao</span>
+  <span>•</span>
+  <span>Clinical Psychologist</span>
+  <span>•</span>
+  <span>12 min read</span>
+</div>
 
-  <p class="text-lg mb-6">
-    Therapy has become one of the most powerful tools for emotional well-being, stress relief,
-    and inner healing. Yet many people hesitate before booking their first session simply because
-    they don't know what actually happens inside a therapist's room.
+<p class="text-xl text-gray-700 leading-relaxed mb-8 font-light">
+  Therapy has become one of the most powerful tools for emotional well-being, stress relief,
+  and inner healing. Yet many people hesitate before booking their first session simply because
+  they don't know what actually happens inside a therapist's room.
+</p>
+
+<div class="my-10 py-8 px-6 border-l-4 border-[#00989D] bg-gradient-to-r from-[#F0FAFA] to-transparent">
+  <p class="text-2xl font-light text-[#005657] italic leading-relaxed">
+    "Most people wonder whether therapy is just talking, or if therapists give advice. This blog will break down exactly what happens—and why therapy is so transformative."
   </p>
+</div>
 
-  <div class="p-6 bg-[#F7F8FF] border border-[#DCE0FF] rounded-xl mb-8 shadow-sm">
-    <p class="font-medium text-[#6C63FF] mb-3 text-lg">❝ Why does therapy work? ❞</p>
-    <p class="text-gray-700">
-      Most people wonder whether therapy is just talking, or if therapists give advice, or whether
-      online therapy is as effective as in-person sessions. This blog will break down exactly what
-      happens—and why therapy is so transformative.
+<h2 class="text-3xl font-bold text-[#005657] mb-6 mt-12">What Actually Happens in a Therapy Session?</h2>
+
+<p class="text-gray-700 leading-relaxed mb-6">
+  People often imagine therapy as lying on a couch while someone quietly takes notes. But real
+  therapy is far deeper—and far more transformative. Here's what actually happens:
+</p>
+
+<div class="grid md:grid-cols-2 gap-6 my-8">
+  <div class="bg-[#F7FAFA] p-6 rounded-xl border border-[#E0F0F0]">
+    <h3 class="text-lg font-bold text-[#00989D] mb-3">Safe & Private Space</h3>
+    <p class="text-gray-600 text-sm leading-relaxed">
+      Therapy begins with safety. You are free to express emotions, fears, and experiences without
+      judgment. Everything you share remains confidential.
     </p>
   </div>
-
-  <hr class="my-10 border-[#E0E2FF]" />
-
-  <!-- SECTION 1 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">1. What Actually Happens in a Therapy Session?</h2>
-
-  <p>
-    People often imagine therapy as lying on a couch while someone quietly takes notes. But real
-    therapy is far deeper—and far more transformative. Here's what actually happens in a session:
-  </p>
-
-  <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.1 A Safe, Private & Non-Judgmental Space</h3>
-
-  <p>
-    Therapy begins with safety. You are free to express emotions, fears, and experiences without
-    judgment. Everything you share remains confidential, unless there's risk of harm.
-  </p>
-
-  <blockquote class="border-l-4 border-[#6C63FF] pl-4 italic text-gray-700 my-6">
-    "A therapy room is one of the few places where you can be completely honest."
-  </blockquote>
-
-  <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.2 Sharing Your Story at Your Own Pace</h3>
-  <p>You don't need to prepare. You don't need to plan what to say. You go at your own pace.</p>
-
-  <ul class="list-disc pl-6">
-    <li>"What brings you here today?"</li>
-    <li>"What are you struggling with lately?"</li>
-    <li>"How have you been feeling emotionally?"</li>
-  </ul>
-
-  <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.3 Understanding Thoughts, Emotions & Patterns</h3>
-  <p>Your therapist observes:</p>
-  <ul class="list-disc pl-6">
-    <li>Recurring emotional triggers</li>
-    <li>Thought loops causing anxiety</li>
-    <li>Childhood patterns affecting adult life</li>
-    <li>Relationship dynamics</li>
-  </ul>
-
-  <div class="p-6 bg-[#F5FFF7] border border-[#C8EFD0] rounded-xl my-8 shadow-sm">
-    <p class="text-[#2E7D32] font-semibold mb-2">✨ Emotional Insight Moment</p>
-    <p class="text-gray-700">
-      Many people say therapy helped them recognize things they didn't know about themselves.
+  <div class="bg-[#F7FAFA] p-6 rounded-xl border border-[#E0F0F0]">
+    <h3 class="text-lg font-bold text-[#00989D] mb-3">Your Own Pace</h3>
+    <p class="text-gray-600 text-sm leading-relaxed">
+      You don't need to prepare. You don't need to plan what to say. Your therapist guides you gently through the process.
     </p>
   </div>
-
-  <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.4 Setting Therapy Goals</h3>
-  <p>You build goals such as:</p>
-
-  <ul class="list-disc pl-6">
-    <li>Reduce anxiety</li>
-    <li>Control overthinking</li>
-    <li>Build confidence</li>
-    <li>Heal from trauma</li>
-    <li>Improve communication</li>
-  </ul>
-
-  <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.5 Learning Tools & Techniques</h3>
-
-  <p>Therapists teach structured, science-backed tools:</p>
-
-  <ul class="list-disc pl-6">
-    <li>Grounding & mindfulness</li>
-    <li>Cognitive reframing</li>
-    <li>Emotional regulation practices</li>
-    <li>Healthy communication skills</li>
-    <li>Boundary setting</li>
-  </ul>
-
-  <hr class="my-10 border-[#E0E2FF]" />
-
-  <!-- SECTION 2 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">2. Why Therapy Works — The Psychological Science</h2>
-
-  <p>Therapy works because it changes your brain, your thoughts, your emotions, and your behaviors.</p>
-
-  <div class="grid md:grid-cols-2 gap-6 my-6">
-    <div class="p-6 bg-[#FFF7F8] rounded-xl border border-[#FFD9DE] shadow-sm">
-      <h4 class="font-semibold text-[#D1455B] mb-2">🧠 Cognitive Change</h4>
-      <p>Your thoughts become healthier, reducing stress and anxiety.</p>
-    </div>
-    <div class="p-6 bg-[#F3F7FF] rounded-xl border border-[#C9D7FF] shadow-sm">
-      <h4 class="font-semibold text-[#5263FF] mb-2">💛 Emotional Regulation</h4>
-      <p>You learn to process emotions instead of suppressing them.</p>
-    </div>
+  <div class="bg-[#F7FAFA] p-6 rounded-xl border border-[#E0F0F0]">
+    <h3 class="text-lg font-bold text-[#00989D] mb-3">Pattern Recognition</h3>
+    <p class="text-gray-600 text-sm leading-relaxed">
+      Your therapist observes recurring emotional triggers, thought loops causing anxiety, and childhood patterns affecting adult life.
+    </p>
   </div>
-
-  <p>Therapy rewires neural pathways. Your emotional reactions become calmer. You respond instead of react.</p>
-
-  <hr class="my-10 border-[#E0E2FF]" />
-
-  <!-- SECTION 3 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">3. Types of Therapy</h2>
-
-  <ul class="list-disc pl-6">
-    <li><strong>CBT</strong> — changes negative thoughts</li>
-    <li><strong>DBT</strong> — manages intense emotions</li>
-    <li><strong>Psychodynamic Therapy</strong> — explores childhood patterns</li>
-    <li><strong>Humanistic Therapy</strong> — focuses on growth & self-worth</li>
-    <li><strong>Trauma Therapy</strong> — heals emotional wounds</li>
-    <li><strong>Couples Therapy</strong> — improves relationships</li>
-  </ul>
-
-  <hr class="my-10 border-[#E0E2FF]" />
-
-  <!-- SECTION 4 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">4. How Therapists Help</h2>
-
-  <ul class="list-disc pl-6">
-    <li>They listen without judgement</li>
-    <li>They help you understand yourself</li>
-    <li>They reveal emotional blind spots</li>
-    <li>They challenge unhealthy patterns</li>
-    <li>They help you build emotional strength</li>
-  </ul>
-
-  <hr class="my-10 border-[#E0E2FF]" />
-
-  <!-- SECTION 5 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">5. Myths About Therapy</h2>
-
-  <div class="p-6 bg-[#FFFDF2] border border-[#FFE9A6] rounded-xl shadow-sm">
-    <p class="font-semibold text-[#C17A00]">❌ Myth: "Therapy is only for serious problems."</p>
-    <p class="text-gray-700">✔ Truth: Therapy is for ANYONE who wants emotional clarity.</p>
+  <div class="bg-[#F7FAFA] p-6 rounded-xl border border-[#E0F0F0]">
+    <h3 class="text-lg font-bold text-[#00989D] mb-3">Goal Setting</h3>
+    <p class="text-gray-600 text-sm leading-relaxed">
+      Together you build goals: reduce anxiety, control overthinking, build confidence, heal from trauma, improve communication.
+    </p>
   </div>
+</div>
 
-  <hr class="my-10 border-[#E0E2FF]" />
+<h2 class="text-3xl font-bold text-[#005657] mb-6 mt-12">Why Therapy Works — The Science</h2>
 
-  <!-- SECTION 6 -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">6. Online vs In-Person Therapy</h2>
+<p class="text-gray-700 leading-relaxed mb-6">
+  Therapy works because it changes your brain, your thoughts, your emotions, and your behaviors. Here's the science:
+</p>
 
-  <table class="w-full border-collapse my-8">
-    <tr class="bg-[#EEF0FF] text-[#2F2C7C] font-semibold">
-      <td class="p-4 border border-[#DDD]">Online Therapy</td>
-      <td class="p-4 border border-[#DDD]">In-Person Therapy</td>
-    </tr>
-    <tr>
-      <td class="p-4 border border-[#EEE]">Flexible, comfortable, affordable</td>
-      <td class="p-4 border border-[#EEE]">Stronger emotional connection</td>
-    </tr>
-    <tr>
-      <td class="p-4 border border-[#EEE]">Good for anxiety</td>
-      <td class="p-4 border border-[#EEE]">Ideal for trauma work</td>
-    </tr>
-  </table>
+<div class="flex flex-col md:flex-row gap-4 my-8">
+  <div class="flex-1 p-6 bg-gradient-to-br from-[#00989D] to-[#005657] rounded-xl text-white">
+    <p class="text-sm font-medium opacity-80 mb-2">Cognitive Change</p>
+    <p class="text-lg font-light">Your thoughts become healthier, reducing stress and anxiety over time.</p>
+  </div>
+  <div class="flex-1 p-6 bg-gradient-to-br from-[#00B5B8] to-[#00989D] rounded-xl text-white">
+    <p class="text-sm font-medium opacity-80 mb-2">Emotional Regulation</p>
+    <p class="text-lg font-light">You learn to process emotions instead of suppressing them.</p>
+  </div>
+</div>
 
-  <!-- CONCLUSION -->
-  <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">Conclusion</h2>
+<h2 class="text-3xl font-bold text-[#005657] mb-6 mt-12">Types of Therapy</h2>
 
-  <p>
+<ul class="space-y-3 text-gray-700">
+  <li class="flex items-start gap-3">
+    <span class="w-2 h-2 rounded-full bg-[#00989D] mt-2 flex-shrink-0"></span>
+    <span><strong>CBT</strong> — Changes negative thought patterns</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="w-2 h-2 rounded-full bg-[#00989D] mt-2 flex-shrink-0"></span>
+    <span><strong>DBT</strong> — Manages intense emotions effectively</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="w-2 h-2 rounded-full bg-[#00989D] mt-2 flex-shrink-0"></span>
+    <span><strong>Psychodynamic Therapy</strong> — Explores childhood patterns</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="w-2 h-2 rounded-full bg-[#00989D] mt-2 flex-shrink-0"></span>
+    <span><strong>Trauma Therapy</strong> — Heals deep emotional wounds</span>
+  </li>
+</ul>
+
+<div class="mt-12 p-8 bg-[#F0FAFA] rounded-2xl border border-[#D0E8E8]">
+  <h3 class="text-xl font-bold text-[#005657] mb-4">Conclusion</h3>
+  <p class="text-gray-700 leading-relaxed">
     Therapy helps you heal, understand yourself, and build a stronger emotional life. Whether
-    online or offline, therapy offers clarity, healing, and emotional empowerment.
+    online or offline, therapy offers clarity, healing, and emotional empowerment for everyone.
   </p>
-
 </div>
     `,
     createdAt: "2025-11-23",
   },
   {
-  id: "2",
-  title: "How Overthinking Affects Your Mental Health",
-  name: "how-overthinking-affects-you",
-  category: "Mindfulness",
-  shortDescription:
-    "Overthinking drains energy, increases anxiety, and affects your daily life. Here’s why it happens and how to stop it.",
-  thumbnail: "/overthinking.jpg",
-  content: `
-    <section class="mb-10">
-      <h1 class="text-4xl font-bold text-[#2E2E3A]">How Overthinking Affects Your Mental Health</h1>
-      <p class="text-gray-600 text-sm mt-2">By Dr. Aadhira Menon • Published: Nov 24, 2025 • 7 min read</p>
-    </section>
+    id: "2",
+    title: "How Overthinking Affects Your Mental Health",
+    name: "how-overthinking-affects-you",
+    category: "Mindfulness",
+    shortDescription:
+      "Overthinking drains energy, increases anxiety, and affects your daily life. Here's why it happens and how to stop it.",
+    thumbnail: "/overthinking.webp",
+    content: `
 
-    <img src="/overthinking-banner.jpg" class="w-full h-80 object-cover rounded-xl shadow-md mb-10" />
 
-    <section class="prose max-w-none text-[#333]">
-      <p>
-        Overthinking is one of the most common issues people face today. It’s exhausting, mentally draining,
-        and often leads to anxiety or sleepless nights. But why do we overthink? And how can we break the cycle?
-      </p>
+<div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+  <span class="font-medium text-[#00989D]">Dr. Aadhira Menon</span>
+  <span>•</span>
+  <span>7 min read</span>
+</div>
 
-      <h2 class="text-2xl font-bold mt-8">1. Why We Overthink</h2>
-      <ul>
-        <li>Fear of making wrong decisions</li>
-        <li>Past emotional experiences</li>
-        <li>Lack of emotional clarity</li>
-        <li>High expectations from self</li>
-      </ul>
+<div class="aspect-video rounded-xl overflow-hidden mb-10">
+  <img 
+    src="/overthinking.jpg" 
+    alt="Person overthinking with abstract thought visualization"
+    class="w-full h-full object-cover"
+  />
+</div>
 
-      <div class="bg-[#F0F7FF] p-6 rounded-lg my-6">
-        <p class="font-semibold text-[#3757C7]">✨ Quick Insight</p>
-        <p>Overthinking is not a personality trait — it’s a habit the brain learns over time.</p>
+<p class="text-xl text-gray-600 leading-relaxed mb-10">
+  Overthinking is one of the most common issues people face today. It's exhausting, mentally draining,
+  and often leads to anxiety or sleepless nights. But why do we overthink? And how can we break the cycle?
+</p>
+
+<div class="space-y-12">
+
+  <div class="flex gap-6">
+    <div class="flex-shrink-0">
+      <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#00989D] text-white font-bold text-xl">1</span>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-[#005657] mb-4">Why We Overthink</h2>
+      <p class="text-gray-700 mb-4">Understanding the root causes helps us address the problem:</p>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-600">Fear of wrong decisions</div>
+        <div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-600">Past emotional experiences</div>
+        <div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-600">Lack of emotional clarity</div>
+        <div class="p-4 bg-gray-50 rounded-lg text-sm text-gray-600">High self-expectations</div>
       </div>
+    </div>
+  </div>
 
-      <h2 class="text-2xl font-bold mt-8">2. How Overthinking Affects You</h2>
-      <p>It impacts everyday life in ways you may not notice:</p>
-      <ul>
-        <li>Difficulty sleeping</li>
-        <li>Constant self-doubt</li>
-        <li>Reduced productivity</li>
-        <li>Anxiety spikes during routine tasks</li>
-      </ul>
+  <div class="p-6 rounded-xl bg-gradient-to-r from-[#E8F6F6] to-[#F0FAFA] border-l-4 border-[#00989D]">
+    <p class="font-medium text-[#005657] mb-1">Key Insight</p>
+    <p class="text-gray-700">Overthinking is not a personality trait — it's a habit the brain learns over time, and habits can be changed.</p>
+  </div>
 
-      <h2 class="text-2xl font-bold mt-8">3. Ways to Stop Overthinking</h2>
-      <ol class="list-decimal pl-6">
-        <li>Practice grounding techniques</li>
-        <li>Limit decision-making fatigue</li>
-        <li>Journal your thoughts</li>
-        <li>Engage in mindfulness exercises</li>
+  <div class="flex gap-6">
+    <div class="flex-shrink-0">
+      <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#00989D] text-white font-bold text-xl">2</span>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-[#005657] mb-4">How Overthinking Affects You</h2>
+      <p class="text-gray-700 mb-4">It impacts everyday life in ways you may not notice:</p>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <span class="text-gray-700">Difficulty sleeping and restless nights</span>
+        </div>
+        <div class="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm">
+          <div class="w-3 h-3 rounded-full bg-orange-400"></div>
+          <span class="text-gray-700">Constant self-doubt in decisions</span>
+        </div>
+        <div class="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm">
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <span class="text-gray-700">Reduced productivity at work</span>
+        </div>
+        <div class="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg shadow-sm">
+          <div class="w-3 h-3 rounded-full bg-teal-400"></div>
+          <span class="text-gray-700">Anxiety spikes during routine tasks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-6">
+    <div class="flex-shrink-0">
+      <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#00989D] text-white font-bold text-xl">3</span>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-[#005657] mb-4">Ways to Stop Overthinking</h2>
+      <p class="text-gray-700 mb-4">Practical techniques to regain control:</p>
+      <ol class="space-y-4">
+        <li class="flex items-start gap-4">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E8F6F6] text-[#00989D] font-semibold flex items-center justify-center text-sm">a</span>
+          <div>
+            <p class="font-medium text-gray-800">Practice grounding techniques</p>
+            <p class="text-sm text-gray-500">Focus on your senses to bring yourself back to the present moment</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E8F6F6] text-[#00989D] font-semibold flex items-center justify-center text-sm">b</span>
+          <div>
+            <p class="font-medium text-gray-800">Limit decision-making fatigue</p>
+            <p class="text-sm text-gray-500">Simplify daily choices to save mental energy for important decisions</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E8F6F6] text-[#00989D] font-semibold flex items-center justify-center text-sm">c</span>
+          <div>
+            <p class="font-medium text-gray-800">Journal your thoughts</p>
+            <p class="text-sm text-gray-500">Writing helps externalize and process recurring thoughts</p>
+          </div>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#E8F6F6] text-[#00989D] font-semibold flex items-center justify-center text-sm">d</span>
+          <div>
+            <p class="font-medium text-gray-800">Engage in mindfulness exercises</p>
+            <p class="text-sm text-gray-500">Regular meditation trains your brain to stay present</p>
+          </div>
+        </li>
       </ol>
+    </div>
+  </div>
 
-      <h2 class="text-2xl font-bold mt-8">Conclusion</h2>
-      <p>
-        Overthinking is a learned pattern — and with the right tools, it can be unlearned. 
-        Start small, and practice mindfulness daily to regain control over your thoughts.
-      </p>
-    </section>
-  `,
-  createdAt: "2025-11-24",
-},
-{
-  id: "3",
-  title: "Signs of Burnout You Should Never Ignore",
-  name: "signs-of-burnout",
-  category: "Wellbeing",
-  shortDescription:
-    "Burnout doesn’t happen overnight. Here are early symptoms, causes, and how to recover before it gets severe.",
-  thumbnail: "/burnout.jpg",
-  content: `
-    <!-- HEADER -->
-    <header class="bg-[#FFF4F2] p-6 rounded-xl border border-[#F9D6D1] shadow-sm mb-8">
-      <h1 class="text-4xl font-bold text-[#3B1F1E]">Signs of Burnout You Should Never Ignore</h1>
-      <p class="text-gray-700 mt-2 text-sm">
-        By Dr. Rishita S • Published: Nov 24, 2025 • 9 min read
-      </p>
-    </header>
+</div>
 
-    <!-- HERO IMAGE -->
-    <img 
-      src="/burnout-banner.webp" 
-      alt="Burnout illustration" 
-      class="rounded-lg shadow-lg w-full h-96 object-cover mb-12"
-    />
+<div class="mt-12 p-8 bg-[#005657] rounded-2xl text-white">
+  <h3 class="text-xl font-bold mb-3">Final Thought</h3>
+  <p class="text-white/90 leading-relaxed">
+    Overthinking is a learned pattern — and with the right tools, it can be unlearned. 
+    Start small, and practice mindfulness daily to regain control over your thoughts.
+  </p>
+</div>
+    `,
+    createdAt: "2025-11-24",
+  },
+  {
+    id: "3",
+    title: "Signs of Burnout You Should Never Ignore",
+    name: "signs-of-burnout",
+    category: "Wellbeing",
+    shortDescription:
+      "Burnout doesn't happen overnight. Here are early symptoms, causes, and how to recover before it gets severe.",
+    thumbnail: "/burnout-banner.webp",
+    content: `
 
-    <article class="prose max-w-none text-[#363636]">
+<div class="relative mb-10">
+  <img 
+    src="/burnout.jpg" 
+    alt="Person showing signs of burnout" 
+    class="rounded-2xl w-full h-[350px] object-cover"
+  />
+  <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent rounded-b-2xl">
+    <div class="flex items-center gap-3 text-white/80 text-sm">
+      <span class="font-medium">Dr. Rishita S</span>
+      <span>•</span>
+      <span>9 min read</span>
+    </div>
+  </div>
+</div>
 
-      <p>
-        Burnout is more than “being tired.” It is a deep emotional, physical, and mental exhaustion 
-        caused by overwhelming stress. Most people notice it only when it becomes severe — 
-        but early signs start long before that.
-      </p>
+<p class="text-xl text-gray-700 leading-relaxed mb-8">
+  Burnout is more than "being tired." It is a deep emotional, physical, and mental exhaustion 
+  caused by overwhelming stress. Most people notice it only when it becomes severe — 
+  but early signs start long before that.
+</p>
 
-      <!-- BOX -->
-      <div class="bg-[#FFF9E8] border border-[#F1E1A8] p-6 rounded-xl my-8 shadow-sm">
-        <h3 class="font-bold text-[#9C7A00] mb-2">⚠ Early Warning</h3>
-        <p>Burnout builds up slowly and quietly — usually disguised as routine stress.</p>
-      </div>
+<div class="p-5 bg-amber-50 border border-amber-200 rounded-xl mb-10 flex gap-4">
+  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+    <span class="text-amber-600 text-lg">⚠</span>
+  </div>
+  <div>
+    <p class="font-semibold text-amber-800 mb-1">Early Warning</p>
+    <p class="text-amber-700 text-sm">Burnout builds up slowly and quietly — usually disguised as routine stress.</p>
+  </div>
+</div>
 
-      <h2 class="text-3xl font-bold mt-10">1. Emotional Signs of Burnout</h2>
-      <ul class="list-disc pl-6">
-        <li>Feeling emotionally drained every day</li>
-        <li>Loss of motivation</li>
-        <li>Increased irritability</li>
-        <li>Feeling detached from work or people</li>
-      </ul>
+<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
+  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">1</span>
+  Emotional Signs of Burnout
+</h2>
 
-      <blockquote class="border-l-4 border-[#E07A5F] italic pl-4 my-6 text-gray-700">
-        “If you're living in survival mode for too long, burnout becomes inevitable.”
-      </blockquote>
+<div class="grid md:grid-cols-2 gap-4 mb-10">
+  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+    <p class="font-medium text-gray-800 mb-1">Feeling emotionally drained</p>
+    <p class="text-sm text-gray-500">Every day feels like you're running on empty</p>
+  </div>
+  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+    <p class="font-medium text-gray-800 mb-1">Loss of motivation</p>
+    <p class="text-sm text-gray-500">Things you once enjoyed no longer excite you</p>
+  </div>
+  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+    <p class="font-medium text-gray-800 mb-1">Increased irritability</p>
+    <p class="text-sm text-gray-500">Small things trigger big emotional reactions</p>
+  </div>
+  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+    <p class="font-medium text-gray-800 mb-1">Feeling detached</p>
+    <p class="text-sm text-gray-500">Disconnection from work, people, and purpose</p>
+  </div>
+</div>
 
-      <h2 class="text-3xl font-bold mt-10">2. Physical Signs of Burnout</h2>
-      <ul>
-        <li>Persistent headache</li>
-        <li>Difficulty sleeping</li>
-        <li>Heavy fatigue, even after rest</li>
-        <li>Muscle tension or body pain</li>
-      </ul>
+<div class="my-8 py-6 border-y border-gray-200">
+  <blockquote class="text-xl italic text-[#005657] text-center font-light">
+    "If you're living in survival mode for too long, burnout becomes inevitable."
+  </blockquote>
+</div>
 
-      <h2 class="text-3xl font-bold mt-10">3. Behavioral Signs</h2>
-      <ul>
-        <li>Procrastination increases</li>
-        <li>Feeling overwhelmed easily</li>
-        <li>Pulling away from social interactions</li>
-        <li>Loss of interest in hobbies</li>
-      </ul>
+<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
+  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">2</span>
+  Physical Signs of Burnout
+</h2>
 
-      <div class="bg-[#E8F9F0] border border-[#BAEAD5] p-6 rounded-xl my-8">
-        <h3 class="font-bold text-[#1E7A46] mb-2">💡 Quick Tip</h3>
-        <p>Take 5-minute breaks every hour — small resets prevent burnout from building up.</p>
-      </div>
+<div class="flex flex-wrap gap-3 mb-10">
+  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Persistent headaches</span>
+  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Difficulty sleeping</span>
+  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Heavy fatigue</span>
+  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Muscle tension</span>
+  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Body pain</span>
+</div>
 
-      <h2 class="text-3xl font-bold mt-10">4. How to Recover From Burnout</h2>
-      <ol class="list-decimal pl-6">
-        <li>Prioritize rest & sleep</li>
-        <li>Reduce unnecessary workloads</li>
-        <li>Talk to a therapist or coach</li>
-        <li>Practice mindfulness or breathing exercises</li>
-        <li>Reconnect with hobbies & social support</li>
-      </ol>
+<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
+  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">3</span>
+  Behavioral Signs
+</h2>
 
-      <h2 class="text-3xl font-bold mt-10">Conclusion</h2>
-      <p>
-        Burnout is serious but fully reversible. Listening to your early signs and giving yourself
-        space to rest can prevent long-term emotional exhaustion.
-      </p>
-    </article>
-  `,
-  createdAt: "2025-11-24",
-}
+<div class="space-y-3 mb-10">
+  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
+    <span class="text-gray-700">Procrastination increases significantly</span>
+  </div>
+  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
+    <span class="text-gray-700">Feeling overwhelmed by simple tasks</span>
+  </div>
+  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
+    <span class="text-gray-700">Pulling away from social interactions</span>
+  </div>
+  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
+    <span class="text-gray-700">Loss of interest in hobbies and activities</span>
+  </div>
+</div>
 
+<div class="p-5 bg-[#E8F6F6] border border-[#B8E0E0] rounded-xl mb-10 flex gap-4">
+  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#00989D] flex items-center justify-center">
+    <span class="text-white text-lg">💡</span>
+  </div>
+  <div>
+    <p class="font-semibold text-[#005657] mb-1">Quick Tip</p>
+    <p class="text-gray-700 text-sm">Take 5-minute breaks every hour — small resets prevent burnout from building up.</p>
+  </div>
+</div>
+
+<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
+  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">4</span>
+  How to Recover From Burnout
+</h2>
+
+<div class="space-y-4 mb-10">
+  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
+    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">1</span>
+    <div>
+      <p class="font-semibold text-gray-800">Prioritize rest & sleep</p>
+      <p class="text-sm text-gray-500">Your body needs time to recover from chronic stress</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
+    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">2</span>
+    <div>
+      <p class="font-semibold text-gray-800">Reduce unnecessary workloads</p>
+      <p class="text-sm text-gray-500">Learn to say no and set clear boundaries</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
+    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">3</span>
+    <div>
+      <p class="font-semibold text-gray-800">Talk to a therapist or coach</p>
+      <p class="text-sm text-gray-500">Professional support can accelerate recovery</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
+    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">4</span>
+    <div>
+      <p class="font-semibold text-gray-800">Practice mindfulness or breathing</p>
+      <p class="text-sm text-gray-500">Calming techniques help regulate your nervous system</p>
+    </div>
+  </div>
+  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
+    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">5</span>
+    <div>
+      <p class="font-semibold text-gray-800">Reconnect with hobbies & people</p>
+      <p class="text-sm text-gray-500">Social support and joy activities aid healing</p>
+    </div>
+  </div>
+</div>
+
+<div class="p-8 bg-gradient-to-br from-[#005657] to-[#00989D] rounded-2xl text-white">
+  <h3 class="text-xl font-bold mb-3">Conclusion</h3>
+  <p class="text-white/90 leading-relaxed">
+    Burnout is serious but fully reversible. Listening to your early signs and giving yourself
+    space to rest can prevent long-term emotional exhaustion. You deserve to feel whole again.
+  </p>
+</div>
+    `,
+    createdAt: "2025-11-24",
+  },
 ]

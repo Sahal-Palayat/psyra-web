@@ -1,0 +1,10 @@
+export interface Blog {
+  id: string;
+  title: string;
+  name: string;
+  category: string;
+  shortDescription: string;
+  thumbnail: string;
+  content: string;
+  createdAt: string;
+}

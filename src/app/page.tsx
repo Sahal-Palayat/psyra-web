@@ -16,7 +16,6 @@ import BlogCard from "@/components/blogs/blogCard";
 import { blogs } from "@/constants/blog";
 import Link from "next/link";
 
-
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
   () =>
@@ -62,30 +61,40 @@ export default function Home() {
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
       <CommunityEvents />
+
+       {/* Blog Section */}
+      <section className="px-6 py-14 bg-white">
+        {/* Header */}
+        <h2 className="text-3xl md:text-4xl font-bold text-[#005657] text-center mb-3">
+          Latest Articles
+        </h2>
+
+        {/* Subheading */}
+        <p className="text-center text-[#4A4A4A] text-sm md:text-base max-w-2xl mx-auto mb-10">
+          Gentle guidance and expert insights on therapy, healing, and emotional
+          wellbeing.
+        </p>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+          {blogs.slice(0, 3).map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
+          ))}
+        </div>
+
+        {/* view all link */}
+        <div className="text-center">
+          <Link
+            href="/blogs"
+            className="text-[#00989D] font-semibold hover:text-[#005657] underline transition text-lg"
+          >
+            View All Articles
+          </Link>
+        </div>
+      </section>
+
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
-
-{/* Blog Section */}
-<section className="px-6 py-12">
-  <div className="flex justify-between items-center mb-6">
-    <h2 className="text-3xl font-bold text-[#005657]">Latest Articles</h2>
-
-    <Link
-      href="/blogs"
-      className="text-[#005657] font-semibold underline hover:opacity-80 transition"
-    >
-      View All →
-    </Link>
-  </div>
-
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {blogs.slice(0, 3).map((blog) => (
-      <BlogCard key={blog.id} blog={blog} />
-    ))}
-  </div>
-</section>
-
-
 
       {/* FAQ Section with themed loading */}
       <DynamicFaq />
