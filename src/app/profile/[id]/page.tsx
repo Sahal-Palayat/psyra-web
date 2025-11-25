@@ -7,7 +7,7 @@ import AboutSection from "@/components/psychologistProfile/aboutSection";
 import QuickInfo from "@/components/psychologistProfile/quickInfo";
 import Specializations from "@/components/psychologistProfile/specializations";
 import NextAvailableSlot from "@/components/psychologistProfile/nextAvailableSlot";
-import TestimonialSection from "@/components/psychologistProfile/testimonialSection";
+// import TestimonialSection from "@/components/psychologistProfile/testimonialSection";
 import CTASection from "@/components/psychologistProfile/CTA-section";
 // import {PsychologistExpertise} from "@/components/psychologistProfile/expertise";
 
@@ -83,7 +83,7 @@ export default function TherapistDetailPage({
         
         {/* <PsychologistExpertise expertise={therapist.expertise} /> */}
 
-        <TestimonialSection/>
+        {/* <TestimonialSection/> */}
 
         <CTASection psychologist={therapist} />
       </div>
