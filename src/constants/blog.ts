@@ -28,9 +28,9 @@ export const blogs = [
 <!-- FEATURED IMAGE -->
 <div class="mb-10">
   <img 
-    src="/therapy-session.jpg" 
+    src="/therapy-session-banner.jpg" 
     alt="Therapy session cover image" 
-    class="rounded-xl shadow-md w-full object-cover"
+    class="rounded-xl shadow-md w-full object-cover h-96"
   />
 </div>
 
@@ -40,7 +40,7 @@ export const blogs = [
   <p class="text-lg mb-6">
     Therapy has become one of the most powerful tools for emotional well-being, stress relief,
     and inner healing. Yet many people hesitate before booking their first session simply because
-    they don’t know what actually happens inside a therapist’s room.
+    they don't know what actually happens inside a therapist's room.
   </p>
 
   <div class="p-6 bg-[#F7F8FF] border border-[#DCE0FF] rounded-xl mb-8 shadow-sm">
@@ -59,22 +59,22 @@ export const blogs = [
 
   <p>
     People often imagine therapy as lying on a couch while someone quietly takes notes. But real
-    therapy is far deeper—and far more transformative. Here’s what actually happens in a session:
+    therapy is far deeper—and far more transformative. Here's what actually happens in a session:
   </p>
 
   <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.1 A Safe, Private & Non-Judgmental Space</h3>
 
   <p>
     Therapy begins with safety. You are free to express emotions, fears, and experiences without
-    judgment. Everything you share remains confidential, unless there’s risk of harm.
+    judgment. Everything you share remains confidential, unless there's risk of harm.
   </p>
 
   <blockquote class="border-l-4 border-[#6C63FF] pl-4 italic text-gray-700 my-6">
-    “A therapy room is one of the few places where you can be completely honest.”
+    "A therapy room is one of the few places where you can be completely honest."
   </blockquote>
 
   <h3 class="text-2xl font-semibold text-[#6C63FF] mt-8">1.2 Sharing Your Story at Your Own Pace</h3>
-  <p>You don’t need to prepare. You don’t need to plan what to say. You go at your own pace.</p>
+  <p>You don't need to prepare. You don't need to plan what to say. You go at your own pace.</p>
 
   <ul class="list-disc pl-6">
     <li>"What brings you here today?"</li>
@@ -94,7 +94,7 @@ export const blogs = [
   <div class="p-6 bg-[#F5FFF7] border border-[#C8EFD0] rounded-xl my-8 shadow-sm">
     <p class="text-[#2E7D32] font-semibold mb-2">✨ Emotional Insight Moment</p>
     <p class="text-gray-700">
-      Many people say therapy helped them recognize things they didn’t know about themselves.
+      Many people say therapy helped them recognize things they didn't know about themselves.
     </p>
   </div>
 
@@ -174,7 +174,7 @@ export const blogs = [
   <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">5. Myths About Therapy</h2>
 
   <div class="p-6 bg-[#FFFDF2] border border-[#FFE9A6] rounded-xl shadow-sm">
-    <p class="font-semibold text-[#C17A00]">❌ Myth: “Therapy is only for serious problems.”</p>
+    <p class="font-semibold text-[#C17A00]">❌ Myth: "Therapy is only for serious problems."</p>
     <p class="text-gray-700">✔ Truth: Therapy is for ANYONE who wants emotional clarity.</p>
   </div>
 
@@ -207,62 +207,158 @@ export const blogs = [
   </p>
 
 </div>
-
     `,
     createdAt: "2025-11-23",
   },
-//   {
-//     id: "2",
-//     title: "How to Reduce Anxiety Naturally",
-//     name: "reduce-anxiety-naturally",
-//     category: "Anxiety",
-//     shortDescription:
-//       "Learn science-backed techniques to reduce anxiety at home, naturally and effectively.",
-//     thumbnail: "/anxiety.jpg",
-//     content: `
-//       <h2>How to Reduce Anxiety</h2>
-//       <p>Anxiety affects millions, but there are natural ways to manage it...</p>
-//     `,
-//     createdAt: "2025-11-21",
-//   },
-//   {
-//   id: "3",
-//   title: "5 Signs You’re Emotionally Exhausted (And How to Recover)",
-//   name: "signs-of-emotional-exhaustion",
-//   category: "Emotional Health",
-//   shortDescription:
-//     "Learn the common signs of emotional exhaustion and the proven ways to recover and rebuild your energy.",
-//   thumbnail: "/emotional-exhaustion.jpg",
-//   content: `
-//     <h2>5 Signs You’re Emotionally Exhausted</h2>
-//     <p>Emotional exhaustion happens when your mind has been under stress for too long. It affects your energy, mood, focus, and relationships.</p>
+  {
+  id: "2",
+  title: "How Overthinking Affects Your Mental Health",
+  name: "how-overthinking-affects-you",
+  category: "Mindfulness",
+  shortDescription:
+    "Overthinking drains energy, increases anxiety, and affects your daily life. Here’s why it happens and how to stop it.",
+  thumbnail: "/overthinking.jpg",
+  content: `
+    <section class="mb-10">
+      <h1 class="text-4xl font-bold text-[#2E2E3A]">How Overthinking Affects Your Mental Health</h1>
+      <p class="text-gray-600 text-sm mt-2">By Dr. Aadhira Menon • Published: Nov 24, 2025 • 7 min read</p>
+    </section>
 
-//     <h3>1. Constant Overthinking</h3>
-//     <p>You replay conversations, worry about mistakes, and imagine worst-case scenarios.</p>
+    <img src="/overthinking-banner.jpg" class="w-full h-80 object-cover rounded-xl shadow-md mb-10" />
 
-//     <h3>2. Feeling Numb or Disconnected</h3>
-//     <p>You don’t feel like yourself anymore, or you feel “empty” even when nothing is wrong.</p>
+    <section class="prose max-w-none text-[#333]">
+      <p>
+        Overthinking is one of the most common issues people face today. It’s exhausting, mentally draining,
+        and often leads to anxiety or sleepless nights. But why do we overthink? And how can we break the cycle?
+      </p>
 
-//     <h3>3. Difficulty Making Decisions</h3>
-//     <p>Simple decisions feel overwhelming because your mental energy is low.</p>
+      <h2 class="text-2xl font-bold mt-8">1. Why We Overthink</h2>
+      <ul>
+        <li>Fear of making wrong decisions</li>
+        <li>Past emotional experiences</li>
+        <li>Lack of emotional clarity</li>
+        <li>High expectations from self</li>
+      </ul>
 
-//     <h3>4. Irritability & Low Patience</h3>
-//     <p>You get annoyed easily or feel like you want to be left alone all the time.</p>
+      <div class="bg-[#F0F7FF] p-6 rounded-lg my-6">
+        <p class="font-semibold text-[#3757C7]">✨ Quick Insight</p>
+        <p>Overthinking is not a personality trait — it’s a habit the brain learns over time.</p>
+      </div>
 
-//     <h3>5. Physical Fatigue</h3>
-//     <p>Your body feels tired even after resting, and tasks feel heavier than usual.</p>
+      <h2 class="text-2xl font-bold mt-8">2. How Overthinking Affects You</h2>
+      <p>It impacts everyday life in ways you may not notice:</p>
+      <ul>
+        <li>Difficulty sleeping</li>
+        <li>Constant self-doubt</li>
+        <li>Reduced productivity</li>
+        <li>Anxiety spikes during routine tasks</li>
+      </ul>
 
-//     <h2>How to Recover</h2>
-//     <ul>
-//       <li>Reduce mental load and take breaks.</li>
-//       <li>Practice grounding and mindful breathing.</li>
-//       <li>Set boundaries with people and tasks.</li>
-//       <li>Talk to a mental health professional.</li>
-//     </ul>
+      <h2 class="text-2xl font-bold mt-8">3. Ways to Stop Overthinking</h2>
+      <ol class="list-decimal pl-6">
+        <li>Practice grounding techniques</li>
+        <li>Limit decision-making fatigue</li>
+        <li>Journal your thoughts</li>
+        <li>Engage in mindfulness exercises</li>
+      </ol>
 
-//     <p>Emotional exhaustion is reversible. With the right care and support, you can restore your energy and feel like yourself again.</p>
-//   `,
-//   createdAt: "2025-11-24",
-// }
+      <h2 class="text-2xl font-bold mt-8">Conclusion</h2>
+      <p>
+        Overthinking is a learned pattern — and with the right tools, it can be unlearned. 
+        Start small, and practice mindfulness daily to regain control over your thoughts.
+      </p>
+    </section>
+  `,
+  createdAt: "2025-11-24",
+},
+{
+  id: "3",
+  title: "Signs of Burnout You Should Never Ignore",
+  name: "signs-of-burnout",
+  category: "Wellbeing",
+  shortDescription:
+    "Burnout doesn’t happen overnight. Here are early symptoms, causes, and how to recover before it gets severe.",
+  thumbnail: "/burnout.jpg",
+  content: `
+    <!-- HEADER -->
+    <header class="bg-[#FFF4F2] p-6 rounded-xl border border-[#F9D6D1] shadow-sm mb-8">
+      <h1 class="text-4xl font-bold text-[#3B1F1E]">Signs of Burnout You Should Never Ignore</h1>
+      <p class="text-gray-700 mt-2 text-sm">
+        By Dr. Rishita S • Published: Nov 24, 2025 • 9 min read
+      </p>
+    </header>
 
-];
+    <!-- HERO IMAGE -->
+    <img 
+      src="/burnout-banner.webp" 
+      alt="Burnout illustration" 
+      class="rounded-lg shadow-lg w-full h-96 object-cover mb-12"
+    />
+
+    <article class="prose max-w-none text-[#363636]">
+
+      <p>
+        Burnout is more than “being tired.” It is a deep emotional, physical, and mental exhaustion 
+        caused by overwhelming stress. Most people notice it only when it becomes severe — 
+        but early signs start long before that.
+      </p>
+
+      <!-- BOX -->
+      <div class="bg-[#FFF9E8] border border-[#F1E1A8] p-6 rounded-xl my-8 shadow-sm">
+        <h3 class="font-bold text-[#9C7A00] mb-2">⚠ Early Warning</h3>
+        <p>Burnout builds up slowly and quietly — usually disguised as routine stress.</p>
+      </div>
+
+      <h2 class="text-3xl font-bold mt-10">1. Emotional Signs of Burnout</h2>
+      <ul class="list-disc pl-6">
+        <li>Feeling emotionally drained every day</li>
+        <li>Loss of motivation</li>
+        <li>Increased irritability</li>
+        <li>Feeling detached from work or people</li>
+      </ul>
+
+      <blockquote class="border-l-4 border-[#E07A5F] italic pl-4 my-6 text-gray-700">
+        “If you're living in survival mode for too long, burnout becomes inevitable.”
+      </blockquote>
+
+      <h2 class="text-3xl font-bold mt-10">2. Physical Signs of Burnout</h2>
+      <ul>
+        <li>Persistent headache</li>
+        <li>Difficulty sleeping</li>
+        <li>Heavy fatigue, even after rest</li>
+        <li>Muscle tension or body pain</li>
+      </ul>
+
+      <h2 class="text-3xl font-bold mt-10">3. Behavioral Signs</h2>
+      <ul>
+        <li>Procrastination increases</li>
+        <li>Feeling overwhelmed easily</li>
+        <li>Pulling away from social interactions</li>
+        <li>Loss of interest in hobbies</li>
+      </ul>
+
+      <div class="bg-[#E8F9F0] border border-[#BAEAD5] p-6 rounded-xl my-8">
+        <h3 class="font-bold text-[#1E7A46] mb-2">💡 Quick Tip</h3>
+        <p>Take 5-minute breaks every hour — small resets prevent burnout from building up.</p>
+      </div>
+
+      <h2 class="text-3xl font-bold mt-10">4. How to Recover From Burnout</h2>
+      <ol class="list-decimal pl-6">
+        <li>Prioritize rest & sleep</li>
+        <li>Reduce unnecessary workloads</li>
+        <li>Talk to a therapist or coach</li>
+        <li>Practice mindfulness or breathing exercises</li>
+        <li>Reconnect with hobbies & social support</li>
+      </ol>
+
+      <h2 class="text-3xl font-bold mt-10">Conclusion</h2>
+      <p>
+        Burnout is serious but fully reversible. Listening to your early signs and giving yourself
+        space to rest can prevent long-term emotional exhaustion.
+      </p>
+    </article>
+  `,
+  createdAt: "2025-11-24",
+}
+
+]
