@@ -55,7 +55,7 @@ export function TherapyCtaSidebar() {
               href="/how-is-mind" 
               className="inline-flex items-center gap-1 text-sm font-medium text-[#00989D] hover:text-[#005657] mt-2 transition-colors"
             >
-              Start Check-In
+              Start Now
               <ArrowRight className="w-3 h-3" />
             </Link>
           </div>

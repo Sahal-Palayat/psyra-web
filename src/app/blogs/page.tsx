@@ -21,11 +21,11 @@ export default function BlogsPage() {
 
         {/* Main Text */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Therapy & Mental Health Blog
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 text-center sm:text-left">
+            Psyra Mental Health Blog
           </h1>
 
-          <p className="text-lg text-white/80 max-w-2xl">
+          <p className="text-base sm:text-lg text-white/80 max-w-md sm:max-w-2xl text-center sm:text-left mx-auto sm:mx-0">
             Expert insights on therapy, mental wellness, and emotional growth.
           </p>
         </div>

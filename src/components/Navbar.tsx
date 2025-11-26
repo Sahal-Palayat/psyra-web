@@ -137,6 +137,19 @@ const Navbar = () => {
             </Link>
 
             <Link
+              href="/blogs"
+              className={`transition-all duration-200
+                    ${
+                      isScrolled
+                        ? "text-[#005657] hover:text-[#00989D] hover:drop-shadow-[0_1px_4px_#00989D50]"
+                        : "text-white hover:drop-shadow-[0_1px_4px_#ffffff50]"
+                    }
+                  `}
+            >
+              Blogs
+            </Link>
+
+            <Link
               href="/contact-us"
               className={`transition-all duration-200
                     ${
@@ -146,7 +159,7 @@ const Navbar = () => {
                     }
                   `}
             >
-              Contact us
+              Contact Us
             </Link>
           </div>
 
@@ -243,12 +256,19 @@ const Navbar = () => {
               >
                 Concerns
               </Link>
+               <Link
+                href="/blogs"
+                className="text-white text-lg font-medium"
+                onClick={toggleMenu}
+              >
+                Blogs
+              </Link>
               <Link
                 href="/contact-us"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
-                Contact us
+                Contact Us
               </Link>
             </div>
 
