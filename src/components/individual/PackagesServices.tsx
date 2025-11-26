@@ -42,7 +42,7 @@ const PackageServices = ({
   };
 
   return (
-    <section className="py-2 px-14 " id="services">
+    <section className="py-2 px-4 md:px-14" id="services">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {PackagesObj.map((item, index) => (
@@ -52,7 +52,11 @@ const PackageServices = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: false, amount: 0.2 }}
-              className="bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col"
+              className="
+                  bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col
+                  max-w-[380px] w-full mx-auto
+                  md:max-w-none md:mx-0
+                "
             >
               {/* Top Image */}
               {/* <div className="w-full hidden sm:block h-[200px] relative">
@@ -66,7 +70,7 @@ const PackageServices = ({
               </div> */}
 
               {/* Content */}
-              <div className="p-5 text-black flex flex-col flex-grow">
+              <div className="p-4 md:p-5 text-black flex flex-col flex-grow">
                 <h3 className="font-bold text-xl mb-1">{item.title}</h3>
                 <p className="italic mb-3">{item.tagline}</p>
                 <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
@@ -79,7 +83,7 @@ const PackageServices = ({
                 <div className="mt-auto">
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-black">
-                    ₹{item.price}
+                      ₹{item.price}
                     </span>
                   </div>
                   <div className="flex justify-center">
