@@ -280,149 +280,121 @@ export const blogs: Blog[] = [
   </div>
 </div>
 
-<p class="text-xl text-gray-700 leading-relaxed mb-8">
-  Burnout is more than "being tired." It is a deep emotional, physical, and mental exhaustion 
-  caused by overwhelming stress. Most people notice it only when it becomes severe — 
-  but early signs start long before that.
-</p>
 
-<div class="p-5 bg-amber-50 border border-amber-200 rounded-xl mb-10 flex gap-4">
-  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
-    <span class="text-amber-600 text-lg">⚠</span>
-  </div>
-  <div>
-    <p class="font-semibold text-amber-800 mb-1">Early Warning</p>
-    <p class="text-amber-700 text-sm">Burnout builds up slowly and quietly — usually disguised as routine stress.</p>
-  </div>
+<div class="prose prose-lg max-w-none text-[#333] leading-relaxed">
+
+  <!-- KEY POINTS -->
+  <section class="mb-10">
+    <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">Key Points</h2>
+    <ul class="list-disc pl-6">
+      <li>Burnout is a state of chronic stress that leads to exhaustion, detachment, and feelings of ineffectiveness.</li>
+      <li>Physical signs of burnout may include chronic fatigue and insomnia.</li>
+      <li>Signs of detachment may present as pessimism or self-isolation.</li>
+      <li>Sufferers of burnout ultimately experience a lack of productivity and poor job performance.</li>
+    </ul>
+  </section>
+
+  <!-- INTRO PARAGRAPH -->
+  <section class="mb-10">
+    <p>
+      Burnout is one of those road hazards in life that high-achievers really should keep a close eye out for,
+      but sadly—often because of their "I can do everything" personalities—they rarely see it coming. Because
+      high-achievers are often so passionate about what they do, they tend to ignore the fact that they're working
+      exceptionally long hours, taking on exceedingly heavy workloads, and putting enormous pressure on themselves
+      to excel—all of which make them ripe for burnout.
+    </p>
+  </section>
+
+  <!-- WHAT IS BURNOUT -->
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold text-[#2D2B62] mb-4">What is burnout?</h2>
+    <p>Burnout is a state of chronic stress that leads to:</p>
+
+    <ul class="list-disc pl-6 my-4">
+      <li>Physical and emotional exhaustion</li>
+      <li>Cynicism and detachment</li>
+      <li>Feelings of ineffectiveness and lack of accomplishment</li>
+    </ul>
+
+    <p>
+      When in the throes of full-fledged burnout, you are no longer able to function effectively on a personal or
+      professional level. However, burnout doesn't happen suddenly. It develops slowly and insidiously over time,
+      often without you noticing. Still, our bodies and minds do give warnings, and recognizing them early can save
+      you from worsening stress.
+    </p>
+  </section>
+
+  <!-- SIGNS OF BURNOUT -->
+  <section class="mb-12">
+    <h2 class="text-3xl font-bold text-[#2D2B62] mb-6">What are the signs of burnout?</h2>
+
+    <p>
+      Each of the three areas described above is characterized by certain signs and symptoms. These symptoms lie along
+      a continuum — meaning burnout is an advanced stage of unmanaged stress. The earlier you recognize the signs, the
+      easier it is to intervene and rebalance your life.
+    </p>
+
+    <!-- Physical & Emotional Exhaustion -->
+    <h3 class="text-2xl font-semibold text-[#6C63FF] mt-10 mb-3">
+      Signs of Physical and Emotional Exhaustion
+    </h3>
+
+    <ul class="list-disc pl-6 space-y-3">
+      <li><strong>Chronic fatigue:</strong> tiredness in early stages → full exhaustion later.</li>
+      <li><strong>Insomnia:</strong> trouble sleeping initially → chronic sleeplessness in later stages.</li>
+      <li><strong>Forgetfulness / impaired concentration:</strong> difficulty focusing which worsens over time.</li>
+      <li><strong>Physical symptoms:</strong> chest pain, palpitations, shortness of breath, dizziness, headaches, etc.</li>
+      <li><strong>Increased illness:</strong> weakened immunity leading to frequent sickness.</li>
+      <li><strong>Loss of appetite:</strong> occasional meal skipping → complete loss of appetite later.</li>
+      <li><strong>Anxiety:</strong> mild tension → severe anxiety affecting work and personal life.</li>
+      <li><strong>Depression:</strong> mild sadness → severe hopelessness; seek help if extreme.</li>
+      <li><strong>Anger:</strong> irritability → full anger outbursts; seek help if violent thoughts appear.</li>
+    </ul>
+
+    <!-- Cynicism & Detachment -->
+    <h3 class="text-2xl font-semibold text-[#6C63FF] mt-12 mb-3">
+      Signs of Cynicism and Detachment
+    </h3>
+
+    <ul class="list-disc pl-6 space-y-3">
+      <li><strong>Loss of enjoyment:</strong> first at work → eventually in all life areas.</li>
+      <li><strong>Pessimism:</strong> negative self-talk → distrust in others and emotional withdrawal.</li>
+      <li><strong>Isolation:</strong> avoiding socializing → anger when approached; changing schedules to avoid people.</li>
+      <li><strong>Detachment:</strong> feeling disconnected; avoiding responsibilities; shutting down emotionally.</li>
+    </ul>
+
+    <!-- Ineffectiveness & Lack of Accomplishment -->
+    <h3 class="text-2xl font-semibold text-[#6C63FF] mt-12 mb-3">
+      Signs of Ineffectiveness and Lack of Accomplishment
+    </h3>
+
+    <ul class="list-disc pl-6 space-y-3">
+      <li><strong>Apathy and hopelessness:</strong> feeling nothing matters; worsening over time.</li>
+      <li><strong>Increased irritability:</strong> frustration from feeling ineffective; may damage relationships.</li>
+      <li><strong>Lack of productivity and poor performance:</strong> long hours but declining output; tasks piling up.</li>
+    </ul>
+  </section>
+
+  <!-- FINAL PARAGRAPHS -->
+  <section class="mb-16">
+    <p>
+      If you're not experiencing any of these symptoms, that’s great — but keep these signs in mind.
+      Burnout is subtle and gradually builds up as you push through your busy life.
+    </p>
+
+    <p class="mt-4">
+      If you are experiencing some of these symptoms, take it as a wake-up call. Assess the stress levels in your life
+      and make necessary changes before burnout progresses further. Burnout doesn’t resolve on its own — conscious
+      lifestyle changes are necessary.
+    </p>
+
+    <p class="mt-4 font-medium">
+      Making small adjustments now can help you stay balanced, protect your wellbeing, and prevent burnout from taking control.
+    </p>
+  </section>
+
 </div>
 
-<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
-  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">1</span>
-  Emotional Signs of Burnout
-</h2>
-
-<div class="grid md:grid-cols-2 gap-4 mb-10">
-  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-    <p class="font-medium text-gray-800 mb-1">Feeling emotionally drained</p>
-    <p class="text-sm text-gray-500">Every day feels like you're running on empty</p>
-  </div>
-  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-    <p class="font-medium text-gray-800 mb-1">Loss of motivation</p>
-    <p class="text-sm text-gray-500">Things you once enjoyed no longer excite you</p>
-  </div>
-  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-    <p class="font-medium text-gray-800 mb-1">Increased irritability</p>
-    <p class="text-sm text-gray-500">Small things trigger big emotional reactions</p>
-  </div>
-  <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-    <p class="font-medium text-gray-800 mb-1">Feeling detached</p>
-    <p class="text-sm text-gray-500">Disconnection from work, people, and purpose</p>
-  </div>
-</div>
-
-<div class="my-8 py-6 border-y border-gray-200">
-  <blockquote class="text-xl italic text-[#005657] text-center font-light">
-    "If you're living in survival mode for too long, burnout becomes inevitable."
-  </blockquote>
-</div>
-
-<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
-  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">2</span>
-  Physical Signs of Burnout
-</h2>
-
-<div class="flex flex-wrap gap-3 mb-10">
-  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Persistent headaches</span>
-  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Difficulty sleeping</span>
-  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Heavy fatigue</span>
-  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Muscle tension</span>
-  <span class="px-4 py-2 bg-red-50 text-red-700 rounded-full text-sm font-medium border border-red-100">Body pain</span>
-</div>
-
-<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
-  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">3</span>
-  Behavioral Signs
-</h2>
-
-<div class="space-y-3 mb-10">
-  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
-    <span class="text-gray-700">Procrastination increases significantly</span>
-  </div>
-  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
-    <span class="text-gray-700">Feeling overwhelmed by simple tasks</span>
-  </div>
-  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
-    <span class="text-gray-700">Pulling away from social interactions</span>
-  </div>
-  <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-    <div class="w-2 h-2 rounded-full bg-[#00989D]"></div>
-    <span class="text-gray-700">Loss of interest in hobbies and activities</span>
-  </div>
-</div>
-
-<div class="p-5 bg-[#E8F6F6] border border-[#B8E0E0] rounded-xl mb-10 flex gap-4">
-  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#00989D] flex items-center justify-center">
-    <span class="text-white text-lg">💡</span>
-  </div>
-  <div>
-    <p class="font-semibold text-[#005657] mb-1">Quick Tip</p>
-    <p class="text-gray-700 text-sm">Take 5-minute breaks every hour — small resets prevent burnout from building up.</p>
-  </div>
-</div>
-
-<h2 class="text-2xl font-bold text-[#005657] mb-6 flex items-center gap-3">
-  <span class="w-10 h-10 rounded-lg bg-[#00989D] text-white flex items-center justify-center text-lg font-bold">4</span>
-  How to Recover From Burnout
-</h2>
-
-<div class="space-y-4 mb-10">
-  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
-    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">1</span>
-    <div>
-      <p class="font-semibold text-gray-800">Prioritize rest & sleep</p>
-      <p class="text-sm text-gray-500">Your body needs time to recover from chronic stress</p>
-    </div>
-  </div>
-  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
-    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">2</span>
-    <div>
-      <p class="font-semibold text-gray-800">Reduce unnecessary workloads</p>
-      <p class="text-sm text-gray-500">Learn to say no and set clear boundaries</p>
-    </div>
-  </div>
-  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
-    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">3</span>
-    <div>
-      <p class="font-semibold text-gray-800">Talk to a therapist or coach</p>
-      <p class="text-sm text-gray-500">Professional support can accelerate recovery</p>
-    </div>
-  </div>
-  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
-    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">4</span>
-    <div>
-      <p class="font-semibold text-gray-800">Practice mindfulness or breathing</p>
-      <p class="text-sm text-gray-500">Calming techniques help regulate your nervous system</p>
-    </div>
-  </div>
-  <div class="flex items-start gap-4 p-5 bg-white border-2 border-[#E8F6F6] rounded-xl">
-    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#00989D] text-white font-bold flex items-center justify-center">5</span>
-    <div>
-      <p class="font-semibold text-gray-800">Reconnect with hobbies & people</p>
-      <p class="text-sm text-gray-500">Social support and joy activities aid healing</p>
-    </div>
-  </div>
-</div>
-
-<div class="p-8 bg-gradient-to-br from-[#005657] to-[#00989D] rounded-2xl text-white">
-  <h3 class="text-xl font-bold mb-3">Conclusion</h3>
-  <p class="text-white/90 leading-relaxed">
-    Burnout is serious but fully reversible. Listening to your early signs and giving yourself
-    space to rest can prevent long-term emotional exhaustion. You deserve to feel whole again.
-  </p>
-</div>
     `,
     createdAt: "2025-11-24",
   },
