@@ -1,7 +1,6 @@
 "use client";
 import { StaticImageData } from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
 
 export interface TherapyCardType {
   type: string;
@@ -46,12 +45,8 @@ const PackageServices = ({
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {PackagesObj.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: false, amount: 0.2 }}
               className="
                   bg-[#B6E5DF] rounded-2xl overflow-hidden shadow-md flex flex-col
                   max-w-[380px] w-full mx-auto
@@ -79,7 +74,7 @@ const PackageServices = ({
                   ))}
                 </ul>
 
-                {/* This wrapper pushes price + button to bottom */}
+                
                 <div className="mt-auto">
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-black">
@@ -98,7 +93,7 @@ const PackageServices = ({
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

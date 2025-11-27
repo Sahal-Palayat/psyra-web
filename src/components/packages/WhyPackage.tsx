@@ -78,7 +78,7 @@ const WhyPackage = () => {
     return () => window.removeEventListener("sidebar-open", handler);
   }, []);
 
-  return (
+return (
     <>
       <motion.button
         ref={btnRef}
@@ -90,7 +90,7 @@ const WhyPackage = () => {
     px-3 py-2
     bg-white
     text-teal-700 font-medium
-    border border-gray-200
+    border border-teal-200
     rounded-lg
     shadow-sm hover:shadow-md
     transition-all duration-300
@@ -98,7 +98,6 @@ const WhyPackage = () => {
     whitespace-nowrap
   "
       >
-        <div className="w-4 h-4 text-accent group-hover:rotate-12 transition-transform duration-300" />
         <span>Why Package?</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
@@ -106,7 +105,7 @@ const WhyPackage = () => {
           className="ml-1"
         >
           <svg
-            className="w-3.5 h-3.5 text-primary/60"
+            className="w-3.5 h-3.5 text-teal-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -133,8 +132,8 @@ const WhyPackage = () => {
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 className="
                   fixed
-                  bg-popover border border-border rounded-2xl p-6 
-                  shadow-xl shadow-primary/5
+                  bg-white border border-teal-100 rounded-2xl p-6 
+                  shadow-xl
                   w-80 md:w-[340px]
                   -translate-x-1/2
                   z-[100]
@@ -146,11 +145,11 @@ const WhyPackage = () => {
                 }}
               >
                 {/* Decorative gradient orb */}
-                <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br from-teal-400/20 to-teal-600/20 rounded-full blur-2xl pointer-events-none" />
 
                 <div className="relative">
                   <div className="flex items-center justify-center mb-4">
-                    <h3 className="font-semibold text-popover-foreground text-base">
+                    <h3 className="font-semibold text-gray-800 text-base">
                       Why Choose a Package?
                     </h3>
                   </div>
@@ -164,18 +163,18 @@ const WhyPackage = () => {
                         transition={{ delay: index * 0.08 + 0.1 }}
                         className="flex items-start gap-3 group/item"
                       >
-                        <div className="mt-0.5 p-1 bg-secondary rounded-lg group-hover/item:bg-primary/10 transition-colors">
-                          <benefit.icon className="w-3.5 h-3.5 text-primary" />
+                        <div className="mt-0.5 p-1 bg-teal-50 rounded-lg group-hover/item:bg-teal-100 transition-colors">
+                          <benefit.icon className="w-3.5 h-3.5 text-teal-600" />
                         </div>
-                        <span className="text-muted-foreground text-sm leading-relaxed group-hover/item:text-popover-foreground transition-colors">
+                        <span className="text-gray-600 text-sm leading-relaxed group-hover/item:text-gray-800 transition-colors">
                           {benefit.text}
                         </span>
                       </motion.li>
                     ))}
                   </ul>
 
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <p className="text-xs text-muted-foreground text-center">
+                  <div className="mt-5 pt-4 border-t border-teal-100">
+                    <p className="text-xs text-gray-500 text-center">
                       Invest in your mental wellness journey
                     </p>
                   </div>

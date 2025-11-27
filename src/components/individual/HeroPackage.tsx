@@ -64,7 +64,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
             </motion.div> */}
 
             <motion.p
-              className="font-bold text-[#9EE0D6] text-[42px] leading-none"
+              className="font-bold text-[#9EE0D6] text-3xl md:text-[42px] leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
@@ -73,10 +73,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
             </motion.p>
 
             {/* Button */}
-            <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2">
-              <WhyPackage />
-            </div>
-            <div className="block md:hidden mt-4 flex justify-center">
+            <div className="w-full flex justify-center mt-4">
               <WhyPackage />
             </div>
           </div>
