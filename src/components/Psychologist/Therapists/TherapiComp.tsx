@@ -358,9 +358,10 @@ export default function TherapistsCard() {
                             </div>
                           </div>
                         </div>
+                        
                         {/* Bottom row */}
-                        <div className="p-4 w-[420px] rounded-[12px] flex items-center justify-between bg-[#00989D] hidden sm:flex">
-                          <div>
+                        <div className="p-4 w-full max-w-full rounded-[12px] flex items-center justify-between bg-[#00989D] hidden sm:flex">
+                          <div className="flex-1 min-w-0 mr-3">
                             <p className="text-[14px] md:text-xs text-gray-200">
                               Next available slot:
                             </p>
@@ -377,7 +378,7 @@ export default function TherapistsCard() {
                                 hover:bg-white hover:border-[#00BEA5] hover:shadow-md
                                 border border-transparent
                                 text-xs md:text-sm px-4 py-2 
-                                h-auto font-semibold  transition-all"
+                                h-auto font-semibold transition-all flex-shrink-0"
                           >
                             Book Now
                           </Button>

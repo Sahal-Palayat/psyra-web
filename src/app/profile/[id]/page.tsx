@@ -71,7 +71,7 @@ export default function TherapistDetailPage({
       {/* Quick Info */}
       <QuickInfo therapist={therapist} />
 
-      <div className="mx-auto max-w-4xl px-4 pb-20 space-y-12 md:space-y-20">
+      <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-6xl px-5 md:px-6 pb-20 space-y-12 md:space-y-20">
         <AboutSection description={therapist.description} />
 
         <Specializations specialization={therapist.specializations} />

@@ -15,7 +15,8 @@ const QuickInfo = ({ therapist }: QuickInfoProps) => {
 
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 mt-6 md:-mt-8 relative z-20 mb-8 md:mb-12">
+    
+      <div className="relative z-20 mx-auto max-w-md md:max-w-2xl lg:max-w-6xl px-4 mt-8 md:-mt-8 mb-8">
         <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-4 md:p-8">
           {/* Mobile View */}
           <div className="md:hidden">
@@ -23,7 +24,7 @@ const QuickInfo = ({ therapist }: QuickInfoProps) => {
               {/* Languages */}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#00989D]/10 flex items-center justify-center">
-                  <Globe className="text-[#00989D]" size={20} />
+                  <Globe className="text-[#00989D]"  w-4 h-4 />
                 </div>
                 <div>
                   <p className="text-[10px] text-gray-500 uppercase tracking-wide font-semibold">
@@ -37,8 +38,8 @@ const QuickInfo = ({ therapist }: QuickInfoProps) => {
 
               {/* Price */}
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-xl bg-[#00989D]/10 flex items-center justify-center">
-                  <IndianRupee className="text-[#00989D]" size={24} />
+                <div className="w-10 h-10 rounded-xl bg-[#00989D]/10 flex items-center justify-center">
+                  <IndianRupee className="text-[#00989D]"  w-4 h-4 />
                 </div>
 
                 <div>
