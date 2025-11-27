@@ -39,7 +39,7 @@ const AboutSection = ({ description }: { description: string }) => {
           Description
         </h2>
 
-        <p className="text-gray-700 leading-relaxed text-sm md:text-lg mb-3">
+        <p className="text-gray-700 leading-relaxed text-sm md:text-lg mb-3 whitespace-pre-line">
           {displayedText}
         </p>
 

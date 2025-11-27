@@ -12,6 +12,10 @@ import {
   Target,
   Lightbulb,
   Activity,
+  Sparkles,
+  Crown,
+  Pill,
+  HeartCrack,
   LucideIcon,
 } from "lucide-react";
 import type { SpecializationDetail } from "@/types/psychologist";
@@ -108,6 +112,28 @@ function getIconForSpecialization(name: string): LucideIcon {
     lower.includes("multicultural")
   )
     return Globe;
+
+   // Self - Esteem 
+  if(
+    lower.includes("self - esteem")
+  )
+  return Sparkles;
+
+  if(
+    lower.includes("confidence")
+  )
+  return Crown;
+
+  if(
+    lower.includes("addiction")
+  )
+  return Pill;
+
+  if(
+    lower.includes("grief") ||
+    lower.includes("loss")
+  )
+  return HeartCrack;
 
   // Default
   return Zap;
