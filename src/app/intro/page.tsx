@@ -55,9 +55,9 @@ export default function Home() {
           >
             <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
               <img
-                src="/assess.png"
+                src="/Assesmentimage.jpg"
                 alt="Illustration representing supportive mental health therapy"
-                className="h-full w-full rounded"
+                className="h-100 w-full rounded"
                 loading="lazy"
               />
             </div>
@@ -84,15 +84,15 @@ export default function Home() {
             >
               <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                 <img
-                  src="/assess.png"
+                  src="/Assesmentimage.jpg"
                   alt="Illustration representing supportive mental health therapy"
-                  className="h-full w-full"
+                  className="h-120 w-full"
                   loading="lazy"
                 />
               </div>
 
               <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
-                Take Your Free Assessment
+                A Quick Check on your mind
               </p>
 
               <p className="text-black text-[12px] md:text-base leading-tight">
@@ -112,7 +112,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.1 }}
           >
             <p className="font-bold text-teal-600 text-4xl leading-tight">
-              Take Your Free Assessment
+              A Quick Check on your mind
             </p>
 
             <p className="text-gray-700 text-lg leading-relaxed">
@@ -136,7 +136,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>Start Assessment</span>
+                <span>Try now</span>
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
