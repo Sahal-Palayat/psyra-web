@@ -31,7 +31,7 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
   const [error, setError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Prevent background scroll when modal is open
+  
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -48,7 +48,7 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
 
     const missingFields = [];
 
-    // Check for missing required fields based on anonymous status
+    
     if (!anonymous) {
       // Non-anonymous: all fields required
       if (!firstName) missingFields.push("First name");
@@ -108,18 +108,13 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
 
     formData.append(entry.firstName, anonymous ? "Anonymous" : firstName || "");
     formData.append(entry.lastName, anonymous ? "User" : lastName || "");
-    // formData.append(entry.email, anonymous ? "anonymous@request.com" : email);
-    // formData.append(entry.phone, fullPhone);
-    // formData.append(entry.message, message || "");
-
-    // if (anonymous) {
-    //   formData.append(entry.anonymous, "I would like to stay anonymous");
-    // }
-
     formData.append(entry.email, anonymous ? "N/A" : email);
-formData.append(entry.phone, fullPhone);
-formData.append(entry.message, message || "No message provided");
-formData.append(entry.anonymous, anonymous ? "I would like to stay anonymous" : "No");
+    formData.append(entry.phone, fullPhone);
+    formData.append(entry.message, message || "Not Provided");
+
+    if (anonymous) {
+      formData.append(entry.anonymous, "I would like to stay anonymous");
+    }
 
     try {
       await fetch(FORM_ACTION_URL, {
@@ -184,7 +179,7 @@ formData.append(entry.anonymous, anonymous ? "I would like to stay anonymous" : 
           </div>
 
           <div className="space-y-5 pb-10">
-            {/* Anonymous checkbox - moved to top */}
+            {/* Anonymous checkbox  */}
             <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <input
                 id="cb-anon"
