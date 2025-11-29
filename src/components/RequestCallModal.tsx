@@ -262,7 +262,6 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
                   placeholder="9876543210"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1">Minimum 10 digits required</p>
             </div>
 
             <div>
