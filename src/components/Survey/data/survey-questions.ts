@@ -293,7 +293,7 @@ export const basicQuestions: SurveyQuestion[] = [
 export const howIsMindQues: SurveyQuestion[] = [
   {
     id: "q1",
-    question: "Do you find it hard to concentrate?",
+    question: "How often do you struggle to focus?",
     options: [
       "Better than usual",
       "Same as usual",
@@ -304,7 +304,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q2",
-    question: "is it hard for you to fall asleep?",
+    question: "Do you find it difficult to fall asleep?",
     options: [
       "Not at all",
       "No more than usual",
