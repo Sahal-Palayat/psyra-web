@@ -25,7 +25,7 @@ export function IntroModal({ isOpen, onClose, onStart }: IntroModalProps) {
             Welcome to Your Assessment
           </DialogTitle>
           <DialogDescription className="pt-2">
-            Take a scientifically-backed mental health assessment in just 5
+            Take a scientifically-backed mental health assessment in just 3
             minutes
           </DialogDescription>
         </DialogHeader>
@@ -39,7 +39,7 @@ export function IntroModal({ isOpen, onClose, onStart }: IntroModalProps) {
           {/* Features List */}
           <div className="space-y-3">
             {[
-              { title: "Quick", desc: "Only 5 minutes to complete" },
+              { title: "Quick", desc: "Only 3 minutes to complete" },
               { title: "Accurate", desc: "98% accuracy rate" },
               {
                 title: "Private",
