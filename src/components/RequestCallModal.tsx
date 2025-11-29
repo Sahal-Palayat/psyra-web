@@ -16,7 +16,6 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
     lastName: "entry.1413724714",
     email: "entry.61957467",
     phone: "entry.1281260550",
-    subject: "entry.1320548872",
     message: "entry.1954475575",
     anonymous: "entry.267825178",
   };
@@ -109,14 +108,18 @@ export default function RequestCallModal({ open, setOpen }: CallbackModalProps) 
 
     formData.append(entry.firstName, anonymous ? "Anonymous" : firstName || "");
     formData.append(entry.lastName, anonymous ? "User" : lastName || "");
-    formData.append(entry.email, anonymous ? "" : email);
-    formData.append(entry.phone, fullPhone);
-    formData.append(entry.subject, "");
-    formData.append(entry.message, message || "");
+    // formData.append(entry.email, anonymous ? "anonymous@request.com" : email);
+    // formData.append(entry.phone, fullPhone);
+    // formData.append(entry.message, message || "");
 
-    if (anonymous) {
-      formData.append(entry.anonymous, "I would like to stay anonymous");
-    }
+    // if (anonymous) {
+    //   formData.append(entry.anonymous, "I would like to stay anonymous");
+    // }
+
+    formData.append(entry.email, anonymous ? "N/A" : email);
+formData.append(entry.phone, fullPhone);
+formData.append(entry.message, message || "No message provided");
+formData.append(entry.anonymous, anonymous ? "I would like to stay anonymous" : "No");
 
     try {
       await fetch(FORM_ACTION_URL, {
