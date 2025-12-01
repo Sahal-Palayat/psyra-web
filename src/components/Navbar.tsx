@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 import Logo from "../../public/2Psyra Logo Color-05.svg";
 // import { useRouter } from "next/navigation";
 import Logo1 from "../../public/Psyra Logo White-04.svg";
-import CallbackModal from "../components/RequestCallModal"; 
+import CallbackModal from "../components/RequestCallModal";
 // import Modal from "./Modal";
 
 const Navbar = () => {
@@ -40,9 +40,9 @@ const Navbar = () => {
 
   // Function to handle WhatsApp redirection
   // const handleWhatsAppRedirect = () => {
-    // const phoneNumber = "+918891724199";
-    // const message = encodeURIComponent(`Hi, How can i connect with you?`);
-    // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+  // const phoneNumber = "+918891724199";
+  // const message = encodeURIComponent(`Hi, How can i connect with you?`);
+  // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
   //   router.push(`/services`);
   // };
 
@@ -154,8 +154,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <button
             onClick={() => setIsModalOpen(true)}
-            // onClick={() => handleWhatsAppRedirect()}
-            className="hidden md:inline-block bg-white text-[#00989D] max-w-[120px] md:max-w-[152px] w-[120px] md:w-[152px] h-[36px] md:h-[40px] flex items-center justify-center rounded-full text-sm md:text-base font-medium hover:bg-gray-100 transition-all"
+            className="hidden md:inline-block bg-white text-[#00989D] px-5 md:px-6 h-[36px] md:h-[40px] flex items-center justify-center rounded-full text-sm md:text-base font-medium hover:bg-gray-100 transition-all"
           >
             Request a Callback
           </button>
