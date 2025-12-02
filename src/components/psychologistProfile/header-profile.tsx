@@ -21,32 +21,35 @@ const ProfileHeader = ({ name, designation, imageUrl }: ProfileHeaderProps) => {
       {/* Frosted overlay */}
       <div className="absolute inset-0 bg-white/10 backdrop-blur-sm z-0"></div>
 
+
+
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-md md:max-w-2xl lg:max-w-6xl px-4 h-full flex items-end pt-6 md:pt-10">
-        <div className="pb-2 md:pb-6 lg:pb-12 flex items-end gap-2 md:gap-4">
-          {/* Therapist Image */}
-          <div
-            className="
-              w-24 h-32          
-              md:w-32 md:h-40     
-              lg:w-40 lg:h-52     /* Desktop */
-              rounded-xl  
-              overflow-hidden
-              border-4 border-white
-              shadow-xl
-              bg-[#BFE9F7]
-              flex items-center justify-center
-            "
-          >
-            <Image
-              src={imageUrl}
-              alt={name}
-              width={300}
-              height={300}
-              priority={true}
-              className="object-cover object-top w-full h-full scale-110"
-            />
-          </div>
+       <div className="pb-2 md:pb-6 lg:pb-12 flex items-end gap-2 md:gap-4">
+  {/* Therapist Image with Gradient Border */}
+  <div className="relative rounded-xl p-[2px] bg-gradient-to-br from-[#00BEA5]/40 via-[#7DD3C0]/30 to-transparent shadow-xl">
+    <div
+      className="
+        w-24 h-32          
+        md:w-32 md:h-40     
+        lg:w-40 lg:h-52
+        rounded-xl  
+        overflow-hidden
+        bg-[#BFE9F7]
+        flex items-center justify-center
+      "
+    >
+      <Image
+        src={imageUrl}
+        alt={name}
+        width={300}
+        height={300}
+        priority={true}
+        className="object-cover object-top w-full h-full scale-110"
+      />
+    </div>
+  </div>
+
 
           {/* Name + Designation */}
           <div className="text-white pb-1 md:pb-2 flex-1">

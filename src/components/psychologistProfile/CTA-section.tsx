@@ -22,13 +22,15 @@ export default function CTASection({ psychologist }: { psychologist: Psychologis
         </p>
 
         <Button
-          onClick={() => setOpenBooking(true)}
-          className="w-full md:w-auto bg-white text-[#00989D] hover:bg-slate-100 
-                     px-6 md:px-10 py-2.5 md:py-3 rounded-full font-semibold 
-                     md:font-bold text-sm md:text-lg"
-        >
-          Book Your First Session Today
-        </Button>
+  onClick={() => setOpenBooking(true)}
+  className="w-full md:w-auto bg-white/5 backdrop-blur-sm text-white 
+             hover:bg-white/15 border border-white/20
+             px-6 md:px-10 py-2.5 md:py-3 rounded-full font-semibold 
+             md:font-bold text-sm md:text-lg
+             transition-all duration-500 hover:border-white/40"
+>
+  Book Your First Session Today
+</Button>
       </section>
 
 
