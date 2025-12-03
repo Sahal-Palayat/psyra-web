@@ -419,7 +419,7 @@ export const howIsMindQues: SurveyQuestion[] = [
       "More so than usual",
       "About same as usual",
       "Less so than usual",
-      "Much less than usual",
+      "Much less than usual ",
     ],
     type: "options",
   },
