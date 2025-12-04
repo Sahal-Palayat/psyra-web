@@ -249,29 +249,9 @@ export default function TherapistsCard() {
                           className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20"
                         >
                           <Button
-                            className="
-    bg-white/20 
-    backdrop-blur-md 
-    text-white 
-    hover:bg-white/30 
-    border border-white/40
+                           className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border border-white/40 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 h-auto font-semibold rounded-full shadow-md shadow-black/10 
+                           transition-all duration-200 hover:scale-105">
 
-    /* MOBILE SIZE */
-    text-[9px] 
-    px-2.5 
-    py-1 
-
-    sm:text-sm 
-    sm:px-4 
-    sm:py-2 
-
-    font-semibold 
-    rounded-full
-    shadow-md shadow-black/10
-    transition-all duration-300 
-    hover:scale-105
-  "
-                          >
                             View Profile
                           </Button>
                         </Link>
@@ -387,11 +367,8 @@ export default function TherapistsCard() {
                       </div>
                       <Button
                         onClick={() => handleBookNow(therapist)}
-                        className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 
-                                 border border-white/40 text-xs px-4 py-2 
-                                 h-auto font-semibold rounded-2xl shadow-lg
-                                 transition-all duration-300 hover:scale-105"
-                      >
+                       className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border border-white/40 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 h-auto font-semibold 
+                                  rounded-2xl shadow-lg transition-all duration-200 hover:scale-105" >
                         Book Now
                       </Button>
                     </div>
