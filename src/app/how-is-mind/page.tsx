@@ -12,6 +12,7 @@ import {
 } from "@/components/Survey/data/survey-questions";
 import type { SurveyAnswers } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
+import { sendAssessmentToSheet } from "@/lib/sheet";
 
 function getMentalHealthFeedback(score: number) {
   const maxScore = 36;
@@ -132,6 +133,13 @@ export default function SurveyQuestions() {
       };
 
       console.log(payload, "payloddddd");
+
+      try {
+        await sendAssessmentToSheet(payload);
+        console.log("Sheet submission successful");
+      } catch (sheetError) {
+        console.error("Sheet submission failed:", sheetError);
+      }
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`,
