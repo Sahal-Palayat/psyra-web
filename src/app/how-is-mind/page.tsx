@@ -13,6 +13,8 @@ import {
 import type { SurveyAnswers } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
 import { sendAssessmentToSheet } from "@/lib/sheet";
+import type { AssessmentPayload } from "@/types/sheet";
+import type { RawPayload } from "@/types/sheet";
 
 function getMentalHealthFeedback(score: number) {
   const maxScore = 36;
@@ -56,6 +58,33 @@ function getMentalHealthFeedback(score: number) {
     color,
   };
 }
+
+const formatSurveyData = (raw: RawPayload): AssessmentPayload => {
+  const person = raw.personDetails ?? {};
+  const qa = raw.questionAnswers ?? {};
+
+  const name = String(person.name ?? "");
+  const mobile = String(person.mobile ?? "");
+  const score = Number(person.score ?? 0);
+
+  const questionAnswers: Record<string, string | number> = {};
+
+  for (const [key, value] of Object.entries(qa)) {
+    if (typeof value === "boolean") {
+      // Convert boolean → string
+      questionAnswers[key] = value ? "true" : "false";
+    } else if (typeof value === "number") {
+      questionAnswers[key] = value;
+    } else {
+      questionAnswers[key] = String(value ?? "");
+    }
+  }
+
+  return {
+    personDetails: { name, mobile, score },
+    questionAnswers,
+  };
+};
 
 export default function SurveyQuestions() {
   const surveyQuestions = howIsMindQues;
@@ -117,20 +146,20 @@ export default function SurveyQuestions() {
         0
       );
 
-      const payload = {
+      const rawPayload: RawPayload = {
         personDetails: {
           name: finalAnswers.name,
           mobile: finalAnswers.contact,
           score: totalScore,
         },
-        questionAnswers: {
-          ...Object.fromEntries(
-            Object.entries(finalAnswers).filter(
-              ([key]) => key !== "name" && key !== "contact"
-            )
-          ),
-        },
+        questionAnswers: Object.fromEntries(
+          Object.entries(finalAnswers).filter(
+            ([key]) => key !== "name" && key !== "contact"
+          )
+        ),
       };
+
+      const payload = formatSurveyData(rawPayload);
 
       console.log(payload, "payloddddd");
 

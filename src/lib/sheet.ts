@@ -1,4 +1,6 @@
-export const sendAssessmentToSheet = async (data: any) => {
+import type { AssessmentPayload } from "@/types/sheet";
+
+export const sendAssessmentToSheet = async (data: AssessmentPayload) => {
   try {
     const response = await fetch("/api/sheet", {
       method: "POST",

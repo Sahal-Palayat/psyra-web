@@ -20,10 +20,11 @@ export async function POST(req: Request) {
 
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (error: any) {
-    return NextResponse.json(
-      { status: false, message: error.toString() },
-      { status: 500 }
-    );
-  }
+  } catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return NextResponse.json(
+    { status: false, message },
+    { status: 500 }
+  );
+}
 }
