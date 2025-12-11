@@ -100,8 +100,8 @@ const HeroMob = () => {
                 >
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
-                      src="/onlineCartoon.png"
-                      alt="Illustration representing supportive mental health therapy"
+                      src="/Online-Counselling-Malayalam-Take-Your-Online-Therapy.webp"
+                      alt="Take your online counselling Malayalam session for emotional wellness"
                       className="h-full w-full"
                       loading="lazy"
                     />
@@ -133,8 +133,8 @@ const HeroMob = () => {
                 >
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
-                      src="/assess.png"
-                      alt="Illustration representing supportive mental health therapy"
+                      src="/Online-Counselling-Malayalam-Free-Assessment.webp"
+                      alt="Free mental health assessment with online counseling Malayalam support"
                       className="h-full w-full"
                       loading="lazy"
                     />
