@@ -45,7 +45,7 @@ const CoupleIndex = () => {
         "2 Free Entry to exclusive Psyra Event",
         "Unlimited Access to all Online Webinars",
         "Continuous Support & Care",
-        "In depth work on deeper relationship pattrens",
+        "In depth work on deeper relationship patterns",
       ],
       price: "8000",
       cta: "Create Lasting Love",

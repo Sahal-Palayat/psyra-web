@@ -6,9 +6,9 @@ import { HeartHandshake } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const stats = [
-  { value: 2500, label: "Happy Psymates", suffix: "+" },
+  { value: 3000, label: "Happy Psymates", suffix: "+" },
   { value: 15, label: "Expert Therapists", suffix: "+" },
-  { value: 12, label: "Countries", suffix: "+" },
+  { value: 4, label: "Languages", suffix: "+" },
 ];
 
 function AnimatedCounter({
@@ -23,12 +23,14 @@ function AnimatedCounter({
   const springValue = useSpring(motionValue, { duration: 2000 });
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  // Animate only when in view
   useEffect(() => {
     if (isInView) {
       motionValue.set(value);
     }
   }, [motionValue, isInView, value]);
 
+  // Update UI during animation
   useEffect(() => {
     springValue.on("change", (latest) => {
       if (ref.current) {
@@ -41,9 +43,9 @@ function AnimatedCounter({
     <div
       ref={ref}
       className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-[#00989D] to-[#00B4BA] bg-clip-text text-transparent"
-    >
-      0{suffix}
-    </div>
+      // IMPORTANT: Render real value here for SEO
+      dangerouslySetInnerHTML={{ __html: value + suffix }}
+    />
   );
 }
 
@@ -52,7 +54,7 @@ export function CarouselStats() {
     <div className="w-full py-4 mb-8 md:px-14 px-2">
       <div className="text-center mb-4">
         <p className="text-gray-600 italic text-sm md:text-2xl">
-           A Safe Space for Our Psymates
+          A Safe Space for Our Psymates
         </p>
       </div>
       {/* Stats Grid */}

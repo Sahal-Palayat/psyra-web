@@ -76,7 +76,7 @@ export const toast = {
     return toastStore.addToast({ type: 'info', title, message, duration });
   },
   dismiss: (id: string) => {
-    toastStore.removeToast(id);
+    toastStore.removeToast(id); 
   },
   clear: () => {
     toastStore.clearAll();

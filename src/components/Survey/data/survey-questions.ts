@@ -293,8 +293,7 @@ export const basicQuestions: SurveyQuestion[] = [
 export const howIsMindQues: SurveyQuestion[] = [
   {
     id: "q1",
-    question:
-      "Have you recently been able to concentrate on what you’re doing?",
+    question: "How often do you struggle to focus?",
     options: [
       "Better than usual",
       "Same as usual",
@@ -305,7 +304,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q2",
-    question: "Have you recently lost much sleep over worry?",
+    question: "Do you find it difficult to fall asleep?",
     options: [
       "Not at all",
       "No more than usual",
@@ -316,8 +315,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q3",
-    question:
-      "Have you recently felt you were playing a useful part in things?",
+    question: "Do you feel productive?",
     options: [
       "More so than usual",
       "Same as usual",
@@ -328,8 +326,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q4",
-    question:
-      "Have you recently felt capable of making decisions about things?",
+    question: "Are you able to make decisions easily?",
     options: [
       "More so than usual",
       "Same as usual",
@@ -340,7 +337,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q5",
-    question: "Have you recently felt constantly under strain?",
+    question: "Have you been feeling stressed most of the time?",
     options: [
       "Not at all",
       "No more than usual",
@@ -351,7 +348,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q6",
-    question: "Have you recently felt you couldn’t overcome your difficulties?",
+    question: "Do your problems feel too much to handle?",
     options: [
       "Not at all",
       "No more than usual",
@@ -362,8 +359,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q7",
-    question:
-      "Have you recently been able to enjoy your normal day-to-day activities?",
+    question: "Are you able to enjoy activities in day to day life?",
     options: [
       "More so than usual",
       "Same as usual",
@@ -374,7 +370,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q8",
-    question: "Have you recently been able to face up to your problems?",
+    question: "Do you feel able to deal with your problems?",
     options: [
       "More so than usual",
       "Same as usual",
@@ -385,7 +381,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q9",
-    question: "Have you recently been feeling unhappy and depressed?",
+    question: "Have you been feeling sad or low?",
     options: [
       "Not at all",
       "No more than usual",
@@ -396,7 +392,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q10",
-    question: "Have you recently been losing confidence in yourself?",
+    question: "Have you been losing confidence?",
     options: [
       "Not at all",
       "No more than usual",
@@ -407,8 +403,7 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q11",
-    question:
-      "Have you recently been thinking of yourself as a worthless person?",
+    question: "Have you been feeling worthless?",
     options: [
       "Not at all",
       "No more than usual",
@@ -419,13 +414,12 @@ export const howIsMindQues: SurveyQuestion[] = [
   },
   {
     id: "q12",
-    question:
-      "Have you recently been feeling reasonably happy, all things considered?",
+    question: "Have you felt okay or somewhat happy overall?",
     options: [
       "More so than usual",
       "About same as usual",
       "Less so than usual",
-      "Much less than usual",
+      "Much less than usual ",
     ],
     type: "options",
   },
