@@ -27,58 +27,58 @@ const DepressionIcon = () => (
   </svg>
 );
 
-const PanicIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-16 h-16">
-    <circle
-      cx="50"
-      cy="50"
-      r="45"
-      fill="#EF4444"
-      opacity="0.1"
-      stroke="#EF4444"
-      strokeWidth="2"
-    />
-    <circle
-      cx="50"
-      cy="50"
-      r="30"
-      fill="none"
-      stroke="#EF4444"
-      strokeWidth="2"
-    />
-    <circle
-      cx="50"
-      cy="50"
-      r="20"
-      fill="none"
-      stroke="#EF4444"
-      strokeWidth="2"
-    />
-    <circle cx="50" cy="50" r="10" fill="#EF4444" />
-  </svg>
-);
+// const PanicIcon = () => (
+//   <svg viewBox="0 0 100 100" className="w-16 h-16">
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="45"
+//       fill="#EF4444"
+//       opacity="0.1"
+//       stroke="#EF4444"
+//       strokeWidth="2"
+//     />
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="30"
+//       fill="none"
+//       stroke="#EF4444"
+//       strokeWidth="2"
+//     />
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="20"
+//       fill="none"
+//       stroke="#EF4444"
+//       strokeWidth="2"
+//     />
+//     <circle cx="50" cy="50" r="10" fill="#EF4444" />
+//   </svg>
+// );
 
-const PersonalityIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-16 h-16">
-    <circle
-      cx="50"
-      cy="50"
-      r="45"
-      fill="#6366F1"
-      opacity="0.1"
-      stroke="#6366F1"
-      strokeWidth="2"
-    />
-    <circle cx="50" cy="35" r="12" fill="#6366F1" />
-    <path d="M 35 50 Q 35 60 50 65 Q 65 60 65 50" fill="#6366F1" />
-    <path
-      d="M 30 70 L 70 70"
-      stroke="#6366F1"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+// const PersonalityIcon = () => (
+//   <svg viewBox="0 0 100 100" className="w-16 h-16">
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="45"
+//       fill="#6366F1"
+//       opacity="0.1"
+//       stroke="#6366F1"
+//       strokeWidth="2"
+//     />
+//     <circle cx="50" cy="35" r="12" fill="#6366F1" />
+//     <path d="M 35 50 Q 35 60 50 65 Q 65 60 65 50" fill="#6366F1" />
+//     <path
+//       d="M 30 70 L 70 70"
+//       stroke="#6366F1"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//     />
+//   </svg>
+// );
 
 const AnxietyIcon = () => (
   <svg viewBox="0 0 100 100" className="w-16 h-16">
@@ -98,26 +98,26 @@ const AnxietyIcon = () => (
   </svg>
 );
 
-const StressIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-16 h-16">
-    <circle
-      cx="50"
-      cy="50"
-      r="45"
-      fill="#06B6D4"
-      opacity="0.1"
-      stroke="#06B6D4"
-      strokeWidth="2"
-    />
-    <path
-      d="M 30 50 Q 35 40 40 50 Q 45 60 50 50 Q 55 40 60 50 Q 65 60 70 50"
-      stroke="#06B6D4"
-      strokeWidth="3"
-      fill="none"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+// const StressIcon = () => (
+//   <svg viewBox="0 0 100 100" className="w-16 h-16">
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="45"
+//       fill="#06B6D4"
+//       opacity="0.1"
+//       stroke="#06B6D4"
+//       strokeWidth="2"
+//     />
+//     <path
+//       d="M 30 50 Q 35 40 40 50 Q 45 60 50 50 Q 55 40 60 50 Q 65 60 70 50"
+//       stroke="#06B6D4"
+//       strokeWidth="3"
+//       fill="none"
+//       strokeLinecap="round"
+//     />
+//   </svg>
+// );
 
 const SexualIcon = () => (
   <svg viewBox="0 0 100 100" className="w-16 h-16">
@@ -171,86 +171,160 @@ const RelationshipIcon = () => (
   </svg>
 );
 
-const WorkIcon = () => (
+// const WorkIcon = () => (
+//   <svg viewBox="0 0 100 100" className="w-16 h-16">
+//     <circle
+//       cx="50"
+//       cy="50"
+//       r="45"
+//       fill="#FBBF24"
+//       opacity="0.1"
+//       stroke="#FBBF24"
+//       strokeWidth="2"
+//     />
+//     <rect
+//       x="30"
+//       y="35"
+//       width="40"
+//       height="35"
+//       rx="3"
+//       fill="none"
+//       stroke="#FBBF24"
+//       strokeWidth="2"
+//     />
+//     <path
+//       d="M 35 35 L 35 30 Q 35 25 40 25 L 60 25 Q 65 25 65 30 L 65 35"
+//       stroke="#FBBF24"
+//       strokeWidth="2"
+//       fill="none"
+//     />
+//     <line x1="40" y1="50" x2="60" y2="50" stroke="#FBBF24" strokeWidth="2" />
+//   </svg>
+// );
+
+export const TraumaIcon = () => (
   <svg viewBox="0 0 100 100" className="w-16 h-16">
+    <circle cx="50" cy="50" r="45" fill="#E11D48" opacity="0.1" stroke="#E11D48" strokeWidth="2" />
+    <path
+      d="M 40 30 L 50 45 L 45 55 L 55 70"
+      stroke="#E11D48"
+      strokeWidth="3"
+      fill="none"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const GrowthIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16">
+    <circle cx="50" cy="50" r="45" fill="#10B981" opacity="0.1" stroke="#10B981" strokeWidth="2" />
+    <path d="M 40 60 Q 50 40 60 60" stroke="#10B981" strokeWidth="3" fill="none" strokeLinecap="round" />
+    <circle cx="50" cy="35" r="5" fill="#10B981" />
+  </svg>
+);
+
+export const AngerIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16">
+    <circle cx="50" cy="50" r="45" fill="#F97316" opacity="0.1" stroke="#F97316" strokeWidth="2" />
+    <path d="M50 30 Q40 45 50 55 Q60 45 50 30" fill="#F97316" opacity="0.8" />
+    <path d="M45 58 Q50 65 55 58" stroke="#F97316" strokeWidth="2" fill="none" strokeLinecap="round" />
+  </svg>
+);
+
+export const GriefIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16">
+    {/* Outer circle */}
     <circle
       cx="50"
       cy="50"
       r="45"
-      fill="#FBBF24"
+      fill="#A855F7"
       opacity="0.1"
-      stroke="#FBBF24"
+      stroke="#A855F7"
       strokeWidth="2"
     />
+
+    {/* Candle flame */}
+    <path
+      d="M 50 28 Q 44 38 50 45 Q 56 38 50 28"
+      fill="#A855F7"
+      opacity="0.8"
+    />
+
+    {/* Candle body */}
     <rect
-      x="30"
-      y="35"
-      width="40"
-      height="35"
+      x="43"
+      y="45"
+      width="14"
+      height="25"
       rx="3"
       fill="none"
-      stroke="#FBBF24"
+      stroke="#A855F7"
       strokeWidth="2"
     />
+
+    {/* Wax drip */}
     <path
-      d="M 35 35 L 35 30 Q 35 25 40 25 L 60 25 Q 65 25 65 30 L 65 35"
-      stroke="#FBBF24"
+      d="M 47 50 Q 50 55 47 60"
+      stroke="#A855F7"
       strokeWidth="2"
       fill="none"
+      strokeLinecap="round"
     />
-    <line x1="40" y1="50" x2="60" y2="50" stroke="#FBBF24" strokeWidth="2" />
   </svg>
 );
 
+
 const concerns = [
   {
-    title: "Depression",
-    icon: DepressionIcon,
-    color: "from-blue-50 to-blue-100",
-    borderColor: "border-blue-200",
-  },
-  {
-    title: "Panic attacks",
-    icon: PanicIcon,
-    color: "from-red-50 to-red-100",
-    borderColor: "border-red-200",
-  },
-  {
-    title: "Personality disorders",
-    icon: PersonalityIcon,
-    color: "from-indigo-50 to-indigo-100",
-    borderColor: "border-indigo-200",
-  },
-  {
-    title: "Anxiety disorders",
+    title: "Anxiety & Stress Management",
     icon: AnxietyIcon,
     color: "from-orange-50 to-orange-100",
     borderColor: "border-orange-200",
   },
   {
-    title: "Stress",
-    icon: StressIcon,
+    title: "Depression & Mood Disorders",
+    icon: DepressionIcon,
+    color: "from-blue-50 to-blue-100",
+    borderColor: "border-blue-200",
+  },
+  {
+    title: "Anger & Emotion Regulation",
+    icon: AngerIcon, 
     color: "from-cyan-50 to-cyan-100",
     borderColor: "border-cyan-200",
   },
   {
-    title: "Sexual issues",
+    title: "Trauma Processing & Recovery",
+    icon: TraumaIcon, 
+    color: "from-red-50 to-red-100",
+    borderColor: "border-red-200",
+  },
+  {
+    title: "Grief & Loss Counseling",
+    icon: GriefIcon, 
+    color: "from-indigo-50 to-indigo-100",
+    borderColor: "border-indigo-200",
+  },
+  {
+    title: "Sexual Wellness & Intimacy",
     icon: SexualIcon,
     color: "from-pink-50 to-pink-100",
     borderColor: "border-pink-200",
   },
   {
-    title: "Relationship issues",
+    title: "Personal Growth & Self-Development",
+    icon: GrowthIcon,
+    color: "from-amber-50 to-amber-100",
+    borderColor: "border-amber-200",
+  },
+  {
+    title: "Relationship & Communication Counseling",
     icon: RelationshipIcon,
     color: "from-green-50 to-green-100",
     borderColor: "border-green-200",
   },
-  {
-    title: "Work related issues",
-    icon: WorkIcon,
-    color: "from-amber-50 to-amber-100",
-    borderColor: "border-amber-200",
-  },
+
 ];
 
 export default function Concerns() {
