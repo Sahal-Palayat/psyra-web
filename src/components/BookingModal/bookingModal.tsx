@@ -317,7 +317,7 @@ export function BookingModal({
     await createSlot();
 
     // 2. Redirect to WhatsApp
-    const phoneNumber = "917356941195"; // confirm with team
+    const phoneNumber = "918891724199"; 
     const message = encodeURIComponent(
       `Hi, I would like to book a therapy session.
 
