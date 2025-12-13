@@ -9,12 +9,12 @@ import type {
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
-import {
-  processPayment,
-  type BookingPaymentData,
-} from "@/lib/payment-integration";
+// import {
+//   processPayment,
+//   type BookingPaymentData,
+// } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
-import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
+// import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
@@ -27,16 +27,16 @@ export function PsychologistModal({
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [successData, setSuccessData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    packageTitle: "",
-    date: "",
-    timeSlot: "",
-    amount: 0,
-  });
+  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+  // const [successData, setSuccessData] = useState({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   packageTitle: "",
+  //   date: "",
+  //   timeSlot: "",
+  //   amount: 0,
+  // });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
     name: "",
     email: "",
@@ -224,7 +224,8 @@ export function PsychologistModal({
       case 3:
         return "Continue to Details";
       case 4:
-        return "Book Session";
+        // return "Book Session";
+        return "Book Via Whatsapp"
       default:
         return "Continue";
     }
@@ -245,81 +246,115 @@ export function PsychologistModal({
     }
   };
 
+  //commented for payment testing
+
+  // const handlePaymentAndBooking = async () => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle,
+  //     date,
+  //     timeSlot,
+  //     packageAmount,
+  //   } = bookingData;
+
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
+
+  //   // Prepare payment data
+  //   console.log('Package amount from booking data:', packageAmount);
+  //   console.log('Psychologist price:', data?.price);
+    
+  //   const paymentData: BookingPaymentData = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle: packageTitle || "Therapy Session",
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot: timeSlot || "10:00-11:00",
+  //     psychologistId: data?._id,
+  //     totalAmount: packageAmount, // You can make this dynamic based on package
+  //   };
+    
+  //   console.log('Final payment data totalAmount:', paymentData.totalAmount);
+  //   await createSlot();
+  //   // Process payment
+  //   await processPayment(
+  //     paymentData,
+  //     // On success - show success modal
+  //     async (response) => {
+  //       console.log("Payment successful, now booking session...", response);
+
+  //       // Call the original booking API
+  //       await createSlot();
+
+  //       // Set success data for modal
+  //       setSuccessData({
+  //         name: name || "",
+  //         email: email || "",
+  //         phone: phone || "",
+  //         packageTitle: packageTitle || "Therapy Session",
+  //         date: adjustedDate.toISOString().split("T")[0],
+  //         timeSlot: timeSlot || "10:00-11:00",
+  //         amount: packageAmount || 0,
+  //       });
+
+  //       // Show success modal
+  //       setShowSuccessModal(true);
+  //     },
+  //     // On error
+  //     (error) => {
+  //       console.error("Payment failed:", error);
+  //     }
+  //   );
+  // };
+
+
   const handlePaymentAndBooking = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      therapyType,
-      packageTitle,
-      date,
-      timeSlot,
-      packageAmount,
-    } = bookingData;
-
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
-
-    // Prepare payment data
-    console.log('Package amount from booking data:', packageAmount);
-    console.log('Psychologist price:', data?.price);
-    
-    const paymentData: BookingPaymentData = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      therapyType,
-      packageTitle: packageTitle || "Therapy Session",
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot: timeSlot || "10:00-11:00",
-      psychologistId: data?._id,
-      totalAmount: packageAmount, // You can make this dynamic based on package
-    };
-    
-    console.log('Final payment data totalAmount:', paymentData.totalAmount);
+  try {
+    // 1. Create booking slot (only once)
     await createSlot();
-    // Process payment
-    await processPayment(
-      paymentData,
-      // On success - show success modal
-      async (response) => {
-        console.log("Payment successful, now booking session...", response);
 
-        // Call the original booking API
-        await createSlot();
+    // 2. Redirect to WhatsApp
+    const phoneNumber = "917356941195"; // confirm with team
+    const message = encodeURIComponent(
+      `Hi, I would like to book a therapy session with a psychologist.
 
-        // Set success data for modal
-        setSuccessData({
-          name: name || "",
-          email: email || "",
-          phone: phone || "",
-          packageTitle: packageTitle || "Therapy Session",
-          date: adjustedDate.toISOString().split("T")[0],
-          timeSlot: timeSlot || "10:00-11:00",
-          amount: packageAmount || 0,
-        });
-
-        // Show success modal
-        setShowSuccessModal(true);
-      },
-      // On error
-      (error) => {
-        console.error("Payment failed:", error);
+Name: ${bookingData.name}
+Therapy Type: ${bookingData.therapyType}
+Package: ${bookingData.packageTitle}
+Date: ${
+        bookingData.date instanceof Date
+          ? bookingData.date.toISOString().split("T")[0]
+          : ""
       }
+Time Slot: ${bookingData.timeSlot}
+
+Please share the payment details:`
     );
-  };
+
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  } catch (error) {
+    console.error("WhatsApp booking failed:", error);
+    toast.error("Technical issue. Please try again.");
+  }
+};
+
 
   const handleNext = () => {
     if (step === 4) {
@@ -456,14 +491,14 @@ export function PsychologistModal({
       </div>
 
       {/* Payment Success Modal */}
-      <PaymentSuccessModal
+      {/* <PaymentSuccessModal
         isOpen={showSuccessModal}
         onClose={() => {
           setShowSuccessModal(false);
           resetAndClose();
         }}
         paymentData={successData}
-      />
+      /> */}
     </div>
   );
 }
