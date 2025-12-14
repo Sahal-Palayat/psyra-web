@@ -6,21 +6,21 @@ const HeroBox = () => {
     {
       title: "Take Your Online Therapy",
       subtitle: "Get your online session heal your mind",
-      image: "/onlineCartoon.png",
+      image: "/Online-Counselling-Malayalam-Take-Your-Online-Therapy.webp",
       buttonText: "Book Now",
       link: "/services",
     },
     {
       title: "Take Your Free Assessment",
       subtitle: "Know your mental health status quickly",
-      image: "/assess.png",
+      image: "/Online-Counselling-Malayalam-Free-Assessment.webp",
       buttonText: "Start Now",
       link: "/how-is-mind",
     },
     {
       title: "Find Your Therapist",
       subtitle: "Choose your right therapist and start your session",
-      image: "/therapstcartoon.png",
+      image: "/Find-Your-Therapist-For-Online-Counselling-At-Psyra.webp",
       buttonText: "Find Now",
       link: "/psychologists",
     },
@@ -33,7 +33,7 @@ const HeroBox = () => {
           <div
             key={index}
             className={`flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow ${
-              card.image === "/assess.png" ? "shimmer-card" : ""
+              card.image === "/Online-Counselling-Malayalam-Free-Assessment.webp" ? "shimmer-card" : ""
             } `}
           >
             <div className="flex flex-col gap-4 justify-between h-full">

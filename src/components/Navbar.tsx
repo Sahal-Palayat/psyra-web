@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import Logo from "../../public/2Psyra Logo Color-05.svg";
+import Logo from "../../public/Psyra-Logo-Online-Counselling-Malayalam-green.svg";
 // import { useRouter } from "next/navigation";
-import Logo1 from "../../public/Psyra Logo White-04.svg";
+import Logo1 from "../../public/Psyra-Logo-Online-Counselling-Malayalam-white.svg";
 import CallbackModal from "../components/RequestCallModal";
 // import Modal from "./Modal";
 
@@ -73,7 +73,7 @@ const Navbar = () => {
           <Link href="/" className="z-20">
             <Image
               src={isScrolled ? Logo : Logo1 || "/placeholder.svg"}
-              alt="Psyra Logo"
+              alt="Psyra logo – online counseling Malayalam and mental wellness support"
               width={120}
               height={40}
               className="w-[60px] md:w-[80px]"

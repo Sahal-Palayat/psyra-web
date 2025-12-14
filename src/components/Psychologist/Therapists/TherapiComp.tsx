@@ -78,8 +78,8 @@ const SkeletonCard = () => (
 const ExpandableText = ({ text }: { text: string }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const MAX_WORDS = 3;
-  const words = text.split(" ");
+  const MAX_WORDS = 3; // adjust this number as you like
+  const words = text.split(" "); // split text into array of words
   const isLong = words.length > MAX_WORDS;
   const displayText = expanded ? text : words.slice(0, MAX_WORDS).join(" ");
 
@@ -87,6 +87,7 @@ const ExpandableText = ({ text }: { text: string }) => {
     <div className="text-gray-700 w-full md:max-w-[280px] text-[14px] break-words leading-snug">
       <span>
         {displayText}
+        {/* {!expanded && isLong ? "" : ""} */}
         {isLong && (
           <button
             onClick={() => setExpanded(!expanded)}
@@ -177,7 +178,7 @@ export default function TherapistsCard() {
     const now = new Date();
 
     for (const slot of slots) {
-      const [start] = slot.split(" - ");
+      const [start] = slot.split(" - "); // take the start time
       const slotDate = new Date();
       const [time, modifier] = start.split(" ");
       let [hours] = time.split(":").map(Number);
@@ -199,6 +200,28 @@ export default function TherapistsCard() {
     setIsModalOpen(true);
     setPsychologist(therapist);
   };
+
+  //   const renderStars = (rating: string) => {
+  //     const rateNum = Number.parseInt(rating)
+  //     const fullStars = Math.floor(rateNum)
+  //     const hasHalfStar = rateNum % 1 !== 0
+  //     const stars = []
+
+  //     for (let i = 0; i < fullStars; i++) {
+  //       stars.push(<Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)
+  //     }
+
+  //     if (hasHalfStar) {
+  //       stars.push(<Star key="half" className="w-3 h-3 fill-yellow-400/50 text-yellow-400" />)
+  //     }
+
+  //     const emptyStars = 5 - Math.ceil(rateNum)
+  //     for (let i = 0; i < emptyStars; i++) {
+  //       stars.push(<Star key={`empty-${i}`} className="w-3 h-3 text-gray-300" />)
+  //     }
+
+  //     return stars
+  //   }
 
   return (
     <div className="min-h-screen mb-12">
@@ -224,7 +247,7 @@ export default function TherapistsCard() {
               data.map((therapist) => (
                 <div key={therapist._id} className="w-full h-full">
                   <div className="relative w-full bg-[#9EE0D6] rounded-2xl shadow-xl overflow-hidden h-full min-h-[280px] sm:min-h-[160px] flex flex-col">
-                    {/* Top right icons */}
+                    {/* Top right icons and offer badge */}
                     <div className="absolute top-3 right-3 flex gap-2 z-10">
                       <div className="p-1 border border-[#009A99] rounded-[10px] flex items-center justify-center">
                         <Video className="w-4 h-4 md:w-4 md:h-4 text-[#009A99]" />
@@ -234,9 +257,9 @@ export default function TherapistsCard() {
                       </div>
                     </div>
 
-                    {/* Main Layout */}
+                    {/* Layout → always row */}
                     <div className="flex flex-row h-full">
-                      {/* Left: Image */}
+                      {/* Left: Image (same as before) */}
                       <div className="relative flex-shrink-0 w-32 h-42 sm:w-40 sm:h-70 md:w-52 md:h-72 m-4 sm:m-6 bg-[#22CEB8] rounded-xl overflow-hidden">
                         <img
                           src={therapist.imageUrl || "/placeholder.svg"}
@@ -246,22 +269,19 @@ export default function TherapistsCard() {
 
                         <Link
                           href={`/profile/${therapist._id}`}
-                          className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20"
+                          className="flex absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20"
                         >
-                          <Button
-                           className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border border-white/40 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 h-auto font-semibold rounded-full shadow-md shadow-black/10 
-                           transition-all duration-200 hover:scale-105">
-
+                          <Button className="bg-white text-[#00BEA5] hover:bg-gray-100 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 h-auto font-semibold rounded-full shadow-md transition-all duration-200">
                             View Profile
                           </Button>
                         </Link>
                       </div>
 
                       {/* Right: Content */}
-                      <div className="flex flex-col justify-between flex-1 py-4">
-                        <div className="text-white w-full pr-4 sm:pr-6">
+                      <div className="flex flex-col justify-center mt-4">
+                        <div className="text-white w-full pr-6 justify-center">
                           <div>
-                            <h2 className="text-[18px] md:text-[22px] sm:text-[18px] font-bold text-[#00989B] truncate w-full">
+                            <h2 className="text-[18px] md:text-[22px] mt-4 md:mt-0 sm:text-[18px] font-bold text-[#00989B] truncate w-full">
                               {therapist.name}
                             </h2>
 
@@ -269,7 +289,7 @@ export default function TherapistsCard() {
                               {therapist.designation}
                             </p>
 
-                            <div className="text-[14px] md:text-[16px] space-y-1">
+                            <div className="text-[16px]">
                               <p className="text-gray-700">
                                 {therapist.experience} of experience
                               </p>
@@ -306,10 +326,21 @@ export default function TherapistsCard() {
                                 )}
                               </div>
 
+                              {/* Rating */}
+                              {/* <div className="flex items-center gap-1 my-1 md:my-2">
+                              {renderStars(therapist?.rating || "0")}
+                              <span className="text-gray-800 text-[10px] md:text-xs ml-1">
+                                ({therapist?.rating || "0"})
+                              </span>
+                            </div> */}
+
                               {/* Languages */}
-                              <div className="flex flex-wrap gap-1">
+                              <div className="flex flex-wrap gap-1 mb-1">
                                 {therapist.languages.map((lang, i) => (
-                                  <span key={i} className="text-gray-700">
+                                  <span
+                                    key={i}
+                                    className="text-gray-700 text-[14px] md:text-[16px]"
+                                  >
                                     {lang}
                                     {i < therapist.languages.length - 1
                                       ? ", "
@@ -319,7 +350,7 @@ export default function TherapistsCard() {
                               </div>
 
                               {/* Expertise */}
-                              <div className="mr-2">
+                              <div className="mb-1 md:mb-2 mr-2">
                                 <ExpandableText
                                   text={therapist.expertise.join(", ")}
                                 />
@@ -327,14 +358,14 @@ export default function TherapistsCard() {
                             </div>
                           </div>
                         </div>
-
-                        {/* Bottom Section - Desktop */}
-                        <div className="mt-3 mx-4 sm:mx-0 sm:mr-4 p-3 sm:p-4 rounded-2xl flex items-center justify-between bg-[#00989D] hidden sm:flex">
+                        
+                        {/* Bottom row */}
+                        <div className="p-4 w-full max-w-full rounded-[12px] flex items-center justify-between bg-[#00989D] hidden sm:flex">
                           <div className="flex-1 min-w-0 mr-3">
-                            <p className="text-[12px] sm:text-[14px] text-gray-200">
+                            <p className="text-[14px] md:text-xs text-gray-200">
                               Next available slot:
                             </p>
-                            <p className="text-xs sm:text-sm font-medium text-white">
+                            <p className="text-xs md:text-sm font-medium text-white">
                               Today{" "}
                               {getNextSlot(therapist?.monthlySlots) ||
                                 "Slot not available"}
@@ -342,24 +373,24 @@ export default function TherapistsCard() {
                           </div>
                           <Button
                             onClick={() => handleBookNow(therapist)}
-                            className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 
-                                     border border-white/40 text-xs sm:text-sm px-4 sm:px-6 py-2 
-                                     h-auto font-semibold rounded-2xl shadow-lg
-                                     transition-all duration-300 hover:scale-105 flex-shrink-0"
+                            className="
+                                bg-white text-[#00BEA5] 
+                                hover:bg-white hover:border-[#00BEA5] hover:shadow-md
+                                border border-transparent
+                                text-xs md:text-sm px-4 py-2 
+                                h-auto font-semibold transition-all flex-shrink-0"
                           >
                             Book Now
                           </Button>
                         </div>
                       </div>
                     </div>
-
-                    {/* Bottom Section - Mobile */}
-                    <div className="p-3 sm:p-4 mx-3 mb-3 rounded-2xl flex items-center justify-between bg-[#00989D] block sm:hidden">
-                      <div className="flex-1 min-w-0 mr-3">
-                        <p className="text-[12px] text-gray-200">
+                    <div className="p-4 w-full mb-3 flex items-center justify-between bg-[#00989D] block sm:hidden">
+                      <div>
+                        <p className="text-[14px] md:text-xs text-gray-200">
                           Next available slot:
                         </p>
-                        <p className="text-xs font-medium text-white">
+                        <p className="text-xs md:text-sm font-medium text-white">
                           Today{" "}
                           {getNextSlot(therapist?.monthlySlots) ||
                             "Slot not available"}
@@ -367,8 +398,13 @@ export default function TherapistsCard() {
                       </div>
                       <Button
                         onClick={() => handleBookNow(therapist)}
-                       className="bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border border-white/40 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 h-auto font-semibold 
-                                  rounded-2xl shadow-lg transition-all duration-200 hover:scale-105" >
+                        className="
+                          bg-white text-[#00BEA5] 
+                          hover:bg-white hover:border-[#00BEA5] hover:shadow-md
+                          border border-transparent
+                          text-xs md:text-sm px-4 py-2 
+                          h-auto font-semibold  transition-all"
+                      >
                         Book Now
                       </Button>
                     </div>
