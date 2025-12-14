@@ -4,11 +4,11 @@ import { ArrowLeft } from "lucide-react";
 import { MobileTherapyCta } from "@/components/blogs/mobileTherapyCta";
 import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import { TherapyCtaSidebar } from "@/components/blogs/therapy-cta";
-export const dynamic = "force-dynamic";
+
 
 
 export default async function BlogDetail({ params }: { params: Promise<{ name: string }> }) {
-  console.log("🔵 BLOG DETAIL PAGE HIT");
+ 
   
 
   const { name } = await params;
