@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { BookingModal } from "../BookingModal/bookingModal";
 import PackageServices from "./PackagesServices";
+import WhyPackage from "@/components/packages/WhyPackage";
 
 interface PackageItem {
   type: string;
@@ -48,9 +49,9 @@ const HeroPackages = ({ data }: PackagesProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="container mx-auto px-4 py-24 md:py-24 relative z-10 text-center"
+          className="container mx-auto px-4 py-24 md:py-24 relative z-0 text-center"
         >
-          <div className="max-w-3xl mx-auto mb-16 mt-6 text-center">
+          <div className="relative w-full max-w-6xl mx-auto mb-16 mt-6 px-4 text-center">
             {/* Psyra Logo */}
             {/* <motion.div
               className="flex justify-center mb-6"
@@ -63,15 +64,18 @@ const HeroPackages = ({ data }: PackagesProps) => {
             </motion.div> */}
 
             <motion.p
-              className="font-bold text-[#9EE0D6] text-[42px] leading-none"
+              className="font-bold text-[#9EE0D6] text-3xl md:text-[42px] leading-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 1 }}
             >
-              Choose The
-              <span className="text-white"> Package</span> for you
+              Choose The <span className="text-white"> Package</span> for you
             </motion.p>
+
+            {/* Button */}
+            <div className="w-full flex justify-center mt-4">
+              <WhyPackage />
+            </div>
           </div>
         </motion.div>
 

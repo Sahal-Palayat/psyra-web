@@ -13,6 +13,18 @@ export interface Psychologist {
   updatedAt?: string;
 }
 
+export interface SpecializationDetail {
+  name: string;
+  desc: string;
+}
+
+export interface PsychologistProfile extends Psychologist {
+  description: string;
+  designation: string;
+  specializations: SpecializationDetail[];
+}
+
+
 export interface CardProps {
   psychologist: Psychologist;
   isActive: boolean;

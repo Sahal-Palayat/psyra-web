@@ -44,7 +44,8 @@ const Services = () => {
         `Hi, I'm interested in the "${item?.type}" package. Can you provide more details?`
       );
       window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-      router.push(`https://www.psyra.in/`);
+      // router.push(`https://www.psyra.in/`);
+      return;
     }
     router.push(`/${item?.route}`);
 
