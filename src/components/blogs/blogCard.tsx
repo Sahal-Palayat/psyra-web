@@ -26,6 +26,13 @@ export default function BlogCard({ blog }: { blog: Blog }) {
           {blog.title}
         </h3>
 
+
+        {blog.author && (
+          <span className="block text-xs text-gray-500">
+            By {blog.author.name}
+          </span>
+        )}
+
         <p className="text-sm text-gray-600 line-clamp-2">
           {blog.shortDescription}
         </p>

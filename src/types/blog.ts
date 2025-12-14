@@ -7,4 +7,10 @@ export interface Blog {
   thumbnail: string;
   content: string;
   createdAt: string;
+  author?: {
+    name: string;
+    designation: string;
+    imageUrl: string;
+  };
+  
 }

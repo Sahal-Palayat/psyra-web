@@ -4,14 +4,27 @@ import { ArrowLeft } from "lucide-react";
 import { MobileTherapyCta } from "@/components/blogs/mobileTherapyCta";
 import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import { TherapyCtaSidebar } from "@/components/blogs/therapy-cta";
+export const dynamic = "force-dynamic";
 
-export default async function BlogDetail({ params }: { params: { name: string } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${params.name}`, {
+
+export default async function BlogDetail({ params }: { params: Promise<{ name: string }> }) {
+  console.log("🔵 BLOG DETAIL PAGE HIT");
+  
+
+  const { name } = await params;
+  
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/blogs/${name}`;
+
+  const res = await fetch(url, {
     cache: "no-store",
   });
 
   const data = await res.json();
+ 
   const blog: Blog = data.blog;
+  console.log("🔴 AUTHOR OBJECT:", JSON.stringify(blog.author, null, 2));
+
+  
 
   if (!blog) {
     return (
@@ -29,17 +42,25 @@ export default async function BlogDetail({ params }: { params: { name: string } 
   let part2 = "";
   let part3 = "";
 
+ 
+
   if (part1.includes(CTA1)) {
     const [a, b] = part1.split(CTA1);
     part1 = a;
     part2 = b || "";
+  } else {
+    console.log(" CTA_BREAK_1 not found");
   }
 
   if (part2.includes(CTA2)) {
     const [b, c] = part2.split(CTA2);
     part2 = b;
     part3 = c || "";
+  } else {
+    console.log("CTA_BREAK_2 not found");
   }
+
+ 
 
   return (
     <div className="min-h-screen bg-white">
@@ -73,7 +94,34 @@ export default async function BlogDetail({ params }: { params: { name: string } 
       <section className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Main Content */}
         <div className="lg:col-span-8 space-y-10">
-          <div dangerouslySetInnerHTML={{ __html: part1 }} />
+
+        {blog.author && (
+  <div className="max-w-7xl mx-auto px-4 mt-6 mb-10">
+    <div className="flex items-center gap-4 pb-6 border-b border-gray-200">
+      <img
+        src={blog.author.imageUrl}
+        alt={`${blog.author.name}, ${blog.author.designation}`}
+        className="w-12 h-12 rounded-full object-cover border border-gray-300"
+      />
+
+      <div className="text-sm leading-snug">
+        <p className="font-medium text-[#00989D]">
+          {blog.author.name}
+        </p>
+        <p className="text-gray-500">
+          {blog.author.designation}
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+
+          {part1 && (
+            <div dangerouslySetInnerHTML={{ __html: part1 }} />
+          )}
+
+         
 
           <div className="md:hidden">
             <MobileTherapyCta />
