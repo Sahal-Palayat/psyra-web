@@ -15,7 +15,7 @@ export default function BlogCard({ blog }: { blog: Blog }) {
         />
       </div>
 
-      <div className="p-6 space-y-3">
+      <div className="p-6 sm:p-6 lg:p-7 space-y-3">
         <p className="text-xs font-semibold uppercase text-[#00989D] tracking-wide">
           {blog.category}
         </p>
