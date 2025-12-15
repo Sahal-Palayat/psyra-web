@@ -8,6 +8,7 @@ export interface Blog {
   content: string;
   createdAt: string;
   author?: {
+     _id: string
     name: string;
     designation: string;
     imageUrl: string;

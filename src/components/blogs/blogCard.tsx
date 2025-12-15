@@ -1,7 +1,5 @@
-
 import Link from "next/link";
 import type { Blog } from "@/types/blog";
-
 
 export default function BlogCard({ blog }: { blog: Blog }) {
   return (
@@ -26,11 +24,22 @@ export default function BlogCard({ blog }: { blog: Blog }) {
           {blog.title}
         </h3>
 
-
         {blog.author && (
-          <span className="block text-xs text-gray-500">
-            By {blog.author.name}
-          </span>
+          <div className="flex items-center gap-3 mt-2">
+            <img
+              src={blog.author.imageUrl || "/placeholder.svg"}
+              alt={blog.author.name}
+              className="w-7 h-7 rounded-full object-cover"
+            />
+            <div className="leading-tight">
+              <p className="text-xs font-medium text-gray-700">
+                {blog.author.name}
+              </p>
+              <p className="text-[11px] text-gray-500">
+                {blog.author.designation}
+              </p>
+            </div>
+          </div>
         )}
 
         <p className="text-sm text-gray-600 line-clamp-2">
