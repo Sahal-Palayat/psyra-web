@@ -12,6 +12,8 @@ import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
+import LatestBlogs from "@/components/blogs/latestBlogs";
+
 
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
@@ -58,6 +60,10 @@ export default function Home() {
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
       <CommunityEvents />
+
+       {/* Blog Section */}
+      <LatestBlogs/>
+
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
 
