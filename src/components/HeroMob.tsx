@@ -42,7 +42,7 @@ const HeroMob = () => {
 
   return (
     <>
-      <section className="mb-4 relative bg-teal-600 text-white rounded-lg m-2">
+      <section className="mb-4 relative bg-teal-600 text-white">
         {/* Background Image Animation */}
         <div className="px-2 pb-10 pt-24 ">
           {/* Content Section */}
@@ -51,8 +51,10 @@ const HeroMob = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="container relative z-10 text-left "
+            className="container relative z-10 text-center flex flex-col items-center"
           >
+            {/* New Year Program Label */}
+
             <motion.p
               className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[22px] md:text-2xl leading-none"
               initial={{ opacity: 0, y: 20 }}
@@ -81,6 +83,38 @@ const HeroMob = () => {
               </span>{" "}
               here for you
             </motion.p>
+          </motion.div>
+
+          {/* Main New Year CTA – mobile */}
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mt-4 mx-auto max-w-sm text-center flex flex-col items-center"
+          >
+            <motion.span
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/25 text-[10px] tracking-wide uppercase mb-3 mx-auto"
+            >
+              New Year Mind Reset Program
+            </motion.span>
+            <p className="text-[12px] text-white/90 mb-3">
+              Reset your mind, rebuild this year. A gentle guided space to start
+              fresh.
+            </p>
+            <button
+              onClick={() => {
+                window.location.href = "/new-year-reset";
+              }}
+              className="w-full py-2.5 rounded-full bg-white text-teal-700 font-semibold text-sm shadow-md hover:shadow-lg hover:bg-teal-50 transition-all"
+            >
+              Start Your New Year Reset
+            </button>
           </motion.div>
           <div className="mt-8 flex justify-center">
             <div className="flex gap-2 w-full max-w-2xl">
