@@ -53,8 +53,6 @@ const HeroMob = () => {
             transition={{ duration: 1, ease: "easeOut" }}
             className="container relative z-10 text-center flex flex-col items-center"
           >
-            {/* New Year Program Label */}
-
             <motion.p
               className="max-w-[314px] mx-auto font-bold text-[#9EE0D6] text-[22px] md:text-2xl leading-none"
               initial={{ opacity: 0, y: 20 }}
@@ -94,27 +92,36 @@ const HeroMob = () => {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="mt-4 mx-auto max-w-sm text-center flex flex-col items-center"
           >
-            <motion.span
-              initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/25 text-[10px] tracking-wide uppercase mb-3 mx-auto"
-            >
-              New Year Mind Reset Program
-            </motion.span>
-            <p className="text-[12px] text-white/90 mb-3">
-              Reset your mind, rebuild this year. A gentle guided space to start
-              fresh.
-            </p>
-            <button
-              onClick={() => {
-                window.location.href = "/new-year-reset";
-              }}
-              className="w-full py-2.5 rounded-full bg-white text-teal-700 font-semibold text-sm shadow-md hover:shadow-lg hover:bg-teal-50 transition-all"
-            >
-              Start Your New Year Reset
-            </button>
+            <div className="w-full rounded-2xl bg-white/95 text-teal-900 shadow-xl px-4 py-4 border border-white/60 backdrop-blur-sm">
+              <motion.span
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-teal-50 via-white to-emerald-50 text-teal-800 border border-teal-200/80 text-[10px] tracking-[0.18em] uppercase mb-3 mx-auto shadow-sm"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgba(16,185,129,0.25)]" />
+                New Year Mind Reset Program
+              </motion.span>
+              <p className="text-[12px] text-teal-900/90 mb-2">
+                Give your mind a gentle reset for the year ahead. Release what feels
+                heavy and make space for calmer, clearer days.
+              </p>
+              <p className="text-[11px] text-teal-800/80 mb-3">
+                A guided journey with therapists to help you realign your thoughts,
+                routines, and emotional energy.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  window.location.href = "/new-year-reset";
+                }}
+                className="w-full py-2.5 rounded-full bg-teal-600/85 text-white font-semibold text-sm shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md hover:bg-teal-500/95 hover:shadow-[0_14px_40px_rgba(0,0,0,0.35)] transition-all"
+              >
+                Start Your New Year Reset
+              </motion.button>
+            </div>
           </motion.div>
           <div className="mt-8 flex justify-center">
             <div className="flex gap-2 w-full max-w-2xl">
