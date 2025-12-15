@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export function TherapyCtaSidebar() {
   return (
-    <div className="sticky top-24 space-y-6">
+    <div className="sticky top-32 space-y-6">
       {/* Main CTA Card */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#00B5B8] to-[#00989D] p-8">
         {/* Decorative elements */}
@@ -13,7 +13,7 @@ export function TherapyCtaSidebar() {
         {/* Content */}
         <div className="relative space-y-4">
           <h3 className="text-2xl font-bold text-white leading-tight text-balance">
-            You don’t have to hold everything together alone.
+            You are not meant to carry everything alone.
             <span className="block italic font-serif mt-5 text-base">
               Let someone help you carry it.
             </span>
