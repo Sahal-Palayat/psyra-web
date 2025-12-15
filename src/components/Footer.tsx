@@ -28,7 +28,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#services"
+                    href="/services"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Services
@@ -36,7 +36,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#about"
+                    href="/about-us"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     About us
@@ -44,10 +44,18 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="#contact"
+                    href="/contact-us"
                     className="hover:text-yellow-200 transition-colors"
                   >
                     Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blogs"
+                    className="hover:text-yellow-200 transition-colors"
+                  >
+                    Blogs
                   </Link>
                 </li>
               </ul>
