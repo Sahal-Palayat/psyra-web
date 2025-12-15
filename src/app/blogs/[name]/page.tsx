@@ -77,7 +77,7 @@ export default async function BlogDetail({
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-[#005657] via-[#00989D] to-[#00B5B8] pt-24 pb-10">
-  <div className="max-w-7xl mx-auto px-4">
+  <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
     
     {/* Match blog content column */}
     <div className="lg:w-8/12">
@@ -111,7 +111,7 @@ export default async function BlogDetail({
 
 
       {/* Content + Sidebar */}
-      <section className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Main Content */}
         <div className="lg:col-span-8 space-y-10">
           {/* First image */}
