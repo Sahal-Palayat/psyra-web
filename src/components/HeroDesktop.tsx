@@ -111,8 +111,8 @@ const HeroDesktop = () => {
               <div className="hidden md:flex md:w-2/5 items-center justify-center">
                 <div className="relative w-52 h-52 max-w-full rounded-2xl bg-gradient-to-br from-teal-50 via-white to-emerald-50 border border-teal-100 shadow-inner flex items-center justify-center overflow-hidden">
                   <img
-                    src="/Online-Counselling-Malayalam-Take-Your-Online-Therapy.webp"
-                    alt="Calm reset for your new year mind program"
+                    src="/image.png"
+                    alt="Celebrate your New Year mind reset success"
                     className="w-full h-full object-contain"
                     loading="lazy"
                   />
