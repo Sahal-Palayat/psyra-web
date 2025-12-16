@@ -14,25 +14,33 @@ const NewYearResetPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#F7F8F2] pt-28 pb-16">
-      <section className="px-4 mb-4">
+    <main className="min-h-screen  pb-16">
+      {/* Top hero section with extra top padding so it clears the fixed navbar on desktop */}
+      <section className="px-4 m-2 pt-24 md:pt-32 pb-10 bg-[#B1DFAE] rounded-lg">
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-xs md:text-sm font-semibold tracking-[0.18em] uppercase text-teal-700 mb-2">
             Psyra New Year Special
           </p>
           <h1 className="text-2xl md:text-3xl font-bold text-teal-900 mb-2">
-            New Year Mind Reset Program
+            SPACE – 21-Day Life Reset Journey
           </h1>
-          <p className="text-sm md:text-base text-teal-800/90">
-            A gentle mental reset to help you start this year with more clarity, calm,
-            and self-compassion.
+          <p className="text-sm md:text-base text-teal-800/90 mb-4">
+            A 21-day guided journey inside SPACE by Psyra to reset your mind, rebuild
+            habits, and start a new chapter with more clarity and calm.
           </p>
+          <button
+            onClick={scrollToForm}
+            className="mt-1 inline-flex items-center justify-center rounded-full bg-teal-700 text-white text-sm md:text-base font-semibold px-6 py-2.5 shadow-md hover:bg-teal-800 transition-all"
+          >
+            Join the 21-day SPACE program
+          </button>
         </div>
       </section>
 
       <ProgramDetails onPrimaryCtaClick={scrollToForm} />
 
-      <div ref={formRef}>
+      {/* Add scroll margin so the form doesn’t hide under the fixed navbar when scrolled into view */}
+      <div ref={formRef} className="scroll-mt-32 md:scroll-mt-40">
         <ProgramPaymentForm />
       </div>
     </main>
@@ -40,5 +48,3 @@ const NewYearResetPage = () => {
 };
 
 export default NewYearResetPage;
-
-

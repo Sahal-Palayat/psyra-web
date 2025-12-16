@@ -26,10 +26,13 @@ type FormState = typeof INITIAL_FORM;
 
 const ProgramPaymentForm: React.FC = () => {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormState, string>>
+  >({});
   const [isLoading, setIsLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] =
-    useState<"idle" | "processing" | "success" | "failed">("idle");
+  const [paymentStatus, setPaymentStatus] = useState<
+    "idle" | "processing" | "success" | "failed"
+  >("idle");
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof FormState, string>> = {};
@@ -39,7 +42,8 @@ const ProgramPaymentForm: React.FC = () => {
     if (!form.email.trim()) newErrors.email = "Please enter your email";
     if (!form.age.trim()) newErrors.age = "Please enter your age";
     if (!form.place.trim()) newErrors.place = "Please enter your place";
-    if (!form.occupation.trim()) newErrors.occupation = "Please enter your occupation";
+    if (!form.occupation.trim())
+      newErrors.occupation = "Please enter your occupation";
     if (!form.agree) newErrors.agree = "Please agree to the terms to continue";
 
     setErrors(newErrors);
@@ -61,23 +65,23 @@ const ProgramPaymentForm: React.FC = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    const amount = 999; // TODO: adjust when final package price is decided
+    const amount = 2999; // SPACE – 21-day life reset program investment
 
     const paymentData: PaymentData = {
       sessionDetails: {
         date: new Date().toISOString().slice(0, 10),
-        timeSlot: "New Year Program",
-        psychologistId: "new-year-program",
+        timeSlot: "SPACE 21-Day Life Reset Journey",
+        psychologistId: "space-21-day-reset",
         name: form.name.trim(),
         email: form.email.trim(),
         phone: form.phone.trim(),
         age: form.age.trim(),
         modeOfTherapy: "Online",
-        issue: "New Year Mind Reset Program",
+        issue: "SPACE – 21-Day Life Reset Journey",
         agreeToTerms: form.agree,
         sessionType: "Program",
-        therapyType: "New Year Reset",
-        packageTitle: "New Year Mind Reset Program",
+        therapyType: "SPACE",
+        packageTitle: "SPACE – 21-Day Life Reset Journey",
       },
       totalAmount: amount,
     };
@@ -160,26 +164,26 @@ const ProgramPaymentForm: React.FC = () => {
   const getButtonLabel = () => {
     switch (paymentStatus) {
       case "processing":
-        return "Processing...";
+        return "Processing payment...";
       case "success":
-        return "Joined Successfully";
+        return "Joined SPACE successfully";
       case "failed":
-        return "Try Payment Again";
+        return "Try payment again";
       default:
-        return "Proceed to secure payment";
+        return "Pay ₹2,999 & join SPACE";
     }
   };
 
   return (
-    <section className="w-full max-w-5xl mx-auto mb-16 px-4">
+    <section className="w-full  mx-auto mb-16 px-2">
       <div className="grid md:grid-cols-2 gap-6 md:gap-10">
         <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-7 md:py-7">
           <h2 className="text-lg md:text-xl font-semibold text-teal-900 mb-4">
             Join the New Year Mind Reset Program
           </h2>
           <p className="text-xs md:text-sm text-teal-800/90 mb-4">
-            Share a few basic details. We&apos;ll use this only to support you during the
-            program and for payment confirmation.
+            Share a few basic details. We&apos;ll use this only to support you
+            during the program and for payment confirmation.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
@@ -214,7 +218,9 @@ const ProgramPaymentForm: React.FC = () => {
                   placeholder="Enter your mobile number"
                 />
                 {errors.phone && (
-                  <p className="mt-1 text-[11px] text-red-600">{errors.phone}</p>
+                  <p className="mt-1 text-[11px] text-red-600">
+                    {errors.phone}
+                  </p>
                 )}
               </div>
             </div>
@@ -233,7 +239,9 @@ const ProgramPaymentForm: React.FC = () => {
                   placeholder="Enter your email"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-[11px] text-red-600">{errors.email}</p>
+                  <p className="mt-1 text-[11px] text-red-600">
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
@@ -271,7 +279,9 @@ const ProgramPaymentForm: React.FC = () => {
                   placeholder="Where are you from?"
                 />
                 {errors.place && (
-                  <p className="mt-1 text-[11px] text-red-600">{errors.place}</p>
+                  <p className="mt-1 text-[11px] text-red-600">
+                    {errors.place}
+                  </p>
                 )}
               </div>
 
@@ -288,7 +298,9 @@ const ProgramPaymentForm: React.FC = () => {
                   placeholder="eg. Student, IT professional"
                 />
                 {errors.occupation && (
-                  <p className="mt-1 text-[11px] text-red-600">{errors.occupation}</p>
+                  <p className="mt-1 text-[11px] text-red-600">
+                    {errors.occupation}
+                  </p>
                 )}
               </div>
             </div>
@@ -302,9 +314,12 @@ const ProgramPaymentForm: React.FC = () => {
                 onChange={handleChange}
                 className="mt-[3px] h-4 w-4 rounded border-teal-300 text-teal-700 focus:ring-teal-400"
               />
-              <label htmlFor="agree" className="text-[11px] md:text-xs text-teal-900/90">
-                I agree to join this program for my personal growth and understand this is
-                not an emergency service. I accept the{" "}
+              <label
+                htmlFor="agree"
+                className="text-[11px] md:text-xs text-teal-900/90"
+              >
+                I agree to join this program for my personal growth and
+                understand this is not an emergency service. I accept the{" "}
                 <Link
                   href="/terms-conditions"
                   target="_blank"
@@ -337,14 +352,14 @@ const ProgramPaymentForm: React.FC = () => {
 
             {paymentStatus === "success" && (
               <p className="mt-2 text-[11px] text-emerald-700">
-                You&apos;ve successfully joined the program. We&apos;ll contact you with
-                next steps on your registered email / mobile.
+                You&apos;ve successfully joined the program. We&apos;ll contact
+                you with next steps on your registered email / mobile.
               </p>
             )}
             {paymentStatus === "failed" && (
               <p className="mt-2 text-[11px] text-red-600">
-                Payment failed or cancelled. You can try again, or reach out to our
-                support team if the issue continues.
+                Payment failed or cancelled. You can try again, or reach out to
+                our support team if the issue continues.
               </p>
             )}
           </form>
@@ -357,13 +372,18 @@ const ProgramPaymentForm: React.FC = () => {
             </p>
             <ul className="text-xs md:text-sm space-y-2 mb-4">
               <li>• Guided New Year reset journey with Psyra professionals</li>
-              <li>• Simple reflections to clear last year&apos;s emotional clutter</li>
+              <li>
+                • Simple reflections to clear last year&apos;s emotional clutter
+              </li>
               <li>• Tools to build calmer habits for the months ahead</li>
               <li>• Supportive, confidential online space</li>
             </ul>
           </div>
           <div className="mt-4 pt-4 border-t border-teal-700/70 text-[11px] md:text-xs text-teal-100/90">
-            <p>Payment is processed securely via Razorpay. We do not store your card details.</p>
+            <p>
+              Payment is processed securely via Razorpay. We do not store your
+              card details.
+            </p>
           </div>
         </div>
       </div>
@@ -372,5 +392,3 @@ const ProgramPaymentForm: React.FC = () => {
 };
 
 export default ProgramPaymentForm;
-
-
