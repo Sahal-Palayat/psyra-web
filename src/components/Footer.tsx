@@ -212,7 +212,7 @@ export default function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="https://www.youtube.com/@YourHappinessPartner"
+                href="https://www.youtube.com/@psyramentalhealth"
                 className="hover:text-yellow-400 transition-colors"
               >
                 <Youtube size={24} />

@@ -16,6 +16,7 @@ export interface PackageItem {
   list: string[];
   price: string;
   cta: string;
+  discountNote?: string;
 }
 
 interface PackageServicesCard {
@@ -67,14 +68,23 @@ const PackageServices = ({
               {/* Content */}
               <div className="p-4 md:p-5 text-black flex flex-col flex-grow">
                 <h3 className="font-bold text-xl mb-1">{item.title}</h3>
+
+                {item.discountNote && (
+                  <p className="text-sm font-medium text-[#00989D] mb-3">
+                    {item.discountNote}
+                  </p>
+                )}
+
                 <p className="italic mb-3">{item.tagline}</p>
+
+                
+
                 <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
                   {item.list.map((point: string, i: number) => (
                     <li key={i}>{point}</li>
                   ))}
                 </ul>
 
-                
                 <div className="mt-auto">
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-black">
