@@ -11,6 +11,10 @@ import {
 } from "@/lib/razorpay";
 import Link from "next/link";
 import { toast } from "@/lib/toast";
+import axios from "axios";
+
+// Hardcoded psychologist ID for Christmas packages
+const CHRISTMAS_PSYCHOLOGIST_ID = "69419d94ec967868b068b4eb";
 
 const INITIAL_FORM = {
   name: "",
@@ -70,17 +74,17 @@ const ProgramPaymentForm: React.FC = () => {
     const paymentData: PaymentData = {
       sessionDetails: {
         date: new Date().toISOString().slice(0, 10),
-        timeSlot: "SPACE 21-Day Life Reset Journey",
-        psychologistId: "space-21-day-reset",
+        timeSlot: "10:00 AM - 11:00 AM", // Default time slot for booking
+        psychologistId: CHRISTMAS_PSYCHOLOGIST_ID, // Use hardcoded psychologist ID
         name: form.name.trim(),
         email: form.email.trim(),
         phone: form.phone.trim(),
         age: form.age.trim(),
-        modeOfTherapy: "Online",
-        issue: "SPACE – 21-Day Life Reset Journey",
+        modeOfTherapy: "Video Call", // Default mode of therapy
+        issue: form.occupation.trim() || "", // Map occupation to issue/concern
         agreeToTerms: form.agree,
-        sessionType: "Program",
-        therapyType: "SPACE",
+        sessionType:  "New Session", // Map place to sessionType
+        therapyType: form.place.trim(), // Default therapy type
         packageTitle: "SPACE – 21-Day Life Reset Journey",
       },
       totalAmount: amount,
@@ -120,14 +124,62 @@ const ProgramPaymentForm: React.FC = () => {
             },
           },
         },
-        handler: (response: RazorpayPaymentResponse) => {
+        handler: async (response: RazorpayPaymentResponse) => {
           setPaymentStatus("success");
           setIsLoading(false);
-          toast.success(
-            "Payment Successful!",
-            "You have joined the New Year Mind Reset Program.",
-            0
-          );
+          
+          // Create booking using psychologist-booking API after successful payment
+          try {
+            const adjustedDate = new Date();
+            adjustedDate.setDate(adjustedDate.getDate() + 1);
+
+            const bookingData = {
+              name: paymentData.sessionDetails.name,
+              email: paymentData.sessionDetails.email,
+              phone: paymentData.sessionDetails.phone,
+              age: paymentData.sessionDetails.age,
+              modeOfTherapy: paymentData.sessionDetails.modeOfTherapy || "Video Call", // Default if not provided
+              psychologistId: CHRISTMAS_PSYCHOLOGIST_ID, // Hardcoded psychologist ID
+              issue: form.occupation.trim() || "General Consultation", // Map occupation field to issue/concern
+              agreeToTerms: paymentData.sessionDetails.agreeToTerms,
+              packageTitle: paymentData.sessionDetails.packageTitle,
+              date: adjustedDate.toISOString().split("T")[0], // Tomorrow's date
+              timeSlot: paymentData.sessionDetails.timeSlot || "10:00 AM - 11:00 AM", // Default time slot
+              therapyType: paymentData.sessionDetails.therapyType || "individual", // Default therapy type
+              sessionType: form.place.trim() || "New Session", // Map place field to sessionType
+            };
+
+            console.log("Creating booking with psychologist-booking API:", bookingData);
+
+            const bookingResponse = await axios.post(
+              `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`,
+              bookingData
+            );
+
+            if (bookingResponse?.status) {
+              console.log("Booking created successfully:", bookingResponse.data);
+              toast.success(
+                "Payment Successful!",
+                "You have joined the New Year Mind Reset Program and your booking has been confirmed.",
+                0
+              );
+            } else {
+              console.error("Booking creation failed");
+              toast.success(
+                "Payment Successful!",
+                "Payment completed but booking creation failed. Please contact support.",
+                0
+              );
+            }
+          } catch (error) {
+            console.error("Error creating booking:", error);
+            toast.success(
+              "Payment Successful!",
+              "Payment completed but booking creation failed. Please contact support.",
+              0
+            );
+          }
+          
           console.log("New Year Program payment response:", response);
         },
         prefill: {
