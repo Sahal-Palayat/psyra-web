@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import ProgramDetails from "@/components/NewYearReset/ProgramDetails";
 import ProgramPaymentForm from "@/components/NewYearReset/ProgramPaymentForm";
 
 const NewYearResetPage = () => {
-  const formRef = useRef<HTMLDivElement | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const scrollToForm = () => {
-    if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -29,7 +31,7 @@ const NewYearResetPage = () => {
             habits, and start a new chapter with more clarity and calm.
           </p>
           <button
-            onClick={scrollToForm}
+            onClick={openModal}
             className="mt-1 inline-flex items-center justify-center rounded-full bg-teal-700 text-white text-sm md:text-base font-semibold px-6 py-2.5 shadow-md hover:bg-teal-800 transition-all"
           >
             Join the 21-day SPACE program
@@ -37,12 +39,10 @@ const NewYearResetPage = () => {
         </div>
       </section>
 
-      <ProgramDetails onPrimaryCtaClick={scrollToForm} />
+      <ProgramDetails onPrimaryCtaClick={openModal} />
 
-      {/* Add scroll margin so the form doesn’t hide under the fixed navbar when scrolled into view */}
-      <div ref={formRef} className="scroll-mt-32 md:scroll-mt-40">
-        <ProgramPaymentForm />
-      </div>
+      {/* Modal Form */}
+      <ProgramPaymentForm isOpen={isModalOpen} onClose={closeModal} />
     </main>
   );
 };

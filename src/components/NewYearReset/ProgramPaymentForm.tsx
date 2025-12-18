@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import {
   createPaymentOrder,
   openRazorpayPayment,
@@ -28,7 +30,12 @@ const INITIAL_FORM = {
 
 type FormState = typeof INITIAL_FORM;
 
-const ProgramPaymentForm: React.FC = () => {
+interface ProgramPaymentFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose }) => {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [errors, setErrors] = useState<
     Partial<Record<keyof FormState, string>>
@@ -226,17 +233,80 @@ const ProgramPaymentForm: React.FC = () => {
     }
   };
 
+  // Reset form when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setForm(INITIAL_FORM);
+      setErrors({});
+      setPaymentStatus("idle");
+      setIsLoading(false);
+    }
+  }, [isOpen]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
   return (
-    <section className="w-full  mx-auto mb-16 px-2">
-      <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-        <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-7 md:py-7">
-          <h2 className="text-lg md:text-xl font-semibold text-teal-900 mb-4">
-            Join the New Year Mind Reset Program
-          </h2>
-          <p className="text-xs md:text-sm text-teal-800/90 mb-4">
-            Share a few basic details. We&apos;ll use this only to support you
-            during the program and for payment confirmation.
-          </p>
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            onClick={onClose}
+          />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="bg-teal-700 text-white p-4 sm:p-6 flex-shrink-0 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-semibold">
+                  Join the New Year Mind Reset Program
+                </h2>
+                <p className="text-xs sm:text-sm text-teal-100 mt-1">
+                  Share a few basic details to get started
+                </p>
+              </div>
+              <button
+                onClick={onClose}
+                className="text-white hover:text-teal-200 transition-colors p-2 hover:bg-white/10 rounded-full"
+                aria-label="Close modal"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+                <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-7 md:py-7">
+                  <p className="text-xs md:text-sm text-teal-800/90 mb-4">
+                    Share a few basic details. We&apos;ll use this only to support you
+                    during the program and for payment confirmation.
+                  </p>
 
           <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -438,8 +508,12 @@ const ProgramPaymentForm: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
-    </section>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 };
 
