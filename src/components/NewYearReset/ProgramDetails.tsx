@@ -5,7 +5,9 @@ interface ProgramDetailsProps {
   onPrimaryCtaClick?: () => void;
 }
 
-const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) => {
+const ProgramDetails: React.FC<ProgramDetailsProps> = ({
+  onPrimaryCtaClick,
+}) => {
   return (
     <section className="w-full mb-10 px-2">
       <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-8 md:py-8">
@@ -16,10 +18,10 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
           A space shaping the new you.
         </h1>
         <p className="text-sm md:text-base text-teal-800/90 mb-4">
-          SPACE is Psyra&apos;s structured 21-day life reset journey. With daily videos,
-          live sessions, 1:1 check-ins, and powerful self-reflection tools, you&apos;ll
-          clear mental clutter, reset habits, and step into a more grounded, intentional
-          version of yourself.
+          SPACE is Psyra&apos;s structured 21-day life reset journey. With daily
+          videos, live sessions, 1:1 check-ins, and powerful self-reflection
+          tools, you&apos;ll clear mental clutter, reset habits, and step into a
+          more grounded, intentional version of yourself.
         </p>
 
         <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-6">
@@ -30,8 +32,11 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
             <ul className="text-xs md:text-sm text-teal-900 space-y-1 list-disc list-inside">
               <li>Morning mindset videos to start the day with clarity</li>
               <li>Evening life-skill lessons for real-life change</li>
-              <li>Interactive journaling, mood tracking &amp; reflection games</li>
+              <li>
+                Interactive journaling, mood tracking &amp; reflection games
+              </li>
               <li>Simple habit tasks that build new patterns step by step</li>
+              <li>1:1 personal session</li>
             </ul>
           </div>
 
@@ -40,10 +45,16 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
               Who SPACE is for
             </p>
             <ul className="text-xs md:text-sm text-emerald-900 space-y-1 list-disc list-inside">
-              <li>When you feel stuck and don&apos;t know how to move forward</li>
-              <li>If you&apos;re tired of overthinking, stress, or quiet burnout</li>
-              <li>When you want more clarity, direction, and emotional strength</li>
-              <li>If you&apos;re ready to commit to real, guided transformation</li>
+              <li>Anyone wanting a fresh start and a clearer direction</li>
+              <li>People ready to build better habits and a stronger mindset</li>
+              <li>Individuals looking for guidance, structure, and daily growth</li>
+              <li>
+                Those who want to understand themselves better and upgrade their life
+              </li>
+              <li>Anyone seeking calm, balance, and emotional stability</li>
+              <li>
+                People who know they can become more — and want a system to get there
+              </li>
             </ul>
           </div>
 
@@ -54,8 +65,9 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
               </p>
               <p className="text-lg md:text-xl font-bold mb-1">₹ 2,999</p>
               <p className="text-[11px] md:text-xs text-teal-100/90">
-                Complete 21-day SPACE journey with daily videos, tools, and 1:1 support.
-                Optional physical SPACE Kit: <span className="font-semibold">+ ₹ 7,500</span>
+                Complete 21-day SPACE journey with daily videos, tools, and 1:1
+                support. Optional physical SPACE Kit:{" "}
+                <span className="font-semibold">+ ₹ 7,500</span>
                 &nbsp;(habit tracker, cards, planner &amp; more).
               </p>
             </div>
@@ -70,8 +82,9 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
         </div>
 
         <p className="text-[11px] md:text-xs text-teal-700/80">
-          Once you join, you&apos;ll share a few basic details and complete payment securely.
-          A Psyra team member will then help you schedule and start your New Year reset.
+          Once you join, you&apos;ll share a few basic details and complete
+          payment securely. A Psyra team member will then help you schedule and
+          start your New Year reset.
         </p>
       </div>
     </section>
@@ -79,5 +92,3 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({ onPrimaryCtaClick }) =>
 };
 
 export default ProgramDetails;
-
-

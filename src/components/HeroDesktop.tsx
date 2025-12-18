@@ -144,12 +144,14 @@ const HeroDesktop = () => {
                 </motion.span>
 
                 <p className="text-sm md:text-base text-teal-900/90 mb-3 max-w-xl">
-                  Give your mind a gentle reset for the year ahead. Release what
-                  feels heavy and make space for calmer, clearer days.
+                  Let go of old routines, rebuild your mindset, and step into a
+                  version of life that feels lighter, clearer, and more in
+                  control.
                 </p>
                 <p className="text-xs md:text-sm text-teal-800/80 mb-4 max-w-xl">
-                  A guided New Year journey with therapists to help you realign
-                  your thoughts, routines, and emotional energy.
+                  Join a guided 21-day reset designed to help you realign your
+                  habits, emotions, thoughts, and lifestyle, all through daily
+                  videos, expert sessions, and your own personal SPACE tools.
                 </p>
                 <div className="flex flex-wrap items-center gap-3">
                   <motion.button

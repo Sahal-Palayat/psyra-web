@@ -277,11 +277,11 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl shadow-xl z-50"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="bg-teal-700 text-white p-4 sm:p-6 flex-shrink-0 flex items-center justify-between">
+            <div className="bg-teal-700 text-white p-4 sm:p-6 flex items-center justify-between rounded-t-2xl">
               <div>
                 <h2 className="text-lg sm:text-xl font-semibold">
                   Join the New Year Mind Reset Program
@@ -299,16 +299,14 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
               </button>
             </div>
 
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-              <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-                <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-7 md:py-7">
-                  <p className="text-xs md:text-sm text-teal-800/90 mb-4">
-                    Share a few basic details. We&apos;ll use this only to support you
-                    during the program and for payment confirmation.
-                  </p>
+            {/* Form Content */}
+            <div className="p-4 sm:p-6">
+              <p className="text-xs md:text-sm text-teal-800/90 mb-4">
+                Share a few basic details. We&apos;ll use this only to support you
+                during the program and for payment confirmation.
+              </p>
 
-          <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-teal-900 mb-1">
@@ -484,31 +482,7 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
                 our support team if the issue continues.
               </p>
             )}
-          </form>
-        </div>
-
-        <div className="bg-teal-900/95 rounded-3xl shadow-xl border border-teal-800 px-5 py-6 md:px-7 md:py-7 text-teal-50 flex flex-col justify-between">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.18em] uppercase mb-2 text-teal-200">
-              What&apos;s included
-            </p>
-            <ul className="text-xs md:text-sm space-y-2 mb-4">
-              <li>• Guided New Year reset journey with Psyra professionals</li>
-              <li>
-                • Simple reflections to clear last year&apos;s emotional clutter
-              </li>
-              <li>• Tools to build calmer habits for the months ahead</li>
-              <li>• Supportive, confidential online space</li>
-            </ul>
-          </div>
-          <div className="mt-4 pt-4 border-t border-teal-700/70 text-[11px] md:text-xs text-teal-100/90">
-            <p>
-              Payment is processed securely via Razorpay. We do not store your
-              card details.
-            </p>
-          </div>
-        </div>
-              </div>
+              </form>
             </div>
           </motion.div>
         </>

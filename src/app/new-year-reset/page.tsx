@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ProgramDetails from "@/components/NewYearReset/ProgramDetails";
 import ProgramPaymentForm from "@/components/NewYearReset/ProgramPaymentForm";
+import HowSpaceWorks from "@/components/NewYearReset/HowSpaceWorks";
 
 const NewYearResetPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +41,9 @@ const NewYearResetPage = () => {
       </section>
 
       <ProgramDetails onPrimaryCtaClick={openModal} />
+
+      {/* HOW SPACE WORKS Section - Roadmap */}
+      <HowSpaceWorks />
 
       {/* Modal Form */}
       <ProgramPaymentForm isOpen={isModalOpen} onClose={closeModal} />
