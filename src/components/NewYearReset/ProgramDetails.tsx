@@ -46,14 +46,20 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
             </p>
             <ul className="text-xs md:text-sm text-emerald-900 space-y-1 list-disc list-inside">
               <li>Anyone wanting a fresh start and a clearer direction</li>
-              <li>People ready to build better habits and a stronger mindset</li>
-              <li>Individuals looking for guidance, structure, and daily growth</li>
               <li>
-                Those who want to understand themselves better and upgrade their life
+                People ready to build better habits and a stronger mindset
+              </li>
+              <li>
+                Individuals looking for guidance, structure, and daily growth
+              </li>
+              <li>
+                Those who want to understand themselves better and upgrade their
+                life
               </li>
               <li>Anyone seeking calm, balance, and emotional stability</li>
               <li>
-                People who know they can become more — and want a system to get there
+                People who know they can become more — and want a system to get
+                there
               </li>
             </ul>
           </div>
@@ -67,7 +73,7 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
               <p className="text-[11px] md:text-xs text-teal-100/90">
                 Complete 21-day SPACE journey with daily videos, tools, and 1:1
                 support. Optional physical SPACE Kit:{" "}
-                <span className="font-semibold">+ ₹ 7,500</span>
+                <span className="font-semibold">+ ₹ 500</span>
                 &nbsp;(habit tracker, cards, planner &amp; more).
               </p>
             </div>
@@ -75,7 +81,7 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
               onClick={onPrimaryCtaClick}
               className="mt-4 inline-flex items-center justify-center gap-1 rounded-full bg-white text-teal-900 px-4 py-2 text-xs md:text-sm font-semibold hover:bg-teal-50 transition-all"
             >
-              Join SPACE – start your 21-day reset
+              Book Now
               <MoveRight className="w-4 h-4" />
             </button>
           </div>
