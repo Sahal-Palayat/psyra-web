@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, CheckCircle2 } from "lucide-react";
 import {
   createPaymentOrder,
   openRazorpayPayment,
@@ -44,6 +44,8 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
   const [paymentStatus, setPaymentStatus] = useState<
     "idle" | "processing" | "success" | "failed"
   >("idle");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof FormState, string>> = {};
@@ -165,26 +167,17 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
 
             if (bookingResponse?.status) {
               console.log("Booking created successfully:", bookingResponse.data);
-              toast.success(
-                "Payment Successful!",
-                "You have joined the New Year Mind Reset Program and your booking has been confirmed.",
-                0
-              );
+              setSuccessMessage("You have joined the New Year Mind Reset Program and your booking has been confirmed.");
+              setShowSuccessModal(true);
             } else {
               console.error("Booking creation failed");
-              toast.success(
-                "Payment Successful!",
-                "Payment completed but booking creation failed. Please contact support.",
-                0
-              );
+              setSuccessMessage("Payment completed but booking creation failed. Please contact support.");
+              setShowSuccessModal(true);
             }
           } catch (error) {
             console.error("Error creating booking:", error);
-            toast.success(
-              "Payment Successful!",
-              "Payment completed but booking creation failed. Please contact support.",
-              0
-            );
+            setSuccessMessage("Payment completed but booking creation failed. Please contact support.");
+            setShowSuccessModal(true);
           }
           
           console.log("New Year Program payment response:", response);
@@ -240,6 +233,8 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
       setErrors({});
       setPaymentStatus("idle");
       setIsLoading(false);
+      setShowSuccessModal(false);
+      setSuccessMessage("");
     }
   }, [isOpen]);
 
@@ -271,15 +266,51 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
             onClick={onClose}
           />
 
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl shadow-xl z-50"
-            onClick={(e) => e.stopPropagation()}
-          >
+          {/* Success Modal */}
+          {showSuccessModal && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-white rounded-2xl shadow-2xl z-[60]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 sm:p-8 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="rounded-full bg-emerald-100 p-3">
+                    <CheckCircle2 className="w-12 h-12 text-emerald-600" />
+                  </div>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-teal-900 mb-2">
+                  Payment Successful!
+                </h3>
+                <p className="text-sm sm:text-base text-teal-700 mb-6">
+                  {successMessage}
+                </p>
+                <button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    onClose();
+                  }}
+                  className="w-full rounded-full bg-teal-700 text-white text-sm md:text-base font-semibold py-2.5 md:py-3 shadow-lg hover:bg-teal-600 transition-all"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Payment Form Modal */}
+          {!showSuccessModal && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl bg-white rounded-2xl shadow-xl z-50"
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Header */}
             <div className="bg-teal-700 text-white p-4 sm:p-6 flex items-center justify-between rounded-t-2xl">
               <div>
@@ -470,12 +501,6 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
               {isLoading ? "Processing..." : getButtonLabel()}
             </button>
 
-            {paymentStatus === "success" && (
-              <p className="mt-2 text-[11px] text-emerald-700">
-                You&apos;ve successfully joined the program. We&apos;ll contact
-                you with next steps on your registered email / mobile.
-              </p>
-            )}
             {paymentStatus === "failed" && (
               <p className="mt-2 text-[11px] text-red-600">
                 Payment failed or cancelled. You can try again, or reach out to
@@ -485,6 +510,7 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
               </form>
             </div>
           </motion.div>
+          )}
         </>
       )}
     </AnimatePresence>
