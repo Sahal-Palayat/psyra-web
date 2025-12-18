@@ -469,8 +469,7 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
                 htmlFor="agree"
                 className="text-[11px] md:text-xs text-teal-900/90"
               >
-                I agree to join this program for my personal growth and
-                understand this is not an emergency service. I accept the{" "}
+                I agree to join this program for my personal growth.{" "}
                 <Link
                   href="/terms-conditions"
                   target="_blank"

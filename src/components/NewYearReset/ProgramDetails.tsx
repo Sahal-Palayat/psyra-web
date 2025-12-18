@@ -88,9 +88,7 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
         </div>
 
         <p className="text-[11px] md:text-xs text-teal-700/80">
-          Once you join, you&apos;ll share a few basic details and complete
-          payment securely. A Psyra team member will then help you schedule and
-          start your New Year reset.
+          After payment, a Psyra team member will connect with you. For any queries, contact +91 8129724199.
         </p>
       </div>
     </section>
