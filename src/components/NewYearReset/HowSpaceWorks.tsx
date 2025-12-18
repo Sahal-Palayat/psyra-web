@@ -5,12 +5,13 @@ const HowSpaceWorks = () => {
   const steps = [
     {
       number: "01",
-      title: "Daily Videos",
-      description: "Daily morning and evening videos unlocked inside SPACE",
-      icon: Video,
-      color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-500",
+      title: "21-Day Journey",
+      description: "A structured 21-day journey that helps you grow step by step",
+      icon: Calendar,
+      color: "from-teal-600 to-teal-700",
+      bgColor: "bg-teal-600",
     },
+    
     {
       number: "02",
       title: "Live Sessions",
@@ -22,7 +23,7 @@ const HowSpaceWorks = () => {
     {
       number: "03",
       title: "Personal Check-in",
-      description: "A 15-minute personal check-in with our team each day",
+      description: "1:1 personal check-in every day",
       icon: Clock,
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-500",
@@ -42,15 +43,15 @@ const HowSpaceWorks = () => {
       icon: Target,
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-500",
-    },
-    {
+    },{
       number: "06",
-      title: "21-Day Journey",
-      description: "A structured 21-day journey that helps you grow step by step",
-      icon: Calendar,
-      color: "from-teal-600 to-teal-700",
-      bgColor: "bg-teal-600",
+      title: "Daily Guided Lessons",
+      description: "Daily morning and evening lessons unlocked inside SPACE",
+      icon: Video,
+      color: "from-orange-500 to-orange-600",
+      bgColor: "bg-orange-500",
     },
+   
   ];
 
   return (
