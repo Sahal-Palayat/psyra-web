@@ -31,7 +31,7 @@ const CoupleIndex = () => {
       sessions: "4",
       pricePerSession: "₹1200 per session",
       tagline: "Build a Stronger Connection",
-      discountNote: "save 20%",
+      discountNote: "Save 20%",
       list: [
         "Work on communication, trust, and emotional bonding",
         "Unlimited access to all Online Psyra webinars",
