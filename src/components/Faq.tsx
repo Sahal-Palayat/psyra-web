@@ -12,24 +12,24 @@ const Faq = () => {
 
   const faqs = [
     {
-      question: "What exactly is online counselling?",
+      question: "What is a Psyra?",
       answer:
-        "Think of it as therapy, but without the commute. At Psyra, online counselling connects you with licensed professionals through video calls, chat, or phone—anytime, anywhere. It’s therapy that fits into your life.",
+        "Psyra provides counseling services in the Malayalam and Hindi languages via online counselling, which offers safe and private access to psychological counseling for persons seeking mental health assistance.",
     },
     {
-      question: "What kind of issues can I talk about?",
+      question: "What is Online Counselling?",
       answer:
-        "Whether it’s stress, anxiety, relationship struggles, or just feeling 'off,' Psyra is here for it all. No issue is too big or too small.",
+        "Online counseling consists of the provision of professional mental health care through the use of online video or audio sessions.Psyra is also providing internet counseling through Malayalam and Hindi, making psychological services accessible to people from anywhere.",
     },
     {
-      question: "What happens during a session?",
+      question: "Can I have all my online counselling sessions online?",
       answer:
-        "Imagine a safe, judgment-free zone where you can unpack your thoughts. Your therapist will listen, guide, and help you find clarity—all from the comfort of your space.",
+        "Yes! At Psyra, all therapy sessions occur online, making online counseling services in Malayalam & Hindi accessible and convenient!",
     },
     {
-      question: "How do I book a session?",
+      question: "Are the counseling sessions conducted in Malayalam?",
       answer:
-        "Easy peasy! Head to our website, pick a therapist who vibes with you, and choose a time that works. Stuck? We’re just a message away to help you out.",
+        "Yes. Psyra offers online counseling services in Malayalam and Hindi, allowing clients to articulate their feelings in their language of choice without any issues relating to effective communication.",
     },
     {
       question: "How do I know if I need therapy?",
@@ -37,24 +37,64 @@ const Faq = () => {
         "If you’re asking this question, it’s probably a good time to try. Therapy isn’t just for crises—it’s for anyone looking to feel better, grow, or just understand themselves more.",
     },
     {
-      question: "Can I use Psyra outside my country?",
+      question: " I suffer from anxiety and overthinking. Will counselling help me?",
       answer:
-        "Absolutely! Psyra is borderless. Whether you’re at home or halfway across the world, we’re here for you.",
+        "Yes. Through online counseling in Malayalam or Hindi, counseling will assist you in understanding anxiety patterns, managing overthinking, and building better coping mechanisms for enhanced emotional state management.",
     },
     {
-      question: "Can I have sessions in my preferred language?",
+      question: " How effective is online counselling when compared with face-to-face therapy sessions?",
       answer:
-        "Yes! We offer sessions in multiple languages, including Malayalam,English,Hindi,Tamil,Kannada. Your comfort is our priority.",
+        "Indeed. Studies, including the experience of the practitioner, make it evident that online counseling conducted in the Malayalam and Hindi languages of the Psyra site can be equally effective as traditional counseling.",
     },
     {
-      question: "Is online therapy really effective?",
+      question: "Can online counselling be used for a family or relationship problem?",
       answer:
-        "Let’s bust the myth: online therapy is just as effective as in-person sessions for most people. Research backs it, and so do we. Plus, it’s way more convenient.",
+        "Yes. Online counseling in Malayalam and Hindi languages may help with family concerns, relationship issues, communication problems, and mental conflicts.",
     },
     {
-      question: "Are there workshops or group sessions?",
+      question: "I don’t think I have a mental illness, but I don’t exactly feel happy. Will counseling work for me?",
       answer:
-        "Yes! We host workshops on everything from stress management to parenting. Check out our Events page for the latest.",
+        "Yes. Online counseling offered in both Malayalam and Hindi at Psyra is not only limited to therapy of diagnosed cases. It also helps one explore one's emotions, attain clarity, and move towards growth.",
+    },
+    {
+      question: "What kind of people benefit from the counselling service offered by Psyra?",
+      answer:
+        "People facing stress, emotional distress, life changes, or relationships issues and those seeking personal understanding are all eligible and able to benefit from online counseling presented in Malayalam and Hindi at Psyra.",
+    },
+     {
+      question: "When might I need to consult a psychologist?",
+      answer:
+        "You could turn to online counseling sessions conducted in Malayalam or Hindi if emotional distress, anxiety, stress, or personal issues start impacting your life.",
+    },
+    {
+      question: "Can I get access to Psyra if I am residing abroad?",
+      answer:
+        "Yes, provided you have an internet connection, you may access online counseling services from Psyra through the Malayalam and Hindi languages from anywhere around the world.",
+    },
+    {
+      question: "What can I expect in an online counselling session?",
+      answer:
+        "Sessions remain confidential and client-centered. Online counseling in Malayalam and Hindi offers you a safe platform where you can discuss your concerns and work together towards finding solutions.",
+    },
+    {
+      question: "How long is each session with the counselor?",
+      answer:
+        "The duration of online counseling usually takes between 45 minutes to 60 minutes per consultation per online counseling client.",
+    },
+    {
+      question: "Are the counseling sessions confidential? ",
+      answer:
+        "Yes. Psyra maintains high professional and moral standards. There is complete confidentiality and privacy in all online counseling sessions in Malayalam as well as Hindi.",
+    },
+    {
+      question: "How can I book a counseling session on Psyra?",
+      answer:
+        "Online counseling done in Malayalam or Hindi is also available on psyra.in by selecting a proper slot for counseling.",
+    },
+    {
+      question: "“What makes Psyra special?”",
+      answer:
+        "Psyra is distinct in terms of its services through online Malayalam and Hindi counseling that integrates professionalism, understanding, accessibility, and the highest standards of the client-centered approach.",
     },
   ];
 
