@@ -16,6 +16,9 @@ export interface PackageItem {
   list: string[];
   price: string;
   cta: string;
+  discountNote?: string;
+  sessions?: number;
+  pricePerSession?: string;
 }
 
 interface PackageServicesCard {
@@ -66,15 +69,43 @@ const PackageServices = ({
 
               {/* Content */}
               <div className="p-4 md:p-5 text-black flex flex-col flex-grow">
-                <h3 className="font-bold text-xl mb-1">{item.title}</h3>
+                <div className="flex items-start justify-between gap-3 mb-1">
+                  <h3 className="font-bold text-xl">{item.title}</h3>
+
+                  {item.discountNote && (
+                    <span className="bg-[#00989D]/15 text-[#005657] text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
+                      {item.discountNote}
+                    </span>
+                  )}
+                </div>
+
+                {item.sessions && (
+                  <div className="flex items-center gap-3 mb-2">
+                    <p className="text-sm font-medium text-[#005657]">
+                      {item.sessions}{" "}
+                      {item.sessions === 1 ? "Session" : "Sessions"}
+                      {item.pricePerSession && ` · ${item.pricePerSession}`}
+                    </p>
+                  </div>
+                )}
+
                 <p className="italic mb-3">{item.tagline}</p>
-                <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
-                  {item.list.map((point: string, i: number) => (
-                    <li key={i}>{point}</li>
-                  ))}
+
+                <ul className="list-disc pl-5 text-sm leading-relaxed space-y-2 mb-4 text-gray-800">
+                  {item.list.map((point: string, i: number) => {
+                    const isLast = i === item.list.length - 1;
+
+                    return (
+                      <li
+                        key={i}
+                        className={isLast ? "font-semibold text-[#005657]" : ""}
+                      >
+                        {point}
+                      </li>
+                    );
+                  })}
                 </ul>
 
-                
                 <div className="mt-auto">
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-black">

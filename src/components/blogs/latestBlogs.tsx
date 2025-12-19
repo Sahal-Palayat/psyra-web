@@ -32,10 +32,10 @@ export default function LatestBlogs() {
     fetchBlogs();
   }, []);
 
-  if (loading) return null; // or a skeleton if you want
+  if (loading) return null; 
 
   return (
-    <section className="px-6 py-14 bg-white">
+    <section className="px-6 py-14 bg-[#F7F8F2]">
       <h2 className="text-3xl md:text-4xl font-bold text-[#005657] text-center mb-3">
         Latest Blogs
       </h2>
