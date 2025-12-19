@@ -160,7 +160,7 @@ const HeroDesktop = () => {
                     onClick={() => {
                       window.location.href = "/new-year-reset";
                     }}
-                    className="px-8 md:px-18 py-2.5 md:py-3 rounded-full bg-teal-600/85 text-white font-semibold text-sm md:text-base shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md hover:bg-teal-500/95 hover:shadow-[0_14px_40px_rgba(0,0,0,0.35)] transition-all"
+                    className="px-8 md:px-18 py-2 rounded-full bg-teal-600/85 text-white font-semibold text-sm md:text-base shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md hover:bg-teal-500/95 hover:shadow-[0_14px_40px_rgba(0,0,0,0.35)] transition-all"
                   >
                     Start Now
                   </motion.button>
