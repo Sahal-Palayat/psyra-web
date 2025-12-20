@@ -1,4 +1,5 @@
 interface Props {
+  title:string,
   content: {
     whatIs: string
     causes: readonly string[]
@@ -7,13 +8,13 @@ interface Props {
   }
 }
 
-export default function ConcernContent({ content }: Props) {
+export default function ConcernContent({ title, content }: Props) {
   return (
     <section className="space-y-10">
       <div>
         <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
-          What is this concern?
-        </h2>
+      What is {title}?
+    </h2>
         <p className="text-gray-700 leading-relaxed">
           {content.whatIs}
         </p>

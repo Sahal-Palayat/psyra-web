@@ -4,8 +4,7 @@ import ConcernContent from "@/components/concerns/ConcernContent";
 import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import PsyraSupportJourney from "@/components/concerns/PsyraSupportJourney";
 import GetTherapyCTA from "@/components/concerns/GetTherapyCTA";
-import FAQSection from "@/components/concerns/FAQSection"
-
+import FAQSection from "@/components/concerns/FAQSection";
 
 interface PageProps {
   params: Promise<{
@@ -26,13 +25,26 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-[#F8FAFA]">
       {/* Hero Section */}
-      <section className="bg-[#00BEA5] text-white px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+      <section className="relative bg-gradient-to-b from-[#00BEA5] to-[#00989D] text-white px-6 pt-20 pb-14 md:pt-24 md:pb-20">
+        <div className="max-w-4xl mx-auto text-center md:text-left">
+          {/* Label */}
+          <span className="inline-block mb-3 px-4 py-1 rounded-full bg-white/15 text-xs md:text-sm tracking-wide">
+            Mental Health Support
+          </span>
+
+          {/* Title */}
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
             {concern.title}
           </h1>
-          <p className="text-lg text-white/90 max-w-2xl">
+
+          {/* Description (smaller on mobile) */}
+          <p className="text-base md:text-xl text-white/90 max-w-3xl mx-auto md:mx-0">
             {concern.description}
+          </p>
+
+          {/* Reassurance (very subtle on mobile) */}
+          <p className="mt-4 text-xs md:text-sm text-white/80">
+            You’re not alone. Professional support is available.
           </p>
         </div>
       </section>
@@ -41,9 +53,7 @@ export default async function Page({ params }: PageProps) {
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto space-y-12">
           {/* ✅ Educational Content */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm">
-            <ConcernContent content={concern.content} />
-          </div>
+          <ConcernContent title={concern.title} content={concern.content} />
 
           {/* Quick Check-In */}
           <div className="flex justify-center">
@@ -53,7 +63,9 @@ export default async function Page({ params }: PageProps) {
           </div>
 
           {/* ✅ Support Journey */}
-          <PsyraSupportJourney />
+           <div className="container mx-auto max-w-6xl">
+        <PsyraSupportJourney />
+      </div>
 
           {/* ✅ Primary CTA */}
           <GetTherapyCTA />
