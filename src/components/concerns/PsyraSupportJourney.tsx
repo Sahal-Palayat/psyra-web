@@ -12,7 +12,7 @@ export default function PsyraSupportJourney() {
       </p>
 
       <div className="relative max-w-5xl mx-auto">
-        {/* Enhanced Gradient Line */}
+      
         <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-gradient-to-r from-gray-200 via-[#00BEA5] to-[#4CAF50] rounded-full opacity-60 hidden md:block" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 relative">
