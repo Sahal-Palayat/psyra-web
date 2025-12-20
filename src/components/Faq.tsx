@@ -22,19 +22,14 @@ const Faq = () => {
         "Online counseling consists of the provision of professional mental health care through the use of online video or audio sessions.Psyra is also providing internet counseling through Malayalam and Hindi, making psychological services accessible to people from anywhere.",
     },
     {
-      question: "Can I have all my online counselling sessions online?",
+      question: "“What makes Psyra special?”",
       answer:
-        "Yes! At Psyra, all therapy sessions occur online, making online counseling services in Malayalam & Hindi accessible and convenient!",
+        "Psyra is distinct in terms of its services through online Malayalam and Hindi counseling that integrates professionalism, understanding, accessibility, and the highest standards of the client-centered approach.",
     },
     {
       question: "Are the counseling sessions conducted in Malayalam?",
       answer:
         "Yes. Psyra offers online counseling services in Malayalam and Hindi, allowing clients to articulate their feelings in their language of choice without any issues relating to effective communication.",
-    },
-    {
-      question: "How do I know if I need therapy?",
-      answer:
-        "If you’re asking this question, it’s probably a good time to try. Therapy isn’t just for crises—it’s for anyone looking to feel better, grow, or just understand themselves more.",
     },
     {
       question: " I suffer from anxiety and overthinking. Will counselling help me?",
@@ -47,29 +42,14 @@ const Faq = () => {
         "Indeed. Studies, including the experience of the practitioner, make it evident that online counseling conducted in the Malayalam and Hindi languages of the Psyra site can be equally effective as traditional counseling.",
     },
     {
-      question: "Can online counselling be used for a family or relationship problem?",
-      answer:
-        "Yes. Online counseling in Malayalam and Hindi languages may help with family concerns, relationship issues, communication problems, and mental conflicts.",
-    },
-    {
       question: "I don’t think I have a mental illness, but I don’t exactly feel happy. Will counseling work for me?",
       answer:
         "Yes. Online counseling offered in both Malayalam and Hindi at Psyra is not only limited to therapy of diagnosed cases. It also helps one explore one's emotions, attain clarity, and move towards growth.",
-    },
-    {
-      question: "What kind of people benefit from the counselling service offered by Psyra?",
-      answer:
-        "People facing stress, emotional distress, life changes, or relationships issues and those seeking personal understanding are all eligible and able to benefit from online counseling presented in Malayalam and Hindi at Psyra.",
     },
      {
       question: "When might I need to consult a psychologist?",
       answer:
         "You could turn to online counseling sessions conducted in Malayalam or Hindi if emotional distress, anxiety, stress, or personal issues start impacting your life.",
-    },
-    {
-      question: "Can I get access to Psyra if I am residing abroad?",
-      answer:
-        "Yes, provided you have an internet connection, you may access online counseling services from Psyra through the Malayalam and Hindi languages from anywhere around the world.",
     },
     {
       question: "What can I expect in an online counselling session?",
@@ -86,16 +66,7 @@ const Faq = () => {
       answer:
         "Yes. Psyra maintains high professional and moral standards. There is complete confidentiality and privacy in all online counseling sessions in Malayalam as well as Hindi.",
     },
-    {
-      question: "How can I book a counseling session on Psyra?",
-      answer:
-        "Online counseling done in Malayalam or Hindi is also available on psyra.in by selecting a proper slot for counseling.",
-    },
-    {
-      question: "“What makes Psyra special?”",
-      answer:
-        "Psyra is distinct in terms of its services through online Malayalam and Hindi counseling that integrates professionalism, understanding, accessibility, and the highest standards of the client-centered approach.",
-    },
+    
   ];
 
   return (
