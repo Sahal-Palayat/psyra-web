@@ -8,7 +8,7 @@ export default function PsyraSupportJourney() {
       </h2>
 
       <p className="text-center text-gray-600 mb-8 md:mb-12 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-        Healing does not happen overnight — but with the right support, meaningful change is possible.
+        Healing does not happen overnight - but with the right support, meaningful change is possible.
       </p>
 
       <div className="relative max-w-5xl mx-auto">

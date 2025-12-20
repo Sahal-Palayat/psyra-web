@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const concerns = [
   { title: "Depression", slug: "depression" },
-  { title: "Obsessive-compulsive", slug: "obsessive-compulsive" },
+  // { title: "Obsessive-compulsive", slug: "obsessive-compulsive" },
   { title: "Panic attacks", slug: "panic-attacks" },
   { title: "Personality disorders", slug: "personality-disorders" },
   { title: "Anxiety disorders", slug: "anxiety-disorders" },

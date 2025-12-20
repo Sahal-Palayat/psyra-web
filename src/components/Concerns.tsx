@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { SectionHeader } from "./SectionTitle";
 import Link from "next/link";
 
-
 const DepressionIcon = () => (
   <svg viewBox="0 0 100 100" className="w-16 h-16">
     <circle
@@ -263,7 +262,6 @@ const concerns = [
   },
 ];
 
-
 export default function Concerns() {
   // const handleWhatsAppRedirect = (concern: string) => {
   //   const phoneNumber = "+918891724199";
@@ -306,29 +304,29 @@ export default function Concerns() {
               const IconComponent = concern.icon;
               return (
                 <motion.div key={index}>
-  <Link href={`/concerns/${concern.slug}`} className="block h-full">
-    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2 border-gray-200 bg-teal-50 group overflow-hidden relative">
+                  <Link
+                    href={`/concerns/${concern.slug}`}
+                    className="block h-full"
+                  >
+                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2 border-gray-200 bg-teal-50 group overflow-hidden relative">
+                      <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-300" />
 
-      <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-300" />
+                      <CardContent className="px-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
+                        <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent />
+                        </div>
 
-      <CardContent className="px-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
-        <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
-          <IconComponent />
-        </div>
+                        <h3 className="text-base font-bold text-gray-800 group-hover:text-gray-900 transition-colors leading-tight">
+                          {concern.title}
+                        </h3>
 
-        <h3 className="text-base font-bold text-gray-800 group-hover:text-gray-900 transition-colors leading-tight">
-          {concern.title}
-        </h3>
-
-        <p className="text-xs text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          Learn more
-        </p>
-      </CardContent>
-
-    </Card>
-  </Link>
-</motion.div>
-
+                        <p className="text-xs text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Learn more
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
               );
             })}
           </motion.div>

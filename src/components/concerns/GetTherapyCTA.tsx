@@ -9,11 +9,10 @@ export default function GetTherapyCTA() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.08),transparent_50%)]" />
 
       <div className="relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">You don't have to go through this alone</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">You do not have to go through this alone</h2>
 
         <p className="text-white/95 text-lg max-w-2xl mx-auto mb-8 text-pretty leading-relaxed">
-          Our licensed psychologists are here to support you at your own pace, with care that feels safe and
-          confidential.
+          Our psychologists provide personalized support in a safe, confidential environment, at a pace that is comfortable for you.
         </p>
 
         <Link

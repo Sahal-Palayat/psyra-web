@@ -1,7 +1,7 @@
 import { concernsData } from "../../../lib/concerns-data";
 import { notFound } from "next/navigation";
 import ConcernContent from "@/components/concerns/ConcernContent";
-import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
+// import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import PsyraSupportJourney from "@/components/concerns/PsyraSupportJourney";
 import GetTherapyCTA from "@/components/concerns/GetTherapyCTA";
 import FAQSection from "@/components/concerns/FAQSection";
@@ -37,14 +37,13 @@ export default async function Page({ params }: PageProps) {
             {concern.title}
           </h1>
 
-          {/* Description (smaller on mobile) */}
+          {/* Description */}
           <p className="text-base md:text-xl text-white/90 max-w-3xl mx-auto md:mx-0">
             {concern.description}
           </p>
 
-          {/* Reassurance (very subtle on mobile) */}
           <p className="mt-4 text-xs md:text-sm text-white/80">
-            You’re not alone. Professional support is available.
+            Your wellbeing matters. Professional care is just a step away.
           </p>
         </div>
       </section>
@@ -52,22 +51,23 @@ export default async function Page({ params }: PageProps) {
       {/* Main Content */}
       <section className="px-6 py-16">
         <div className="max-w-4xl mx-auto space-y-12">
-          {/* ✅ Educational Content */}
-          <ConcernContent title={concern.title} content={concern.content} />
+          {/* Educational Content */}
+          <ConcernContent blocks={concern.content.blocks} />
+
 
           {/* Quick Check-In */}
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <div className="w-full max-w-md">
               <MobileQuickCheckin />
             </div>
-          </div>
+          </div> */}
 
-          {/* ✅ Support Journey */}
+          {/* Support Journey */}
            <div className="container mx-auto max-w-6xl">
         <PsyraSupportJourney />
       </div>
 
-          {/* ✅ Primary CTA */}
+          {/* Primary CTA */}
           <GetTherapyCTA />
           <FAQSection faqs={concern.faqs} />
         </div>

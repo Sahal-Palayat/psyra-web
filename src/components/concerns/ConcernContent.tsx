@@ -1,57 +1,68 @@
+import type { ContentBlock } from "@/types/concerns"
+import { cleanText } from "@/components/utils/cleanText";
+
 interface Props {
-  title:string,
-  content: {
-    whatIs: string
-    causes: readonly string[]
-    symptoms: readonly string[]
-    howToOvercome: readonly string[]
-  }
+  blocks: readonly ContentBlock[]
 }
 
-export default function ConcernContent({ title, content }: Props) {
+export default function ConcernContent({ blocks }: Props) {
   return (
-    <section className="space-y-10">
-      <div>
-        <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
-      What is {title}?
-    </h2>
-        <p className="text-gray-700 leading-relaxed">
-          {content.whatIs}
-        </p>
-      </div>
+    <section className="space-y-12">
+      {blocks.map((block, index) => {
+        switch (block.type) {
+          case "paragraph":
+            return (
+              <div key={index}>
+                {block.title && (
+                  <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
+                     {cleanText(block.title)}
+                  </h2>
+                )}
+                <p className="text-gray-700 leading-relaxed">
+                  {cleanText(block.text)}
+                </p>
+              </div>
+            )
 
-      <div>
-        <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
-          Common Causes
-        </h2>
-        <ul className="list-disc list-inside space-y-2">
-          {content.causes.map((c, i) => (
-            <li key={i}>{c}</li>
-          ))}
-        </ul>
-      </div>
+          case "list":
+            return (
+              <div key={index}>
+                <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
+                  {block.title}
+                </h2>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  {block.items.map((item, i) => (
+                    <li key={i}>{cleanText(item)}</li>
+                  ))}
+                </ul>
+              </div>
+            )
 
-      <div>
-        <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
-          Common Symptoms
-        </h2>
-        <ul className="list-disc list-inside space-y-2">
-          {content.symptoms.map((s, i) => (
-            <li key={i}>{s}</li>
-          ))}
-        </ul>
-      </div>
+          case "group":
+            return (
+              <div key={index}>
+                <h2 className="text-2xl font-semibold mb-6 text-[#005657]">
+                  {block.title}
+                </h2>
+                <div className="space-y-4">
+                  {block.items.map((item, i) => (
+                    <div key={i}>
+                      <h3 className="font-semibold text-gray-900">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
 
-      <div>
-        <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
-          How Therapy Can Help
-        </h2>
-        <ul className="list-disc list-inside space-y-2">
-          {content.howToOvercome.map((h, i) => (
-            <li key={i}>{h}</li>
-          ))}
-        </ul>
-      </div>
+          default:
+            return null
+        }
+      })}
     </section>
   )
 }
