@@ -28,6 +28,13 @@ const NewYearResetPage = () => {
 "
       >
         <div className="max-w-5xl mx-auto text-center">
+          <p
+            className="inline-block text-xs md:text-sm font-semibold tracking-[0.18em] uppercase 
+              text-white/90 mb-3"
+          >
+            21 Days Training Programme
+          </p>
+
           <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
             Your Life Doesn’t Need Another Year.
           </h1>
