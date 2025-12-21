@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { SectionHeader } from "./SectionTitle";
+import Link from "next/link";
 
 const DepressionIcon = () => (
   <svg viewBox="0 0 100 100" className="w-16 h-16">
@@ -205,48 +206,56 @@ const WorkIcon = () => (
 const concerns = [
   {
     title: "Depression",
+    slug: "depression",
     icon: DepressionIcon,
     color: "from-blue-50 to-blue-100",
     borderColor: "border-blue-200",
   },
   {
     title: "Panic attacks",
+    slug: "panic-attacks",
     icon: PanicIcon,
     color: "from-red-50 to-red-100",
     borderColor: "border-red-200",
   },
   {
     title: "Personality disorders",
+    slug: "personality-disorders",
     icon: PersonalityIcon,
     color: "from-indigo-50 to-indigo-100",
     borderColor: "border-indigo-200",
   },
   {
     title: "Anxiety disorders",
+    slug: "anxiety-disorders",
     icon: AnxietyIcon,
     color: "from-orange-50 to-orange-100",
     borderColor: "border-orange-200",
   },
   {
     title: "Stress",
+    slug: "stress",
     icon: StressIcon,
     color: "from-cyan-50 to-cyan-100",
     borderColor: "border-cyan-200",
   },
   {
     title: "Sexual issues",
+    slug: "sexual-issues",
     icon: SexualIcon,
     color: "from-pink-50 to-pink-100",
     borderColor: "border-pink-200",
   },
   {
     title: "Relationship issues",
+    slug: "relationship-issues",
     icon: RelationshipIcon,
     color: "from-green-50 to-green-100",
     borderColor: "border-green-200",
   },
   {
     title: "Work related issues",
+    slug: "work-related-issues",
     icon: WorkIcon,
     color: "from-amber-50 to-amber-100",
     borderColor: "border-amber-200",
@@ -254,11 +263,11 @@ const concerns = [
 ];
 
 export default function Concerns() {
-  const handleWhatsAppRedirect = (concern: string) => {
-    const phoneNumber = "+918891724199";
-    const message = encodeURIComponent(`Hi, I need help with ${concern}`);
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-  };
+  // const handleWhatsAppRedirect = (concern: string) => {
+  //   const phoneNumber = "+918891724199";
+  //   const message = encodeURIComponent(`Hi, I need help with ${concern}`);
+  //   window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+  // };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -295,28 +304,28 @@ export default function Concerns() {
               const IconComponent = concern.icon;
               return (
                 <motion.div key={index}>
-                  <Card
-                    onClick={() => {
-                      handleWhatsAppRedirect(concern?.title);
-                    }}
-                    className={`h-full transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2 border-gray-200 bg-teal-50 group overflow-hidden relative`}
+                  <Link
+                    href={`/concerns/${concern.slug}`}
+                    className="block h-full"
                   >
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-300" />
+                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2 border-gray-200 bg-teal-50 group overflow-hidden relative">
+                      <div className="absolute top-0 right-0 w-16 h-16 bg-white/20 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-300" />
 
-                    <CardContent className="px-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
-                      <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent />
-                      </div>
+                      <CardContent className="px-5 text-center relative z-10 flex flex-col items-center justify-center h-full min-h-32">
+                        <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent />
+                        </div>
 
-                      <h3 className="text-base font-bold text-gray-800 group-hover:text-gray-900 transition-colors leading-tight">
-                        {concern?.title}
-                      </h3>
+                        <h3 className="text-base font-bold text-gray-800 group-hover:text-gray-900 transition-colors leading-tight">
+                          {concern.title}
+                        </h3>
 
-                      <p className="text-xs text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        Get support
-                      </p>
-                    </CardContent>
-                  </Card>
+                        <p className="text-xs text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Learn more
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </motion.div>
               );
             })}
