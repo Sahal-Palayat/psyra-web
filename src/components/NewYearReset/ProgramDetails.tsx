@@ -19,10 +19,11 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
           A space shaping the new you.
         </h1>
         <p className="text-sm md:text-base text-teal-800/90 mb-4">
-          SPACE is Psyra&apos;s structured 21-day life reset journey. With daily
-          videos, live sessions, 1:1 check-ins, and powerful self-reflection
-          tools, you&apos;ll clear mental clutter, reset habits, and step into a
-          more grounded, intentional version of yourself.
+          SPACE is Psyra&apos;s structured 21-day life reset journey. you learn
+          how your mind works so habits stick, decisions feel clearer, and life
+          feels less overwhelming. It&apos;s designed to help you build a
+          stronger, more self-aware version of yourself, based on proven
+          psychological principles, not motivation or hype.
         </p>
 
         <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-6">
