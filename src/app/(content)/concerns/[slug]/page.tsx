@@ -1,4 +1,4 @@
-import { concernsData } from "../../../lib/concerns-data";
+import { concernsData } from "../../../../lib/concerns-data";
 import { notFound } from "next/navigation";
 import ConcernContent from "@/components/concerns/ConcernContent";
 // import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
@@ -14,6 +14,10 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
+
+  if (!slug) {
+    notFound();
+  }
 
   const normalizedSlug = slug.toLowerCase().trim();
   const concern = concernsData[normalizedSlug as keyof typeof concernsData];
