@@ -7,18 +7,18 @@ interface Props {
 
 export default function ConcernContent({ blocks }: Props) {
   return (
-    <section className="space-y-12">
+    <section className="space-y-6">
       {blocks.map((block, index) => {
         switch (block.type) {
           case "paragraph":
             return (
               <div key={index}>
                 {block.title && (
-                  <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
+                  <h2 className="text-2xl font-semibold mb-3 text-[#007C80]">
                      {cleanText(block.title)}
                   </h2>
                 )}
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed ">
                   {cleanText(block.text)}
                 </p>
               </div>
@@ -27,7 +27,7 @@ export default function ConcernContent({ blocks }: Props) {
           case "list":
             return (
               <div key={index}>
-                <h2 className="text-2xl font-semibold mb-3 text-[#005657]">
+                <h2 className="text-2xl font-semibold mb-3 text-[#007C80]">
                   {block.title}
                 </h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
@@ -41,7 +41,7 @@ export default function ConcernContent({ blocks }: Props) {
           case "group":
             return (
               <div key={index}>
-                <h2 className="text-2xl font-semibold mb-6 text-[#005657]">
+                <h2 className="text-2xl font-semibold mb-6 text-[#007C80]">
                   {block.title}
                 </h2>
                 <div className="space-y-4">
