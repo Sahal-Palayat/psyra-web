@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { MobileTherapyCta } from "@/components/blogs/mobileTherapyCta";
 import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import { TherapyCtaSidebar } from "@/components/blogs/therapy-cta";
+import { notFound } from "next/navigation";
 
 function getReadingTime(html: string) {
   const text = html.replace(/<[^>]*>/g, "");
@@ -19,14 +20,32 @@ export default async function BlogDetail({
 }) {
   const { name } = await params;
 
+  if (!name) {
+    notFound();
+  }
+
   const url = `${process.env.NEXT_PUBLIC_API_URL}/blogs/${name}`;
 
   const res = await fetch(url, {
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    notFound();
+  }
+
   const data = await res.json();
-  const blog: Blog = data.blog;
+
+  const blog: Blog | null =
+    data?.blog ||
+    data?.data?.blog ||
+    data?.data ||
+    null;
+
+    if (!blog) {
+    notFound(); 
+  }
+  
   const readingTime = getReadingTime(blog.content);
 
   if (!blog) {
@@ -60,9 +79,6 @@ export default async function BlogDetail({
     part3 = split[1] || "";
   }
 
-  /* ---------------------------
-     Extract first image
-  ---------------------------- */
   const IMAGE_END = "</div>";
   let firstImage = "";
   let remainingContent = part1;

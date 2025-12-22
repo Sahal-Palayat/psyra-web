@@ -1,10 +1,6 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { Geist_Mono, Onest } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { ToastContainer } from "@/components/ui/toast";
+import "./globals.css"
+import type { Metadata } from "next"
+import { Onest, Geist_Mono } from "next/font/google"
 
 const onest = Onest({
   variable: "--font-onest",
@@ -16,6 +12,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+
 
 export const metadata: Metadata = {
   title: "Online Counseling Psychology",
@@ -102,6 +100,8 @@ export const metadata: Metadata = {
   },
 };
 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -153,13 +153,9 @@ export default function RootLayout({
         </script>
       </head>
       <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
-        <Navbar />
         {children}
-        <Footer />
-        <ToastContainer />
-        <div id="modal-root"></div>
-
       </body>
     </html>
   );
 }
+
