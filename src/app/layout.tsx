@@ -154,6 +154,7 @@ export default function RootLayout({
       </head>
       <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <div id="modal-root" />
       </body>
     </html>
   );
