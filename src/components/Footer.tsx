@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 import Logo from "../../public/logoFooter.png";
 export default function Footer() {
   return (
-    <footer className="bg-[#00989D] text-white py-12">
+    <footer className="bg-[#00989D] text-white py-12" id="site-footer">
       <div className="container mx-auto px-8 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
         {/* Left Section */}
         <div>
