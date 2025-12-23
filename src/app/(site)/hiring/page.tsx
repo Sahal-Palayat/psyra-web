@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Logo from "../../../public/logoFooter.png";
+// import Logo from "../../../public/logoFooter.png";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -118,7 +118,7 @@ export default function PsyraChiefPsychologistApplication() {
         <div className="text-center mb-10">
           <div className="mb-6">
             <div className=" mb-4 inline-flex items-center justify-center bg-[#00989D] p-2 rounded-[10px]">
-              <Image src={Logo} alt="Psyra Logo" width={200} height={40} />
+              <Image src="/logoFooter.png" alt="Psyra Logo" width={200} height={40} />
             </div>{" "}
             <h2 className="text-3xl font-semibold text-teal-700 mb-6">
               Psychologist Application

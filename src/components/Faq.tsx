@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react"; // Using Lucide icons
 import { motion, AnimatePresence } from "framer-motion"; // Importing animation components
 
 const Faq = () => {
@@ -32,21 +31,24 @@ const Faq = () => {
         "Yes. Psyra offers online counseling services in Malayalam and Hindi, allowing clients to articulate their feelings in their language of choice without any issues relating to effective communication.",
     },
     {
-      question: " I suffer from anxiety and overthinking. Will counselling help me?",
+      question:
+        " I suffer from anxiety and overthinking. Will counselling help me?",
       answer:
         "Yes. Through online counseling in Malayalam or Hindi, counseling will assist you in understanding anxiety patterns, managing overthinking, and building better coping mechanisms for enhanced emotional state management.",
     },
     {
-      question: " How effective is online counselling when compared with face-to-face therapy sessions?",
+      question:
+        " How effective is online counselling when compared with face-to-face therapy sessions?",
       answer:
         "Indeed. Studies, including the experience of the practitioner, make it evident that online counseling conducted in the Malayalam and Hindi languages of the Psyra site can be equally effective as traditional counseling.",
     },
     {
-      question: "I don’t think I have a mental illness, but I don’t exactly feel happy. Will counseling work for me?",
+      question:
+        "I don’t think I have a mental illness, but I don’t exactly feel happy. Will counseling work for me?",
       answer:
         "Yes. Online counseling offered in both Malayalam and Hindi at Psyra is not only limited to therapy of diagnosed cases. It also helps one explore one's emotions, attain clarity, and move towards growth.",
     },
-     {
+    {
       question: "When might I need to consult a psychologist?",
       answer:
         "You could turn to online counseling sessions conducted in Malayalam or Hindi if emotional distress, anxiety, stress, or personal issues start impacting your life.",
@@ -66,32 +68,62 @@ const Faq = () => {
       answer:
         "Yes. Psyra maintains high professional and moral standards. There is complete confidentiality and privacy in all online counseling sessions in Malayalam as well as Hindi.",
     },
-    
   ];
 
   return (
     <section className="pb-20 pt-4 mx-4 md:mx-16" id="faq">
-      <div className="container">
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div key={index} className="w-full border-b border-gray-200 pb-4">
+      <div className="divide-y divide-teal-100/80">
+        {faqs.map((faq, index) => {
+          const isOpen = openIndex === index;
+
+          return (
+            <div
+              key={index}
+              className={`
+    group
+    relative
+    py-5
+    px-3 md:px-4
+    -mx-3 md:-mx-4
+    rounded-xl
+    transition-all duration-300
+    hover:border hover:border-teal-200 hover:shadow-sm
+    ${isOpen ? "border border-teal-200 shadow-sm" : ""}
+
+  `}
+            >
+              {/* Left accent */}
+              <span
+                className={`
+    absolute left-1 md:left-0 top-3 bottom-3 w-1 rounded-full
+    transition-opacity duration-300
+    ${isOpen ? "bg-teal-600" : "bg-teal-500/0 group-hover:bg-teal-500/40"}
+  `}
+              />
+
               <button
-                className="flex justify-between items-center w-full text-left focus:outline-none"
                 onClick={() => toggleFaq(index)}
+                className="w-full flex items-center justify-between gap-4 text-left focus:outline-none"
               >
                 <span className="text-[16px] md:text-[20px] text-[#005657]">
                   {faq.question}
                 </span>
-                {openIndex === index ? (
-                  <ChevronUp className="h-5 w-5 text-gray-500" />
-                ) : (
-                  <ChevronDown className="h-5 w-5 text-gray-500" />
-                )}
+
+                <span
+                  className="
+      text-teal-600
+      text-xl
+      font-medium
+      leading-none
+      transition-transform duration-300
+    "
+                >
+                  {isOpen ? "×" : "+"}
+                </span>
               </button>
 
-              {/* Animate the answer smoothly */}
               <AnimatePresence>
-                {openIndex === index && (
+                {isOpen && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
@@ -106,8 +138,8 @@ const Faq = () => {
                 )}
               </AnimatePresence>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );
