@@ -1,38 +1,25 @@
-export type ContentBlock =
-  | {
-      type: "paragraph"
-      title?: string
-      text: string
-    }
-  | {
-      type: "list"
-      title: string
-      items: readonly string[]
-    }
-  | {
-      type: "group"
-      title: string
-      items: readonly {
-        title: string
-        description: string
-      }[]
-    }
+export type BlockType = "heading" | "paragraph" | "list"
 
-
-
-export interface ConcernContent {
-  blocks: readonly ContentBlock[]
+export interface ContentBlock {
+  type: BlockType
+  content: string | string[]
 }
 
+export interface ConcernHero {
+  headline: string
+  description: string
+}
 
-export interface ConcernFAQ {
+export interface FAQ {
   question: string
   answer: string
 }
 
-export interface ConcernData {
+export interface Concern {
+  slug: string
   title: string
-  description: string
-  content: ConcernContent
-  faqs: readonly ConcernFAQ[]
+  status: "active" | "inactive"
+  hero: ConcernHero
+  blocks: ContentBlock[]
+  faqs: FAQ[]
 }
