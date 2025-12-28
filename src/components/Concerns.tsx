@@ -254,8 +254,8 @@ const concerns = [
     borderColor: "border-green-200",
   },
   {
-    title: "Work related issues",
-    slug: "work-related-issues",
+    title: "Work Related Challenges",
+    slug: "work-related-challenges",
     icon: WorkIcon,
     color: "from-amber-50 to-amber-100",
     borderColor: "border-amber-200",

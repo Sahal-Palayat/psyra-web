@@ -10,7 +10,7 @@ const concerns = [
   { title: "Stress", slug: "stress" },
   { title: "Sexual issues", slug: "sexual-issues" },
   { title: "Relationship issues", slug: "relationship-issues" },
-  { title: "Work related issues", slug: "work-related-issues" },
+  { title: "Work related issues", slug: "work-related-challenges" },
 ]
 
 export default function Concerns() {
