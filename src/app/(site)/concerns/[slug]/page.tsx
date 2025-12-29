@@ -63,9 +63,9 @@ export default async function Page({ params }: PageProps) {
                 <PsyraSupportJourney />
               </div>
 
-              {concern.faqs?.length > 0 && (
+              {/* {concern.faqs?.length > 0 && (
                 <FAQSection faqs={concern.faqs} />
-              )}
+              )} */}
             </div>
 
             {/* RIGHT */}
@@ -74,10 +74,15 @@ export default async function Page({ params }: PageProps) {
                 <StickyTherapyCTA />
               </div>
             </div>
-
-            <MobileTherapyCTA />
+        <MobileTherapyCTA />
           </div>
         </div>
+{concern.faqs?.length > 0 && (
+  <div className="mt-16">
+    <FAQSection faqs={concern.faqs} />
+  </div>
+)}
+    
       </section>
     </div>
   );

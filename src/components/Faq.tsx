@@ -87,9 +87,6 @@ const Faq = () => {
     -mx-3 md:-mx-4
     rounded-xl
     transition-all duration-300
-    hover:border hover:border-teal-200 hover:shadow-sm
-    ${isOpen ? "border border-teal-200 shadow-sm" : ""}
-
   `}
             >
               {/* Left accent */}
@@ -131,7 +128,7 @@ const Faq = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="mt-2 text-[15px] md:text-[19px] text-gray-600">
+                    <p className="mt-2 text-[14px] md:text-[18px] text-gray-600">
                       {faq.answer}
                     </p>
                   </motion.div>
