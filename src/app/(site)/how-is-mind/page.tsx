@@ -15,6 +15,8 @@ import { Background } from "@/components/anonymous/background";
 import { sendAssessmentToSheet } from "@/lib/sheet";
 import type { AssessmentPayload } from "@/types/sheet";
 import type { RawPayload } from "@/types/sheet";
+import { useSearchParams } from "next/navigation";
+import { anxietyQuestions } from "@/components/Survey/data/anxiety-questions";
 
 function getMentalHealthFeedback(score: number) {
   const maxScore = 36;
@@ -87,7 +89,13 @@ const formatSurveyData = (raw: RawPayload): AssessmentPayload => {
 };
 
 export default function SurveyQuestions() {
-  const surveyQuestions = howIsMindQues;
+  // const surveyQuestions = howIsMindQues;
+  const searchParams = useSearchParams();
+  const concern = searchParams.get("concern");
+
+  const surveyQuestions =
+    concern === "anxiety" ? anxietyQuestions : howIsMindQues;
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
@@ -135,6 +143,8 @@ export default function SurveyQuestions() {
   };
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
+    const isAnxiety = concern === "anxiety";
+
     try {
       setIsAiLoading(true);
       const randomMsg =
@@ -170,15 +180,40 @@ export default function SurveyQuestions() {
         console.error("Sheet submission failed:", sheetError);
       }
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      const anxietyPayload = {
+        answers: Object.entries(score).map(([questionId, selectedScore]) => ({
+          questionId,
+          selectedScore,
+        })),
+      };
+
+      const endpoint = isAnxiety
+        ? `${process.env.NEXT_PUBLIC_API_URL}/assessments/anxiety`
+        : `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`;
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(isAnxiety ? anxietyPayload : payload),
+      });
+
       const data = await response.json();
+     
+
+if (isAnxiety) {
+  setIsAiLoading(false);
+
+  // ✅ SAFE ACCESS
+  const aiText =
+    data?.data?.aiResponse ??
+    "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
+
+  setAiResponse(aiText);
+  setTypedResponse("");
+  setSurveyComplete(true);
+  return;
+}
+
 
       setTimeout(() => {
         setIsAiLoading(false);
@@ -199,13 +234,13 @@ export default function SurveyQuestions() {
   const handleOptionSelect = (option: string | number, index: number) => {
     setAnswers((prev) => ({
       ...prev,
-      [surveyQuestions[currentQuestion].question]: option,
+      [surveyQuestions[currentQuestion].id]: option,
     }));
 
     if (currentQuestion !== 12) {
       setScore((prev) => ({
         ...prev,
-        [surveyQuestions[currentQuestion].question]: index,
+        [surveyQuestions[currentQuestion].id]: index,
       }));
     }
 
@@ -239,6 +274,26 @@ export default function SurveyQuestions() {
   };
 
   const question = surveyQuestions[currentQuestion];
+
+  // normalize question text
+const questionText =
+  "question" in question ? question.question : question.text;
+
+// normalize question type
+const questionType =
+  "type" in question ? question.type : "option";
+
+// normalize options to string[]
+const options =
+  Array.isArray(question.options)
+    ? question.options.map((opt) =>
+        typeof opt === "string" ? opt : opt.label
+      )
+    : [];
+
+// normalize id
+const questionId = String(question.id);
+
 
   const AiTherapistLoading = () => (
     <div className="flex flex-col items-center justify-center text-center p-12 space-y-8">
@@ -377,18 +432,22 @@ export default function SurveyQuestions() {
                 />
 
                 <QuestionDisplay
-                  question={question?.question}
+                  question={questionText}
                   isTransitioning={isTransitioning}
                 />
 
                 <div className="space-y-4">
                   <QuestionContent
-                    question={question}
-                    answers={answers}
-                    value={value}
-                    setValue={setValue}
-                    onOptionSelect={handleOptionSelect}
-                  />
+  questionText={questionText}
+  questionType={questionType}
+  questionId={questionId}
+  options={options}
+  answers={answers}
+  value={value}
+  setValue={setValue}
+  onOptionSelect={handleOptionSelect}
+/>
+
                 </div>
               </>
             )}

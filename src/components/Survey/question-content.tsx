@@ -3,38 +3,61 @@
 import { OptionButtons } from "./option-buttons";
 import DynamicSelect from "./dynamic-select";
 import { StarRating } from "./star-rating";
-import type { SurveyQuestion } from "./types/survey";
+// import type { SurveyQuestion } from "./types/survey";
 import { SingleSelectDropdown } from "./single-dropdown";
 
+// interface QuestionContentProps {
+//   question: SurveyQuestion;
+//   answers: Record<string, string | number>;
+//   value: string;
+//   setValue: (value: string) => void;
+//   onOptionSelect: (option: string | number, index: number) => void;
+// }
+
 interface QuestionContentProps {
-  question: SurveyQuestion;
+  questionText: string;
+  questionType: string;
+  questionId: string;
+  options: string[];
   answers: Record<string, string | number>;
   value: string;
   setValue: (value: string) => void;
   onOptionSelect: (option: string | number, index: number) => void;
 }
 
+
+// export const QuestionContent = ({
+//   question,
+//   answers,
+//   value,
+//   setValue,
+//   onOptionSelect,
+// }: QuestionContentProps) => {
 export const QuestionContent = ({
-  question,
+  questionText,
+  questionType,
+  questionId,
+  options,
   answers,
   value,
   setValue,
   onOptionSelect,
 }: QuestionContentProps) => {
-  if (question?.type === "rating") {
+
+  if (questionType === "rating") {
     return (
       <div className="flex justify-center py-8">
         <StarRating
           onRatingSelect={(rating) => onOptionSelect(rating, 2)}
-          currentRating={answers[question?.id] as number}
-          questionId={question?.id}
+          currentRating={answers[questionId] as number}
+          questionId={questionId}
           answers={answers}
         />
       </div>
     );
   }
 
-  if (question?.type === "multi-select") {
+  if (questionType === "multi-select") {
     return (
       <div>
         <DynamicSelect
@@ -44,14 +67,14 @@ export const QuestionContent = ({
             onOptionSelect(value, 2);
             setValue("");
           }}
-          options={question?.options}
-          placeholder={`Select ${question?.question.toLowerCase()}...`}
+          options={options}
+          placeholder={`Select ${questionText.toLowerCase()}...`}
         />
       </div>
     );
   }
 
-  if (question?.type === "drop-down") {
+  if (questionType === "drop-down") {
     return (
       <div>
         <SingleSelectDropdown
@@ -61,27 +84,32 @@ export const QuestionContent = ({
             onOptionSelect(value, 2);
             setValue("");
           }}
-          options={question?.options}
-          placeholder={`Choose ${question?.question.toLowerCase()}...`}
-          searchable={true}
+          options={options}
+          placeholder={`Choose ${questionText.toLowerCase()}...`}
+          searchable
         />
       </div>
     );
   }
 
-  if (question?.type === "input-field") {
+  if (questionType === "input-field") {
     return (
       <div>
-        name
-        <input type="text" name="" id="" />
+        <input
+          type="text"
+          placeholder={questionText}
+          className="w-full border rounded px-3 py-2"
+        />
       </div>
     );
   }
 
+  if (!options || options.length === 0) return null;
+
   return (
     <OptionButtons
-      options={question?.options}
-      selectedAnswer={answers[question?.id]}
+      options={options}
+      selectedAnswer={answers[questionId]}
       onSelect={onOptionSelect}
     />
   );
