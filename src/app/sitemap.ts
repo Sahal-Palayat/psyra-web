@@ -1,10 +1,17 @@
 import { MetadataRoute } from "next"
-import { concernsData } from "@/lib/concerns-data"
+
 
 type BlogForSitemap = {
   name: string
   updatedAt?: string
 }
+
+type ConcernForSitemap = {
+  slug: string
+  updatedAt?: string
+  status?: "active" | "inactive"
+}
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://psyra.in"
@@ -31,7 +38,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("BLOG SITEMAP FETCH ERROR", error)
   }
 
-  const concernSlugs = Object.keys(concernsData)
+let concerns: ConcernForSitemap[] = []
+
+try {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/concerns`,
+    { cache: "no-store" }
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    concerns = Array.isArray(data) ? data : data.concerns ?? []
+  }
+} catch (error) {
+  console.error("CONCERNS SITEMAP FETCH ERROR", error)
+}
+
 
   return [
     // --- static pages ---
@@ -46,10 +68,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/blogs` },
 
     // --- seo critical pages ---
-    ...concernSlugs.map((slug) => ({
-      url: `${baseUrl}/concerns/${slug}`,
-      priority: 0.8,
-    })),
+    ...concerns
+  .filter((c) => c.status !== "inactive")
+  .map((c) => ({
+    url: `${baseUrl}/concerns/${c.slug}`,
+    lastModified: c.updatedAt
+      ? new Date(c.updatedAt)
+      : new Date(),
+    priority: 0.8,
+  })),
+
 
     ...blogs.map((blog) => ({
       url: `${baseUrl}/blogs/${blog.name}`,
