@@ -7,7 +7,7 @@ interface Props {
 
 export default function ConcernContent({ blocks }: Props) {
   return (
-    <section className="space-y-8">
+    <section className="space-y-5">
       {blocks.map((block, index) => {
         switch (block.type) {
           case "heading":
