@@ -16,7 +16,23 @@ import { sendAssessmentToSheet } from "@/lib/sheet";
 import type { AssessmentPayload } from "@/types/sheet";
 import type { RawPayload } from "@/types/sheet";
 import { useSearchParams } from "next/navigation";
-import { anxietyQuestions } from "@/components/Survey/data/anxiety-questions";
+import { useRouter } from "next/navigation";
+
+// import { anxietyQuestions } from "@/components/Survey/data/anxiety-questions";
+// import { depressionQuestions } from "@/components/Survey/data/depression-questions";
+
+type QuestionOption =
+  | string
+  | {
+      label: string;
+      score: number;
+    };
+
+type AssessmentQuestion = {
+  id: string;
+  text: string;
+  options: QuestionOption[];
+};
 
 function getMentalHealthFeedback(score: number) {
   const maxScore = 36;
@@ -92,9 +108,39 @@ export default function SurveyQuestions() {
   // const surveyQuestions = howIsMindQues;
   const searchParams = useSearchParams();
   const concern = searchParams.get("concern");
+  const [questions, setQuestions] = useState<AssessmentQuestion[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  const surveyQuestions =
-    concern === "anxiety" ? anxietyQuestions : howIsMindQues;
+
+  useEffect(() => {
+    if (!concern) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchQuestions = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}/questions`
+        );
+        const data = await res.json();
+        if (!res.ok || !data?.success || !data?.data?.questions) {
+          router.replace("/not-found"); // 👈 YOUR CUSTOM ERROR PAGE ROUTE
+          return;
+        }
+        setQuestions(data.data.questions);
+      } catch (err) {
+        console.error("Failed to fetch questions", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [concern,router]);
+
+  const surveyQuestions = concern ? questions : howIsMindQues;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -187,8 +233,8 @@ export default function SurveyQuestions() {
         })),
       };
 
-      const endpoint = isAnxiety
-        ? `${process.env.NEXT_PUBLIC_API_URL}/assessments/anxiety`
+      const endpoint = concern
+        ? `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}`
         : `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`;
 
       const response = await fetch(endpoint, {
@@ -198,22 +244,20 @@ export default function SurveyQuestions() {
       });
 
       const data = await response.json();
-     
 
-if (isAnxiety) {
-  setIsAiLoading(false);
+      if (isAnxiety) {
+        setIsAiLoading(false);
 
-  // ✅ SAFE ACCESS
-  const aiText =
-    data?.data?.aiResponse ??
-    "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
+        // ✅ SAFE ACCESS
+        const aiText =
+          data?.data?.aiResponse ??
+          "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
 
-  setAiResponse(aiText);
-  setTypedResponse("");
-  setSurveyComplete(true);
-  return;
-}
-
+        setAiResponse(aiText);
+        setTypedResponse("");
+        setSurveyComplete(true);
+        return;
+      }
 
       setTimeout(() => {
         setIsAiLoading(false);
@@ -273,27 +317,30 @@ if (isAnxiety) {
     submitSurvey(finalAnswers);
   };
 
+  if (loading) {
+    return <div className="p-10 text-center">Loading assessment…</div>;
+  }
+
+  if (!surveyQuestions.length || !surveyQuestions[currentQuestion]) {
+  return null; // or a small fallback UI
+}
+
   const question = surveyQuestions[currentQuestion];
 
   // normalize question text
-const questionText =
-  "question" in question ? question.question : question.text;
+  const questionText =
+    "question" in question ? question.question : question.text;
 
-// normalize question type
-const questionType =
-  "type" in question ? question.type : "option";
+  // normalize question type
+  const questionType = "type" in question ? question.type : "option";
 
-// normalize options to string[]
-const options =
-  Array.isArray(question.options)
-    ? question.options.map((opt) =>
-        typeof opt === "string" ? opt : opt.label
-      )
+  // normalize options to string[]
+  const options = Array.isArray(question.options)
+    ? question.options.map((opt) => (typeof opt === "string" ? opt : opt.label))
     : [];
 
-// normalize id
-const questionId = String(question.id);
-
+  // normalize id
+  const questionId = String(question.id);
 
   const AiTherapistLoading = () => (
     <div className="flex flex-col items-center justify-center text-center p-12 space-y-8">
@@ -438,16 +485,15 @@ const questionId = String(question.id);
 
                 <div className="space-y-4">
                   <QuestionContent
-  questionText={questionText}
-  questionType={questionType}
-  questionId={questionId}
-  options={options}
-  answers={answers}
-  value={value}
-  setValue={setValue}
-  onOptionSelect={handleOptionSelect}
-/>
-
+                    questionText={questionText}
+                    questionType={questionType}
+                    questionId={questionId}
+                    options={options}
+                    answers={answers}
+                    value={value}
+                    setValue={setValue}
+                    onOptionSelect={handleOptionSelect}
+                  />
                 </div>
               </>
             )}
