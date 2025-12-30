@@ -49,7 +49,7 @@ export const assessments: AssessmentItem[] = [
   },
   {
     id: "personality",
-    title: "Personality-Related Challenges",
+    title: "Personality Related Challenges",
     description:
       "Explore emotional patterns, self-image, and relationship-related challenges.",
     concern: "personality",
@@ -65,7 +65,7 @@ export const assessments: AssessmentItem[] = [
   },
   {
     id: "work",
-    title: "Work-Related Challenges Assessment",
+    title: "Work Related Challenges",
     description:
       "Assess stress, burnout, and emotional challenges related to work life.",
     concern: "work",

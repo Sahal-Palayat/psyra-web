@@ -112,7 +112,6 @@ export default function SurveyQuestions() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-
   useEffect(() => {
     if (!concern) {
       setLoading(false);
@@ -138,7 +137,7 @@ export default function SurveyQuestions() {
     };
 
     fetchQuestions();
-  }, [concern,router]);
+  }, [concern, router]);
 
   const surveyQuestions = concern ? questions : howIsMindQues;
 
@@ -189,10 +188,47 @@ export default function SurveyQuestions() {
   };
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
-    const isAnxiety = concern === "anxiety";
+    const isConcernAssessment = Boolean(concern);
 
     try {
       setIsAiLoading(true);
+      if (isConcernAssessment) {
+        const assessmentPayload = {
+          personDetails: {
+            name: finalAnswers.name,
+            mobile: finalAnswers.contact,
+          },
+          answers: Object.entries(score).map(([questionId, selectedScore]) => ({
+            questionId,
+            selectedScore,
+            selectedAnswer: answers[questionId] ?? "",
+          })),
+        };
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(assessmentPayload),
+          }
+        );
+
+        const data = await response.json();
+
+        setIsAiLoading(false);
+
+        const aiText =
+          data?.data?.aiResponse ??
+          "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
+
+        setAiResponse(aiText);
+        setTypedResponse("");
+        setSurveyComplete(true);
+
+        return; // ⛔ VERY IMPORTANT — stop here
+      }
+
       const randomMsg =
         loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
       setLoadingMessage(randomMsg);
@@ -226,38 +262,16 @@ export default function SurveyQuestions() {
         console.error("Sheet submission failed:", sheetError);
       }
 
-      const anxietyPayload = {
-        answers: Object.entries(score).map(([questionId, selectedScore]) => ({
-          questionId,
-          selectedScore,
-        })),
-      };
-
-      const endpoint = concern
-        ? `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}`
-        : `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`;
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(isAnxiety ? anxietyPayload : payload),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
-
-      if (isAnxiety) {
-        setIsAiLoading(false);
-
-        // ✅ SAFE ACCESS
-        const aiText =
-          data?.data?.aiResponse ??
-          "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
-
-        setAiResponse(aiText);
-        setTypedResponse("");
-        setSurveyComplete(true);
-        return;
-      }
 
       setTimeout(() => {
         setIsAiLoading(false);
@@ -322,8 +336,8 @@ export default function SurveyQuestions() {
   }
 
   if (!surveyQuestions.length || !surveyQuestions[currentQuestion]) {
-  return null; // or a small fallback UI
-}
+    return null; // or a small fallback UI
+  }
 
   const question = surveyQuestions[currentQuestion];
 
