@@ -18,8 +18,6 @@ import type { RawPayload } from "@/types/sheet";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-// import { anxietyQuestions } from "@/components/Survey/data/anxiety-questions";
-// import { depressionQuestions } from "@/components/Survey/data/depression-questions";
 
 type QuestionOption =
   | string
@@ -187,6 +185,11 @@ export default function SurveyQuestions() {
     }
   };
 
+  const generalQuestionMap: Record<string, string> = Object.fromEntries(
+  howIsMindQues.map((q) => [q.id, q.question])
+);
+
+
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
     const isConcernAssessment = Boolean(concern);
 
@@ -226,7 +229,7 @@ export default function SurveyQuestions() {
         setTypedResponse("");
         setSurveyComplete(true);
 
-        return; // ⛔ VERY IMPORTANT — stop here
+        return; 
       }
 
       const randomMsg =
@@ -245,10 +248,11 @@ export default function SurveyQuestions() {
           score: totalScore,
         },
         questionAnswers: Object.fromEntries(
-          Object.entries(finalAnswers).filter(
-            ([key]) => key !== "name" && key !== "contact"
-          )
-        ),
+  Object.entries(score).map(([questionId]) => [
+    generalQuestionMap[questionId],
+    answers[questionId],
+  ])
+),
       };
 
       const payload = formatSurveyData(rawPayload);
@@ -336,7 +340,7 @@ export default function SurveyQuestions() {
   }
 
   if (!surveyQuestions.length || !surveyQuestions[currentQuestion]) {
-    return null; // or a small fallback UI
+    return null;
   }
 
   const question = surveyQuestions[currentQuestion];
