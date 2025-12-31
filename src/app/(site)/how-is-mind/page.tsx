@@ -18,7 +18,6 @@ import type { RawPayload } from "@/types/sheet";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-
 type QuestionOption =
   | string
   | {
@@ -123,9 +122,11 @@ export default function SurveyQuestions() {
         );
         const data = await res.json();
         if (!res.ok || !data?.success || !data?.data?.questions) {
-          router.replace("/not-found"); // 👈 YOUR CUSTOM ERROR PAGE ROUTE
+          setQuestions([]);
+          setLoading(false);
           return;
         }
+
         setQuestions(data.data.questions);
       } catch (err) {
         console.error("Failed to fetch questions", err);
@@ -186,9 +187,8 @@ export default function SurveyQuestions() {
   };
 
   const generalQuestionMap: Record<string, string> = Object.fromEntries(
-  howIsMindQues.map((q) => [q.id, q.question])
-);
-
+    howIsMindQues.map((q) => [q.id, q.question])
+  );
 
   const submitSurvey = async (finalAnswers: SurveyAnswers) => {
     const isConcernAssessment = Boolean(concern);
@@ -229,7 +229,7 @@ export default function SurveyQuestions() {
         setTypedResponse("");
         setSurveyComplete(true);
 
-        return; 
+        return;
       }
 
       const randomMsg =
@@ -248,11 +248,11 @@ export default function SurveyQuestions() {
           score: totalScore,
         },
         questionAnswers: Object.fromEntries(
-  Object.entries(score).map(([questionId]) => [
-    generalQuestionMap[questionId],
-    answers[questionId],
-  ])
-),
+          Object.entries(score).map(([questionId]) => [
+            generalQuestionMap[questionId],
+            answers[questionId],
+          ])
+        ),
       };
 
       const payload = formatSurveyData(rawPayload);
@@ -335,13 +335,21 @@ export default function SurveyQuestions() {
     submitSurvey(finalAnswers);
   };
 
+  //fallback testing
   if (loading) {
     return <div className="p-10 text-center">Loading assessment…</div>;
   }
 
-  if (!surveyQuestions.length || !surveyQuestions[currentQuestion]) {
-    return null;
-  }
+  if (!surveyQuestions.length) {
+  return (
+    <div className="p-10 text-center text-gray-600">
+      We couldn’t load this assessment right now.
+      <br />
+      Please try again later or explore other assessments.
+    </div>
+  );
+}
+
 
   const question = surveyQuestions[currentQuestion];
 

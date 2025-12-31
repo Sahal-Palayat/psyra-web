@@ -13,7 +13,7 @@ import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 import LatestBlogs from "@/components/blogs/latestBlogs";
-
+import AssessmentCTA from "@/components/assessment/AssessmentCTA";
 
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
@@ -51,6 +51,19 @@ export default function Home() {
       {/* Psychologist Carousel with themed loading */}
       <CarouselStats />
       <Concerns />
+      <section className="bg-[#F7F8F2]">
+        <div className="max-w-7xl mx-auto px-4">
+          <AssessmentCTA
+            title="Not sure where to start?"
+            description="Take a quick self-assessment to understand how you're feeling."
+            buttonText="Take an Assessment"
+            href="/assessments"
+            align="center"
+            className="my-12 md:my-16"
+          />
+        </div>
+      </section>
+
       <DynamicPsychologistCarousel />
 
       {/* <BlogSwiper /> */}
@@ -61,8 +74,8 @@ export default function Home() {
       {/* <DynamicGetInTouch /> */}
       <CommunityEvents />
 
-       {/* Blog Section */}
-      <LatestBlogs/>
+      {/* Blog Section */}
+      <LatestBlogs />
 
       <WhatsAppTestimonials />
       {/* <TestimonialsSlider /> */}
