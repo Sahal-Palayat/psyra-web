@@ -17,7 +17,7 @@ import { SingleSelectDropdown } from "./single-dropdown";
 interface QuestionContentProps {
   questionText: string;
   questionType: string;
-  questionId: string;
+  questionId: string | number;
   options: string[];
   answers: Record<string, string | number>;
   value: string;
