@@ -2,24 +2,27 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "./Modal";
-import EventModal from "./EventModal";
+// import EventModal from "./EventModal";
 import HeroBox from "./Hero/HeroBox";
+
+const SHOW_NEW_YEAR_PROGRAM = false;
+
 
 const HeroDesktop = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [eventModal, setEventModal] = useState(false);
+  // const [eventModal, setEventModal] = useState(false);
 
-  useEffect(() => {
-    // const eventQrParam = searchParams.get("eventQr");
-    // if (eventQrParam === "true") {
-    //   setIsModalOpen(true);
-    // }
-    const eventQrparam = new URLSearchParams(window.location.search);
-    const ref = eventQrparam.get("eventQr");
-    if (ref === "true") {
-      setEventModal(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //    const eventQrParam = searchParams.get("eventQr");
+  //   if (eventQrParam === "true") {
+  //      setIsModalOpen(true);
+  //    }
+  //   const eventQrparam = new URLSearchParams(window.location.search);
+  //   const ref = eventQrparam.get("eventQr");
+  //   if (ref === "true") {
+  //     setEventModal(true);
+  //   }
+  // }, []);
 
   const languages = [
     { text: "Psyra", lang: "English", size: "text-[40px]" },
@@ -99,6 +102,7 @@ const HeroDesktop = () => {
           </div>
 
           {/* Main New Year CTA */}
+          {SHOW_NEW_YEAR_PROGRAM && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -127,17 +131,17 @@ const HeroDesktop = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6 }}
-                  className="
-    inline-flex items-center gap-2
-    px-2.5 py-[2px]            /* reduced padding */
-    w-fit whitespace-nowrap    /* force content width */
-    rounded-full
-    bg-gradient-to-r from-teal-50 via-white to-emerald-50
-    text-teal-800
-    border border-teal-200/80
-    text-[11px] tracking-[0.12em] uppercase
-    mb-3 shadow-sm
-  "
+                          className="
+                              inline-flex items-center gap-2
+                              px-2.5 py-[2px]            /* reduced padding */
+                              w-fit whitespace-nowrap    /* force content width */
+                              rounded-full
+                              bg-gradient-to-r from-teal-50 via-white to-emerald-50
+                              text-teal-800
+                              border border-teal-200/80
+                              text-[11px] tracking-[0.12em] uppercase
+                              mb-3 shadow-sm
+                            "
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.25)]" />
                   New Year Mind Reset Program
@@ -168,6 +172,7 @@ const HeroDesktop = () => {
               </div>
             </div>
           </motion.div>
+          )}
 
           <HeroBox />
         </motion.div>
@@ -177,7 +182,7 @@ const HeroDesktop = () => {
           onClose={() => setIsModalOpen(false)}
           type={"getStarted"}
         />
-        <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} />
+     {/*   <EventModal isOpen={eventModal} onClose={() => setEventModal(false)} /> */}
       </section>
     </>
   );
