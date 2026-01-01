@@ -1,0 +1,88 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import Hero from "@/components/Hero";
+// import AboutUs from "@/components/AboutUs";
+import MentalHealthLoader from "@/components/lazy/mental-health-loader";
+// import WelcomeAnimationOverlay from "@/components/lazy/welcome-animation-overlay";
+import Concerns from "@/components/Concerns";
+import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel-stats";
+// import { TestimonialsSlider } from "@/components/Testimonals";
+import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
+import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
+import { CommunityEvents } from "@/components/EventSection";
+// import BlogSwiper from "@/components/Blog/blog-swiper";
+import LatestBlogs from "@/components/blogs/latestBlogs";
+import AssessmentCTA from "@/components/assessment/AssessmentCTA";
+
+// Dynamically import components with the themed loader
+const DynamicPsychologistCarousel = dynamic(
+  () =>
+    import("@/components/Psychologist/SimpleCarousel/psychologist-carousel"),
+  {
+    loading: () => <MentalHealthLoader />,
+  }
+);
+
+// const DynamicOurSpecials = dynamic(() => import("@/components/OurSpecials"), {
+//   loading: () => <MentalHealthLoader />,
+// });
+
+// const DynamicGetInTouch = dynamic(() => import("@/components/GetInTouch"), {
+//   loading: () => <MentalHealthLoader />,
+// });
+
+const DynamicFaq = dynamic(() => import("@/components/Faq"), {
+  loading: () => <MentalHealthLoader />,
+});
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#F7F8F2]">
+      {/* Welcome Animation Overlay - This will appear only on the first visit */}
+      {/* <WelcomeAnimationOverlay /> */}
+      {/* <OnamOfferModal isOpen={showModal} onClose={() => setShowModal(false)} /> */}
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Why Psyra Section */}
+      {/* <AboutUs /> */}
+
+      {/* Psychologist Carousel with themed loading */}
+      <CarouselStats />
+      <Concerns />
+      <section className="bg-[#F7F8F2]">
+        <div className="max-w-7xl mx-auto px-4">
+          <AssessmentCTA
+            title="Not sure where to start?"
+            description="Take a quick self-assessment to understand how you're feeling."
+            buttonText="Take an Assessment"
+            href="/assessments"
+            align="center"
+            className="my-12 md:my-16"
+          />
+        </div>
+      </section>
+
+      <DynamicPsychologistCarousel />
+
+      {/* <BlogSwiper /> */}
+      {/* Our Specialties with themed loading */}
+      {/* <DynamicOurSpecials /> */}
+
+      {/* Contact Form with themed loading */}
+      {/* <DynamicGetInTouch /> */}
+      <CommunityEvents />
+
+      {/* Blog Section */}
+      <LatestBlogs />
+
+      <WhatsAppTestimonials />
+      {/* <TestimonialsSlider /> */}
+
+      {/* FAQ Section with themed loading */}
+      <DynamicFaq />
+      <WhatsAppChat />
+    </main>
+  );
+}

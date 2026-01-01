@@ -67,14 +67,14 @@ const GetInTouch = () => {
       viewport={{ once: false }}
     >
       <div className="container mx-auto px-4 md:px-12">
-        <motion.h2
+        <motion.h1
           className="text-[28px] md:text-[44px] font-bold mb-8 mx-auto text-[#FFFFFF] text-center"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-               <h1>Contact us</h1>
-        </motion.h2>
+               Contact us
+        </motion.h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}

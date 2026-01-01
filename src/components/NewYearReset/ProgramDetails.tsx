@@ -12,16 +12,18 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
     <section className="w-full mb-10 px-2">
       <div className="bg-white/95 rounded-3xl shadow-xl border border-teal-50 px-5 py-6 md:px-8 md:py-8">
         <p className="text-xs md:text-sm font-semibold tracking-[0.18em] uppercase text-teal-700 mb-2">
-          SPACE – 21-Day Life Reset Journey by Psyra
+          This program runs as one carefully structured 21-day batch with
+          limited seats.
         </p>
         <h1 className="text-2xl md:text-3xl font-bold text-teal-900 mb-3 leading-snug">
           A space shaping the new you.
         </h1>
         <p className="text-sm md:text-base text-teal-800/90 mb-4">
-          SPACE is Psyra&apos;s structured 21-day life reset journey. With daily
-          videos, live sessions, 1:1 check-ins, and powerful self-reflection
-          tools, you&apos;ll clear mental clutter, reset habits, and step into a
-          more grounded, intentional version of yourself.
+          SPACE is Psyra&apos;s structured 21-day life reset journey. you learn
+          how your mind works so habits stick, decisions feel clearer, and life
+          feels less overwhelming. It&apos;s designed to help you build a
+          stronger, more self-aware version of yourself, based on proven
+          psychological principles, not motivation or hype.
         </p>
 
         <div className="grid md:grid-cols-3 gap-4 md:gap-6 mb-6">
@@ -88,7 +90,8 @@ const ProgramDetails: React.FC<ProgramDetailsProps> = ({
         </div>
 
         <p className="text-[11px] md:text-xs text-teal-700/80">
-          After payment, a Psyra team member will connect with you. For any queries, contact +91 8129724199.
+          After payment, a Psyra team member will connect with you. For any
+          queries, contact +91 8129724199.
         </p>
       </div>
     </section>

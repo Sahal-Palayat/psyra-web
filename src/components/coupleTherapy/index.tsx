@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
-// import HeroIndividual from "../individual/HeroIndividual";
-// import sampleImage from "../../../public/Couple Packages 1.jpg";
-// import sampleImage2 from "../../../public/Couple Packages 2 (1).jpg";
-// import sampleImage3 from "../../../public/Couple Packages 3 (2).jpg";
+
 import Faq from "../Faq";
 import HeroPackages from "../individual/HeroPackage";
 

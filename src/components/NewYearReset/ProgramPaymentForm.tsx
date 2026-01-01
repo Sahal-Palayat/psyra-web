@@ -222,7 +222,7 @@ const ProgramPaymentForm: React.FC<ProgramPaymentFormProps> = ({ isOpen, onClose
       case "failed":
         return "Try payment again";
       default:
-        return "Pay ₹2,999 & join SPACE";
+        return "Continue to payment";
     }
   };
 
