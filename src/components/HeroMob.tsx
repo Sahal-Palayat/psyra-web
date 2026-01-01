@@ -85,7 +85,7 @@ const HeroMob = () => {
 
           {/* Main New Year CTA – mobile */}
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -122,7 +122,7 @@ const HeroMob = () => {
                 Start Now
               </motion.button>
             </div>
-          </motion.div>
+          </motion.div> */}
           <div className="mt-8 flex justify-center">
             <div className="flex gap-2 w-full max-w-2xl">
               {/* Online Therapy Card */}
