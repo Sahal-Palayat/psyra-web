@@ -46,7 +46,10 @@ export default function SurveyQuestions() {
 
           <div className="space-y-4">
             <QuestionContent
-              question={question}
+              questionText={question.question}
+              questionType={question.type}
+              questionId={question.id}
+              options={question.options ?? []}
               answers={answers}
               value={value}
               setValue={setValue}
