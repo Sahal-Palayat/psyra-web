@@ -16,12 +16,12 @@ const concernSlugToAssessmentKey: Record<string, string> = {
   "anxiety-disorders": "anxiety",
   depression: "depression",
   stress: "stress",
-  "work-related-issues": "work",
+  "work-related-challenges": "work",
   "relationship-issues": "relationship",
   "panic-attacks": "panic",
   "personality-disorders": "personality",
   "sexual-issues": "sexual",
-  "obsessive-compulsive": "ocd",
+  "ocd": "ocd",
 };
 
 
