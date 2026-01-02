@@ -1,7 +1,5 @@
-import { concernsData } from "../../../../lib/concerns-data";
 import { notFound } from "next/navigation";
 import ConcernContent from "@/components/concerns/ConcernContent";
-// import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import PsyraSupportJourney from "@/components/concerns/PsyraSupportJourney";
 import MobileTherapyCTA from "@/components/concerns/MobileTherapyCTA";
 import FAQSection from "@/components/concerns/FAQSection";
@@ -26,13 +24,16 @@ const concernSlugToAssessmentKey: Record<string, string> = {
   "obsessive-compulsive": "ocd",
 };
 
+
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
 
-  if (!slug) {
-    notFound();
-  }
+  if (!slug) notFound();
 
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/concerns/${slug}`,
+    { cache: "no-store" }
+  );
   const normalizedSlug = slug.toLowerCase().trim();
   const assessmentKey = concernSlugToAssessmentKey[normalizedSlug] ?? null;
 
@@ -40,11 +41,11 @@ export default async function Page({ params }: PageProps) {
     console.warn("No assessment mapped for slug:", normalizedSlug);
   }
 
-  const concern = concernsData[normalizedSlug as keyof typeof concernsData];
+  // const concern = concernsData[normalizedSlug as keyof typeof concernsData];
 
-  if (!concern) {
-    notFound();
-  }
+  if (!res.ok) notFound();
+
+  const concern = await res.json();
 
   return (
     <div className="min-h-screen bg-[#F8FAFA]">
@@ -62,9 +63,8 @@ export default async function Page({ params }: PageProps) {
               {concern.title}
             </h1>
 
-            {/* Description */}
-            <p className="text-base md:text-xl text-white/90 max-w-3xl mx-auto md:mx-0">
-              {concern.description}
+            <p className="text-base md:text-xl text-white/90 max-w-3xl">
+              {concern.hero?.description}
             </p>
 
             <p className="mt-4 text-xs md:text-sm text-white/80">
@@ -78,9 +78,10 @@ export default async function Page({ params }: PageProps) {
       <section className="px-6 pt-8 pb-28 md:pt-12 md:pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* LEFT: Content */}
+
+            {/* LEFT */}
             <div className="lg:col-span-8 space-y-12">
-              <ConcernContent blocks={concern.content.blocks} />
+              <ConcernContent blocks={concern.blocks} />
 
               
 
@@ -99,10 +100,12 @@ export default async function Page({ params }: PageProps) {
                 <PsyraSupportJourney />
               </div>
 
-              <FAQSection faqs={concern.faqs} />
+              {/* {concern.faqs?.length > 0 && (
+                <FAQSection faqs={concern.faqs} />
+              )} */}
             </div>
 
-            {/* RIGHT: Sidebar*/}
+            {/* RIGHT */}
             <div className="lg:col-span-4 hidden lg:block">
               <div className="sticky top-32 space-y-8">
                 <StickyTherapyCTA />
@@ -116,6 +119,12 @@ export default async function Page({ params }: PageProps) {
             <MobileTherapyCTA />
           </div>
         </div>
+{concern.faqs?.length > 0 && (
+  <div className="mt-16">
+    <FAQSection faqs={concern.faqs} />
+  </div>
+)}
+    
       </section>
     </div>
   );
