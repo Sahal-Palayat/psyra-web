@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/SectionTitle";
@@ -40,53 +41,56 @@ export default function MalayalamCounsellingSection({
   const supportAreas = [
     {
       icon: <ShieldCheck className="w-6 h-6" />,
-      title: "Stress & Anxiety",
-      description: `Personalized coping strategies for the fast-paced lifestyle in ${countryName}.`,
+      title: "Stress & Anxiety Therapy",
+      description: `Online Malayalam counselling for stress and anxiety faced by Malayalis in ${countryName}.`,
       bg: "bg-[#eef4f1]",
     },
     {
       icon: <Users2 className="w-6 h-6" />,
-      title: "Relationship & Couples",
+      title: "Relationship & Marriage Counselling",
       description:
-        "Bridging communication gaps within a familiar cultural context.",
+        "Malayalam therapy support for couples and relationship concerns.",
       bg: "bg-white",
     },
     {
       icon: <HeartHandshake className="w-6 h-6" />,
-      title: "Family Guidance",
+      title: "Family Counselling",
       description:
-        "Support for navigating family dynamics while living abroad.",
+        "Guidance for family-related emotional challenges while living abroad.",
       bg: "bg-white",
     },
     {
       icon: <Globe2 className="w-6 h-6" />,
-      title: "Expat Mental Health",
-      description: `Specialized care for adjusting and thriving as an expatriate in ${countryName}.`,
+      title: "Malayali Mental Health Support",
+      description: `Mental health support for Malayalis adjusting to life in ${countryName}.`,
       bg: "bg-[#eef4f1]",
     },
   ];
 
   return (
-    <section className="px-6 py-24 bg-[#f8faf9]">
+    <section className="px-6 py-16 md:py-24">
       <div className="max-w-7xl mx-auto">
         {/* HERO INTRO */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 md:mb-20">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="max-w-2xl"
           >
-            <p className="text-xs uppercase tracking-[0.3em] font-bold text-[#43C6AC] mb-6">
-              Cultural Resonance
+            <p className="text-xs uppercase tracking-[0.35em] font-semibold text-[#00989D] mb-4">
+              Malayalam Online Therapy
             </p>
-            <SectionHeader className="mb-8 leading-[1.1]">
-              Professional Counseling in{" "}
-              <span className="italic">Malayalam.</span>
+
+            <SectionHeader className="mb-6 leading-snug md:leading-[1.1]">
+              Online Malayalam Counselling for Malayalis in {countryName}
             </SectionHeader>
-            <p className="text-xl text-[#1a3c34]/70 leading-relaxed font-sans max-w-xl">
-              For many Malayalis living abroad, expressing emotions feels most
-              natural in their mother tongue. We offer professional counseling
-              in Malayalam - rooted in cultural understanding and care.
+
+            <p className="text-sm md:text-lg text-[#1a3c34]/70 leading-relaxed font-sans">
+              Many Malayalis living in {countryName} prefer to speak in
+              Malayalam when discussing personal and emotional concerns. Psyra
+              offers online Malayalam counselling with trained psychologists who
+              understand both the language and cultural background.
             </p>
           </motion.div>
 
@@ -94,7 +98,9 @@ export default function MalayalamCounsellingSection({
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative aspect-[4/3] bg-gradient-to-br from-[#e8f5f1] via-[#cceee7] to-[#b6e5dc] overflow-hidden group"
+            className="relative aspect-[5/4] md:aspect-[4/3] 
+             bg-gradient-to-br from-[#e8f5f1] via-[#cceee7] to-[#b6e5dc] 
+             overflow-hidden rounded-2xl"
           >
             <div className="absolute inset-0 bg-gradient-to-tr  opacity-60" />
             <img
@@ -102,9 +108,9 @@ export default function MalayalamCounsellingSection({
               alt={`Online therapy accessible across ${countryName}`}
               className="object-cover w-full h-full transition-all duration-1000"
             />
-            <div className="absolute bottom-10 left-10 text-[#00989D]">
-              <h3 className="text-2xl font-serif">
-                Connect from {displayName}.
+            <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-[#00989D]">
+              <h3 className="text-lg md:text-2xl font-serif">
+                Connect from {displayName}
               </h3>
             </div>
           </motion.div>
@@ -113,7 +119,7 @@ export default function MalayalamCounsellingSection({
         {/* SUPPORT GRID */}
         <div className="mb-24">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <h3 className="text-4xl font-serif tracking-tight text-[#1a3c34]">
+            <h3 className="text-2xl md:text-4xl font-serif tracking-tight text-[#00989D]">
               How Malayalam counseling supports you.
             </h3>
             <p className="text-sm text-[#1a3c34]/60 max-w-xs font-sans">
@@ -132,7 +138,7 @@ export default function MalayalamCounsellingSection({
             {supportAreas.map((area, idx) => (
               <motion.div key={idx} variants={itemVariants}>
                 <Card
-                  className={`border-none rounded-none shadow-none p-12 h-full min-h-[320px] transition-colors duration-500 hover:bg-[#00989D] group ${area.bg}`}
+                  className={`border-none rounded-none shadow-none p-8 h-full md:p-12 min-h-[260px] md:min-h-[320px] transition-colors duration-500 hover:bg-[#00989D] group ${area.bg}`}
                 >
                   <div className="w-12 h-12 rounded-full border border-[#1a3c34]/10 flex items-center justify-center mb-10 group-hover:border-white/20 transition-colors">
                     <div className="text-[#1a3c34] group-hover:text-white transition-colors">
@@ -154,46 +160,59 @@ export default function MalayalamCounsellingSection({
         {/* CULTURAL CONTEXT & STEPS */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
-            <div className="p-16 bg-[#00989D] text-white">
-              <h3 className="text-3xl font-serif mb-8 leading-tight">
+            <div className="p-8 md:p-16 bg-[#00989D] text-white">
+              <h3 className="text-2xl md:text-3xl font-serif mb-6 leading-snug">
                 Why language matters in therapy.
               </h3>
-              <p className="text-lg text-white/70 leading-relaxed font-sans mb-8">
-                Expressing deep emotions is most effective in your first
-                language. Our Malayalam-speaking psychologists understand not
-                just the words, but the cultural nuances and traditions that
-                shape your perspective.
+
+              <p className="text-sm md:text-lg text-white/80 leading-relaxed font-sans mb-6">
+                Speaking in your first language makes therapy more effective.
+                Our Malayalam-speaking psychologists understand the emotional,
+                cultural, and family contexts that are important to Malayalis
+                living abroad.
               </p>
-              <div className="flex items-center gap-4 group cursor-pointer">
-                <span className="text-xs uppercase tracking-widest font-bold border-b border-white/20 pb-1 group-hover:border-white transition-all">
-                  Meet our Malayali Team
-                </span>
+
+              <div className="flex items-center gap-3 group cursor-pointer mt-4">
+                <Link href="/psychologists">
+                  <span className="text-xs uppercase tracking-widest font-bold border-b border-white/20 pb-1 group-hover:border-white transition-all cursor-pointer">
+                    Talk to a Malayalam Therapist
+                  </span>
+                </Link>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
               </div>
             </div>
           </div>
 
-          <div className="space-y-12 py-8">
-            <h3 className="text-2xl font-serif text-[#1a3c34] border-b border-[#1a3c34]/10 pb-6">
-              Your Journey
-            </h3>
-            <div className="space-y-10">
-              {[
-                "Book your session online with a licensed counselor.",
-                "Connect comfortably in Malayalam via video, chat, or phone.",
-                "Receive personalized, culturally-nuanced guidance.",
-              ].map((step, i) => (
-                <div key={i} className="flex gap-6 items-start">
-                  <span className="text-xs font-bold text-[#43C6AC] mt-1">
-                    0{i + 1}
-                  </span>
-                  <p className="text-base text-[#1a3c34]/80 leading-relaxed">
-                    {step}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="space-y-8 py-6 md:py-8">
+  <h3 className="text-xl md:text-2xl font-serif text-[#1a3c34] pb-4 border-b border-[#1a3c34]/10">
+    Your Journey
+  </h3>
+
+  <div className="space-y-6">
+    {[
+      "Book your session online with an experienced Malayalam counsellor.",
+      "Connect comfortably in Malayalam via video, chat, or phone.",
+      "Receive personalised, culturally sensitive guidance.",
+    ].map((step, i) => (
+      <div
+        key={i}
+        className="flex gap-4 items-start 
+                   bg-[#43C6AC]/5 
+                   border border-[#43C6AC]/10 
+                   rounded-xl p-4"
+      >
+        <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#43C6AC]/15 text-xs font-bold text-[#43C6AC] shrink-0">
+          {i + 1}
+        </span>
+
+        <p className="text-sm md:text-base text-[#1a3c34]/80 leading-relaxed">
+          {step}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
         </div>
       </div>
     </section>
