@@ -1,15 +1,126 @@
-"use client";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 import Link from "next/link";
 import { MoveRight, ShieldCheck, Globe, Clock } from "lucide-react";
 
 
 import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarousel/psychologist-carousel";
-import UaeFaq from "@/components/locations/uae/UaeFaq";
-import ConcernHero from "@/components/locations/uae/ConcernHero";
-import MalayalamCounsellingSection from "@/components/locations/uae/MalayalamCounsellingSection";
+// import UaeFaq from "@/components/locations/uae/LocationFaq";
+import ConcernHero from "@/components/locations/ConcernHero";
+import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSection";
+import LocationFaq from "@/components/locations/LocationFaq";
 
-export default function UAEOnlineTherapyPage() {
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+
+const faqs = [
+  {
+    question: "What is Psyra?",
+    answer:
+      "Psyra provides counseling services in Malayalam and Hindi through a safe and private online platform.",
+  },
+  {
+    question: "What makes Psyra special?",
+    answer:
+      "Psyra combines professional care with cultural understanding, accessibility, and a client-centered approach.",
+  },
+  {
+    question: "Are the counseling sessions confidential?",
+    answer:
+      "Yes. Psyra maintains complete confidentiality and privacy in all counseling sessions.",
+  },
+  {
+    question: "How do I schedule a session?",
+    answer:
+      "You can book online, select a counselor, and choose a time that works best for you.",
+  },
+];
+
+
+
+
+function extractCountryFromSlug(slug: string): string | null {
+  if (!slug) return null;
+
+  const match = slug.match(/-in-([a-zA-Z-]+)$/);
+  return match ? match[1] : null;
+}
+
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }>}
+): Promise<Metadata> {
+  try {
+    const { slug } = await params;
+    const countrySlug = extractCountryFromSlug(slug);
+
+    
+
+    if (!countrySlug) {
+      return {
+        title: "Online Therapy | Psyra",
+        description:
+          "Confidential online therapy and mental health support with Psyra.",
+      };
+    }
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/locations/${countrySlug}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+      return {
+        title: "Online Therapy | Psyra",
+        description:
+          "Confidential online therapy and mental health support with Psyra.",
+      };
+    }
+
+    const data = await res.json();
+
+    return {
+  title: `Online Malayalam Counselling in ${data.countryName} | Psyra`,
+  description: `Professional online Malayalam counselling for residents of ${data.countryName}. Private, secure, and culturally sensitive mental health support.`,
+  openGraph: {
+    title: `Online Malayalam Counselling in ${data.countryName} | Psyra`,
+    description: `Confidential online counselling services for Malayalam-speaking residents of ${data.countryName}.`,
+    type: "website",
+  },
+};
+  } catch {
+    return {
+      title: "Online Therapy | Psyra",
+      description:
+        "Confidential online therapy and mental health support with Psyra.",
+    };
+  }
+}
+
+
+
+export default async function OnlineMalayalamCounsellingPage({ params }: PageProps) {
+ 
+   const { slug } = await params;
+  if (!slug) notFound();
+
+const countrySlug = extractCountryFromSlug(slug);
+if (!countrySlug) notFound();
+
+
+    const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/locations/${countrySlug}`,
+    { cache: "no-store" }
+  );
+
+  if (!res.ok) notFound();
+
+  const locationData = await res.json();
   return (
     <main className="min-h-screen bg-[#f8faf9] font-sans selection:bg-primary/10">
       {/* HERO SECTION  */}
@@ -19,7 +130,7 @@ export default function UAEOnlineTherapyPage() {
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <div className="inline-block px-4 py-1.5 mb-8 rounded-full border border-[#43C6AC]/30 bg-white/50 backdrop-blur-sm">
             <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold text-[#1a3c34]/80">
-              Online Therapy for UAE Residents
+              Online Therapy for {locationData.countryName} Residents
             </p>
           </div>
 
@@ -32,7 +143,7 @@ export default function UAEOnlineTherapyPage() {
             <div className="flex-1 text-center md:text-left space-y-4">
               <p className="text-xl leading-relaxed text-[#1a3c34]/80 text-pretty">
                 Thoughtful, confidential mental health support designed for
-                people navigating life in the UAE.
+                people navigating life in the {locationData.countryName}.
               </p>
             </div>
 
@@ -59,13 +170,13 @@ export default function UAEOnlineTherapyPage() {
               </h2>
               <div className="space-y-6 text-lg text-[#1a3c34]/70 leading-relaxed">
                 <p>
-                  Life in the UAE often comes with fast-paced work environments,
+                  Life in the {locationData.countryName} often comes with fast-paced work environments,
                   high expectations, and long periods away from familiar support
                   systems - all of which can quietly affect emotional wellbeing.
                 </p>
 
                 <p>
-                  Psyra offers online therapy tailored for the UAE lifestyle,
+                  Psyra offers online therapy tailored for the {locationData.countryName} lifestyle,
                   making professional support accessible, private, and flexible
                   - without the need for travel.
                 </p>
@@ -99,7 +210,11 @@ export default function UAEOnlineTherapyPage() {
         </div>
       </section>
 
-      <MalayalamCounsellingSection />
+      <MalayalamCounsellingSection
+  countryName={locationData.countryName}
+  displayName={locationData.displayName}
+/>
+
 
       <div className="bg-[#f8faf9] border-y border-[#1a3c34]/5">
         <ConcernHero />
@@ -132,7 +247,7 @@ export default function UAEOnlineTherapyPage() {
 </section>
 
 
-      <UaeFaq />
+      <LocationFaq faqs={faqs} />
     </main>
   );
 }

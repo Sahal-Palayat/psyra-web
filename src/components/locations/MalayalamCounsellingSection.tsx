@@ -11,36 +11,15 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-const supportAreas = [
-  {
-    icon: <ShieldCheck className="w-6 h-6" />,
-    title: "Stress & Anxiety",
-    description:
-      "Personalized coping strategies for the fast-paced UAE lifestyle.",
-    bg: "bg-[#eef4f1]",
-  },
-  {
-    icon: <Users2 className="w-6 h-6" />,
-    title: "Relationship & Couples",
-    description:
-      "Bridging communication gaps within a familiar cultural context.",
-    bg: "bg-white",
-  },
-  {
-    icon: <HeartHandshake className="w-6 h-6" />,
-    title: "Family Guidance",
-    description: "Support for navigating family dynamics while living abroad.",
-    bg: "bg-white",
-  },
-  {
-    icon: <Globe2 className="w-6 h-6" />,
-    title: "Expat Mental Health",
-    description: "Specialized care for adjusting and thriving away from home.",
-    bg: "bg-[#eef4f1]",
-  },
-];
+interface MalayalamCounsellingSectionProps {
+  countryName: string;
+  displayName: string;
+}
 
-export default function MalayalamCounsellingSection() {
+export default function MalayalamCounsellingSection({
+  countryName,
+  displayName,
+}: MalayalamCounsellingSectionProps) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -57,6 +36,35 @@ export default function MalayalamCounsellingSection() {
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
     },
   };
+
+  const supportAreas = [
+    {
+      icon: <ShieldCheck className="w-6 h-6" />,
+      title: "Stress & Anxiety",
+      description: `Personalized coping strategies for the fast-paced lifestyle in ${countryName}.`,
+      bg: "bg-[#eef4f1]",
+    },
+    {
+      icon: <Users2 className="w-6 h-6" />,
+      title: "Relationship & Couples",
+      description:
+        "Bridging communication gaps within a familiar cultural context.",
+      bg: "bg-white",
+    },
+    {
+      icon: <HeartHandshake className="w-6 h-6" />,
+      title: "Family Guidance",
+      description:
+        "Support for navigating family dynamics while living abroad.",
+      bg: "bg-white",
+    },
+    {
+      icon: <Globe2 className="w-6 h-6" />,
+      title: "Expat Mental Health",
+      description: `Specialized care for adjusting and thriving as an expatriate in ${countryName}.`,
+      bg: "bg-[#eef4f1]",
+    },
+  ];
 
   return (
     <section className="px-6 py-24 bg-[#f8faf9]">
@@ -91,13 +99,12 @@ export default function MalayalamCounsellingSection() {
             <div className="absolute inset-0 bg-gradient-to-tr  opacity-60" />
             <img
               src="/psyra-location-pin.png"
-              alt="Online therapy accessible across UAE locations"
+              alt={`Online therapy accessible across ${countryName}`}
               className="object-cover w-full h-full transition-all duration-1000"
             />
             <div className="absolute bottom-10 left-10 text-[#00989D]">
-            
               <h3 className="text-2xl font-serif">
-                Connect from Dubai, Abu Dhabi & beyond.
+                Connect from {displayName}.
               </h3>
             </div>
           </motion.div>
@@ -111,7 +118,7 @@ export default function MalayalamCounsellingSection() {
             </h3>
             <p className="text-sm text-[#1a3c34]/60 max-w-xs font-sans">
               Expert guidance tailored to the specific emotional experiences of
-              the Malayali community in the Emirates.
+              the Malayali community living in {countryName}.
             </p>
           </div>
 
