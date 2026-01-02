@@ -204,10 +204,10 @@ export default function TherapistsCard() {
     <div className="min-h-screen mb-12">
       <div className="">
         <div className="text-center mb-8 pb-10 pt-28 bg-[#00BEA5]">
-          <h1 className="text-2xl md:text-4xl font-bold text-black mb-2">
+          <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">
             Find Your Perfect Therapist
           </h1>
-          <p className="text-[14px] md:text-lg text-gray-600 px-2">
+          <p className="text-[14px] md:text-lg text-white px-2">
             Breaking Barriers: Connect with Professionals in Your Language
           </p>
         </div>
