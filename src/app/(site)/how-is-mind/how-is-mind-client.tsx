@@ -336,9 +336,39 @@ export default function SurveyQuestions() {
   };
 
   //fallback testing
-  if (loading) {
-    return <div className="p-10 text-center">Loading assessment…</div>;
-  }
+if (loading || !surveyQuestions.length) {
+  return (
+    <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen">
+      <div className="mt-8 flex justify-center relative z-10">
+        <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl
+          shadow-emerald-500/20 border border-white/60
+          w-full max-w-4xl min-h-[600px] p-8 md:p-12">
+
+          {/* Header skeleton */}
+          <div className="h-6 w-1/3 bg-gray-200 rounded animate-pulse mb-8" />
+
+          {/* Question skeleton */}
+          <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-10" />
+
+          {/* Options skeleton */}
+          <div className="space-y-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-14 w-full bg-gray-200 rounded-xl animate-pulse"
+              />
+            ))}
+          </div>
+
+          {/* Footer hint */}
+          <div className="mt-10 text-center text-sm text-gray-400 animate-pulse">
+            Preparing your assessment…
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
   if (!surveyQuestions.length) {
   return (
@@ -483,7 +513,12 @@ export default function SurveyQuestions() {
     <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 relative overflow-hidden">
       <Background>
         <main className="mt-8 flex  justify-center relative z-10">
-          <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12">
+          <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.3, ease: "easeOut" }}
+  className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12"
+>
             {isAiLoading ? (
               <AiTherapistLoading />
             ) : aiResponse ? (
@@ -523,7 +558,7 @@ export default function SurveyQuestions() {
                 </div>
               </>
             )}
-          </div>
+         </motion.div>
         </main>
       </Background>
     </div>

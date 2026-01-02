@@ -3,14 +3,14 @@ import Link from "next/link"
 
 const concerns = [
   { title: "Depression", slug: "depression" },
-  { title: "Obsessive-Compulsive", slug: "ocd" },
+  { title: "Obsessive Compulsive Disorder", slug: "ocd" },
   { title: "Panic Attacks", slug: "panic-attacks" },
-  { title: "Personality Development", slug: "personality-development" },
+  { title: "Personality Disorders", slug: "personality-disorders" },
   { title: "Anxiety Disorders", slug: "anxiety-disorders" },
   { title: "Stress", slug: "stress" },
   { title: "Sexual Issues", slug: "sexual-issues" },
   { title: "Relationship Issues", slug: "relationship-issues" },
-  { title: "Work Related Issues", slug: "work-related-challenges" },
+  { title: "Work Related Challenges", slug: "work-related-challenges" },
 ]
 
 export default function Concerns() {
