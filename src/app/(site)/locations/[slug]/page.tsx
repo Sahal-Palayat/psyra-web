@@ -203,8 +203,7 @@ export default async function OnlineMalayalamCounsellingPage({
                 </p>
 
                 <p>
-                  Psyra provides online therapy designed for people living in
-                  {locationData.countryName}, making mental health support
+                  Psyra provides online therapy designed for people living in {locationData.countryName}, making mental health support
                   accessible, confidential, and easy to fit into daily life.
                 </p>
               </div>
