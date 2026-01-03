@@ -39,7 +39,7 @@ export default function AssessmentCTA({
       )}
     >
       {/* Top accent bar */}
-      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-[#7ED6D0] via-[#007C80] to-[#7ED6D0]" />
+      <div className="absolute left-0 top-0 h-1 w-full bg-[#00989D]" />
 
       <div className="relative">
         <h3 className="text-balance text-xl font-semibold leading-tight tracking-tight text-[#00989D]">

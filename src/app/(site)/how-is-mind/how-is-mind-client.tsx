@@ -464,17 +464,17 @@ if (loading || !surveyQuestions.length) {
                 {feedback.wellbeingPercent}%
                 <p className="text-sm text-gray-600 mt-1">Wellbeing</p>
               </div>
-              <div
+              {/* <div
                 className={`text-xl font-semibold bg-gradient-to-r ${feedback.color} bg-clip-text text-transparent`}
               >
                 {feedback.stressLevel}
-              </div>
+              </div> */}
               {/* <p className="text-sm text-gray-600 mt-2">
                You have the Stress: {feedback.score}/36
               </p> */}
-              <p className="text-sm text-gray-700 font-medium italic mt-3">
+              {/* <p className="text-sm text-gray-700 font-medium italic mt-3">
                 {feedback.message}
-              </p>
+              </p> */}
               {/* <p className="text-xs text-gray-500 mt-2">
                 Score Range: 0-7 (Low) | 8-14 (Mild) | 15-21 (Moderate) | 22-36
                 (High)
