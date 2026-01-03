@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-// import Logo from "../../public/Psyra-Logo-Online-Counselling-Malayalam-green.svg";
+import Logo from "../../public/Psyra-Logo-Online-Counselling-Malayalam-green.svg";
 // import { useRouter } from "next/navigation";
-// import Logo1 from "../../public/Psyra-Logo-Online-Counselling-Malayalam-white.svg";
-import Logo3 from "../../public/christmas/psyra-logo-xmas-white.svg";
-import Logo4 from "../../public/christmas/psyra-logo-xmas-green.svg";
+import Logo1 from "../../public/Psyra-Logo-Online-Counselling-Malayalam-white.svg";
+// import Logo3 from "../../public/christmas/psyra-logo-xmas-white.svg";
+// import Logo4 from "../../public/christmas/psyra-logo-xmas-green.svg";
 
 import CallbackModal from "../components/RequestCallModal";
 // import Modal from "./Modal";
@@ -67,15 +67,16 @@ const Navbar = () => {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1200px] h-[60px] md:h-[74px] z-30 transition-all duration-300 rounded-[20px] backdrop-blur-sm ${
+        className={`fixed top-4 md:top-5 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1600px] h-[60px] md:h-[74px] z-30 transition-all duration-300 rounded-[20px] backdrop-blur-sm ${
           isScrolled ? "bg-[rgba(255,255,255,0.5)] shadow-md" : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto flex justify-between items-center px-8 md:px-6 h-full">
+        <div className="flex justify-between items-center px-8 md:px-12 h-full">
+
           {/* Logo */}
           <Link href="/" className="z-20">
             <Image
-              src={isScrolled ? Logo4 : Logo3 || "/placeholder.svg"}
+              src={isScrolled ? Logo : Logo1 || "/placeholder.svg"}
               alt="Psyra logo – online counseling Malayalam and mental wellness support"
               width={120}
               height={40}

@@ -1,33 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FAQ {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
-export default function FAQSection({
-  faqs,
-}: {
-  faqs: readonly FAQ[]
-}) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+export default function FAQSection({ faqs }: { faqs: readonly FAQ[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <section className="max-w-4xl mx-auto px-4 md:px-0 py-16">
-      <h2 className="text-2xl md:text-3xl font-bold mb-10 text-[#007C80]">
+    <section className="pb-20 pt-4 mx-4 md:mx-16">
+      <h2 className="pl-3 md:pl-4 text-2xl md:text-3xl font-bold mb-10 text-[#007C80]">
         Frequently Asked Questions
       </h2>
 
       <div className="divide-y divide-teal-100/80">
         {faqs.map((faq, index) => {
-          const isOpen = openIndex === index
+          const isOpen = openIndex === index;
 
           return (
             <div
@@ -36,7 +32,7 @@ export default function FAQSection({
                 group
                 relative
                 py-5
-                px-4 -mx-4
+                px-4 
                 rounded-xl
                 transition-all duration-300
               "
@@ -72,16 +68,16 @@ export default function FAQSection({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <p className="mt-4 text-[15px] md:text-[19px] text-gray-700 leading-relaxed max-w-3xl">
+                    <p className="mt-4 text-[14px] md:text-[18px] text-gray-700 leading-relaxed">
                       {faq.answer}
                     </p>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-          )
+          );
         })}
       </div>
     </section>
-  )
+  );
 }
