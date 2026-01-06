@@ -20,29 +20,28 @@ interface MalayalamCounsellingSectionProps {
 export default function MalayalamCounsellingSectionClient({
   countryName,
 }: MalayalamCounsellingSectionProps) {
-    const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
     },
-  },
-};
+  };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      },
     },
-  },
-};
-
+  };
 
   const supportAreas = [
     {
@@ -102,7 +101,6 @@ const itemVariants = {
               <span className="relative z-10">
                 Online Malayalam Counselling for Malayalis in {countryName}
               </span>
-              
             </SectionHeader>
 
             <p className="text-sm md:text-lg text-[#1a3c34]/75 leading-relaxed font-sans mb-6">
@@ -113,10 +111,36 @@ const itemVariants = {
               background.
             </p>
 
-            <p className="text-sm md:text-base text-[#1a3c34]/70 leading-relaxed mb-10">
-              From work stress and homesickness to relationships and identity
-              concerns, you’ll find a safe, culturally sensitive space to talk
-              and heal.
+            <p className="mt-4 text-sm text-[#0F3D3E] leading-relaxed">
+              From{" "}
+              <Link
+                href="/concerns/work-related-challenges"
+                className="font-medium text-[#007C80] hover:underline underline-offset-4"
+              >
+                work stress
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/concerns/stress"
+                className="font-medium text-[#007C80] hover:underline underline-offset-4"
+              >
+                homesickness
+              </Link>{" "}
+              to{" "}
+              <Link
+                href="/concerns/relationship-issues"
+                className="font-medium text-[#007C80] hover:underline underline-offset-4"
+              >
+                relationships
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/blogs/hidden-signs-of-depression-that-dont-look-like-sadness"
+                className="font-medium text-[#007C80] hover:underline underline-offset-4"
+              >
+                identity concerns
+              </Link>
+              , you’ll find a safe, culturally sensitive space to talk and heal.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -208,6 +232,16 @@ const itemVariants = {
                 </Link>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
               </div>
+              <p className="mt-4 text-sm text-[#0F3D3E]">
+                Learn more about our{" "}
+                <Link
+                  href="/services"
+                  className="font-semibold text-[#0F3D3E] underline underline-offset-4 decoration-[#0F3D3E]/60 hover:decoration-[#0F3D3E]"
+                >
+                  Malayalam online counselling services
+                </Link>
+                .
+              </p>
             </div>
           </div>
 
@@ -241,6 +275,24 @@ const itemVariants = {
             </div>
           </div>
         </div>
+        <section className="mt-12 rounded-xl bg-[#f4f8f7] p-6">
+          <h3 className="text-lg font-semibold text-[#1a3c34] mb-2">
+            Related reading
+          </h3>
+
+          <p className="text-sm text-gray-700 mb-3">
+            Understanding how the nervous system responds to stress and
+            emotional overload can help make sense of anxiety, burnout, and
+            emotional exhaustion experienced while living abroad.
+          </p>
+
+          <Link
+            href="/blogs/why-trauma-triggers-the-body-nervous-system-healing"
+            className="text-[#00989D] font-medium hover:underline"
+          >
+            Read about how trauma and stress affect the body
+          </Link>
+        </section>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { ShieldCheck, Globe, Clock } from "lucide-react";
+import Link from "next/link";
 
 interface LocationContextSectionProps {
   countryName: string;
@@ -30,6 +31,24 @@ export default function LocationContextSection({
                 {countryName}, making mental health support accessible,
                 confidential, and easy to fit into daily life.
               </p>
+
+              <p className="mt-4 text-sm text-[#0F3D3E]">
+  Many people experience{" "}
+  <Link
+    href="/concerns/stress"
+    className="font-semibold underline underline-offset-4"
+  >
+    chronic stress
+  </Link>{" "}
+  and{" "}
+  <Link
+    href="/concerns/anxiety-disorders"
+    className="font-semibold underline underline-offset-4"
+  >
+    anxiety
+  </Link>{" "}
+  while living abroad.
+</p>
             </div>
           </div>
 
