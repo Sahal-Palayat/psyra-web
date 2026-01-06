@@ -12,6 +12,16 @@ type ConcernForSitemap = {
   status?: "active" | "inactive"
 }
 
+const LOCATION_SLUGS = [
+  "uae",
+  "canada",
+  "uk",
+  "us",
+  "saudi-arabia",
+] as const
+
+
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://psyra.in"
@@ -55,6 +65,8 @@ try {
 }
 
 
+
+
   return [
     // --- static pages ---
     { url: `${baseUrl}`, priority: 1 },
@@ -64,7 +76,7 @@ try {
     { url: `${baseUrl}/contact-us` },
 
     // --- dynamic pages ---
-    { url: `${baseUrl}/therapists` },
+    { url: `${baseUrl}/psychologists` },
     { url: `${baseUrl}/blogs` },
 
     // --- seo critical pages ---
@@ -86,5 +98,12 @@ try {
         : new Date(),
       priority: 0.7,
     })),
+
+   ...LOCATION_SLUGS.map((slug) => ({
+  url: `${baseUrl}/online-malayalam-counselling-in-${slug}`,
+  lastModified: new Date(),
+  priority: 0.9,
+})),
+
   ]
 }

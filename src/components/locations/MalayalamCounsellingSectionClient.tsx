@@ -1,6 +1,6 @@
 "use client";
-import Link from "next/link";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/SectionTitle";
 import {
@@ -17,11 +17,10 @@ interface MalayalamCounsellingSectionProps {
   displayName: string;
 }
 
-export default function MalayalamCounsellingSection({
+export default function MalayalamCounsellingSectionClient({
   countryName,
-  // displayName,
 }: MalayalamCounsellingSectionProps) {
- const containerVariants = {
+    const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,

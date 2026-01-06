@@ -7,12 +7,11 @@ import AssessmentCTA from "@/components/locations/LocationAssessCta";
 import FinalCTA from "@/components/locations/FinalGetTherapyCta";
 import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarousel/psychologist-carousel";
 import ConcernHero from "@/components/locations/ConcernHero";
-import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSection";
+import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSectionServer";
 import LocationFaq from "@/components/locations/LocationFaq";
 
 import { getLocationData } from "@/lib/getLocationData";
 import { getLocationFaqs } from "@/constants/locationFaq";
-
 
 function extractCountryFromSlug(slug: string): string | null {
   const match = slug.match(/-in-([a-zA-Z-]+)$/);
@@ -24,7 +23,6 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-
   const { slug } = await params;
 
   const countrySlug = extractCountryFromSlug(slug);
@@ -52,8 +50,7 @@ export async function generateMetadata({
     description: `Professional online Malayalam counselling for residents of ${locationData.countryName}. Private, secure, and culturally sensitive mental health support.`,
     openGraph: {
       title: `Online Malayalam Counselling in ${locationData.countryName} | Psyra`,
-      description:
-        `Confidential online counselling services for Malayalam-speaking residents of ${locationData.countryName}.`,
+      description: `Confidential online counselling services for Malayalam-speaking residents of ${locationData.countryName}.`,
       type: "website",
     },
   };
@@ -64,20 +61,15 @@ export default async function OnlineMalayalamCounsellingPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-
   const { slug } = await params;
-  console.log("SLUG:", slug);
+
   if (!slug) notFound();
 
   const countrySlug = extractCountryFromSlug(slug);
-  console.log("COUNTRY SLUG:", countrySlug);
+
   if (!countrySlug) notFound();
 
-console.log("COUNTRY SLUG:", countrySlug);
-
-const locationData = await getLocationData(countrySlug);
-
-console.log("LOCATION DATA:", locationData);
+  const locationData = await getLocationData(countrySlug);
 
   if (!locationData) notFound();
 

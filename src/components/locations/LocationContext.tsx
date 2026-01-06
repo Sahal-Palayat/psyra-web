@@ -1,5 +1,3 @@
-// components/locations/LocationContextSection.tsx
-
 import { ShieldCheck, Globe, Clock } from "lucide-react";
 
 interface LocationContextSectionProps {
