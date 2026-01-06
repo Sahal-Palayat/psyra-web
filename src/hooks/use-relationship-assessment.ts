@@ -9,7 +9,6 @@
     import {
     RelationshipQuestion,
     RelationshipAnswerPayload,
-    RelationshipResult,
     } from "@/types/relationship-assessment.types";
 
     export function useRelationshipAssessment() {
@@ -76,15 +75,12 @@
         };
 
         try {
-        const result: RelationshipResult =
-            await submitRelationshipAssessment(payload);
+       await submitRelationshipAssessment(payload);
+
 
         // Redirect to result page with data
-        router.push(
-            `/relationship-wellness-check/result?score=${result.totalScore}&toxicity=${result.toxicityScore}&label=${encodeURIComponent(
-            result.resultLabel
-            )}`
-        );
+       router.push("/relationship-wellness-check/result");
+
         } catch (error) {
         console.error("Failed to submit assessment", error);
         } finally {

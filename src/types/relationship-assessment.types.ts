@@ -16,7 +16,8 @@ export interface RelationshipAnswerPayload {
 }
 
 export interface RelationshipResult {
-  totalScore: number;
-  toxicityScore: number;
+  normalizedScore: number;
+  avgToxicity: number;
+  riskLevel: "healthy" | "moderate" | "high";
   resultLabel: string;
 }

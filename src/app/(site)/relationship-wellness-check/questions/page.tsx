@@ -37,7 +37,7 @@ export default function RelationshipQuestionsPage() {
   }
 
   return (
-    <section className="py-10">
+    <section className="pt-20 bg-gradient-to-b from-[#00989D] via-cyan-400 to-cyan-200">
       {/* Progress */}
       <Progress
         current={currentIndex + 1}

@@ -1,30 +1,43 @@
-"use client";
+"use client"
 
 interface ProgressProps {
-  current: number;
-  total: number;
+  current: number
+  total: number
 }
 
 export default function Progress({ current, total }: ProgressProps) {
-  const percentage = Math.round((current / total) * 100);
+  const percentage = Math.round((current / total) * 100)
 
-  return (
-    <div className="w-full max-w-xl mx-auto px-4 mb-8">
-      {/* Progress text */}
-      <div className="flex justify-between text-sm text-gray-500 mb-2">
-        <span>
-          Question {current} of {total}
-        </span>
-        <span>{percentage}%</span>
-      </div>
+  return (<div className="w-full px-4 py-8">
+      <div className="max-w-2xl mx-auto">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-sm font-semibold text-white">
+            Question {current} of {total}
+          </span>
+          <span className="text-sm font-semibold text-white/90">{percentage}%</span>
+        </div>
 
-      {/* Progress bar */}
-      <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-[#00989D] transition-all duration-300"
-          style={{ width: `${percentage}%` }}
-        />
+        <div className="flex gap-2">
+          {Array.from({ length: total }).map((_, index) => (
+            <div
+              key={index}
+              className="flex-1 h-1.5 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor:
+                  index < current
+                    ? "rgba(255, 255, 255, 1)"
+                    : index === current
+                      ? "rgba(255, 255, 255, 0.6)"
+                      : "rgba(255, 255, 255, 0.2)",
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="mt-3 text-xs text-white/80 font-medium">
+          {percentage === 100 ? "Almost there! 🎉" : `${Math.ceil(((total - current) / total) * 100)}% remaining`}
+        </div>
       </div>
     </div>
-  );
+  )
 }
