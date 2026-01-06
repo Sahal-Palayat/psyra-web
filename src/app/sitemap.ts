@@ -99,8 +99,8 @@ try {
       priority: 0.7,
     })),
 
-   ...LOCATION_SLUGS.map((slug) => ({
-  url: `${baseUrl}/online-malayalam-counselling-in-${slug}`,
+...LOCATION_SLUGS.map((slug) => ({
+  url: `${baseUrl}/locations/online-malayalam-counselling-in-${slug}`,
   lastModified: new Date(),
   priority: 0.9,
 })),
