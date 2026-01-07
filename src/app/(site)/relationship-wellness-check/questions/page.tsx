@@ -12,26 +12,50 @@ export default function RelationshipQuestionsPage() {
     currentIndex,
     totalQuestions,
     handleAnswerSelect,
+    goBack,
+    goNext,
+    answers,
   } = useRelationshipAssessment();
 
   // Loading state (initial fetch)
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <p className="text-gray-500 text-sm">
-          Loading relationship check…
-        </p>
+      <div className="min-h-[60vh] flex items-center justify-center px-4">
+        <div
+          className="bg-white/80 backdrop-blur-sm rounded-2xl
+                      shadow-lg px-6 py-5 flex flex-col
+                      items-center gap-3"
+        >
+          <div
+            className="w-6 h-6 border-2 border-[#00989D]/30
+                        border-t-[#00989D] rounded-full animate-spin"
+          />
+          <p className="text-sm text-gray-600 text-center">
+            Preparing your relationship check…
+          </p>
+        </div>
       </div>
     );
   }
 
-  // Safety fallback (should not happen, but good practice)
   if (!currentQuestion) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <p className="text-gray-500 text-sm">
-          Something went wrong. Please refresh the page.
-        </p>
+      <div className="min-h-[60vh] flex items-center justify-center px-4">
+        <div
+          className="bg-white/80 backdrop-blur-sm rounded-2xl
+                      shadow-lg px-6 py-6 max-w-sm text-center space-y-4"
+        >
+          <p className="text-sm text-gray-700">
+            We couldn’t load the next question right now.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="text-sm font-medium text-[#00989D]
+                     hover:underline"
+          >
+            Refresh the page
+          </button>
+        </div>
       </div>
     );
   }
@@ -39,24 +63,38 @@ export default function RelationshipQuestionsPage() {
   return (
     <section className="pt-20 bg-gradient-to-b from-[#00989D] via-cyan-400 to-cyan-200">
       {/* Progress */}
-      <Progress
-        current={currentIndex + 1}
-        total={totalQuestions}
-      />
+      <Progress current={currentIndex + 1} total={totalQuestions} />
 
       {/* Question */}
       <Question
+        key={currentQuestion._id}
         question={currentQuestion.questionText}
         onSelect={handleAnswerSelect}
+        onBack={goBack}
+        onNext={goNext}
+        canGoBack={currentIndex > 0}
+        selectedValue={answers[currentQuestion._id]}
+        canGoNext={answers[currentQuestion._id] !== undefined}
       />
 
       {/* Submitting overlay (after last question) */}
       {submitting && (
-        <div className="fixed inset-0 bg-white/70 backdrop-blur-sm
-                        flex items-center justify-center z-50">
-          <p className="text-gray-600 text-sm">
-            Understanding your responses…
-          </p>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center
+                  bg-white/70 backdrop-blur-sm"
+        >
+          <div
+            className="bg-white rounded-2xl shadow-xl px-8 py-6
+                    flex flex-col items-center gap-4"
+          >
+            <div
+              className="w-6 h-6 border-2 border-[#00989D]/30
+                      border-t-[#00989D] rounded-full animate-spin"
+            />
+            <p className="text-sm text-gray-600 text-center">
+              Understanding your responses…
+            </p>
+          </div>
         </div>
       )}
     </section>

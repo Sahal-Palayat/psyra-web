@@ -8,10 +8,7 @@ export default function Intro({ onStart }: IntroProps) {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 py-12 sm:py-20 bg-gradient-to-b from-[#00989D] via-[#2DB8C4] to-[#A8E6ED]">
       <div className="w-full max-w-2xl">
-        {/* Decorative accent line */}
-        <div className="mb-12 flex justify-center">
-          <div className="h-1.5 w-20 bg-white/80 rounded-full shadow-lg" />
-        </div>
+      
 
         {/* Main content card with subtle shadow */}
         <div className="text-center space-y-8">
@@ -28,45 +25,7 @@ export default function Intro({ onStart }: IntroProps) {
             without judgement.
           </p>
 
-          {/* Trust indicators with enhanced styling */}
-          <div className="py-8 px-6 sm:px-8 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-              <div className="flex flex-col items-center gap-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 text-white">
-                  <span className="text-xl">⏱</span>
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-white text-sm">Quick Check</p>
-                  <p className="text-xs text-white/80">3–4 minutes</p>
-                </div>
-              </div>
-
-              <div className="hidden sm:block w-px h-12 bg-white/20" />
-
-              <div className="flex flex-col items-center gap-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 text-white">
-                  <span className="text-xl">🔒</span>
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-white text-sm">Completely Private</p>
-                  <p className="text-xs text-white/80">Your data is yours</p>
-                </div>
-              </div>
-
-              <div className="hidden sm:block w-px h-12 bg-white/20" />
-
-              <div className="flex flex-col items-center gap-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 text-white">
-                  <span className="text-xl">🧠</span>
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-white text-sm">Science-Based</p>
-                  <p className="text-xs text-white/80">Psychology-informed</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
+    
           {/* CTA Button */}
           <button
             onClick={onStart}
