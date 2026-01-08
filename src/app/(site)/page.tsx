@@ -64,7 +64,10 @@ export default function Home() {
         </div>
       </section>
 
-      <DynamicPsychologistCarousel />
+      <section className="bg-[#F7F8F2] py-16">
+  <DynamicPsychologistCarousel />
+</section>
+
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}
