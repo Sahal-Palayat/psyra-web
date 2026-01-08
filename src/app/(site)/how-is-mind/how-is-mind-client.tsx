@@ -17,6 +17,11 @@ import type { AssessmentPayload } from "@/types/sheet";
 import type { RawPayload } from "@/types/sheet";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import {
+  resolveConcernSeverity,
+  type AssessmentSeverity,
+  type SeverityDisplayConfig,
+} from "@/lib/assessmentSeverity";
 
 type QuestionOption =
   | string
@@ -107,6 +112,9 @@ export default function SurveyQuestions() {
   const concern = searchParams.get("concern");
   const [questions, setQuestions] = useState<AssessmentQuestion[]>([]);
   const [loading, setLoading] = useState(true);
+  const [concernSeverity, setConcernSeverity] =
+    useState<AssessmentSeverity | null>(null);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -158,7 +166,7 @@ export default function SurveyQuestions() {
     "Taking a mindful pause before sharing your guidance...",
     "Reading between your emotions to find the right words...",
     "Crafting personalized tips to brighten your day...",
-    "Almost there — preparing your mental health insights...",
+    "Almost there - preparing your mental health insights...",
   ];
 
   useEffect(() => {
@@ -195,6 +203,12 @@ export default function SurveyQuestions() {
 
     try {
       setIsAiLoading(true);
+
+      const randomMessage =
+        loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+
+      setLoadingMessage(randomMessage);
+
       if (isConcernAssessment) {
         const assessmentPayload = {
           personDetails: {
@@ -218,12 +232,13 @@ export default function SurveyQuestions() {
         );
 
         const data = await response.json();
+        setConcernSeverity(data?.data?.severity ?? null);
 
         setIsAiLoading(false);
 
         const aiText =
           data?.data?.aiResponse ??
-          "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone — support is available 💚";
+          "Thank you for sharing your responses. Your insights are being prepared. If you're feeling overwhelmed, you're not alone - support is available 💚";
 
         setAiResponse(aiText);
         setTypedResponse("");
@@ -281,7 +296,7 @@ export default function SurveyQuestions() {
         setIsAiLoading(false);
         const aiText =
           data?.data?.aiResponse ||
-          "Here's something for you today — take a deep breath, slow down, and focus on one good thing that makes you smile. You're doing better than you think 💚";
+          "Here's something for you today - take a deep breath, slow down, and focus on one good thing that makes you smile. You're doing better than you think 💚";
         setAiResponse(aiText);
         setTypedResponse("");
       }, 3000);
@@ -336,50 +351,50 @@ export default function SurveyQuestions() {
   };
 
   //fallback testing
-if (loading || !surveyQuestions.length) {
-  return (
-    <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen">
-      <div className="mt-8 flex justify-center relative z-10">
-        <div className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl
+  if (loading || !surveyQuestions.length) {
+    return (
+      <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-100 min-h-screen">
+        <div className="mt-8 flex justify-center relative z-10">
+          <div
+            className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl
           shadow-emerald-500/20 border border-white/60
-          w-full max-w-4xl min-h-[600px] p-8 md:p-12">
+          w-full max-w-4xl min-h-[600px] p-8 md:p-12"
+          >
+            {/* Header skeleton */}
+            <div className="h-6 w-1/3 bg-gray-200 rounded animate-pulse mb-8" />
 
-          {/* Header skeleton */}
-          <div className="h-6 w-1/3 bg-gray-200 rounded animate-pulse mb-8" />
+            {/* Question skeleton */}
+            <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-10" />
 
-          {/* Question skeleton */}
-          <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-10" />
+            {/* Options skeleton */}
+            <div className="space-y-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="h-14 w-full bg-gray-200 rounded-xl animate-pulse"
+                />
+              ))}
+            </div>
 
-          {/* Options skeleton */}
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-14 w-full bg-gray-200 rounded-xl animate-pulse"
-              />
-            ))}
-          </div>
-
-          {/* Footer hint */}
-          <div className="mt-10 text-center text-sm text-gray-400 animate-pulse">
-            Preparing your assessment…
+            {/* Footer hint */}
+            <div className="mt-10 text-center text-sm text-gray-400 animate-pulse">
+              Preparing your assessment…
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   if (!surveyQuestions.length) {
-  return (
-    <div className="p-10 text-center text-gray-600">
-      We couldn’t load this assessment right now.
-      <br />
-      Please try again later or explore other assessments.
-    </div>
-  );
-}
-
+    return (
+      <div className="p-10 text-center text-gray-600">
+        We couldn’t load this assessment right now.
+        <br />
+        Please try again later or explore other assessments.
+      </div>
+    );
+  }
 
   const question = surveyQuestions[currentQuestion];
 
@@ -431,12 +446,25 @@ if (loading || !surveyQuestions.length) {
   );
 
   const AiResponseDisplay = () => {
-    const totalScore = Object.values(score as Record<string, number>).reduce(
-      (sum, val) => sum + val,
-      0
-    );
+    const isConcernAssessment = Boolean(concern);
 
-    const feedback = getMentalHealthFeedback(totalScore);
+    let feedback:
+      | SeverityDisplayConfig
+      | ReturnType<typeof getMentalHealthFeedback>;
+
+    if (isConcernAssessment && concern && concernSeverity) {
+      feedback = resolveConcernSeverity({
+        concern,
+        severity: concernSeverity,
+      });
+    } else {
+      const totalScore = Object.values(score as Record<string, number>).reduce(
+        (sum, val) => sum + val,
+        0
+      );
+
+      feedback = getMentalHealthFeedback(totalScore);
+    }
 
     return (
       <div className="flex flex-col items-center justify-center text-center space-y-8">
@@ -460,21 +488,51 @@ if (loading || !surveyQuestions.length) {
               transition={{ duration: 0.5 }}
               className=""
             >
-              <div className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                {feedback.wellbeingPercent}%
-                <p className="text-sm text-gray-600 mt-1">Wellbeing</p>
-              </div>
-              <div
-                className={`text-xl font-semibold bg-gradient-to-r ${feedback.color} bg-clip-text text-transparent`}
-              >
-                {feedback.stressLevel}
-              </div>
-              {/* <p className="text-sm text-gray-600 mt-2">
-               You have the Stress: {feedback.score}/36
-              </p> */}
-              <p className="text-sm text-gray-700 font-medium italic mt-3">
-                {feedback.message}
-              </p>
+              {isConcernAssessment ? (
+                <>
+                  <div
+                    className={`text-xl font-semibold bg-gradient-to-r ${
+                      (feedback as SeverityDisplayConfig).colorGradient
+                    } bg-clip-text text-transparent`}
+                  >
+                    {(feedback as SeverityDisplayConfig).label}
+                  </div>
+
+                  <p className="text-sm text-gray-700 font-medium italic mt-3">
+                    {(feedback as SeverityDisplayConfig).description}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                    {
+                      (feedback as ReturnType<typeof getMentalHealthFeedback>)
+                        .wellbeingPercent
+                    }
+                    %<p className="text-sm text-gray-600 mt-1">Wellbeing</p>
+                  </div>
+
+                  <div
+                    className={`text-xl font-semibold bg-gradient-to-r ${
+                      (feedback as ReturnType<typeof getMentalHealthFeedback>)
+                        .color
+                    } bg-clip-text text-transparent`}
+                  >
+                    {
+                      (feedback as ReturnType<typeof getMentalHealthFeedback>)
+                        .stressLevel
+                    }
+                  </div>
+
+                  <p className="text-sm text-gray-700 font-medium italic mt-3">
+                    {
+                      (feedback as ReturnType<typeof getMentalHealthFeedback>)
+                        .message
+                    }
+                  </p>
+                </>
+              )}
+
               {/* <p className="text-xs text-gray-500 mt-2">
                 Score Range: 0-7 (Low) | 8-14 (Mild) | 15-21 (Moderate) | 22-36
                 (High)
@@ -514,11 +572,11 @@ if (loading || !surveyQuestions.length) {
       <Background>
         <main className="mt-8 flex  justify-center relative z-10">
           <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.3, ease: "easeOut" }}
-  className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12"
->
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-emerald-500/20 border border-white/60 w-full max-w-4xl min-h-[600px] p-8 md:p-12"
+          >
             {isAiLoading ? (
               <AiTherapistLoading />
             ) : aiResponse ? (
@@ -558,7 +616,7 @@ if (loading || !surveyQuestions.length) {
                 </div>
               </>
             )}
-         </motion.div>
+          </motion.div>
         </main>
       </Background>
     </div>
