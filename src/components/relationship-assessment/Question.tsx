@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 
 interface QuestionProps {
   question: string;
-  onSelect: (score: number) => void;
+  onSelect: (answerLabel: string) => void;
   onBack?: () => void;
   onNext?: () => void;
-  selectedValue?: number;
+  selectedValue?: string;
   canGoBack?: boolean;
   canGoNext?: boolean;
 }
@@ -29,7 +29,7 @@ export default function Question({
   canGoNext,
   selectedValue,
 }: QuestionProps) {
-  const [selected, setSelected] = useState<number | null>(
+  const [selected, setSelected] = useState<string | null>(
     selectedValue ?? null
   );
 
@@ -37,11 +37,11 @@ export default function Question({
     setSelected(selectedValue ?? null);
   }, [selectedValue, question]);
 
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
 
-  const handleSelect = (value: number) => {
-    setSelected(value);
-    setTimeout(() => onSelect(value), 200);
+  const handleSelect = (label: string) => {
+    setSelected(label);
+    setTimeout(() => onSelect(label), 200);
   };
 
   return (
@@ -50,7 +50,6 @@ export default function Question({
         {/* Navigation row */}
         {(canGoBack || canGoNext) && (
           <div className="mb-8 flex items-center justify-between">
-            {/* Back */}
             {canGoBack ? (
               <button
                 onClick={onBack}
@@ -59,10 +58,9 @@ export default function Question({
                 ← Back
               </button>
             ) : (
-              <div /> 
+              <div />
             )}
 
-            {/* Next */}
             {canGoNext && (
               <button
                 onClick={onNext}
@@ -74,7 +72,7 @@ export default function Question({
           </div>
         )}
 
-        {/* Question text with white color for contrast against gradient */}
+        {/* Question text */}
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-12 leading-relaxed text-balance">
           {question}
         </h2>
@@ -83,23 +81,23 @@ export default function Question({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {OPTIONS.map((option) => (
             <button
-              key={option.value}
-              onClick={() => handleSelect(option.value)}
-              onMouseEnter={() => setHovered(option.value)}
+              key={option.label}
+              onClick={() => handleSelect(option.label)}
+              onMouseEnter={() => setHovered(option.label)}
               onMouseLeave={() => setHovered(null)}
               className={`
                 relative group px-6 py-5 rounded-xl
                 border-2 border-white/20
                 transition-all duration-200 ease-out
                 ${
-                  selected === option.value
+                  selected === option.label
                     ? `bg-gradient-to-r ${option.color} border-white text-teal-900 shadow-lg scale-105`
-                    : hovered === option.value
+                    : hovered === option.label
                     ? `border-white/40 bg-white/10 backdrop-blur-sm scale-102`
                     : "bg-white/5 backdrop-blur-sm hover:border-white/30 text-white"
                 }
                 ${
-                  selected !== null && selected !== option.value
+                  selected !== null && selected !== option.label
                     ? "opacity-50"
                     : ""
                 }
@@ -107,17 +105,15 @@ export default function Question({
               `}
             >
               <div className="flex items-center justify-between gap-3">
-                <span
-                  className={`text-lg font-semibold transition-colors duration-200`}
-                >
+                <span className="text-lg font-semibold">
                   {option.label}
                 </span>
-                {/* Animated indicator dot */}
+
                 <div
                   className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    selected === option.value
+                    selected === option.label
                       ? "bg-teal-900 scale-150"
-                      : hovered === option.value
+                      : hovered === option.label
                       ? "bg-white scale-100"
                       : "bg-white/40"
                   }`}

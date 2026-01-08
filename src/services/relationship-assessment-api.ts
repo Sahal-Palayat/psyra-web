@@ -1,4 +1,7 @@
-import { RelationshipAnswerPayload, RelationshipResult } from "@/types/relationship-assessment.types";
+import {
+  RelationshipSubmitPayload,
+  RelationshipAssessmentResult,
+} from "@/types/relationship-assessment.types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,13 +18,11 @@ export async function getRelationshipQuestions() {
 }
 
 export async function submitRelationshipAssessment(
-  payload: RelationshipAnswerPayload
-): Promise<RelationshipResult> {
+  payload: RelationshipSubmitPayload
+): Promise<RelationshipAssessmentResult> {
   const res = await fetch(`${BASE_URL}/relationship-assessment/submit`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
