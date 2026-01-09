@@ -2,6 +2,10 @@
 
 import { Users, CalendarDays, CreditCard, Video } from "lucide-react";
 import Link from "next/link";
+interface HowTherapyWorksProps {
+  bgClassName?: string;
+}
+
 
 const steps = [
   {
@@ -28,9 +32,11 @@ const steps = [
   },
 ];
 
-export default function HowTherapyWorks() {
+export default function HowTherapyWorks({
+  bgClassName,
+}: HowTherapyWorksProps) {
   return (
-    <section className="pt-8 pb-6 md:pt-12 md:pb-10 bg-[#F7F8F2]">
+    <section className={`pt-8 pb-6 md:pt-12 md:pb-10  ${bgClassName ?? "bg-[#F7F8F2]"}`} >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading Section */}
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
