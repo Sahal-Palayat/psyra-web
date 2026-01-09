@@ -21,7 +21,7 @@ const Faq = () => {
         "Online counseling consists of the provision of professional mental health care through the use of online video or audio sessions.Psyra is also providing internet counseling through Malayalam and Hindi, making psychological services accessible to people from anywhere.",
     },
     {
-      question: "“What makes Psyra special?”",
+      question: "What makes Psyra special?",
       answer:
         "Psyra is distinct in terms of its services through online Malayalam and Hindi counseling that integrates professionalism, understanding, accessibility, and the highest standards of the client-centered approach.",
     },
