@@ -7,6 +7,8 @@ import {
   submitRelationshipAssessment,
 } from "@/services/relationship-assessment-api";
 import { RelationshipQuestion } from "@/types/relationship-assessment.types";
+import { submitCoupleAssessmentToSheet } from "@/services/couple-assessment-sheet";
+
 
 type Step = "questions" | "personalDetails" | "result";
 
@@ -91,24 +93,43 @@ export function useRelationshipAssessment() {
 async function submitAssessment() {
   setSubmitting(true);
 
-  const questionAnswersArray = Object.entries(questionAnswers).map(
-    ([question, answer]) => ({
-      question,
-      answer,
-    })
+  
+  const orderedAnswers = questions.map(
+    (q) => questionAnswers[q.questionText] ?? ""
   );
 
-  const payload = {
-    responses: {
-      personalDetails,
-      questionAnswers: questionAnswersArray,
-    },
-  };
-
-  console.log("Submitting payload:", payload);
-
   try {
-    const result = await submitRelationshipAssessment(payload);
+   
+    console.log("➡️ Starting backend submit");
+
+    const result = await submitRelationshipAssessment({
+      responses: {
+        personalDetails,
+        questionAnswers: Object.entries(questionAnswers).map(
+          ([question, answer]) => ({ question, answer })
+        ),
+      },
+    });
+
+    console.log("✅ Backend submit success", result);
+
+    try {
+      console.log("➡️ Submitting to Google Sheet");
+
+      await submitCoupleAssessmentToSheet({
+        name: personalDetails.name,
+        mobile: personalDetails.mobile,
+        riskLevel: result.riskLevel,
+        normalizedScore: result.normalizedScore,
+        resultLabel: result.resultLabel,
+        answers: orderedAnswers,
+      });
+
+      console.log("✅ Sheet submission success");
+    } catch (sheetError) {
+     
+      console.warn("⚠️ Sheet submission failed", sheetError);
+    }
 
     sessionStorage.setItem(
       "relationshipResult",
@@ -117,11 +138,13 @@ async function submitAssessment() {
 
     router.push("/relationship-wellness-check/result");
   } catch (error) {
-    console.error("Failed to submit assessment", error);
+    console.error(" Assessment submission failed", error);
+    alert("Something went wrong. Please try again.");
   } finally {
     setSubmitting(false);
   }
 }
+
 
   return {
     loading,
