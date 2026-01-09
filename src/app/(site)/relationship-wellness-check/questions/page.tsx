@@ -39,9 +39,9 @@ export default function RelationshipQuestionsPage() {
     );
   }
 
-  // -------------------------------
+
   // PERSONAL DETAILS STEP
-  // -------------------------------
+
   if (step === "personalDetails") {
     return (
       <PersonalDetailsUI
@@ -72,11 +72,12 @@ export default function RelationshipQuestionsPage() {
     );
   }
 
-  // -------------------------------
+
   // QUESTIONS STEP
-  // -------------------------------
+
   return (
-    <section className="pt-20 bg-gradient-to-b from-[#00989D] via-cyan-400 to-cyan-200">
+    <section className="pt-20 bg-gradient-to-b from-[#00989D] to-[#17A2B8]">
+
       {/* Progress */}
       <Progress current={currentIndex + 1} total={totalQuestions} />
 
