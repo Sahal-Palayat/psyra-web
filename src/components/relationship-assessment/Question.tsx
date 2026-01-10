@@ -13,11 +13,11 @@ interface QuestionProps {
 }
 
 const OPTIONS = [
-  { label: "Always", value: 5, color: "from-white/90 to-white/80" },
-  { label: "Often", value: 4, color: "from-white/80 to-white/70" },
-  { label: "Sometimes", value: 3, color: "from-white/70 to-white/60" },
-  { label: "Rarely", value: 2, color: "from-white/60 to-white/50" },
-  { label: "Never", value: 1, color: "from-white/50 to-white/40" },
+  { label: "Always", color: "from-emerald-400/25 to-emerald-300/10" },
+  { label: "Often", color: "from-blue-400/25 to-blue-300/10" },
+  { label: "Sometimes", color: "from-amber-400/25 to-amber-300/10" },
+  { label: "Rarely", color: "from-orange-400/25 to-orange-300/10" },
+  { label: "Never", color: "from-red-400/25 to-red-300/10" },
 ];
 
 export default function Question({
@@ -32,28 +32,33 @@ export default function Question({
   const [selected, setSelected] = useState<string | null>(
     selectedValue ?? null
   );
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     setSelected(selectedValue ?? null);
   }, [selectedValue, question]);
 
-  const [hovered, setHovered] = useState<string | null>(null);
-
   const handleSelect = (label: string) => {
     setSelected(label);
-    setTimeout(() => onSelect(label), 200);
+
+    setTimeout(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        onSelect(label);
+        setIsVisible(true);
+      }, 150);
+    }, 200);
   };
 
   return (
     <div className="w-full px-4 py-12 sm:py-16">
       <div className="max-w-2xl mx-auto">
-        {/* Navigation row */}
         {(canGoBack || canGoNext) && (
           <div className="mb-8 flex items-center justify-between">
             {canGoBack ? (
               <button
                 onClick={onBack}
-                className="text-sm text-white/80 hover:text-white transition"
+                className="text-xs sm:text-sm text-white/70"
               >
                 ← Back
               </button>
@@ -64,7 +69,7 @@ export default function Question({
             {canGoNext && (
               <button
                 onClick={onNext}
-                className="text-sm text-white/80 hover:text-white transition"
+                className="text-xs sm:text-sm text-white/70"
               >
                 Next →
               </button>
@@ -72,55 +77,56 @@ export default function Question({
           </div>
         )}
 
-        {/* Question text */}
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-12 leading-relaxed text-balance">
-          {question}
-        </h2>
+        <div
+          className={`transition-all duration-300 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+          }`}
+        >
+          <div className="rounded-2xl border border-white/15 bg-gradient-to-br from-white/8 to-white/3 backdrop-blur-lg p-8 sm:p-10 shadow-xl">
+            {/* Question */}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-10 leading-relaxed text-balance">
+              {question}
+            </h2>
 
-        {/* Options grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {OPTIONS.map((option) => (
-            <button
-              key={option.label}
-              onClick={() => handleSelect(option.label)}
-              onMouseEnter={() => setHovered(option.label)}
-              onMouseLeave={() => setHovered(null)}
-              className={`
-                relative group px-6 py-5 rounded-xl
-                border-2 border-white/20
-                transition-all duration-200 ease-out
-                ${
-                  selected === option.label
-                    ? `bg-gradient-to-r ${option.color} border-white text-teal-900 shadow-lg scale-105`
-                    : hovered === option.label
-                    ? `border-white/40 bg-white/10 backdrop-blur-sm scale-102`
-                    : "bg-white/5 backdrop-blur-sm hover:border-white/30 text-white"
-                }
-                ${
-                  selected !== null && selected !== option.label
-                    ? "opacity-50"
-                    : ""
-                }
-                active:scale-95
-              `}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-lg font-semibold">
-                  {option.label}
-                </span>
+            {/* Options */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {OPTIONS.map((option) => (
+                <button
+                  key={option.label}
+                  onClick={() => handleSelect(option.label)}
+                  className={`
+                    relative px-4 py-3 sm:px-5 sm:py-4 rounded-lg
+                    border-2 transition-all duration-200 ease-out
+                    ${
+                      selected === option.label
+                        ? `bg-gradient-to-r ${option.color} border-white/70 text-white shadow-xl scale-105 ring-2 ring-white/25`
+                        : "bg-white/15 border-white/40 backdrop-blur-md text-white/95"
+                    }
+                    ${
+                      selected !== null && selected !== option.label
+                        ? "opacity-40"
+                        : ""
+                    }
+                    active:scale-95
+                  `}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm sm:text-base font-semibold">
+                      {option.label}
+                    </span>
 
-                <div
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    selected === option.label
-                      ? "bg-teal-900 scale-150"
-                      : hovered === option.label
-                      ? "bg-white scale-100"
-                      : "bg-white/40"
-                  }`}
-                />
-              </div>
-            </button>
-          ))}
+                    <div
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                        selected === option.label
+                          ? "bg-white scale-150 shadow-md"
+                          : "bg-white/60"
+                      }`}
+                    />
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
