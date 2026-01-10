@@ -14,6 +14,7 @@ import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 import LatestBlogs from "@/components/blogs/latestBlogs";
 import AssessmentCTA from "@/components/assessment/AssessmentCTA";
+import HowTherapyWorks from "@/components/HowTherapyWorks";
 
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
@@ -64,10 +65,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#F7F8F2] py-16">
-  <DynamicPsychologistCarousel />
-</section>
+      <HowTherapyWorks />
 
+      <section className="bg-[#F7F8F2] py-16">
+        <DynamicPsychologistCarousel />
+      </section>
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}

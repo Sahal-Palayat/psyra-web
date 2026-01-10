@@ -5,47 +5,134 @@ interface LocationHeroProps {
   countryName: string;
 }
 
-export default function LocationHero({
-  countryName,
-}: LocationHeroProps) {
+
+
+export default function LocationHero({ countryName }: LocationHeroProps) {
+  
+
   return (
-    <section className="relative pt-36 md:pt-40 pb-28 px-6 overflow-hidden bg-linear-to-b from-[#43C6AC]/20 via-[#43C6AC]/10 to-transparent text-[#1a3c34]">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-20 bg-[url('/images/pattern.png')] mix-blend-multiply" />
+    <section
+      className="
+    relative overflow-hidden
+    pt-0 pb-0
+    md:pt-40 md:pb-28
+    text-[#1a3c34]
+  "
+    >
+      {/*  MOBILE HERO  */}
+      <div className="relative md:hidden w-full h-[420px] overflow-hidden">
+        {/* Background image */}
+        <img
+          src="/images/online-therapy-global-psyra.webp"
+          alt={`Online therapy and mental health support in ${countryName}`}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
-      <div className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Badge */}
-        <div className="inline-block px-5 py-2 mb-10 rounded-full border border-[#43C6AC]/40 bg-[#43C6AC]/10 backdrop-blur-sm">
-          <p className="text-[11px] md:text-xs uppercase tracking-[0.35em] font-bold text-[#1a3c34]">
-            Online Therapy for{" "}
-            <span className="text-[#43C6AC]">{countryName}</span> Residents
-          </p>
-        </div>
+        {/* Soft blend overlay  */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#EAF7F5]/95 via-[#EAF7F5]/80 to-transparent" />
 
-        {/* Heading */}
-        <h1 className="text-6xl md:text-[8.5rem] font-serif leading-[0.9] tracking-tighter mb-14 text-balance">
-          Wellness meets <br />
-          <span className="italic text-[#43C6AC]">purposeful</span> care.
-        </h1>
+        {/* Text */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="px-6 max-w-[260px]">
+            <p className="text-[10px] tracking-widest uppercase text-[#43C6AC] mb-3">
+              Online Therapy for {countryName}
+            </p>
 
-        {/* Content */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-4xl mx-auto">
-          <div className="flex-1 text-center md:text-left space-y-4">
-            <p className="text-xl leading-relaxed text-[#1a3c34]/80 text-pretty">
+            <h1 className="text-2xl font-serif leading-snug text-[#1a3c34] mb-3">
+              Wellness meets{" "}
+              <span className="italic text-[#43C6AC]">purposeful</span> care.
+            </h1>
+
+            <p className="text-sm text-[#1a3c34]/80 mb-5">
               Thoughtful, confidential mental health support designed for people
               navigating life in {countryName}.
             </p>
-          </div>
 
-          {/* CTA */}
-          <div className="flex flex-col items-center md:items-end gap-6">
             <Link
               href="/services"
-              className="group flex items-center gap-4 px-8 py-4 bg-[#43C6AC] text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#1a3c34] transition-all duration-300 shadow-xl shadow-[#43C6AC]/20"
+              className="
+          inline-flex items-center gap-2
+          px-5 py-3
+          bg-[#2FB9A3] text-white
+          rounded-full text-sm font-semibold
+          shadow-md
+        "
             >
-              Get Therapy
-              <MoveRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Get Therapy →
             </Link>
+          </div>
+        </div>
+      </div>
+
+
+      {/* DESKTOP HERO */}
+
+      <div className="hidden md:block">
+        
+        <img
+          src="/images/online-therapy-global-psyra.webp"
+          alt={`Online therapy and mental health support in ${countryName}`}
+          className="sr-only"
+        />
+
+        {/* Background image (right aligned globe) */}
+        <div
+          className="
+        absolute inset-0
+        bg-no-repeat bg-cover bg-center
+      "
+          style={{
+            backgroundImage: `url('/images/online-therapy-global-psyra.webp')`,
+          }}
+        />
+
+       
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Badge */}
+          <div className="inline-block px-5 py-2 mb-10 rounded-full border border-[#43C6AC]/40 bg-[#43C6AC]/10 backdrop-blur-sm">
+            <p className="text-[11px] md:text-xs uppercase tracking-[0.35em] font-bold text-[#1a3c34]">
+              Online Therapy for{" "}
+              <span className="text-[#43C6AC]">{countryName}</span> Residents
+            </p>
+          </div>
+
+          {/* Heading */}
+          <h1
+            className="text-4xl md:text-[4.75rem] lg:text-[5.25rem]
+               font-serif leading-[1.05] tracking-tight
+               mb-8 text-balance md:text-left text-center max-w-2xl"
+          >
+            Wellness meets <br />
+            <span className="italic text-[#43C6AC]">purposeful</span> care.
+          </h1>
+
+          {/* Content + CTA */}
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-12 max-w-5xl">
+            <div className="max-w-xl text-center md:text-left space-y-4">
+              <p className="text-sm md:text-base leading-relaxed text-[#1a3c34]/70 text-pretty max-w-md">
+                Thoughtful, confidential mental health support designed for
+                people navigating life in {countryName}.
+              </p>
+              <div className="flex justify-center md:justify-start">
+                <Link
+                  href="/services"
+                  className="
+          group inline-flex items-center gap-3
+          px-6 py-3
+          bg-[#2FB9A3] text-white
+          rounded-full
+          text-sm font-semibold uppercase tracking-wide
+          hover:bg-[#259E8C]
+          transition-all duration-300
+          shadow-md
+        "
+                >
+                  Get Therapy
+                  <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
