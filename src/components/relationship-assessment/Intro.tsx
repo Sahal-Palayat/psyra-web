@@ -6,7 +6,7 @@ interface IntroProps {
 
 export default function Intro({ onStart }: IntroProps) {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-12 sm:py-20 bg-gradient-to-b from-[#00989D] via-[#2DB8C4] to-[#A8E6ED]">
+    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-12 sm:py-20 bg-gradient-to-b from-[#00989D] to-[#17A2B8]">
       <div className="w-full max-w-2xl">
       
 
