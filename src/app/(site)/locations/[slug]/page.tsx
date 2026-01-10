@@ -83,7 +83,7 @@ export default async function OnlineMalayalamCounsellingPage({
     <main className="min-h-screen bg-[#f8faf9] font-sans selection:bg-primary/10">
       <LocationHero countryName={locationData.countryName} />
       <LocationContextSection countryName={locationData.countryName} />
-      <HowTherapyWorks bgClassName="bg-[#eef4f1]" />
+      <HowTherapyWorks bgColor="bg-[#eef4f1]" />
 
       <MalayalamCounsellingSection
         countryName={locationData.countryName}

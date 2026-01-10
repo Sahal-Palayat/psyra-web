@@ -1,102 +1,155 @@
-"use client";
+"use client"
 
-import { Users, CalendarDays, CreditCard, Video } from "lucide-react";
-import Link from "next/link";
-interface HowTherapyWorksProps {
-  bgClassName?: string;
+import type React from "react"
+import { Users, Calendar, CheckCircle, Video } from "lucide-react"
+import Link from "next/link"
+
+interface TimelineStage {
+  step: number
+  icon: React.ReactNode
+  title: string
+  description: string
+  accent: string
 }
 
+interface HowItWorksProps {
+  bgColor?: string
+}
 
-const steps = [
+const stages: TimelineStage[] = [
   {
-    icon: Users,
+    step: 1,
+    icon: <Users className="w-6 h-6" />,
     title: "Select a Therapist",
     description:
-      "Discover experienced psychologists and find the one who feels right for you.",
+      "Browse our team of certified mental health professionals and choose a therapist whose expertise and approach align with your specific needs and preferences.",
+    accent: "from-gray-400 to-gray-500",
   },
   {
-    icon: CalendarDays,
+    step: 2,
+    icon: <Calendar className="w-6 h-6" />,
     title: "Book a Slot",
-    description: "Pick a convenient date and time that fits your schedule.",
+    description:
+      "Schedule your therapy session by selecting an available time slot that works best for your schedule. We offer flexible appointment times throughout the week.",
+    accent: "from-teal-500 to-teal-600",
   },
   {
-    icon: CreditCard,
+    step: 3,
+    icon: <CheckCircle className="w-6 h-6" />,
     title: "Confirm Your Session",
-    description: "Securely book your session with a simple payment process.",
+    description:
+      "Receive a confirmation of your appointment with session details. Get instant access to your therapy portal and receive a reminder before your scheduled session.",
+    accent: "from-teal-500 to-teal-600",
   },
   {
-    icon: Video,
+    step: 4,
+    icon: <Video className="w-6 h-6" />,
     title: "Attend Therapy Session",
     description:
-      "Join your private online session from anywhere, safely and comfortably.",
+      "Join your secure, confidential video therapy session. Receive personalized guidance and professional support to help you overcome challenges and achieve emotional wellness.",
+    accent: "from-teal-500 to-emerald-600",
   },
-];
+]
 
-export default function HowTherapyWorks({
-  bgClassName,
-}: HowTherapyWorksProps) {
+export default function HowItWorks({ bgColor = "bg-[#F7F8F2]" }: HowItWorksProps) {
   return (
-    <section className={`pt-8 pb-6 md:pt-12 md:pb-10  ${bgClassName ?? "bg-[#F7F8F2]"}`} >
+    <section className={`py-20 md:py-28 ${bgColor}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading Section */}
-        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <h2 className="text-gray-600 italic text-base sm:text-lg md:text-2xl mb-3 md:mb-4">
-            Starting Therapy with Psyra
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 text-balance">
+            How Online Therapy Works
           </h2>
-
-          <p className="text-gray-600 max-w-2xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed">
-            Start your healing journey in just a few simple steps. We make
-            connecting with a therapist effortless and accessible.
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto text-balance leading-relaxed">
+            Professional mental health counseling made simple and accessible. Connect with certified therapists for
+            personalized support tailored to your unique needs.
           </p>
         </div>
 
-        {/* Steps Container */}
-        <div className="relative">
-          <div className="hidden lg:block absolute top-16 left-12 right-12 h-1 bg-gradient-to-r from-[#43C6AC] via-[#43C6AC]/50 to-transparent pointer-events-none" />
+        {/* Desktop Timeline */}
+        <div className="hidden lg:block">
+          <div className="relative">
+            <div className="absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-gray-300 via-teal-400 to-emerald-400" />
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, index) => (
-              <div key={index} className="group relative">
-                <div className="h-full bg-white rounded-2xl p-8 border border-[#0F3D3E]/8 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-[#43C6AC]/30">
-                  {/* Step Number Badge */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#43C6AC] to-[#0F3D3E]/80 flex items-center justify-center">
-                      <span className="text-lg font-bold text-white">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <div className="w-10 h-10 rounded-lg bg-[#43C6AC]/15 flex items-center justify-center group-hover:bg-[#43C6AC]/25 transition-colors">
-                      <step.icon className="w-5 h-5 text-[#0F3D3E]" />
+            <div className="relative grid grid-cols-4 gap-8">
+              {stages.map((stage, index) => (
+                <div key={index} className="text-center">
+                  <div
+                    className={`relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${stage.accent} text-white mb-8 shadow-lg hover:shadow-xl transition-all hover:scale-110 cursor-pointer`}
+                  >
+                    {stage.icon}
+                    <div className="absolute -top-2 -right-2 w-7 h-7 bg-white text-gray-900 rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                      {stage.step}
                     </div>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-base sm:text-lg font-semibold text-[#0F3D3E] mb-2 group-hover:text-[#43C6AC] transition-colors">
-                    {step.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-[#5F7775] leading-relaxed">
-                    {step.description}
-                  </p>
+                  <div className="space-y-3">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900">
+                      {stage.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      {stage.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-10 md:mt-12 text-center">
-          <p className="text-xs sm:text-sm text-gray-600 mb-4">
-            Ready to start your therapy journey?
+        {/* Mobile Timeline */}
+        <div className="lg:hidden space-y-10">
+          {stages.map((stage, index) => (
+            <div key={index} className="relative flex gap-6">
+              {index < stages.length - 1 && (
+                <div className="absolute left-10 top-24 bottom-0 w-1 bg-gradient-to-b from-teal-400 to-emerald-400" />
+              )}
+
+              <div className="relative flex-shrink-0">
+                <div
+                  className={`flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${stage.accent} text-white shadow-lg`}
+                >
+                  {stage.icon}
+                </div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-white text-gray-900 rounded-full flex items-center justify-center text-xs font-bold shadow-md">
+                  {stage.step}
+                </div>
+              </div>
+
+              <div className="flex-1 pt-2">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
+                  {stage.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  {stage.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 text-center">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-full px-6 py-3 mb-6 border border-teal-200">
+            <span className="text-sm font-semibold text-teal-700">
+              Ready to Transform Your Mental Health?
+            </span>
+          </div>
+
+          <p className="text-gray-600 mb-8 max-w-lg mx-auto text-sm sm:text-base">
+            Connect with our qualified therapist today and begin your journey toward emotional resilience, mental
+            wellness, and personal growth.
           </p>
-          <Link href="/psychologists">
-            <button className="px-8 py-3 bg-[#00989D] text-white rounded-full font-medium rounded-full hover:bg-[#00989D]/90 transition-colors shadow-md hover:shadow-lg">
-              Get Started Today
-            </button>
+
+          <Link
+            href="/psychologists"
+            aria-label="Book an online therapy session with a certified psychologist"
+            className="px-8 py-4 bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 inline-block"
+          >
+            Book Your First Session
           </Link>
         </div>
       </div>
     </section>
-  );
+  )
 }
