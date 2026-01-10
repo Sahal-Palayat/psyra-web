@@ -10,45 +10,49 @@ export default function LocationContextSection({
 }: LocationContextSectionProps) {
   return (
     <section className="px-6 py-16 md:py-24 bg-linear-to-r from-[#eef4f1] to-[#e4ede8]">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl md:ml-24">
+
         <div className="flex flex-col md:flex-row gap-10 md:gap-12">
           
           {/* LEFT CONTENT */}
-          <div className="flex-1">
+          <div className="flex-1 text-left">
             <h2 className="text-3xl md:text-4xl font-serif leading-tight mb-6 text-[#00989D]">
-              Online therapy support for people living in {countryName}
+              Online Malayalam counselling for Malayalis living in {countryName}
             </h2>
 
             <div className="space-y-5 text-base md:text-lg text-[#1a3c34]/70 leading-relaxed">
               <p>
-                Living in {countryName} can be challenging. Work pressure,
-                distance from family, and adjusting to a new lifestyle can
-                affect mental health over time.
+                Living in {countryName} can bring unique emotional challenges for
+                Malayalis. Work pressure, distance from family, cultural
+                differences, and adjusting to a new lifestyle can slowly affect
+                mental health.
               </p>
 
               <p>
-                Psyra provides online therapy designed for people living in{" "}
-                {countryName}, making mental health support accessible,
-                confidential, and easy to fit into daily life.
+                Psyra offers confidential online Malayalam counselling for
+                Malayalis in {countryName} who feel more comfortable expressing
+                their thoughts and emotions in their native language. Our
+                Malayalam-speaking psychologists understand both the language and
+                cultural background.
               </p>
 
               <p className="mt-4 text-sm text-[#0F3D3E]">
-  Many people experience{" "}
-  <Link
-    href="/concerns/stress"
-    className="font-semibold underline underline-offset-4"
-  >
-    chronic stress
-  </Link>{" "}
-  and{" "}
-  <Link
-    href="/concerns/anxiety-disorders"
-    className="font-semibold underline underline-offset-4"
-  >
-    anxiety
-  </Link>{" "}
-  while living abroad.
-</p>
+                Many Malayalis experience{" "}
+                <Link
+                  href="/concerns/stress"
+                  className="font-semibold underline underline-offset-4"
+                >
+                  chronic stress
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/concerns/anxiety-disorders"
+                  className="font-semibold underline underline-offset-4"
+                >
+                  anxiety
+                </Link>{" "}
+                while living abroad.
+              </p>
             </div>
           </div>
 
@@ -58,17 +62,17 @@ export default function LocationContextSection({
               {
                 icon: ShieldCheck,
                 label: "Confidential Therapy",
-                desc: "Private online sessions",
+                desc: "Private online sessions in Malayalam",
               },
               {
                 icon: Globe,
-                label: `${countryName}-Focused`,
-                desc: "Support that understands your lifestyle",
+                label: `${countryName} Focused Care`,
+                desc: `Support that understands life in ${countryName}`,
               },
               {
                 icon: Clock,
                 label: "Flexible Scheduling",
-                desc: "Therapy that fits your time",
+                desc: "Therapy that fits your daily routine",
               },
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-4">

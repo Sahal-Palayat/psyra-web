@@ -9,6 +9,7 @@ import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarouse
 import ConcernHero from "@/components/locations/ConcernHero";
 import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSectionServer";
 import LocationFaq from "@/components/locations/LocationFaq";
+import HowTherapyWorks from "@/components/HowTherapyWorks";
 
 import { getLocationData } from "@/lib/getLocationData";
 import { getLocationFaqs } from "@/constants/locationFaq";
@@ -82,11 +83,13 @@ export default async function OnlineMalayalamCounsellingPage({
     <main className="min-h-screen bg-[#f8faf9] font-sans selection:bg-primary/10">
       <LocationHero countryName={locationData.countryName} />
       <LocationContextSection countryName={locationData.countryName} />
+      <HowTherapyWorks bgClassName="bg-[#eef4f1]" />
 
       <MalayalamCounsellingSection
         countryName={locationData.countryName}
         displayName={locationData.displayName}
       />
+      
 
       <section className="bg-[#eef4f1] py-16">
         <DynamicPsychologistCarousel />
