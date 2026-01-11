@@ -6,18 +6,22 @@ export interface RelationshipQuestion {
   reverseScored: boolean;
 }
 
-export interface RelationshipAnswer {
-  questionId: string;
-  selectedScore: number;
+export interface RelationshipSubmitPayload {
+  responses: {
+    personalDetails: {
+      name: string;
+      mobile: string;
+    };
+    questionAnswers: {
+      question: string;
+      answer: string;
+    }[];
+  };
 }
 
-export interface RelationshipAnswerPayload {
-  answers: RelationshipAnswer[];
-}
-
-export interface RelationshipResult {
+export interface RelationshipAssessmentResult {
+  rawScore: number;
   normalizedScore: number;
-  avgToxicity: number;
   riskLevel: "healthy" | "moderate" | "high";
   resultLabel: string;
 }

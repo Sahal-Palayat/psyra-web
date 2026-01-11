@@ -10,8 +10,7 @@ export default function Result({
   normalizedScore,
   riskLevel,
   onCtaClick,
-}: ResultProps){
-
+}: ResultProps) {
   let title = "Your relationship wellness check";
   let description =
     "Thank you for taking a moment to reflect on your relationship.";
@@ -46,8 +45,22 @@ export default function Result({
     statusIcon = "✓";
   }
 
+  let reassuranceText = "";
+
+if (riskLevel === "high") {
+  reassuranceText =
+    "Support is available, and you don’t have to navigate this alone.";
+} else if (riskLevel === "moderate") {
+  reassuranceText =
+    "Noticing these patterns early can be helpful.";
+} else {
+  reassuranceText =
+    "It’s okay to pause and acknowledge what’s working well.";
+}
+
+
   return (
-    <div className="pt-20 px-4 pb-16 bg-gradient-to-b from-[#00989D] via-cyan-400 to-cyan-200">
+    <div className="pt-20 px-4 pb-16 bg-gradient-to-b from-[#00989D] to-[#17A2B8]">
       <div className="w-full max-w-xl mx-auto space-y-6 mt-6">
         <div className="flex justify-center">
           <div
@@ -107,9 +120,8 @@ export default function Result({
           </p>
 
           <div className="bg-white/10 rounded-2xl p-4 border border-white/20">
-            <p className="text-center text-white/90 text-sm">
-              You're not alone. Many people feel this way, and support is
-              available.
+            <p className="text-center text-white/90 text-sm leading-relaxed">
+              {reassuranceText}
             </p>
           </div>
         </div>
