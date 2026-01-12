@@ -16,12 +16,14 @@ export default function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* Menu Links */}
             <div>
-              <h3 className="text-lg font-semibold text-yellow-400">Menu</h3>
+              <h3 className="text-lg font-semibold text-[#6ef1ec]">Menu</h3>
+
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
+
                   >
                     Home
                   </Link>
@@ -29,7 +31,8 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/services"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
+
                   >
                     Services
                   </Link>
@@ -37,7 +40,8 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/about-us"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
+
                   >
                     About us
                   </Link>
@@ -45,7 +49,8 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/contact-us"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
+
                   >
                     Contact
                   </Link>
@@ -53,7 +58,8 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/blogs"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
+
                   >
                     Blogs
                   </Link>
@@ -63,14 +69,12 @@ export default function Footer() {
 
             {/* Mental Health Concerns */}
             <div>
-              <h3 className="text-lg font-semibold text-yellow-400">
-                Concerns
-              </h3>
+              <h3 className="text-lg font-semibold text-[#6ef1ec]">Concerns</h3>
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
                     href="/concerns"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Anxiety
                   </Link>
@@ -78,7 +82,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/concerns"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Depression
                   </Link>
@@ -86,7 +90,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/concerns"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Stress
                   </Link>
@@ -94,7 +98,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/concerns"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Trauma
                   </Link>
@@ -102,7 +106,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/concerns"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Relationships
                   </Link>
@@ -112,14 +116,12 @@ export default function Footer() {
 
             {/* Services */}
             <div>
-              <h3 className="text-lg font-semibold text-yellow-400">
-                Services
-              </h3>
+              <h3 className="text-lg font-semibold text-[#6ef1ec]">Services</h3>
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
                     href="/individual"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Individual Therapy
                   </Link>
@@ -127,7 +129,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/couple-therapy"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Couples Therapy
                   </Link>
@@ -137,14 +139,12 @@ export default function Footer() {
 
             {/* About Us Links */}
             <div>
-              <h3 className="text-lg font-semibold text-yellow-400">
-                About us
-              </h3>
+              <h3 className="text-lg font-semibold text-[#6ef1ec]">About us</h3>
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Our Team
                   </Link>
@@ -152,7 +152,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Our Approach
                   </Link>
@@ -160,7 +160,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Testimonials
                   </Link>
@@ -168,7 +168,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="hover:text-yellow-200 transition-colors"
+                    className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Careers
                   </Link>
@@ -179,41 +179,41 @@ export default function Footer() {
 
           {/* Social Media Icons */}
           <div className="mt-8">
-            <h3 className="text-lg font-semibold text-yellow-400 mb-3">
+            <h3 className="text-lg font-semibold text-[#6ef1ec] mb-3">
               Connect With Us
             </h3>
             <div className="flex space-x-4">
               <Link
                 href="https://www.facebook.com/p/Psyra-61574368229866/"
-                className="hover:text-yellow-400 transition-colors"
+                className="hover:text-[#6EF1EC] transition-colors"
               >
                 <Facebook size={24} />
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link
                 href="https://www.instagram.com/psyra.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                className="hover:text-yellow-400 transition-colors"
+                className="hover:text-[#6EF1EC] transition-colors"
               >
                 <Instagram size={24} />
                 <span className="sr-only">Instagram</span>
               </Link>
               <Link
                 href="https://x.com/PsyraCare"
-                className="hover:text-yellow-400 transition-colors"
+                className="hover:text-[#6EF1EC] transition-colors"
               >
                 <Twitter size={24} />
                 <span className="sr-only">X</span>
               </Link>
               <Link
                 href="https://www.linkedin.com/company/psyra-care/posts/?feedView=all"
-                className="hover:text-yellow-400 transition-colors"
+                className="hover:text-[#6EF1EC] transition-colors"
               >
                 <Linkedin size={24} />
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
                 href="https://www.youtube.com/@psyramentalhealth"
-                className="hover:text-yellow-400 transition-colors"
+                className="hover:text-[#6EF1EC] transition-colors"
               >
                 <Youtube size={24} />
                 <span className="sr-only">YouTube</span>
@@ -232,14 +232,14 @@ export default function Footer() {
             updates to support your mental health journey.
           </p>
           {/* Subscription Form */}
-          <div className="flex flex-col sm:flex-row border border-yellow-400 rounded-lg overflow-hidden">
+          <div className="flex flex-col sm:flex-row border border-[#6ef1ec] rounded-lg overflow-hidden">
             <input
               type="email"
               placeholder="Enter your email address"
               className="p-3 flex-grow text-black text-sm outline-none"
               aria-label="Email address"
             />
-            <button className="bg-yellow-400 text-black font-semibold px-5 py-3 hover:bg-yellow-300 transition-colors">
+            <button className="bg-[#23ebe4] text-black font-semibold px-5 py-3 hover:bg-[#23ebe4] transition-colors">
               Join now
             </button>
           </div>
@@ -266,21 +266,21 @@ export default function Footer() {
           <div className="flex space-x-6 text-sm">
             <Link
               href="/privacy-policy"
-              className="hover:text-yellow-200 transition-colors"
+              className="hover:text-[#6EF1EC] transition-colors"
             >
               Privacy Policy
             </Link>
 
             <Link
               href="/terms-conditions"
-              className="hover:text-yellow-200 transition-colors"
+              className="hover:text-[#6EF1EC] transition-colors"
             >
               Terms of Service
             </Link>
 
             <Link
               href="/refund-policy"
-              className="hover:text-yellow-200 transition-colors"
+              className="hover:text-[#6EF1EC] transition-colors"
             >
               Refund Policy
             </Link>
