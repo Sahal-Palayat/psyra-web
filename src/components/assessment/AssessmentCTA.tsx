@@ -1,75 +1,75 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { cn } from "@/lib/utils"
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface AssessmentCTAProps {
-  title: string
-  description?: string
-  buttonText?: string
-  href: string
-  variant?: "inline" | "sidebar" | "sticky"
-  align?: "left" | "center"
-  showIcon?: boolean
-  className?: string
+  className?: string;
 }
 
-export default function AssessmentCTA({
-  title,
-  description,
-  buttonText = "Start Assessment",
-  href,
-  variant = "inline",
-  align = "left",
-  showIcon = true,
-  className,
-}: AssessmentCTAProps) {
+export default function AssessmentCTA({ className }: AssessmentCTAProps) {
   return (
     <section
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-teal-100 bg-white/90 p-8 shadow-sm transition-all duration-300 hover:shadow-md",
-        {
-          "sticky top-24": variant === "sidebar",
-          "fixed bottom-0 left-0 right-0 z-50 rounded-none border-x-0 border-b-0 border-t border-teal-100 bg-white/95 p-6 backdrop-blur-sm":
-            variant === "sticky",
-          "text-center": align === "center",
-        },
+        "relative overflow-hidden rounded-3xl",
+        "bg-[radial-gradient(120%_120%_at_0%_0%,#12C6C3_0%,#00989D_55%,#00888C_100%)]",
+        "p-6 md:p-10",
         className
       )}
     >
-      {/* Top accent bar */}
-      {/* <div className="absolute left-0 top-0 h-1 w-full bg-[#00989D]" /> */}
+      {/* Ambient depth */}
+      <div className="absolute -top-16 -right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
+      <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-black/10 rounded-full blur-3xl" />
 
-      <div className="relative">
-        <h3 className="text-balance text-xl font-semibold leading-tight tracking-tight text-[#00989D]">
-          {title}
-        </h3>
+      {/* MAIN LAYOUT */}
+      <div className="relative grid gap-6 md:grid-cols-[1fr_auto] items-center">
+        {/* LEFT: CONTENT */}
+        <div className="space-y-3 max-w-xl">
+          <h3 className="text-xl md:text-2xl font-semibold text-white leading-tight">
+            Not sure where to start?
+            <span className="block mt-2 italic font-serif text-sm md:text-base text-white/90">
+              Understand what you’re feeling - gently.
+            </span>
+          </h3>
 
-        {description && (
-          <p className="mt-3 text-pretty text-sm leading-relaxed text-[#00989D]/70">
-            {description}
+          <p className="text-white/90 text-sm md:text-base leading-relaxed">
+            Take a short self-assessment to reflect on your thoughts and
+            emotions. Get clear, supportive insights in just a few minutes.
           </p>
-        )}
+        </div>
 
-        <Link
-          href={href}
-          className={cn(
-            "mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#00989D] px-6 py-3 text-sm font-medium text-white shadow-sm transition-all duration-200  hover:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007C80]/40 focus-visible:ring-offset-2",
-            {
-              "w-full": variant === "sticky",
-            }
-          )}
-        >
-          {buttonText}
-          {showIcon && (
-            <ArrowRight
-              size={16}
-              className="transition-transform duration-200 group-hover:translate-x-0.5"
-            />
-          )}
-        </Link>
+        {/* RIGHT: CTA */}
+        <div className="flex md:justify-end">
+          <Link
+            href="/assessments"
+            className="
+    group inline-flex items-center gap-2
+    rounded-full
+    px-6 py-3
+    text-sm md:text-base font-medium
+    text-white
+
+    bg-white/15
+    backdrop-blur-md
+    border border-white/25
+
+    shadow-[0_12px_32px_rgba(0,0,0,0.25)]
+    transition-all duration-300
+
+    hover:bg-white/25
+    hover:border-white/40
+    hover:-translate-y-0.5
+    hover:shadow-[0_16px_40px_rgba(0,0,0,0.35)]
+
+    active:scale-95
+  "
+          >
+            Understand your mind
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </section>
-  )
+  );
 }
