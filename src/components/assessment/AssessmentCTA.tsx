@@ -23,9 +23,9 @@ export default function AssessmentCTA({ className }: AssessmentCTAProps) {
       <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-black/10 rounded-full blur-3xl" />
 
       {/* MAIN LAYOUT */}
-      <div className="relative grid gap-6 md:grid-cols-[1fr_auto] items-center">
+      <div className="relative grid gap-6 items-center text-center md:text-left md:grid-cols-[1fr_auto]">
         {/* LEFT: CONTENT */}
-        <div className="space-y-3 max-w-xl">
+        <div className="space-y-3 max-w-xl mx-auto md:mx-0">
           <h3 className="text-xl md:text-2xl font-semibold text-white leading-tight">
             Not sure where to start?
             <span className="block mt-2 italic font-serif text-sm md:text-base text-white/90">
@@ -40,7 +40,7 @@ export default function AssessmentCTA({ className }: AssessmentCTAProps) {
         </div>
 
         {/* RIGHT: CTA */}
-        <div className="flex md:justify-end">
+        <div className="flex justify-center">
           <Link
             href="/assessments"
             className="

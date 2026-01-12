@@ -55,7 +55,7 @@ export function HowItWorks({
   bgColor = "bg-[#F7F8F2]",
 }: HowItWorksProps) {
   return (
-    <section className={`w-full py-12 md:py-14 px-4 md:px-6 ${bgColor}`}>
+    <section className={`w-full pt-12 md:pt-14 pb-6 px-4 md:px-6 ${bgColor}`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-10">
@@ -106,7 +106,8 @@ export function HowItWorks({
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-10 md:mt-12">
+        <div className="text-center mt-6 md:mt-8">
+
           <p className="text-base md:text-lg font-semibold text-[#1a3c34] mb-5 tracking-tight">
             Ready to begin your therapy journey?
           </p>
