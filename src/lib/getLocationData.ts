@@ -1,3 +1,11 @@
+export type Testimonial = {
+  _id: string;
+  name: string;
+  role?: string;
+  message: string;
+};
+
+
 export async function getLocationData(countrySlug: string) {
   if (!countrySlug) return null;
 
@@ -14,3 +22,25 @@ export async function getLocationData(countrySlug: string) {
     return null;
   }
 }
+
+
+export async function getTestimonialsByLocation(
+  locationSlug: string
+): Promise<Testimonial[]> {
+  if (!locationSlug) return [];
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/testimonial?location=${locationSlug}`,
+    {
+      cache: "force-cache",
+    }
+  );
+
+  if (!res.ok) {
+    // fail silently – testimonials should never break the page
+    return [];
+  }
+
+  return res.json();
+}
+
