@@ -13,9 +13,8 @@ interface Step {
 }
 
 interface HowItWorksProps {
-  bgColor?: string
+  bgColor?: string;
 }
-
 
 const steps: Step[] = [
   {
@@ -37,7 +36,8 @@ const steps: Step[] = [
   {
     id: 3,
     title: "Confirm Your Session",
-    description: "Confirm your appoinment and get booking confirmation.",
+    description:
+      "Confirm your appointment and get your booking confirmation.",
     icon: <CheckCircle className="w-6 h-6 text-[#1a3c34]" />,
     gradient: "from-[#CFF6EA] via-[#D6F4FF] to-[#BDEBFF]",
   },
@@ -55,14 +55,16 @@ export function HowItWorks({
   bgColor = "bg-[#F7F8F2]",
 }: HowItWorksProps) {
   return (
-    <section className={`w-full pt-12 md:pt-14 pb-6 px-4 md:px-6 ${bgColor}`}>
+    <section
+      className={`w-full py-14 md:py-20 px-4 md:px-8 ${bgColor}`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-10">
-          <h2 className="text-2xl md:text-3xl font-serif text-gray-700 mb-2">
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-2xl md:text-3xl font-serif text-gray-700 mb-3">
             Your Journey to Therapy
           </h2>
-          <p className="text-xs md:text-sm text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Start your online therapy journey with Psyra in a few simple steps.
             Connect with experienced psychologists through secure, confidential,
             and convenient online counselling sessions.
@@ -70,22 +72,23 @@ export function HowItWorks({
         </div>
 
         {/* Steps */}
-        <div className="flex flex-col md:flex-row gap-6 md:gap-4 px-2 md:px-0">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-5">
           {steps.map((step) => (
             <div key={step.id} className="flex-1">
               <div
                 className={`
-                  h-full p-6 md:p-7
+                  h-full
+                  px-6 py-5 md:px-7 md:py-6
                   rounded-[2.2rem]
                   bg-gradient-to-br ${step.gradient}
-                  shadow-[0_4px_14px_rgba(0,0,0,0.06)]
+                  shadow-[0_6px_18px_rgba(0,0,0,0.08)]
                   transition-all duration-300
-                  md:hover:shadow-[0_10px_26px_rgba(0,0,0,0.12)]
+                  md:hover:shadow-[0_14px_30px_rgba(0,0,0,0.14)]
                   flex flex-col items-center text-center
                 `}
               >
                 {/* Icon */}
-                <div className="mb-4">
+                <div className="mb-3">
                   <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-white/70 backdrop-blur shadow-sm">
                     {step.icon}
                   </div>
@@ -97,7 +100,7 @@ export function HowItWorks({
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs md:text-sm leading-relaxed text-[#1a3c34]/75">
+                <p className="text-xs md:text-sm leading-relaxed text-[#1a3c34]/75 max-w-[18rem] mx-auto">
                   {step.description}
                 </p>
               </div>
@@ -106,9 +109,8 @@ export function HowItWorks({
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-6 md:mt-8">
-
-          <p className="text-base md:text-lg font-semibold text-[#1a3c34] mb-5 tracking-tight">
+        <div className="text-center mt-10 md:mt-14">
+          <p className="text-base md:text-lg font-semibold text-[#1a3c34] mb-6 tracking-tight">
             Ready to begin your therapy journey?
           </p>
 
@@ -116,12 +118,12 @@ export function HowItWorks({
             href="/psychologists"
             className="
               inline-flex items-center justify-center
-              px-7 py-3.5 rounded-full
+              px-8 py-3.5 rounded-full
               text-sm md:text-base font-semibold text-white
               bg-[#00989D]
-              shadow-[0_10px_28px_rgba(20,184,166,0.35)]
-              hover:shadow-[0_14px_34px_rgba(20,184,166,0.45)]
-              hover:scale-[1.03]
+              shadow-[0_12px_30px_rgba(20,184,166,0.35)]
+              hover:shadow-[0_18px_40px_rgba(20,184,166,0.45)]
+              hover:scale-[1.04]
               transition-all duration-300
             "
           >
