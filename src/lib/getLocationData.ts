@@ -1,7 +1,6 @@
 export type Testimonial = {
   _id: string;
   name: string;
-  role?: string;
   message: string;
 };
 
@@ -32,7 +31,7 @@ export async function getTestimonialsByLocation(
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/testimonial?location=${locationSlug}`,
     {
-      cache: "force-cache",
+      cache: "no-store",
     }
   );
 
@@ -43,4 +42,5 @@ export async function getTestimonialsByLocation(
 
   return res.json();
 }
+
 

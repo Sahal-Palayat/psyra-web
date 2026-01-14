@@ -10,7 +10,8 @@ import ConcernHero from "@/components/locations/ConcernHero";
 import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSectionServer";
 import LocationFaq from "@/components/locations/LocationFaq";
 import {HowItWorks} from "@/components/HowTherapyWorks";
-import TestimonialsSection from "@/components/locations/TestimonialsSection";
+import TestimonialsSection from "@/components/locations/TestimonialsSection.server";
+
 
 
 import { getLocationData } from "@/lib/getLocationData";
