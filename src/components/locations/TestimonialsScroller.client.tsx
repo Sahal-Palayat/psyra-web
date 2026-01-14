@@ -76,7 +76,7 @@ export default function TestimonialsScroller({
     return () => viewport.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* ---------------- LIFECYCLE ---------------- */
+
   useEffect(() => {
     startAutoScroll();
 
@@ -122,7 +122,6 @@ export default function TestimonialsScroller({
         >
           {children}
 
-          {/* MOBILE END SPACER*/}
           <div className="flex-shrink-0 w-4 md:hidden" />
 
           {/* DESKTOP LOOP DUPLICATION */}

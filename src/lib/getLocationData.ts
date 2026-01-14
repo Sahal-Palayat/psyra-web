@@ -36,7 +36,6 @@ export async function getTestimonialsByLocation(
   );
 
   if (!res.ok) {
-    // fail silently – testimonials should never break the page
     return [];
   }
 
