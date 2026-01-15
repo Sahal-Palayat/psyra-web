@@ -11,21 +11,23 @@ interface AssessmentCTAProps {
 export default function AssessmentCTA({ className }: AssessmentCTAProps) {
   return (
     <section
-      className={cn(
-        "relative overflow-hidden rounded-3xl",
-        "bg-[radial-gradient(120%_120%_at_0%_0%,#12C6C3_0%,#00989D_55%,#00888C_100%)]",
-        "p-6 md:p-10",
-        className
-      )}
-    >
+  className={cn(
+    "relative overflow-hidden rounded-3xl",
+    "bg-[radial-gradient(120%_120%_at_0%_0%,#12C6C3_0%,#00989D_55%,#00888C_100%)]",
+    "px-6 py-5 md:px-10 md:py-7",
+    className
+  )}
+>
+
       {/* Ambient depth */}
       <div className="absolute -top-16 -right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
       <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-black/10 rounded-full blur-3xl" />
 
       {/* MAIN LAYOUT */}
-      <div className="relative grid gap-6 items-center text-center md:text-left md:grid-cols-[1fr_auto]">
+      <div className="relative grid gap-4 md:gap-6 items-center md:grid-cols-[1fr_auto]">
+
         {/* LEFT: CONTENT */}
-        <div className="space-y-3 max-w-xl mx-auto md:mx-0">
+        <div className="space-y-3 max-w-xl">
           <h3 className="text-xl md:text-2xl font-semibold text-white leading-tight">
             Not sure where to start?
             <span className="block mt-2 italic font-serif text-sm md:text-base text-white/90">
@@ -43,27 +45,7 @@ export default function AssessmentCTA({ className }: AssessmentCTAProps) {
         <div className="flex justify-center">
           <Link
             href="/assessments"
-            className="
-    group inline-flex items-center gap-2
-    rounded-full
-    px-6 py-3
-    text-sm md:text-base font-medium
-    text-white
-
-    bg-white/15
-    backdrop-blur-md
-    border border-white/25
-
-    shadow-[0_12px_32px_rgba(0,0,0,0.25)]
-    transition-all duration-300
-
-    hover:bg-white/25
-    hover:border-white/40
-    hover:-translate-y-0.5
-    hover:shadow-[0_16px_40px_rgba(0,0,0,0.35)]
-
-    active:scale-95
-  "
+           className="group inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#2A2A2A] text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             Understand your mind
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
