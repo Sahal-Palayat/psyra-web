@@ -5,18 +5,16 @@ interface LocationHeroProps {
   countryName: string;
 }
 
-
-
 export default function LocationHero({ countryName }: LocationHeroProps) {
-  
-
   return (
     <section
       className="
-    relative overflow-hidden
-    pt-0 pb-0
-    md:pt-40 md:pb-28
+    relative overflow-hidden isolate
+    md:min-h-[100vh]
+    pt-0 md:pt-40
+    pb-0 md:pb-28
     text-[#1a3c34]
+    bg-[#EAF7F5]
   "
     >
       {/*  MOBILE HERO  */}
@@ -64,11 +62,9 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
         </div>
       </div>
 
-
       {/* DESKTOP HERO */}
 
       <div className="hidden md:block">
-        
         <img
           src="/images/online-therapy-global-psyra.webp"
           alt={`Online therapy and mental health support in ${countryName}`}
@@ -78,15 +74,13 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
         {/* Background image (right aligned globe) */}
         <div
           className="
-        absolute inset-0
-        bg-no-repeat bg-cover bg-center
-      "
+    absolute inset-0
+    bg-no-repeat bg-cover bg-center
+  "
           style={{
             backgroundImage: `url('/images/online-therapy-global-psyra.webp')`,
           }}
         />
-
-       
 
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Badge */}
