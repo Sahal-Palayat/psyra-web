@@ -114,6 +114,10 @@ export default function RootLayout({
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#005657" />
         <meta name="msapplication-TileColor" content="#005657" />
+        <meta
+          name="google-site-verification"
+          content="sKE2qGpBEPUd_RXkbWMRSwrE7tWkdQapBJmse3ZtYdE"
+        />
 
         {/* Structured data for better Google indexing */}
         <script
