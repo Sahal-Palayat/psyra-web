@@ -1,15 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MoveRight } from "lucide-react";
 
 interface LocationHeroProps {
   countryName: string;
 }
 
-
-
 export default function LocationHero({ countryName }: LocationHeroProps) {
-  
-
   return (
     <section
       className="
@@ -19,7 +16,6 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
     md:pt-0 md:pb-0 md:h-screen
     px-0
     bg-[#EAF7F5]
-    md:bg-transparent
     text-[#1a3c34]
   "
     >
@@ -30,12 +26,14 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
         
         {/* Image - shown first, full-width edge-to-edge */}
         <div className="w-screen h-[320px] sm:h-[360px] overflow-hidden bg-[#EAF7F5] relative left-1/2 -translate-x-1/2">
-          <img
+          <Image
             src="/images/online-malayalam-counselling-hero-mobile.webp"
             alt={`Online therapy and mental health support in ${countryName}`}
-            className="w-full h-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
             style={{ objectPosition: 'center 70%' }}
-            loading="eager"
+            priority
           />
         </div>
 
@@ -72,32 +70,24 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
         </div>
       </div>
 
-
       {/* DESKTOP HERO */}
 
-      <div className="hidden md:flex md:flex-col md:h-full md:relative">
+      <div className="hidden md:flex md:flex-col md:h-full md:relative bg-[#EAF7F5]">
         {/* Smooth transition gradient from navbar - desktop */}
         <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/50 via-white/20 to-transparent pointer-events-none z-10" />
-        
-        <img
-          src="/images/online-malayalam-counselling-hero-desktop.webp"
-          alt={`Online therapy and mental health support in ${countryName}`}
-          className="sr-only"
-        />
 
-        {/* Background image (right aligned globe) - full coverage */}
-        <div
-          className="absolute inset-0 bg-no-repeat"
-          style={{
-            backgroundImage: `url('/images/online-therapy-global-psyra.webp')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center right',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-        
-        {/* Fallback background color to prevent any white gaps */}
-        <div className="absolute inset-0 bg-[#EAF7F5] -z-10" />
+        {/* Desktop hero background image */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/images/online-malayalam-counselling-hero-desktop.webp"
+            alt={`Online therapy and mental health support in ${countryName}`}
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            priority
+            quality={90}
+          />
+        </div>
 
         {/* Content container */}
         <div className="flex-1 flex items-center relative z-10">

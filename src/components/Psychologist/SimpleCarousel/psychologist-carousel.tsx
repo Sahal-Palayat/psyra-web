@@ -68,7 +68,7 @@ export default function PsychologistCarousel() {
 
   return (
     <section id="psychologists bg-[#F7F8F2]">
-      <div className="container mx-auto mt-18">
+     <div className="container mx-auto pt-6 pb-8">
         <CarouselHeader />
 
         <Carousel3DMinimal data={data} />

@@ -54,22 +54,16 @@ export default function Home() {
       <Concerns />
       <section className="bg-[#F7F8F2]">
         <div className="max-w-7xl mx-auto px-4">
-          <AssessmentCTA
-            title="Not sure where to start?"
-            description="Take a quick self-assessment to understand how you're feeling."
-            buttonText="Take an Assessment"
-            href="/assessments"
-            align="center"
-            className="my-12 md:my-16"
-          />
+          <AssessmentCTA />
         </div>
       </section>
 
       <HowItWorks />
 
-      <section className="bg-[#F7F8F2] py-16">
-        <DynamicPsychologistCarousel />
-      </section>
+      <section className="bg-[#F7F8F2] pt-0 pb-4">
+  <DynamicPsychologistCarousel />
+</section>
+
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}

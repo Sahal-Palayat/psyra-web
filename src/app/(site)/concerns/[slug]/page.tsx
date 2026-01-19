@@ -4,7 +4,8 @@ import PsyraSupportJourney from "@/components/concerns/PsyraSupportJourney";
 import MobileTherapyCTA from "@/components/concerns/MobileTherapyCTA";
 import FAQSection from "@/components/concerns/FAQSection";
 import StickyTherapyCTA from "@/components/concerns/StickyTherapyCTA";
-import AssessmentCTA from "@/components/assessment/AssessmentCTA";
+// import AssessmentCTA from "@/components/assessment/AssessmentCTA";
+import AssessmentSidebarCTA from "@/components/concerns/AssessmentSidebarCTA";
 
 interface PageProps {
   params: Promise<{
@@ -21,9 +22,8 @@ const concernSlugToAssessmentKey: Record<string, string> = {
   "panic-attacks": "panic",
   "personality-disorders": "personality",
   "sexual-issues": "sexual",
-  "ocd": "ocd",
+  ocd: "ocd",
 };
-
 
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
@@ -78,20 +78,16 @@ export default async function Page({ params }: PageProps) {
       <section className="px-6 pt-8 pb-28 md:pt-12 md:pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-
             {/* LEFT */}
             <div className="lg:col-span-8 space-y-12">
               <ConcernContent blocks={concern.blocks} />
 
-              
-
-              <div className="block lg:hidden">
+              <div className="lg:hidden">
                 {assessmentKey && (
-                  <AssessmentCTA
+                  <AssessmentSidebarCTA
                     title={`Assess your ${concern.title}`}
                     description="Answer a few questions to understand your current state."
                     href={`/how-is-mind?concern=${assessmentKey}`}
-                    align="center"
                   />
                 )}
               </div>
@@ -109,22 +105,25 @@ export default async function Page({ params }: PageProps) {
             <div className="lg:col-span-4 hidden lg:block">
               <div className="sticky top-32 space-y-8">
                 <StickyTherapyCTA />
-                <AssessmentCTA
-                  title={`Assess your ${concern.title}`}
-                  description="Answer a few questions to understand your current state."
-                  href={`/how-is-mind?concern=${assessmentKey}`}
-                />
+
+                {assessmentKey && (
+                  <AssessmentSidebarCTA
+                    title={`Assess your ${concern.title}`}
+                    description="Answer a few questions to understand your current state."
+                    href={`/how-is-mind?concern=${assessmentKey}`}
+                  />
+                )}
               </div>
             </div>
+
             <MobileTherapyCTA />
           </div>
         </div>
-{concern.faqs?.length > 0 && (
-  <div className="mt-16">
-    <FAQSection faqs={concern.faqs} />
-  </div>
-)}
-    
+        {concern.faqs?.length > 0 && (
+          <div className="mt-16">
+            <FAQSection faqs={concern.faqs} />
+          </div>
+        )}
       </section>
     </div>
   );
