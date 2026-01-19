@@ -28,18 +28,22 @@ export async function getTestimonialsByLocation(
 ): Promise<Testimonial[]> {
   if (!locationSlug) return [];
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/testimonial?location=${locationSlug}`,
-    {
-      cache: "no-store",
-    }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/testimonial?location=${locationSlug}`,
+      {
+        cache: "no-store",
+      }
+    );
 
-  if (!res.ok) {
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch {
     return [];
   }
-
-  return res.json();
 }
 
 

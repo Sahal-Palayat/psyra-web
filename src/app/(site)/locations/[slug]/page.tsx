@@ -81,6 +81,12 @@ export default async function OnlineMalayalamCounsellingPage({
   if (!locationData) notFound();
   const testimonials = await getTestimonialsByLocation(countrySlug);
 
+// console.log('[SERVER] API URL:', process.env.NEXT_PUBLIC_API_URL);
+// console.log('[SERVER] Country slug:', countrySlug);
+// console.log('[SERVER] Testimonials received:', testimonials);
+// console.log('[SERVER] Testimonials length:', testimonials?.length);
+// console.log('[SERVER] Testimonials type:', typeof testimonials);
+
 
   const faqs = getLocationFaqs(
     locationData.countryName,
