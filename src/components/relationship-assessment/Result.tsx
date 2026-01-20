@@ -60,7 +60,7 @@ if (riskLevel === "high") {
 
 
   return (
-    <div className="pt-20 px-4 pb-16 bg-gradient-to-b from-[#00989D] to-[#17A2B8]">
+    <div className="pt-20 px-4 pb-16 bg-gray-100">
       <div className="w-full max-w-xl mx-auto space-y-6 mt-6">
         <div className="flex justify-center">
           <div
@@ -70,9 +70,9 @@ if (riskLevel === "high") {
           </div>
         </div>
 
-        <div className="bg-white/15 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/30 shadow-xl space-y-5">
+        <div className="bg-gradient-to-b from-[#FFF5F0] to-[#FFE8E8] rounded-3xl p-6 sm:p-8 shadow-lg shadow-gray-200/50 space-y-5">
           {/* Title */}
-          <h1 className="text-2xl sm:text-3xl font-bold text-white text-center leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#2C2C2C] text-center leading-tight">
             {title}
           </h1>
 
@@ -89,7 +89,7 @@ if (riskLevel === "high") {
                   cy="64"
                   r="56"
                   fill="none"
-                  stroke="rgba(255,255,255,0.3)"
+                  stroke="#F5E0E0"
                   strokeWidth="8"
                 />
                 <circle
@@ -97,7 +97,7 @@ if (riskLevel === "high") {
                   cy="64"
                   r="56"
                   fill="none"
-                  stroke="white"
+                  stroke="#6B9E8F"
                   strokeWidth="8"
                   strokeDasharray={`${(normalizedScore / 100) * 351.86} 351.86`}
                   strokeLinecap="round"
@@ -105,22 +105,22 @@ if (riskLevel === "high") {
                 />
               </svg>
               <div className="text-center">
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-[#2C2C2C]">
                   {normalizedScore}
                 </div>
 
-                <div className="text-xs text-white/80">out of 100</div>
+                <div className="text-xs text-[#5A5A5A]">out of 100</div>
               </div>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-center text-white/95 text-lg leading-relaxed">
+          <p className="text-center text-[#5A5A5A] text-lg leading-relaxed">
             {description}
           </p>
 
-          <div className="bg-white/10 rounded-2xl p-4 border border-white/20">
-            <p className="text-center text-white/90 text-sm leading-relaxed">
+          <div className="bg-[#FDEFEF] rounded-2xl p-4 border border-[#F5E0E0]">
+            <p className="text-center text-[#5A5A5A] text-sm leading-relaxed">
               {reassuranceText}
             </p>
           </div>
@@ -129,8 +129,8 @@ if (riskLevel === "high") {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={onCtaClick}
-            className="px-8 py-4 bg-white text-[#00989D] font-bold rounded-xl
-                       hover:bg-white/90 hover:shadow-2xl
+            className="px-8 py-4 bg-[#6B9E8F] text-white font-bold rounded-xl
+                       hover:bg-[#5F8F82] hover:shadow-2xl
                        transition-all duration-300 transform hover:scale-105
                        shadow-lg"
           >
@@ -139,7 +139,7 @@ if (riskLevel === "high") {
         </div>
 
         {/* Disclaimer */}
-        <p className="text-center text-white/70 text-xs">
+        <p className="text-center text-[#5A5A5A]/70 text-xs">
           This check is not a diagnosis, but a step toward awareness and
           personal growth.
         </p>
