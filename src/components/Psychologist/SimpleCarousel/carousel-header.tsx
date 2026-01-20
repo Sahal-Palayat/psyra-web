@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 export function CarouselHeader() {
   return (
-    <div className="text-center mb-12">
+    <div className="text-center mb-8">
+
       <div className="text-center">
         <p className="text-gray-600 italic text-sm md:text-2xl">
           Meet Our Therapists

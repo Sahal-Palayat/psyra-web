@@ -74,7 +74,7 @@ export function CommunityEvents() {
   }
 
   return (
-    <div className="w-full px-4 py-12 md:px-8 lg:px-16">
+    <div className="w-full px-4 md:px-8 lg:px-16">
       {/* Header */}
       <div className="mb-12 text-center">
         <SectionHeader>Bringing people together in different cities</SectionHeader>

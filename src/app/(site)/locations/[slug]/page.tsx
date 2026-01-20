@@ -9,15 +9,20 @@ import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarouse
 import ConcernHero from "@/components/locations/ConcernHero";
 import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSectionServer";
 import LocationFaq from "@/components/locations/LocationFaq";
-import HowTherapyWorks from "@/components/HowTherapyWorks";
+import {HowItWorks} from "@/components/HowTherapyWorks";
+import TestimonialsSection from "@/components/locations/TestimonialsSection.server";
+
+
 
 import { getLocationData } from "@/lib/getLocationData";
 import { getLocationFaqs } from "@/constants/locationFaq";
+import { getTestimonialsByLocation } from "@/lib/getLocationData";
 
 function extractCountryFromSlug(slug: string): string | null {
   const match = slug.match(/-in-([a-zA-Z-]+)$/);
   return match ? match[1] : null;
 }
+
 
 export async function generateMetadata({
   params,
@@ -27,6 +32,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const countrySlug = extractCountryFromSlug(slug);
+  
 
   if (!countrySlug) {
     return {
@@ -73,6 +79,8 @@ export default async function OnlineMalayalamCounsellingPage({
   const locationData = await getLocationData(countrySlug);
 
   if (!locationData) notFound();
+  const testimonials = await getTestimonialsByLocation(countrySlug);
+
 
   const faqs = getLocationFaqs(
     locationData.countryName,
@@ -83,14 +91,17 @@ export default async function OnlineMalayalamCounsellingPage({
     <main className="min-h-screen bg-[#f8faf9] font-sans selection:bg-primary/10">
       <LocationHero countryName={locationData.countryName} />
       <LocationContextSection countryName={locationData.countryName} />
-      <HowTherapyWorks bgClassName="bg-[#eef4f1]" />
+      <HowItWorks bgColor="bg-[#eef4f1]" />                                
 
       <MalayalamCounsellingSection
         countryName={locationData.countryName}
         displayName={locationData.displayName}
       />
       
-
+<TestimonialsSection
+  testimonials={testimonials}
+  countryName={locationData.countryName}
+/>
       <section className="bg-[#eef4f1] py-16">
         <DynamicPsychologistCarousel />
       </section>
