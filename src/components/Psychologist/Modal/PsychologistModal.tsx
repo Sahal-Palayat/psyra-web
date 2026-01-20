@@ -57,13 +57,16 @@ export function PsychologistModal({
     packageAmount: typeof data?.price === 'number' ? data.price : 0,
   });
 
+  const [bookingId, setBookingId] = useState<string | null>(null);
+
+
   const fetchBookedSlots = async (date: string) => {
     try {
       const selectedDate = new Date(date);
       selectedDate.setDate(selectedDate.getDate() + 1);
       const adjustedDate = selectedDate.toISOString().split("T")[0];
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking?date=${adjustedDate}&psychologistId=${data?._id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${adjustedDate}&psychologistId=${data?._id}`
       );
       setBookedSlot(res?.data);
     } catch (error) {
@@ -206,57 +209,89 @@ export function PsychologistModal({
   //   }
   // };
 
-  const createSlot = async (): Promise<string | null> => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      date,
-      timeSlot,
-      sessionType,
-      therapyType,
-      packageTitle,
-    } = bookingData;
+  // const createSlot = async (): Promise<string | null> => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     date,
+  //     timeSlot,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle,
+  //   } = bookingData;
   
-    const adjustedDate =
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
+  
+  //   const variable = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     psychologistId: data?._id,
+  //     issue,
+  //     agreeToTerms,
+  //     packageTitle,
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot,
+  //     therapyType,
+  //     sessionType,
+  //   };
+  
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+  //       variable
+  //     );
+  
+  //     return response.data?._id; // ✅ bookingId
+  //   } catch (error) {
+  //     console.error("Booking failed", error);
+  //     toast.error("Booking failed");
+  //     return null;
+  //   }
+  // };
+  
+const createSlot = async (): Promise<string | null> => {
+  const { date, timeSlot } = bookingData;
+
+  if (!data?._id || !date || !timeSlot) {
+    toast.error("Please select date and time");
+    return null;
+  }
+
+  const payload = {
+    psychologistId: data._id,
+    date:
       date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
-  
-    const variable = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      psychologistId: data?._id,
-      issue,
-      agreeToTerms,
-      packageTitle,
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot,
-      therapyType,
-      sessionType,
-    };
-  
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
-        variable
-      );
-  
-      return response.data?._id; // ✅ bookingId
-    } catch (error) {
-      console.error("Booking failed", error);
-      toast.error("Booking failed");
-      return null;
-    }
+        ? date.toISOString().split("T")[0]
+        : date,
+    timeSlot,
   };
-  
+
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+      payload
+    );
+
+    return res.data._id; // ✅ bookingId
+  } catch (err) {
+    console.error("Booking failed", err);
+    toast.error("Slot already booked or invalid");
+    return null;
+  }
+};
+
+
 
   const getStepTitle = () => {
     switch (step) {
@@ -382,12 +417,11 @@ export function PsychologistModal({
 
   const handlePaymentAndBooking = async () => {
     try {
-      // 1️⃣ Initiate booking (LOCK SLOT)
-      const bookingId = await createSlot();
+      // 1️⃣ Initiate booking 
       if (!bookingId) {
-        toast.error("Failed to create booking");
-        return;
-      }
+      toast.error("Booking not initiated");
+      return;
+    }
   
       // 2️⃣ Create payment order
       const paymentRes = await axios.post(
@@ -455,17 +489,30 @@ export function PsychologistModal({
   };
   
 
-  const handleNext = () => {
-    if (step === 4) {
-      if (canProceedFromStep4()) {
-        handlePaymentAndBooking();
-      } else {
-        toast.error("Please fill all the details");
-      }
+const handleNext = async () => {
+  // STEP 3 → STEP 4 (LOCK SLOT HERE)
+  if (step === 3) {
+    const id = await createSlot(); // initiate booking
+    if (!id) return;
+
+    setBookingId(id);
+    nextStep();
+    return;
+  }
+
+  // STEP 4 → PAYMENT
+  if (step === 4) {
+    if (canProceedFromStep4()) {
+      handlePaymentAndBooking();
     } else {
-      nextStep();
+      toast.error("Please fill all the details");
     }
-  };
+    return;
+  }
+
+  nextStep();
+};
+
 
   if (!isOpen) return null;
 
