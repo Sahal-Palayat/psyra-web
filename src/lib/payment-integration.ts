@@ -25,7 +25,8 @@ export interface BookingPaymentData {
 export const processPayment = async (
   paymentData: BookingPaymentData,
   onSuccess?: (response: RazorpayPaymentResponse) => void,
-  onError?: (error: Error) => void
+  onError?: (error: Error) => void,
+  onDismiss?: () => void
 ): Promise<void> => {
   try {
 
@@ -55,7 +56,7 @@ export const processPayment = async (
 
       modal: {
         ondismiss: () => {
-          console.log(" Razorpay closed");
+          onDismiss?.();
         },
       },
     };

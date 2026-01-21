@@ -31,6 +31,9 @@ export function BookingModal({
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isRetryingPayment, setIsRetryingPayment] = useState(false);
+  const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
   const [successData, setSuccessData] = useState({
     name: "",
     email: "",
@@ -118,6 +121,10 @@ export function BookingModal({
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
       packageAmount: 0,
     });
+    setPaymentError(null);
+    setCurrentBookingId(null);
+    setIsPaying(false);
+    setIsRetryingPayment(false);
     onClose();
   };
 
@@ -227,6 +234,112 @@ export function BookingModal({
   //   // await axios.post('/api/book-slot', variable);
   // };
 
+  // Retry payment function for general booking
+  const retryGeneralPayment = async () => {
+    if (!currentBookingId) {
+      toast.error("No booking found. Please start over.");
+      return;
+    }
+
+    setIsRetryingPayment(true);
+    setPaymentError(null);
+
+    try {
+      // Check if booking is still valid for retry
+      const statusRes = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/${currentBookingId}`
+      );
+
+      const booking = statusRes.data;
+
+      if (booking?.paymentStatus !== 'failed' || booking?.bookingStatus !== 'initiated') {
+        setPaymentError("Booking is no longer available for retry. Please start a new booking.");
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      const lockExpiresAt = new Date(booking.lockExpiresAt);
+      const now = new Date();
+
+      if (lockExpiresAt <= now) {
+        setPaymentError("Payment window expired. Please start a new booking.");
+        setCurrentBookingId(null);
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      // Retry payment with existing booking (reuse bookingId, don't create new booking)
+      const { packageAmount } = bookingData;
+      
+      await processPayment(
+        {
+          bookingId: currentBookingId,
+          bookingType: "general",
+          totalAmount: packageAmount,
+        },
+        // ✅ Success callback
+        async () => {
+          setIsRetryingPayment(false);
+          setSuccessData({
+            name: bookingData.name || "",
+            email: bookingData.email || "",
+            phone: bookingData.phone || "",
+            packageTitle: bookingData.packageTitle || "Therapy Session",
+            date: bookingData.date instanceof Date
+              ? bookingData.date.toISOString().split("T")[0]
+              : "",
+            timeSlot: bookingData.timeSlot || "",
+            amount: packageAmount || 0,
+          });
+          setShowSuccessModal(true);
+        },
+        // ❌ Error callback
+        (error) => {
+          console.error("Payment failed:", error);
+          setIsRetryingPayment(false);
+          setPaymentError("Failed to retry payment. Please try again.");
+          toast.error("Payment failed");
+        },
+        // 🔹 Payment modal dismissed callback
+        async () => {
+          setIsRetryingPayment(false);
+          
+          // Check booking status again
+          try {
+            const statusRes = await axios.get(
+              `${process.env.NEXT_PUBLIC_API_URL}/general-booking/${currentBookingId}`
+            );
+            
+            const booking = statusRes.data;
+            
+            if (booking?.paymentStatus === 'failed' && booking?.bookingStatus === 'initiated') {
+              const lockExpiresAt = new Date(booking.lockExpiresAt);
+              const now = new Date();
+              
+              if (lockExpiresAt > now) {
+                const minutesRemaining = Math.ceil((lockExpiresAt.getTime() - now.getTime()) / 60000);
+                setPaymentError(`Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`);
+              } else {
+                setPaymentError("Payment window expired. Please start a new booking.");
+                setCurrentBookingId(null);
+              }
+            } else {
+              setPaymentError("Payment was cancelled. You can try again.");
+            }
+          } catch (error) {
+            console.error("Error checking booking status:", error);
+            setPaymentError("Payment was cancelled. You can try again.");
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Retry payment error:", error);
+      setIsRetryingPayment(false);
+      setPaymentError("Failed to retry payment. Please start a new booking.");
+      toast.error("Retry failed", "Please start a new booking.");
+    }
+  };
+
   const initiateGeneralBookingAndPay = async () => {
     const {
       name,
@@ -251,6 +364,7 @@ export function BookingModal({
 
     try {
       setIsPaying(true);
+      setPaymentError(null);
 
       // 🔹 STEP 1: Initiate GENERAL booking (soft lock)
       const bookingRes = await axios.post(
@@ -270,6 +384,9 @@ export function BookingModal({
         throw new Error("Booking ID not returned");
       }
 
+      setCurrentBookingId(bookingId);
+      setPaymentError(null);
+
       // 🔹 STEP 2: Create Razorpay payment
       await processPayment(
         {
@@ -279,6 +396,7 @@ export function BookingModal({
         },
         // ✅ Success callback (DO NOT confirm booking here)
         async () => {
+          setIsPaying(false);
           setSuccessData({
             name: name || "",
             email: email || "",
@@ -294,8 +412,47 @@ export function BookingModal({
         // ❌ Error callback
         (error) => {
           console.error("Payment failed:", error);
-          toast.error("Payment failed");
           setIsPaying(false);
+          setPaymentError("Failed to initiate payment. Please try again.");
+          toast.error("Payment failed");
+        },
+        // 🔹 Payment modal dismissed callback
+        async () => {
+          setIsPaying(false);
+          
+          // Check booking status to see if payment failed
+          if (bookingId) {
+            try {
+              const statusRes = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_URL}/general-booking/${bookingId}`
+              );
+              
+              const booking = statusRes.data;
+              
+              // If payment failed (backend webhook already processed it)
+              if (booking?.paymentStatus === 'failed' && booking?.bookingStatus === 'initiated') {
+                const lockExpiresAt = new Date(booking.lockExpiresAt);
+                const now = new Date();
+                
+                // Check if lock is still valid (within 10-minute window)
+                if (lockExpiresAt > now) {
+                  const minutesRemaining = Math.ceil((lockExpiresAt.getTime() - now.getTime()) / 60000);
+                  setPaymentError(`Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`);
+                } else {
+                  setPaymentError("Payment window expired. Please start a new booking.");
+                  setCurrentBookingId(null);
+                }
+              } else {
+                // User just cancelled, no payment attempt
+                setPaymentError("Payment was cancelled. You can try again.");
+              }
+            } catch (error) {
+              console.error("Error checking booking status:", error);
+              setPaymentError("Payment was cancelled. You can try again.");
+            }
+          } else {
+            setPaymentError("Payment was cancelled. You can try again.");
+          }
         }
       );
     } catch (error) {
@@ -407,6 +564,38 @@ export function BookingModal({
 
             {/* Fixed Footer */}
             <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+              {/* Payment Error Message */}
+              {paymentError && step === 2 && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex-1">
+                      <p className="text-sm text-red-800">{paymentError}</p>
+                      {paymentError.includes("retry") && currentBookingId && (
+                        <button
+                          onClick={retryGeneralPayment}
+                          disabled={isRetryingPayment}
+                          className="mt-2 text-sm font-semibold text-red-700 hover:text-red-800 underline disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {isRetryingPayment ? "Retrying..." : "Retry Payment"}
+                        </button>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setPaymentError(null)}
+                      className="text-red-600 hover:text-red-800"
+                      aria-label="Dismiss error"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
                 <button
                   onClick={step === 1 ? onClose : prevStep}
@@ -435,15 +624,15 @@ export function BookingModal({
                         toast.error("Please fill in all required fields");
                       }
                     }}
-                    disabled={!canProceedFromStep2() || isPaying}
-                    aria-busy={isPaying}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${!canProceedFromStep2() || isPaying
+                    disabled={!canProceedFromStep2() || isPaying || isRetryingPayment}
+                    aria-busy={isPaying || isRetryingPayment}
+                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${!canProceedFromStep2() || isPaying || isRetryingPayment
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
                       }`}
                   >
 
-                    {isPaying ? (
+                    {isPaying || isRetryingPayment ? (
                       <>
                         <svg
                           className="animate-spin h-5 w-5 text-white flex-shrink-0"
@@ -465,7 +654,7 @@ export function BookingModal({
                             d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                           />
                         </svg>
-                        <span>Processing...</span>
+                        <span>{isRetryingPayment ? "Retrying..." : "Processing..."}</span>
                       </>
                     ) : (
                       <span>Book Session</span>

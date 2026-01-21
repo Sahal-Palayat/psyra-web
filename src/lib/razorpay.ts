@@ -246,6 +246,8 @@ export interface RazorpayOptions {
   modal?: {
     ondismiss?: () => void;
   };
+  // Payment failure callback (custom handling)
+  onPaymentFailed?: (error: { code: string; description: string; source: string; step: string; reason: string }) => void;
   [key: string]: unknown;
 }
 

@@ -58,6 +58,9 @@ export function PsychologistModal({
   });
 
   const [bookingId, setBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isRetryingPayment, setIsRetryingPayment] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
 
 
   const fetchBookedSlots = async (date: string) => {
@@ -96,6 +99,10 @@ export function PsychologistModal({
       therapyType: "",
       packageAmount: typeof data?.price === 'number' ? data.price : 0,
     });
+    setBookingId(null);
+    setPaymentError(null);
+    setIsPaying(false);
+    setIsRetryingPayment(false);
     onClose();
   };
 
@@ -422,6 +429,9 @@ const createSlot = async (): Promise<string | null> => {
         toast.error("Booking not initiated");
         return;
       }
+
+      setIsPaying(true);
+      setPaymentError(null);
   
       // 2️⃣ Create payment order
       const paymentRes = await axios.post(
@@ -468,20 +478,105 @@ const createSlot = async (): Promise<string | null> => {
             timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
+          setIsPaying(false);
           setShowSuccessModal(true);
         },
         theme: { color: "#005657" },
         modal: {
-          ondismiss: () => {
-            console.log("Payment modal closed");
+          ondismiss: async () => {
+            // User closed/cancelled payment modal
+            setIsPaying(false);
+            
+            // Check booking status to see if payment failed
+            if (bookingId) {
+              try {
+                const statusRes = await axios.get(
+                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+                );
+                
+                const booking = statusRes.data;
+                
+                // If payment failed (backend webhook already processed it)
+                if (booking?.paymentStatus === 'failed' && booking?.bookingStatus === 'initiated') {
+                  const lockExpiresAt = new Date(booking.lockExpiresAt);
+                  const now = new Date();
+                  
+                  // Check if lock is still valid (within 10-minute window)
+                  if (lockExpiresAt > now) {
+                    const minutesRemaining = Math.ceil((lockExpiresAt.getTime() - now.getTime()) / 60000);
+                    setPaymentError(`Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`);
+                  } else {
+                    setPaymentError("Payment window expired. Please start a new booking.");
+                    // Reset booking ID to force new booking
+                    setBookingId(null);
+                  }
+                } else {
+                  // User just cancelled, no payment attempt
+                  setPaymentError("Payment was cancelled. You can try again.");
+                }
+              } catch (error) {
+                console.error("Error checking booking status:", error);
+                setPaymentError("Payment was cancelled. You can try again.");
+              }
+            } else {
+              setPaymentError("Payment was cancelled. You can try again.");
+            }
           },
         },
       };
   
       await openRazorpayPayment(razorpayOptions);
+      setPaymentError(null); // Clear any previous errors
     } catch (error) {
       console.error("Payment error", error);
-      toast.error("Payment failed");
+      setIsPaying(false);
+      setPaymentError("Failed to initiate payment. Please try again.");
+      toast.error("Payment failed", "Please try again.");
+    }
+  };
+
+  // Retry payment function
+  const retryPayment = async () => {
+    if (!bookingId) {
+      toast.error("No booking found. Please start over.");
+      return;
+    }
+
+    setIsRetryingPayment(true);
+    setPaymentError(null);
+
+    try {
+      // Check if booking is still valid for retry
+      const statusRes = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+      );
+
+      const booking = statusRes.data;
+
+      if (booking?.paymentStatus !== 'failed' || booking?.bookingStatus !== 'initiated') {
+        setPaymentError("Booking is no longer available for retry. Please start a new booking.");
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      const lockExpiresAt = new Date(booking.lockExpiresAt);
+      const now = new Date();
+
+      if (lockExpiresAt <= now) {
+        setPaymentError("Payment window expired. Please start a new booking.");
+        setBookingId(null);
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      // Retry payment with existing booking
+      await handlePaymentAndBooking();
+    } catch (error) {
+      console.error("Retry payment error:", error);
+      setPaymentError("Failed to retry payment. Please start a new booking.");
+      toast.error("Retry failed", "Please start a new booking.");
+    } finally {
+      setIsRetryingPayment(false);
     }
   };
   
@@ -612,6 +707,38 @@ const handleNext = async () => {
 
           {/* Footer */}
           <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+            {/* Payment Error Message */}
+            {paymentError && step === 4 && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="flex-1">
+                    <p className="text-sm text-red-800">{paymentError}</p>
+                    {paymentError.includes("retry") && bookingId && (
+                      <button
+                        onClick={retryPayment}
+                        disabled={isRetryingPayment}
+                        className="mt-2 text-sm font-semibold text-red-700 hover:text-red-800 underline disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isRetryingPayment ? "Retrying..." : "Retry Payment"}
+                      </button>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setPaymentError(null)}
+                    className="text-red-600 hover:text-red-800"
+                    aria-label="Dismiss error"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
               <button
                 onClick={step === 1 ? onClose : prevStep}
@@ -622,13 +749,13 @@ const handleNext = async () => {
 
               <button
                 onClick={handleNext}
-                disabled={!canProceed()}
-                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed()
+                disabled={!canProceed() || isPaying || isRetryingPayment}
+                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed() || isPaying || isRetryingPayment
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-[#005657] hover:bg-[#005657]/90"
                   }`}
               >
-                {getNextButtonText()}
+                {isPaying || isRetryingPayment ? "Processing..." : getNextButtonText()}
               </button>
             </div>
           </div>
