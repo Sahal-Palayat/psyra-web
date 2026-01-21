@@ -417,11 +417,11 @@ const createSlot = async (): Promise<string | null> => {
 
   const handlePaymentAndBooking = async () => {
     try {
-      // 1️⃣ Initiate booking 
+      // 1️⃣ Check booking ID
       if (!bookingId) {
-      toast.error("Booking not initiated");
-      return;
-    }
+        toast.error("Booking not initiated");
+        return;
+      }
   
       // 2️⃣ Create payment order
       const paymentRes = await axios.post(
@@ -433,16 +433,17 @@ const createSlot = async (): Promise<string | null> => {
         }
       );
   
-      const { orderId, amount, currency } = paymentRes.data;
-  
-      // 3️⃣ Open Razorpay checkout using utility function
+      // ✅ FIX: Extract from nested data property
+      const { orderId, amount, currency, keyId } = paymentRes.data.data;
+      
+      // ✅ Also use keyId from backend instead of RAZORPAY_CONFIG
       const razorpayOptions: RazorpayOptions = {
-        key: RAZORPAY_CONFIG.key_id || "",
-        amount,
+        key: keyId || RAZORPAY_CONFIG.key_id || "", // Use keyId from backend
+        amount, // ✅ Now this will be 99900 (correct amount)
         currency,
         name: "Psyra",
         description: "Psychologist Session",
-        order_id: orderId,
+        order_id: orderId, // ✅ Now this will be correct orderId
         prefill: {
           name: bookingData.name || "",
           email: bookingData.email || "",
@@ -455,8 +456,6 @@ const createSlot = async (): Promise<string | null> => {
           }),
         },
         handler: function (_response: RazorpayPaymentResponse) {
-          // ❌ DO NOT confirm booking here
-          // Webhook will handle it
           setSuccessData({
             name: bookingData.name || "",
             email: bookingData.email || "",
@@ -469,13 +468,11 @@ const createSlot = async (): Promise<string | null> => {
             timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
-  
           setShowSuccessModal(true);
         },
         theme: { color: "#005657" },
         modal: {
           ondismiss: () => {
-            // Handle modal dismissal if needed
             console.log("Payment modal closed");
           },
         },
