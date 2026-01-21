@@ -10,10 +10,12 @@ import {
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
-import {
-  processPayment,
-  type BookingPaymentData,
-} from "@/lib/payment-integration";
+// import {
+//   processPayment,
+//   type BookingPaymentData,
+// } from "@/lib/payment-integration";
+import { processPayment } from "@/lib/payment-integration";
+
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
@@ -39,7 +41,7 @@ export function BookingModal({
     amount: 0,
   });
 
-  console.log(price, packageTitle, "pricepricepricepricepriceprice");
+
 
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
@@ -64,10 +66,11 @@ export function BookingModal({
     }));
   }, [packageTitle]);
 
-  console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
+
+
+
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
-    console.log(data, "DATA IN UPDATE");
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
 
@@ -86,8 +89,6 @@ export function BookingModal({
         `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
       );
 
-      console.log("Adjusted Date (1 day less):", adjustedDate);
-      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
 
       setBookedSlot(res?.data?.data);
     } catch (error) {
@@ -140,7 +141,7 @@ export function BookingModal({
   };
 
   const canProceedFromStep2 = () => {
-    return (
+    const result = (
       bookingData.name.trim() !== "" &&
       bookingData.email.trim() !== "" &&
       bookingData.phone.trim() !== "" &&
@@ -150,163 +151,160 @@ export function BookingModal({
       bookingData.sessionType.trim() !== "" &&
       bookingData.agreeToTerms
     );
+
+    return result;
   };
 
-  const createSlot = async () => {
+  // const createSlot = async () => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     packageTitle,
+  //     date,
+  //     timeSlot,
+  //   } = bookingData;
+
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000) // add 1 day in ms
+  //       : new Date(); // fallback in case `date` is a string
+
+  //   const variable = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     packageTitle,
+  //     date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
+  //     timeSlot,
+  //   };
+
+  //   console.log("variable for API", variable);
+
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
+  //       variable
+  //     ); // Update endpoint
+
+  //     // if (response?.status) {
+  //     //   console.log("Booking successful", response.data);
+  //     //   // const phoneNumber = "+918891724199";
+  //     //   // const message = encodeURIComponent(
+  //     //   //   `Hi, I would like to book the following therapy session. Please share the payment details:
+
+  //     //   // Name: ${name}
+  //     //   // Age: ${age}
+  //     //   // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+  //     //   // Time Slot: ${timeSlot}
+
+  //     //   // Looking forward to your confirmation. Thank you!`
+  //     //   // );
+  //     //   // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+  //     // } else {
+  //     //   alert("Technincal issue");
+  //     // }
+  //     console.log(response,"TO TEST");
+
+  //     // alert("response:");
+  //   } catch (error) {
+  //     console.error("Booking failed", error);
+  //     toast.error("Technical issue");
+  //     // You can show an error toast or message here
+  //   }
+
+  //   // Now you can use this variable in your API call
+  //   // await axios.post('/api/book-slot', variable);
+  // };
+
+  const initiateGeneralBookingAndPay = async () => {
     const {
       name,
       email,
       phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date,
-      timeSlot,
-    } = bookingData;
-
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000) // add 1 day in ms
-        : new Date(); // fallback in case `date` is a string
-
-    const variable = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
-      timeSlot,
-    };
-
-    console.log("variable for API", variable);
-
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
-        variable
-      ); // Update endpoint
-
-      // if (response?.status) {
-      //   console.log("Booking successful", response.data);
-      //   // const phoneNumber = "+918891724199";
-      //   // const message = encodeURIComponent(
-      //   //   `Hi, I would like to book the following therapy session. Please share the payment details:
-
-      //   // Name: ${name}
-      //   // Age: ${age}
-      //   // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-      //   // Time Slot: ${timeSlot}
-
-      //   // Looking forward to your confirmation. Thank you!`
-      //   // );
-      //   // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-      // } else {
-      //   alert("Technincal issue");
-      // }
-      console.log(response,"TO TEST");
-      
-      // alert("response:");
-    } catch (error) {
-      console.error("Booking failed", error);
-      toast.error("Technical issue");
-      // You can show an error toast or message here
-    }
-
-    // Now you can use this variable in your API call
-    // await axios.post('/api/book-slot', variable);
-  };
-
-  const handlePaymentAndBooking = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
       packageTitle,
       date,
       timeSlot,
       packageAmount,
     } = bookingData;
 
+    if (!date || !timeSlot) {
+      toast.error("Date and time slot required");
+      return;
+    }
+
+
     const adjustedDate =
       date instanceof Date
         ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
+        : new Date(date);
 
-    // Prepare payment data
-    const paymentData: BookingPaymentData = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      psychologistId: "687a42319c601751727e7b1f",
-      therapyType: bookingData.therapyType,
-      packageTitle: packageTitle || "Therapy Session",
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot: timeSlot || "10:00-11:00",
-      totalAmount: packageAmount, // You can make this dynamic based on package
-    };
-    createSlot();
-    // Process payment with loading state until Razorpay window opens
-    setIsPaying(true);
-    
-    // Use requestAnimationFrame to ensure state update renders on mobile
-    await new Promise(resolve => requestAnimationFrame(() => {
-      requestAnimationFrame(resolve);
-    }));
-    
     try {
+      setIsPaying(true);
+
+      // 🔹 STEP 1: Initiate GENERAL booking (soft lock)
+      const bookingRes = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/initiate`,
+        {
+          date: adjustedDate.toISOString().split("T")[0],
+          timeSlot,
+          name,
+          email,
+          phone,
+        }
+      );
+
+      const bookingId = bookingRes.data?._id;
+
+      if (!bookingId) {
+        throw new Error("Booking ID not returned");
+      }
+
+      // 🔹 STEP 2: Create Razorpay payment
       await processPayment(
-        paymentData,
-        // On success - show success modal
-        async (response) => {
-          console.log("Payment successful, now booking session...", response);
-          
-          // Set success data for modal
+        {
+          bookingId,
+          bookingType: "general",
+          totalAmount: packageAmount,
+        },
+        // ✅ Success callback (DO NOT confirm booking here)
+        async () => {
           setSuccessData({
             name: name || "",
             email: email || "",
             phone: phone || "",
             packageTitle: packageTitle || "Therapy Session",
             date: adjustedDate.toISOString().split("T")[0],
-            timeSlot: timeSlot || "10:00-11:00",
+            timeSlot,
             amount: packageAmount || 0,
           });
 
-          // Show success modal
           setShowSuccessModal(true);
         },
-        // On error
+        // ❌ Error callback
         (error) => {
           console.error("Payment failed:", error);
+          toast.error("Payment failed");
           setIsPaying(false);
         }
       );
-      // At this point, Razorpay window has been opened
-      // Keep loading state visible for a minimum duration to ensure it's visible on mobile
-      await new Promise(resolve => setTimeout(resolve, 300));
-      setIsPaying(false);
     } catch (error) {
-      console.error("Payment error:", error);
+      console.error("Booking / Payment error:", error);
+      toast.error("Something went wrong");
       setIsPaying(false);
     }
   };
+
 
   if (!isOpen) return null;
 
@@ -421,11 +419,10 @@ export function BookingModal({
                   <button
                     onClick={nextStep}
                     disabled={step === 1 && !canProceedFromStep1()}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
-                      step === 1 && !canProceedFromStep1()
+                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${step === 1 && !canProceedFromStep1()
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}
+                      }`}
                   >
                     Continue to Details
                   </button>
@@ -433,19 +430,19 @@ export function BookingModal({
                   <button
                     onClick={() => {
                       if (canProceedFromStep2()) {
-                        handlePaymentAndBooking();
+                        initiateGeneralBookingAndPay();
                       } else {
-                        alert("Please fill in all required fields correctly.");
+                        toast.error("Please fill in all required fields");
                       }
                     }}
                     disabled={!canProceedFromStep2() || isPaying}
                     aria-busy={isPaying}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
-                      !canProceedFromStep2() || isPaying
+                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${!canProceedFromStep2() || isPaying
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}
+                      }`}
                   >
+
                     {isPaying ? (
                       <>
                         <svg

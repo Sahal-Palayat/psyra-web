@@ -490,8 +490,10 @@ const createSlot = async (): Promise<string | null> => {
   
 
 const handleNext = async () => {
+  
   // STEP 3 → STEP 4 (LOCK SLOT HERE)
   if (step === 3) {
+    console.log("🟢 Step 3: Creating slot...");
     const id = await createSlot(); // initiate booking
     if (!id) return;
 
