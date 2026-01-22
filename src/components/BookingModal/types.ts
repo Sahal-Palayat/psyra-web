@@ -2,7 +2,8 @@ import { Psychologist } from "@/types/psychologist";
 
 export interface BookingData {
   // Slot selection
-  date?: Date;
+  // date?: Date;
+  date?: string;
   timeSlot?: string;
 
   // User details

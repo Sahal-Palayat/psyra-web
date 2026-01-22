@@ -65,17 +65,15 @@ export function PsychologistModal({
 
   const fetchBookedSlots = async (date: string) => {
     try {
-      const selectedDate = new Date(date);
-      selectedDate.setDate(selectedDate.getDate() + 1);
-      const adjustedDate = selectedDate.toISOString().split("T")[0];
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${adjustedDate}&psychologistId=${data?._id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`
       );
-      setBookedSlot(res?.data);
+      setBookedSlot(res?.data || []);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
+  
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -270,6 +268,10 @@ export function PsychologistModal({
 const createSlot = async (): Promise<string | null> => {
   const { date, timeSlot } = bookingData;
 
+  console.log("🟡 PSY CREATE SLOT DATE VALUE:", date);
+console.log("🟡 PSY CREATE SLOT DATE TYPE:", typeof date);
+
+
   if (!data?._id || !date || !timeSlot) {
     toast.error("Please select date and time");
     return null;
@@ -277,12 +279,11 @@ const createSlot = async (): Promise<string | null> => {
 
   const payload = {
     psychologistId: data._id,
-    date:
-      date instanceof Date
-        ? date.toISOString().split("T")[0]
-        : date,
+    date, 
     timeSlot,
   };
+
+  console.log("🟡 PSY CREATE SLOT PAYLOAD:", payload);
 
   try {
     const res = await axios.post(
@@ -471,10 +472,7 @@ const createSlot = async (): Promise<string | null> => {
             email: bookingData.email || "",
             phone: bookingData.phone || "",
             packageTitle: bookingData.packageTitle || "Therapy Session",
-            date:
-              bookingData.date instanceof Date
-                ? bookingData.date.toISOString().split("T")[0]
-                : "",
+            date: bookingData.date || "",
             timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
@@ -687,10 +685,10 @@ const handleNext = async () => {
                   bookingData={bookingData}
                   onUpdate={(data) => {
                     if (data?.date) {
-                      fetchBookedSlots(data?.date?.toISOString().split("T")[0]);
+                      fetchBookedSlots(data.date);
                     }
                     updateBookingData(data);
-                  }}
+                  }}                  
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
