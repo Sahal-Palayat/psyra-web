@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import type {
-  BookedSlot,
+  // BookedSlot,
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
@@ -32,7 +32,7 @@ export function PsychologistModal({
   hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",

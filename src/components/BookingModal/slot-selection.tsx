@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import { BookedSlot, BookingData } from "./types";
+import {  BookingData } from "./types";
 
 interface SlotSelectionProps {
   bookingData: BookingData;
   onUpdate: (data: Partial<BookingData>) => void;
-  bookedSlots?: BookedSlot[];
+  bookedSlots?: string[];
   allTimeSlots: string[];
 }
 
@@ -24,23 +24,24 @@ export function SlotSelection({
   /* ---------------- EFFECT: FILTER BOOKED SLOTS ---------------- */
 
   useEffect(() => {
-    if (!bookingData.date) return;
-
-    const bookedForThisDate = bookedSlots
-      ? bookedSlots
-          .filter((slot) => slot.date === bookingData.date)
-          .map((slot) => slot.timeSlot)
-      : [];
-
-    setBookedSlotsForDate(bookedForThisDate);
-
-    if (
-      bookingData.timeSlot &&
-      bookedForThisDate.includes(bookingData.timeSlot)
-    ) {
-      onUpdate({ timeSlot: "" });
+    if (bookingData.date) {
+      // Backend already filters by date
+      const bookedForThisDate = Array.isArray(bookedSlots)
+        ? bookedSlots
+        : [];
+  
+      setBookedSlotsForDate(bookedForThisDate);
+  
+      if (
+        bookingData.timeSlot &&
+        (bookedForThisDate.includes(bookingData.timeSlot) ||
+          isSlotPast(bookingData.timeSlot, bookingData.date))
+      ) {
+        onUpdate({ timeSlot: "" });
+      }
     }
-  }, [bookingData.date, bookedSlots, onUpdate]);
+  }, [bookingData.date, bookedSlots]);
+  
 
   /* ---------------- DATE SELECT ---------------- */
 

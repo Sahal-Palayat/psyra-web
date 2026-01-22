@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   type BookingModalProps,
   type BookingData,
-  BookedSlot,
+  // BookedSlot,
   INDIVIDUAL_TIME_SLOTS,
   COUPLE_TIME_SLOTS,
 } from "./types";
@@ -25,7 +25,7 @@ export function BookingModal({
   price,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
