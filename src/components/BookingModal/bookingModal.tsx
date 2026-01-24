@@ -75,14 +75,24 @@ export function BookingModal({
 
   const fetchBookedSlots = async (date: string) => {
     try {
+      if (!bookingData.therapyType) return;
+  
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${date}`
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
+        {
+          params: {
+            date,
+            therapyType: bookingData.therapyType,
+          },
+        }
       );
-      setBookedSlot(res?.data?.data || []);
+  
+      setBookedSlot(res?.data || []);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
+  
   
 
   /* ---------------- STEP CHECKS ---------------- */
@@ -129,6 +139,7 @@ export function BookingModal({
         {
           date: bookingData.date, // ✅ already YYYY-MM-DD
           timeSlot: bookingData.timeSlot,
+          therapyType: bookingData.therapyType,
         }
       );
   
