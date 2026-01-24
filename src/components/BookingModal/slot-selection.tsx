@@ -21,7 +21,7 @@ export function SlotSelection({
   const [bookedSlotsForDate, setBookedSlotsForDate] = useState<string[]>([]);
   const slotListRef = useRef<HTMLDivElement>(null);
 
-  /* ---------------- EFFECT: FILTER BOOKED SLOTS ---------------- */
+  /* ---------------- FILTER BOOKED SLOTS ---------------- */
 
   useEffect(() => {
     if (bookingData.date) {

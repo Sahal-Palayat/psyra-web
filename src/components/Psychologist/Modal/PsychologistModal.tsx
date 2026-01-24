@@ -268,8 +268,6 @@ export function PsychologistModal({
 const createSlot = async (): Promise<string | null> => {
   const { date, timeSlot } = bookingData;
 
-  console.log("🟡 PSY CREATE SLOT DATE VALUE:", date);
-console.log("🟡 PSY CREATE SLOT DATE TYPE:", typeof date);
 
 
   if (!data?._id || !date || !timeSlot) {
@@ -466,7 +464,27 @@ console.log("🟡 PSY CREATE SLOT DATE TYPE:", typeof date);
             packageTitle: bookingData.packageTitle,
           }),
         },
-        handler: function (_response: RazorpayPaymentResponse) {
+        handler: async function (_response: RazorpayPaymentResponse) {
+
+          // 🔑 ADD THIS: CONFIRM PSYCHOLOGIST BOOKING
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/confirm`,
+            {
+              bookingId,
+        
+              // SESSION DETAILS
+              name: bookingData.name,
+              email: bookingData.email,
+              phone: bookingData.phone,
+              age: bookingData.age,
+              modeOfTherapy: bookingData.modeOfTherapy,
+              issue: bookingData.issue,
+              sessionType: bookingData.sessionType,
+              therapyType: bookingData.therapyType,
+              packageTitle: bookingData.packageTitle,
+            }
+          );
+        
           setSuccessData({
             name: bookingData.name || "",
             email: bookingData.email || "",
@@ -476,9 +494,11 @@ console.log("🟡 PSY CREATE SLOT DATE TYPE:", typeof date);
             timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
+        
           setIsPaying(false);
           setShowSuccessModal(true);
         },
+        
         theme: { color: "#005657" },
         modal: {
           ondismiss: async () => {

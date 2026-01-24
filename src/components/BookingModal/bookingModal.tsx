@@ -130,8 +130,7 @@ export function BookingModal({
       return false;
     }
   
-    console.log("🟡 GENERAL INITIATE DATE VALUE:", bookingData.date);
-    console.log("🟡 GENERAL INITIATE DATE TYPE:", typeof bookingData.date);
+   
   
     try {
       const res = await axios.post(
@@ -177,26 +176,46 @@ export function BookingModal({
         },
 
         // ✅ SUCCESS
-        async () => {
-          setIsPaying(false);
+       
+async () => {
+  setIsPaying(false);
 
-          if (bookingData.date) {
-            await fetchBookedSlots(bookingData.date);
-          }
-          
+  // CONFIRM GENERAL BOOKING
+  await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/general-booking/confirm`,
+    {
+      bookingId: currentBookingId,
 
-          setSuccessData({
-            name: bookingData.name,
-            email: bookingData.email,
-            phone: bookingData.phone,
-            packageTitle: bookingData.packageTitle || "Therapy Session",
-            date: bookingData.date || "",
-            timeSlot: bookingData.timeSlot || "",
-            amount: bookingData.packageAmount,
-          });
+      // SESSION DETAILS
+      name: bookingData.name,
+      email: bookingData.email,
+      phone: bookingData.phone,
+      age: bookingData.age,
+      modeOfTherapy: bookingData.modeOfTherapy,
+      issue: bookingData.issue,
+      sessionType: bookingData.sessionType,
+      therapyType: bookingData.therapyType,
+      packageTitle: bookingData.packageTitle,
+    }
+  );
 
-          setShowSuccessModal(true);
-        },
+  if (bookingData.date) {
+    await fetchBookedSlots(bookingData.date);
+  }
+
+  setSuccessData({
+    name: bookingData.name,
+    email: bookingData.email,
+    phone: bookingData.phone,
+    packageTitle: bookingData.packageTitle || "Therapy Session",
+    date: bookingData.date || "",
+    timeSlot: bookingData.timeSlot || "",
+    amount: bookingData.packageAmount,
+  });
+
+  setShowSuccessModal(true);
+},
+    
 
         // ❌ PAYMENT FAILED / CLOSED
         () => {
@@ -213,7 +232,7 @@ export function BookingModal({
 
   if (!isOpen) return null;
 
-  /* ---------------- UI (UNCHANGED) ---------------- */
+  /* ---------------- UI  ---------------- */
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
