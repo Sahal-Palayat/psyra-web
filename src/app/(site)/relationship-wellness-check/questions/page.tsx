@@ -1,6 +1,5 @@
 "use client";
 
-import Progress from "@/components/relationship-assessment/Progress";
 import Question from "@/components/relationship-assessment/Question";
 import PersonalDetailsUI from "@/components/relationship-assessment/personal-details";
 import { useRelationshipAssessment } from "@/hooks/use-relationship-assessment";
@@ -76,11 +75,7 @@ export default function RelationshipQuestionsPage() {
   // QUESTIONS STEP
 
   return (
-    <section className="pt-20 bg-gradient-to-b from-[#00989D] to-[#17A2B8]">
-
-      {/* Progress */}
-      <Progress current={currentIndex + 1} total={totalQuestions} />
-
+    <>
       {/* Question */}
       <Question
         key={currentQuestion._id}
@@ -93,6 +88,8 @@ export default function RelationshipQuestionsPage() {
         canGoNext={
           questionAnswers[currentQuestion.questionText] !== undefined
         }
+        current={currentIndex + 1}
+        total={totalQuestions}
       />
 
       {/* Submitting overlay */}
@@ -106,6 +103,6 @@ export default function RelationshipQuestionsPage() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }
