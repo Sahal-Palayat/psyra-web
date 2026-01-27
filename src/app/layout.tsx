@@ -110,10 +110,14 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png" type="image/png" />
         <link rel="shortcut icon" href="/icon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
-
+        <link rel="canonical" href="https://www.psyra.in/" />
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#005657" />
         <meta name="msapplication-TileColor" content="#005657" />
+        <meta
+          name="google-site-verification"
+          content="sKE2qGpBEPUd_RXkbWMRSwrE7tWkdQapBJmse3ZtYdE"
+        />
 
         {/* Structured data for better Google indexing */}
         <script
