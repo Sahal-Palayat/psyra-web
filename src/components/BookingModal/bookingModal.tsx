@@ -10,12 +10,12 @@ import {
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
-import {
-  processPayment,
-  type BookingPaymentData,
-} from "@/lib/payment-integration";
+// import {
+//   processPayment,
+//   type BookingPaymentData,
+// } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
-import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
+// import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
 // import DemoPayment from "./demo-payment";
 
@@ -27,17 +27,17 @@ export function BookingModal({
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isPaying, setIsPaying] = useState(false);
-  const [successData, setSuccessData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    packageTitle: "",
-    date: "",
-    timeSlot: "",
-    amount: 0,
-  });
+  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+  // const [isPaying, setIsPaying] = useState(false);
+  // const [successData, setSuccessData] = useState({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   packageTitle: "",
+  //   date: "",
+  //   timeSlot: "",
+  //   amount: 0,
+  // });
 
   console.log(price, packageTitle, "pricepricepricepricepriceprice");
 
@@ -224,89 +224,125 @@ export function BookingModal({
     // await axios.post('/api/book-slot', variable);
   };
 
-  const handlePaymentAndBooking = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date,
-      timeSlot,
-      packageAmount,
-    } = bookingData;
+  // commented for payment testing
 
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
+  // const handlePaymentAndBooking = async () => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     packageTitle,
+  //     date,
+  //     timeSlot,
+  //     packageAmount,
+  //   } = bookingData;
 
-    // Prepare payment data
-    const paymentData: BookingPaymentData = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      psychologistId: "687a42319c601751727e7b1f",
-      therapyType: bookingData.therapyType,
-      packageTitle: packageTitle || "Therapy Session",
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot: timeSlot || "10:00-11:00",
-      totalAmount: packageAmount, // You can make this dynamic based on package
-    };
-    createSlot();
-    // Process payment with loading state until Razorpay window opens
-    setIsPaying(true);
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
+
+  //   // Prepare payment data
+  //   const paymentData: BookingPaymentData = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     psychologistId: "687a42319c601751727e7b1f",
+  //     therapyType: bookingData.therapyType,
+  //     packageTitle: packageTitle || "Therapy Session",
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot: timeSlot || "10:00-11:00",
+  //     totalAmount: packageAmount, // You can make this dynamic based on package
+  //   };
+  //   createSlot();
+  //   // Process payment with loading state until Razorpay window opens
+  //   setIsPaying(true);
     
-    // Use requestAnimationFrame to ensure state update renders on mobile
-    await new Promise(resolve => requestAnimationFrame(() => {
-      requestAnimationFrame(resolve);
-    }));
+  //   // Use requestAnimationFrame to ensure state update renders on mobile
+  //   await new Promise(resolve => requestAnimationFrame(() => {
+  //     requestAnimationFrame(resolve);
+  //   }));
     
-    try {
-      await processPayment(
-        paymentData,
-        // On success - show success modal
-        async (response) => {
-          console.log("Payment successful, now booking session...", response);
+  //   try {
+  //     await processPayment(
+  //       paymentData,
+  //       // On success - show success modal
+  //       async (response) => {
+  //         console.log("Payment successful, now booking session...", response);
           
-          // Set success data for modal
-          setSuccessData({
-            name: name || "",
-            email: email || "",
-            phone: phone || "",
-            packageTitle: packageTitle || "Therapy Session",
-            date: adjustedDate.toISOString().split("T")[0],
-            timeSlot: timeSlot || "10:00-11:00",
-            amount: packageAmount || 0,
-          });
+  //         // Set success data for modal
+  //         setSuccessData({
+  //           name: name || "",
+  //           email: email || "",
+  //           phone: phone || "",
+  //           packageTitle: packageTitle || "Therapy Session",
+  //           date: adjustedDate.toISOString().split("T")[0],
+  //           timeSlot: timeSlot || "10:00-11:00",
+  //           amount: packageAmount || 0,
+  //         });
 
-          // Show success modal
-          setShowSuccessModal(true);
-        },
-        // On error
-        (error) => {
-          console.error("Payment failed:", error);
-          setIsPaying(false);
-        }
-      );
-      // At this point, Razorpay window has been opened
-      // Keep loading state visible for a minimum duration to ensure it's visible on mobile
-      await new Promise(resolve => setTimeout(resolve, 300));
-      setIsPaying(false);
-    } catch (error) {
-      console.error("Payment error:", error);
-      setIsPaying(false);
-    }
-  };
+  //         // Show success modal
+  //         setShowSuccessModal(true);
+  //       },
+  //       // On error
+  //       (error) => {
+  //         console.error("Payment failed:", error);
+  //         setIsPaying(false);
+  //       }
+  //     );
+  //     // At this point, Razorpay window has been opened
+  //     // Keep loading state visible for a minimum duration to ensure it's visible on mobile
+  //     await new Promise(resolve => setTimeout(resolve, 300));
+  //     setIsPaying(false);
+  //   } catch (error) {
+  //     console.error("Payment error:", error);
+  //     setIsPaying(false);
+  //   }
+  // };
+
+
+  const handlePaymentAndBooking = async () => {
+  try {
+    // 1. Create booking slot
+    await createSlot();
+
+    // 2. Redirect to WhatsApp
+    const phoneNumber = "918891724199"; 
+    const message = encodeURIComponent(
+      `Hi, I would like to book a therapy session.
+
+Name: ${bookingData.name}
+Package: ${bookingData.packageTitle}
+Date: ${
+        bookingData.date instanceof Date
+          ? bookingData.date.toISOString().split("T")[0]
+          : ""
+      }
+Time Slot: ${bookingData.timeSlot}
+
+Please share the payment details:`
+    );
+
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  } catch (error) {
+    console.error("WhatsApp booking failed:", error);
+    toast.error("Technical issue. Please try again.");
+  }
+};
+
+
+
+
 
   if (!isOpen) return null;
 
@@ -429,7 +465,8 @@ export function BookingModal({
                   >
                     Continue to Details
                   </button>
-                ) : (
+                ) 
+                : (
                   <button
                     onClick={() => {
                       if (canProceedFromStep2()) {
@@ -438,15 +475,18 @@ export function BookingModal({
                         alert("Please fill in all required fields correctly.");
                       }
                     }}
-                    disabled={!canProceedFromStep2() || isPaying}
-                    aria-busy={isPaying}
+                    disabled={!canProceedFromStep2() }  // || isPaying
+                    // aria-busy={isPaying}
                     className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
-                      !canProceedFromStep2() || isPaying
+                      !canProceedFromStep2()  // || isPaying
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-[#005657] hover:bg-[#005657]/90"
                     }`}
                   >
-                    {isPaying ? (
+
+                      {/* PAYMENT LOADING STATE (TEMPORARILY DISABLED)
+
+                    {/* {isPaying ? (
                       <>
                         <svg
                           className="animate-spin h-5 w-5 text-white flex-shrink-0"
@@ -472,7 +512,8 @@ export function BookingModal({
                       </>
                     ) : (
                       <span>Book Session</span>
-                    )}
+                    )} */}
+                    <span>Book via WhatsApp</span>
                   </button>
                 )}
               </div>
@@ -504,14 +545,14 @@ export function BookingModal({
       </div>
 
       {/* Payment Success Modal */}
-      <PaymentSuccessModal
+      {/* <PaymentSuccessModal
         isOpen={showSuccessModal}
         onClose={() => {
           setShowSuccessModal(false);
           resetAndClose();
         }}
         paymentData={successData}
-      />
+      /> */}
     </div>
   );
 }
