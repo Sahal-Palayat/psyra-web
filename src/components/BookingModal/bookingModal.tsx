@@ -4,20 +4,19 @@ import { motion } from "framer-motion";
 import {
   type BookingModalProps,
   type BookingData,
-  BookedSlot,
+  // BookedSlot,
   INDIVIDUAL_TIME_SLOTS,
   COUPLE_TIME_SLOTS,
 } from "./types";
 import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
-import {
-  processPayment,
-  type BookingPaymentData,
-} from "@/lib/payment-integration";
+import { processPayment } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
-// import DemoPayment from "./demo-payment";
+
+
+
 
 export function BookingModal({
   isOpen,
@@ -26,9 +25,11 @@ export function BookingModal({
   price,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
+  const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
+
   const [successData, setSuccessData] = useState({
     name: "",
     email: "",
@@ -39,8 +40,6 @@ export function BookingModal({
     amount: 0,
   });
 
-  console.log(price, packageTitle, "pricepricepricepricepriceprice");
-
   const [bookingData, setBookingData] = useState<BookingData>({
     name: "",
     email: "",
@@ -49,277 +48,199 @@ export function BookingModal({
     modeOfTherapy: "",
     issue: "",
     agreeToTerms: false,
-    packageTitle: packageTitle,
     sessionType: "",
+    packageTitle,
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
-    packageAmount: parseInt(price),
+    packageAmount: Number(price),
+    date: undefined,
+    timeSlot: undefined,
   });
 
   useEffect(() => {
     setBookingData((prev) => ({
       ...prev,
-      packageTitle: packageTitle,
+      packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
-      packageAmount: parseInt(price),
+      packageAmount: Number(price),
     }));
-  }, [packageTitle]);
-
-  console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
+  }, [packageTitle, price]);
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
-    console.log(data, "DATA IN UPDATE");
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
 
+  /* ---------------- DATE HELPERS ---------------- */
+
+  
+
   const fetchBookedSlots = async (date: string) => {
     try {
-      // Convert the string to a Date object
-      const selectedDate = new Date(date);
-
-      // Subtract one day
-      selectedDate.setDate(selectedDate.getDate() + 1);
-
-      // Convert back to YYYY-MM-DD string
-      const adjustedDate = selectedDate.toISOString().split("T")[0];
-
+      if (!bookingData.therapyType) return;
+  
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
+        {
+          params: {
+            date,
+            therapyType: bookingData.therapyType,
+          },
+        }
       );
-
-      console.log("Adjusted Date (1 day less):", adjustedDate);
-      console.log("Booked Slots for", adjustedDate, ":", res.data?.data);
-
-      setBookedSlot(res?.data?.data);
+  
+      setBookedSlot(res?.data || []);
     } catch (error) {
-      console.error("Error fetching booked slotsss:", error);
+      console.error("Error fetching booked slots:", error);
     }
   };
+  
+  
+
+  /* ---------------- STEP CHECKS ---------------- */
+
+  const canProceedFromStep1 = () =>
+    !!bookingData.date && !!bookingData.timeSlot;
+  
+
+  const canProceedFromStep2 = () =>
+    bookingData.name.trim() &&
+    bookingData.email.trim() &&
+    bookingData.phone.trim() &&
+    bookingData.age.trim() &&
+    bookingData.modeOfTherapy.trim() &&
+    bookingData.issue.trim() &&
+    bookingData.sessionType.trim() &&
+    bookingData.agreeToTerms;
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  // const handlePaymentComplete = () => {
-  //   setStep(4); // Success screen
-  // };
-
   const resetAndClose = () => {
     setStep(1);
-    setBookingData({
-      name: "",
-      email: "",
-      phone: "",
-      age: "",
-      modeOfTherapy: "",
-      issue: "",
-      sessionType: "",
-      agreeToTerms: false,
-      packageTitle: packageTitle,
-      therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
-      packageAmount: 0,
-    });
+    setCurrentBookingId(null);
+    setIsPaying(false);
+    setShowSuccessModal(false);
     onClose();
   };
 
-  const getStepTitle = () => {
-    switch (step) {
-      case 1:
-        return "Select Date & Time";
-      case 2:
-        return "Your Details";
-      case 3:
-        return "Payment";
-      case 4:
-        return "Confirmation";
-      default:
-        return "";
+  /* ---------------- API FLOWS ---------------- */
+
+  const initiateGeneralBooking = async () => {
+    if (!bookingData.date || !bookingData.timeSlot) {
+      toast.error("Please select date and time slot");
+      return false;
     }
-  };
-
-  const canProceedFromStep1 = () => {
-    return bookingData.date && bookingData.timeSlot;
-  };
-
-  const canProceedFromStep2 = () => {
-    return (
-      bookingData.name.trim() !== "" &&
-      bookingData.email.trim() !== "" &&
-      bookingData.phone.trim() !== "" &&
-      bookingData.age.trim() !== "" &&
-      bookingData.modeOfTherapy.trim() !== "" &&
-      bookingData.issue.trim() !== "" &&
-      bookingData.sessionType.trim() !== "" &&
-      bookingData.agreeToTerms
-    );
-  };
-
-  const createSlot = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date,
-      timeSlot,
-    } = bookingData;
-
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000) // add 1 day in ms
-        : new Date(); // fallback in case `date` is a string
-
-    const variable = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date: adjustedDate.toISOString().split("T")[0], // format: YYYY-MM-DD
-      timeSlot,
-    };
-
-    console.log("variable for API", variable);
-
+  
+   
+  
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
-        variable
-      ); // Update endpoint
-
-      // if (response?.status) {
-      //   console.log("Booking successful", response.data);
-      //   // const phoneNumber = "+918891724199";
-      //   // const message = encodeURIComponent(
-      //   //   `Hi, I would like to book the following therapy session. Please share the payment details:
-
-      //   // Name: ${name}
-      //   // Age: ${age}
-      //   // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-      //   // Time Slot: ${timeSlot}
-
-      //   // Looking forward to your confirmation. Thank you!`
-      //   // );
-      //   // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-      // } else {
-      //   alert("Technincal issue");
-      // }
-      console.log(response,"TO TEST");
-      
-      // alert("response:");
-    } catch (error) {
-      console.error("Booking failed", error);
-      toast.error("Technical issue");
-      // You can show an error toast or message here
-    }
-
-    // Now you can use this variable in your API call
-    // await axios.post('/api/book-slot', variable);
-  };
-
-  const handlePaymentAndBooking = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      packageTitle,
-      date,
-      timeSlot,
-      packageAmount,
-    } = bookingData;
-
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
-
-    // Prepare payment data
-    const paymentData: BookingPaymentData = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      psychologistId: "687a42319c601751727e7b1f",
-      therapyType: bookingData.therapyType,
-      packageTitle: packageTitle || "Therapy Session",
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot: timeSlot || "10:00-11:00",
-      totalAmount: packageAmount, // You can make this dynamic based on package
-    };
-    createSlot();
-    // Process payment with loading state until Razorpay window opens
-    setIsPaying(true);
-    
-    // Use requestAnimationFrame to ensure state update renders on mobile
-    await new Promise(resolve => requestAnimationFrame(() => {
-      requestAnimationFrame(resolve);
-    }));
-    
-    try {
-      await processPayment(
-        paymentData,
-        // On success - show success modal
-        async (response) => {
-          console.log("Payment successful, now booking session...", response);
-          
-          // Set success data for modal
-          setSuccessData({
-            name: name || "",
-            email: email || "",
-            phone: phone || "",
-            packageTitle: packageTitle || "Therapy Session",
-            date: adjustedDate.toISOString().split("T")[0],
-            timeSlot: timeSlot || "10:00-11:00",
-            amount: packageAmount || 0,
-          });
-
-          // Show success modal
-          setShowSuccessModal(true);
-        },
-        // On error
-        (error) => {
-          console.error("Payment failed:", error);
-          setIsPaying(false);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/initiate`,
+        {
+          date: bookingData.date, // ✅ already YYYY-MM-DD
+          timeSlot: bookingData.timeSlot,
+          therapyType: bookingData.therapyType,
         }
       );
-      // At this point, Razorpay window has been opened
-      // Keep loading state visible for a minimum duration to ensure it's visible on mobile
-      await new Promise(resolve => setTimeout(resolve, 300));
-      setIsPaying(false);
+  
+      setCurrentBookingId(res.data._id);
+      return true;
+    } catch (error: any) {
+      const message = error?.response?.data?.message;
+  
+      if (message === "Slot already booked") {
+        toast.error("Slot already booked. Please choose another slot.");
+        await fetchBookedSlots(bookingData.date);
+        updateBookingData({ timeSlot: undefined });
+        return false;
+      }
+  
+      toast.error("Unable to lock slot");
+      return false;
+    }
+  };
+  
+  const initiateGeneralBookingAndPay = async () => {
+    if (!currentBookingId) {
+      toast.error("Booking expired. Please start again.");
+      return;
+    }
+
+    try {
+      setIsPaying(true);
+
+      await processPayment(
+        {
+          bookingId: currentBookingId,
+          bookingType: "general",
+          totalAmount: bookingData.packageAmount,
+        },
+
+        // ✅ SUCCESS
+       
+async () => {
+  setIsPaying(false);
+
+  // CONFIRM GENERAL BOOKING
+  await axios.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/general-booking/confirm`,
+    {
+      bookingId: currentBookingId,
+
+      // SESSION DETAILS
+      name: bookingData.name,
+      email: bookingData.email,
+      phone: bookingData.phone,
+      age: bookingData.age,
+      modeOfTherapy: bookingData.modeOfTherapy,
+      issue: bookingData.issue,
+      sessionType: bookingData.sessionType,
+      therapyType: bookingData.therapyType,
+      packageTitle: bookingData.packageTitle,
+    }
+  );
+
+  if (bookingData.date) {
+    await fetchBookedSlots(bookingData.date);
+  }
+
+  setSuccessData({
+    name: bookingData.name,
+    email: bookingData.email,
+    phone: bookingData.phone,
+    packageTitle: bookingData.packageTitle || "Therapy Session",
+    date: bookingData.date || "",
+    timeSlot: bookingData.timeSlot || "",
+    amount: bookingData.packageAmount,
+  });
+
+  setShowSuccessModal(true);
+},
+    
+
+        // ❌ PAYMENT FAILED / CLOSED
+        () => {
+          setIsPaying(false);
+          toast.error("Payment was not completed");
+        }
+      );
     } catch (error) {
-      console.error("Payment error:", error);
+      console.error(error);
+      toast.error("Something went wrong");
       setIsPaying(false);
     }
   };
 
   if (!isOpen) return null;
 
+  /* ---------------- UI  ---------------- */
+
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 transition-opacity"
         onClick={step !== 4 ? onClose : undefined}
-        aria-hidden="true"
       />
 
-      {/* Modal Container */}
       <div className="flex min-h-full items-center justify-center p-2 sm:p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -328,188 +249,84 @@ export function BookingModal({
           className="relative w-full max-w-4xl max-h-[95vh] bg-white rounded-2xl shadow-xl flex flex-col overflow-hidden"
         >
           <>
-            {/* Fixed Header */}
+            {/* HEADER */}
             <div className="bg-[#005657] text-white p-4 sm:p-6 flex-shrink-0">
-              <div className="flex items-center justify-between">
-                <div className="min-w-0 flex-1 pr-4">
-                  <h2 className="text-lg sm:text-xl font-bold truncate">
-                    Book Consultation
-                  </h2>
-                  <p className="text-[#B6E5DF] mt-1 text-sm truncate">
-                    {packageTitle} - {getStepTitle()}
-                  </p>
-                </div>
+              <h2 className="text-lg sm:text-xl font-bold">
+                Book Consultation
+              </h2>
+              <p className="text-[#B6E5DF] mt-1 text-sm">
+                {packageTitle}
+              </p>
+            </div>
 
-                {/* Responsive Step Indicators */}
-                <div className="flex items-center space-x-1 sm:space-x-2">
-                  {" "}
-                  <button
-                    onClick={resetAndClose}
-                    className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                    aria-label="Close modal"
-                  >
-                    <svg
-                      className="w-5 h-5 sm:w-6 sm:h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mt-4 w-full bg-[#005657]/30 rounded-full h-1">
-                <div
-                  className="bg-white h-1 rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${(step / 2) * 100}%` }}
+            {/* CONTENT */}
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+              {step === 1 && (
+                <SlotSelection
+                  bookingData={bookingData}
+                  onUpdate={(data) => {
+                    updateBookingData(data);
+                    if (data.date) {
+                      fetchBookedSlots(data.date);
+                    }
+                  }}                  
+                  allTimeSlots={
+                    bookingData.therapyType === "individual"
+                      ? INDIVIDUAL_TIME_SLOTS
+                      : COUPLE_TIME_SLOTS
+                  }
+                  bookedSlots={bookedSlots}
                 />
-              </div>
+              )}
+
+              {step === 2 && (
+                <DetailsForm
+                  bookingData={bookingData}
+                  onUpdate={updateBookingData}
+                />
+              )}
             </div>
 
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="p-4 sm:p-6">
-                {step === 1 && (
-                  <div>
-                    <SlotSelection
-                      bookingData={bookingData}
-                      onUpdate={(data) => {
-                        updateBookingData(data);
-                        if (data?.date) {
-                          fetchBookedSlots(
-                            data?.date?.toISOString().split("T")[0]
-                          );
-                        }
-                      }}
-                      allTimeSlots={
-                        bookingData?.therapyType === "individual"
-                          ? INDIVIDUAL_TIME_SLOTS
-                          : COUPLE_TIME_SLOTS
-                      }
-                      bookedSlots={bookedSlots}
-                    />
-                  </div>
-                )}
-                {step === 2 && (
-                  <DetailsForm
-                    bookingData={bookingData}
-                    onUpdate={updateBookingData}
-                  />
-                )}
-              </div>
-            </div>
+            {/* FOOTER */}
+            <div className="p-4 sm:p-6 border-t bg-gray-50 flex gap-3">
+              <button
+                onClick={step === 1 ? onClose : prevStep}
+                className="px-4 py-2 border rounded-md"
+              >
+                {step === 1 ? "Cancel" : "Back"}
+              </button>
 
-            {/* Fixed Footer */}
-            <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
+              {step === 1 ? (
                 <button
-                  onClick={step === 1 ? onClose : prevStep}
-                  className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors order-2 sm:order-1"
+                  onClick={async () => {
+                    if (!canProceedFromStep1()) {
+                      toast.error("Please select date and slot");
+                      return;
+                    }
+                    const locked = await initiateGeneralBooking();
+                    if (locked) nextStep();
+                  }}
+                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
                 >
-                  {step === 1 ? "Cancel" : "Back"}
+                  Continue to Details
                 </button>
-
-                {step === 1 ? (
-                  <button
-                    onClick={nextStep}
-                    disabled={step === 1 && !canProceedFromStep1()}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors ${
-                      step === 1 && !canProceedFromStep1()
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}
-                  >
-                    Continue to Details
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      if (canProceedFromStep2()) {
-                        handlePaymentAndBooking();
-                      } else {
-                        alert("Please fill in all required fields correctly.");
-                      }
-                    }}
-                    disabled={!canProceedFromStep2() || isPaying}
-                    aria-busy={isPaying}
-                    className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors flex items-center justify-center gap-2 ${
-                      !canProceedFromStep2() || isPaying
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-[#005657] hover:bg-[#005657]/90"
-                    }`}
-                  >
-                    {isPaying ? (
-                      <>
-                        <svg
-                          className="animate-spin h-5 w-5 text-white flex-shrink-0"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                          />
-                        </svg>
-                        <span>Processing...</span>
-                      </>
-                    ) : (
-                      <span>Book Session</span>
-                    )}
-                  </button>
-                )}
-              </div>
+              ) : (
+                <button
+                  onClick={initiateGeneralBookingAndPay}
+                  disabled={!canProceedFromStep2() || isPaying}
+                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
+                >
+                  {isPaying ? "Processing..." : "Book Session"}
+                </button>
+              )}
             </div>
           </>
-
-          {/* Close button for success screen */}
-          {step === 4 && (
-            <button
-              onClick={resetAndClose}
-              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors z-10"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          )}
         </motion.div>
       </div>
 
-      {/* Payment Success Modal */}
       <PaymentSuccessModal
         isOpen={showSuccessModal}
-        onClose={() => {
-          setShowSuccessModal(false);
-          resetAndClose();
-        }}
+        onClose={resetAndClose}
         paymentData={successData}
       />
     </div>

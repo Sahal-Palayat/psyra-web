@@ -3,21 +3,27 @@ import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import type {
-  BookedSlot,
+  // BookedSlot,
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
-import {
-  processPayment,
-  type BookingPaymentData,
-} from "@/lib/payment-integration";
+// import {
+//   processPayment,
+//   type BookingPaymentData,
+// } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
 import { TherapyTypeSelection } from "./therapy-type-selection";
 import { PackageSelection } from "./package-selection";
 import { PsychologistBookingData } from "./types";
+import {
+  openRazorpayPayment,
+  RAZORPAY_CONFIG,
+  type RazorpayOptions,
+  type RazorpayPaymentResponse,
+} from "@/lib/razorpay";
 
 export function PsychologistModal({
   isOpen,
@@ -26,7 +32,7 @@ export function PsychologistModal({
   hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
@@ -51,19 +57,23 @@ export function PsychologistModal({
     packageAmount: typeof data?.price === 'number' ? data.price : 0,
   });
 
+  const [bookingId, setBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isRetryingPayment, setIsRetryingPayment] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
+
+
   const fetchBookedSlots = async (date: string) => {
     try {
-      const selectedDate = new Date(date);
-      selectedDate.setDate(selectedDate.getDate() + 1);
-      const adjustedDate = selectedDate.toISOString().split("T")[0];
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking?date=${adjustedDate}&psychologistId=${data?._id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`
       );
-      setBookedSlot(res?.data);
+      setBookedSlot(res?.data || []);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
+  
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -87,6 +97,10 @@ export function PsychologistModal({
       therapyType: "",
       packageAmount: typeof data?.price === 'number' ? data.price : 0,
     });
+    setBookingId(null);
+    setPaymentError(null);
+    setIsPaying(false);
+    setIsRetryingPayment(false);
     onClose();
   };
 
@@ -115,90 +129,175 @@ export function PsychologistModal({
     );
   };
 
-  const createSlot = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      date,
-      timeSlot,
-      sessionType,
-      therapyType,
-      packageTitle,
-    } = bookingData;
+  // const createSlot = async () => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     date,
+  //     timeSlot,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle,
+  //   } = bookingData;
 
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
 
-    const variable = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      psychologistId: data?._id,
-      issue,
-      agreeToTerms,
-      packageTitle,
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot,
-      therapyType,
-      sessionType,
-    };
+  //   const variable = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     psychologistId: data?._id,
+  //     issue,
+  //     agreeToTerms,
+  //     packageTitle,
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot,
+  //     therapyType,
+  //     sessionType,
+  //   };
 
-    // Validate required fields
-    const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
-    const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
+  //   // Validate required fields
+  //   const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
+  //   const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
     
-    if (missingFields.length > 0) {
-      console.error("Missing required fields:", missingFields);
-      toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
-      return;
-    }
+  //   if (missingFields.length > 0) {
+  //     console.error("Missing required fields:", missingFields);
+  //     toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
+  //     return;
+  //   }
 
-    if (!data?._id) {
-      console.error("Psychologist ID is missing");
-      toast.error("Invalid Psychologist", "Please select a valid psychologist.");
-      return;
-    }
+  //   if (!data?._id) {
+  //     console.error("Psychologist ID is missing");
+  //     toast.error("Invalid Psychologist", "Please select a valid psychologist.");
+  //     return;
+  //   }
 
-    console.log("Sending data to psychologist-booking API:", variable);
-    console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`);
-    console.log("Booking data from state:", bookingData);
-    console.log("Psychologist data:", data);
+  //   console.log("Sending data to psychologist-booking API:", variable);
+  //   console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`);
+  //   console.log("Booking data from state:", bookingData);
+  //   console.log("Psychologist data:", data);
 
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`,
-        variable
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+  //       variable
+  //     );
 
-      if (response?.status) {
-        //         const phoneNumber = "+918891724199";
-        //         const message = encodeURIComponent(
-        //           `Hi, I would like to book the following therapy session. Please share the payment details:
-        // Name: ${name}
-        // Age: ${age}
-        // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-        // Time Slot: ${timeSlot}
-        // Looking forward to your confirmation. Thank you!`
-        //         );
-        // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-      } else {
-        toast.error("Technical issue");
-      }
-    } catch (error: Error | unknown) {
-      console.error("Booking failed", error);
-      toast.error("Technical issue");
+  //     if (response?.status) {
+  //       //         const phoneNumber = "+918891724199";
+  //       //         const message = encodeURIComponent(
+  //       //           `Hi, I would like to book the following therapy session. Please share the payment details:
+  //       // Name: ${name}
+  //       // Age: ${age}
+  //       // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
+  //       // Time Slot: ${timeSlot}
+  //       // Looking forward to your confirmation. Thank you!`
+  //       //         );
+  //       // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
+  //     } else {
+  //       toast.error("Technical issue");
+  //     }
+  //   } catch (error: Error | unknown) {
+  //     console.error("Booking failed", error);
+  //     toast.error("Technical issue");
       
-    }
+  //   }
+  // };
+
+  // const createSlot = async (): Promise<string | null> => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     date,
+  //     timeSlot,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle,
+  //   } = bookingData;
+  
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
+  
+  //   const variable = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     psychologistId: data?._id,
+  //     issue,
+  //     agreeToTerms,
+  //     packageTitle,
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot,
+  //     therapyType,
+  //     sessionType,
+  //   };
+  
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+  //       variable
+  //     );
+  
+  //     return response.data?._id; // ✅ bookingId
+  //   } catch (error) {
+  //     console.error("Booking failed", error);
+  //     toast.error("Booking failed");
+  //     return null;
+  //   }
+  // };
+  
+const createSlot = async (): Promise<string | null> => {
+  const { date, timeSlot } = bookingData;
+
+
+
+  if (!data?._id || !date || !timeSlot) {
+    toast.error("Please select date and time");
+    return null;
+  }
+
+  const payload = {
+    psychologistId: data._id,
+    date, 
+    timeSlot,
   };
+
+  console.log("🟡 PSY CREATE SLOT PAYLOAD:", payload);
+
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+      payload
+    );
+
+    return res.data._id; // ✅ bookingId
+  } catch (err) {
+    console.error("Booking failed", err);
+    toast.error("Slot already booked or invalid");
+    return null;
+  }
+};
+
+
 
   const getStepTitle = () => {
     switch (step) {
@@ -245,93 +344,287 @@ export function PsychologistModal({
     }
   };
 
+  // const handlePaymentAndBooking = async () => {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle,
+  //     date,
+  //     timeSlot,
+  //     packageAmount,
+  //   } = bookingData;
+
+  //   const adjustedDate =
+  //     date instanceof Date
+  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
+  //       : new Date();
+
+  //   // Prepare payment data
+  //   console.log('Package amount from booking data:', packageAmount);
+  //   console.log('Psychologist price:', data?.price);
+    
+  //   const paymentData: BookingPaymentData = {
+  //     name,
+  //     email,
+  //     phone,
+  //     age,
+  //     modeOfTherapy,
+  //     issue,
+  //     agreeToTerms,
+  //     sessionType,
+  //     therapyType,
+  //     packageTitle: packageTitle || "Therapy Session",
+  //     date: adjustedDate.toISOString().split("T")[0],
+  //     timeSlot: timeSlot || "10:00-11:00",
+  //     psychologistId: data?._id,
+  //     totalAmount: packageAmount, // You can make this dynamic based on package
+  //   };
+    
+  //   console.log('Final payment data totalAmount:', paymentData.totalAmount);
+  //   await createSlot();
+  //   // Process payment
+  //   await processPayment(
+  //     paymentData,
+  //     // On success - show success modal
+  //     async (response) => {
+  //       console.log("Payment successful, now booking session...", response);
+
+  //       // Call the original booking API
+  //       await createSlot();
+
+  //       // Set success data for modal
+  //       setSuccessData({
+  //         name: name || "",
+  //         email: email || "",
+  //         phone: phone || "",
+  //         packageTitle: packageTitle || "Therapy Session",
+  //         date: adjustedDate.toISOString().split("T")[0],
+  //         timeSlot: timeSlot || "10:00-11:00",
+  //         amount: packageAmount || 0,
+  //       });
+
+  //       // Show success modal
+  //       setShowSuccessModal(true);
+  //     },
+  //     // On error
+  //     (error) => {
+  //       console.error("Payment failed:", error);
+  //     }
+  //   );
+  // };
+
+
   const handlePaymentAndBooking = async () => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      therapyType,
-      packageTitle,
-      date,
-      timeSlot,
-      packageAmount,
-    } = bookingData;
-
-    const adjustedDate =
-      date instanceof Date
-        ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-        : new Date();
-
-    // Prepare payment data
-    console.log('Package amount from booking data:', packageAmount);
-    console.log('Psychologist price:', data?.price);
-    
-    const paymentData: BookingPaymentData = {
-      name,
-      email,
-      phone,
-      age,
-      modeOfTherapy,
-      issue,
-      agreeToTerms,
-      sessionType,
-      therapyType,
-      packageTitle: packageTitle || "Therapy Session",
-      date: adjustedDate.toISOString().split("T")[0],
-      timeSlot: timeSlot || "10:00-11:00",
-      psychologistId: data?._id,
-      totalAmount: packageAmount, // You can make this dynamic based on package
-    };
-    
-    console.log('Final payment data totalAmount:', paymentData.totalAmount);
-    await createSlot();
-    // Process payment
-    await processPayment(
-      paymentData,
-      // On success - show success modal
-      async (response) => {
-        console.log("Payment successful, now booking session...", response);
-
-        // Call the original booking API
-        await createSlot();
-
-        // Set success data for modal
-        setSuccessData({
-          name: name || "",
-          email: email || "",
-          phone: phone || "",
-          packageTitle: packageTitle || "Therapy Session",
-          date: adjustedDate.toISOString().split("T")[0],
-          timeSlot: timeSlot || "10:00-11:00",
-          amount: packageAmount || 0,
-        });
-
-        // Show success modal
-        setShowSuccessModal(true);
-      },
-      // On error
-      (error) => {
-        console.error("Payment failed:", error);
+    try {
+      // 1️⃣ Check booking ID
+      if (!bookingId) {
+        toast.error("Booking not initiated");
+        return;
       }
-    );
-  };
 
-  const handleNext = () => {
-    if (step === 4) {
-      if (canProceedFromStep4()) {
-        handlePaymentAndBooking();
-      } else {
-        toast.error("Please fill all the details");
-      }
-    } else {
-      nextStep();
+      setIsPaying(true);
+      setPaymentError(null);
+  
+      // 2️⃣ Create payment order
+      const paymentRes = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`,
+        {
+          bookingId,
+          bookingType: "psychologist",
+          totalAmount: bookingData.packageAmount,
+        }
+      );
+  
+      // ✅ FIX: Extract from nested data property
+      const { orderId, amount, currency, keyId } = paymentRes.data.data;
+      
+      // ✅ Also use keyId from backend instead of RAZORPAY_CONFIG
+      const razorpayOptions: RazorpayOptions = {
+        key: keyId || RAZORPAY_CONFIG.key_id || "", // Use keyId from backend
+        amount, // ✅ Now this will be 99900 (correct amount)
+        currency,
+        name: "Psyra",
+        description: "Psychologist Session",
+        order_id: orderId, // ✅ Now this will be correct orderId
+        prefill: {
+          name: bookingData.name || "",
+          email: bookingData.email || "",
+          contact: bookingData.phone || "",
+        },
+        notes: {
+          sessionDetails: JSON.stringify({
+            bookingId,
+            packageTitle: bookingData.packageTitle,
+          }),
+        },
+        handler: async function (_response: RazorpayPaymentResponse) {
+
+          // 🔑 ADD THIS: CONFIRM PSYCHOLOGIST BOOKING
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/confirm`,
+            {
+              bookingId,
+        
+              // SESSION DETAILS
+              name: bookingData.name,
+              email: bookingData.email,
+              phone: bookingData.phone,
+              age: bookingData.age,
+              modeOfTherapy: bookingData.modeOfTherapy,
+              issue: bookingData.issue,
+              sessionType: bookingData.sessionType,
+              therapyType: bookingData.therapyType,
+              packageTitle: bookingData.packageTitle,
+            }
+          );
+        
+          setSuccessData({
+            name: bookingData.name || "",
+            email: bookingData.email || "",
+            phone: bookingData.phone || "",
+            packageTitle: bookingData.packageTitle || "Therapy Session",
+            date: bookingData.date || "",
+            timeSlot: bookingData.timeSlot || "",
+            amount: bookingData.packageAmount || 0,
+          });
+        
+          setIsPaying(false);
+          setShowSuccessModal(true);
+        },
+        
+        theme: { color: "#005657" },
+        modal: {
+          ondismiss: async () => {
+            // User closed/cancelled payment modal
+            setIsPaying(false);
+            
+            // Check booking status to see if payment failed
+            if (bookingId) {
+              try {
+                const statusRes = await axios.get(
+                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+                );
+                
+                const booking = statusRes.data;
+                
+                // If payment failed (backend webhook already processed it)
+                if (booking?.paymentStatus === 'failed' && booking?.bookingStatus === 'initiated') {
+                  const lockExpiresAt = new Date(booking.lockExpiresAt);
+                  const now = new Date();
+                  
+                  // Check if lock is still valid (within 10-minute window)
+                  if (lockExpiresAt > now) {
+                    const minutesRemaining = Math.ceil((lockExpiresAt.getTime() - now.getTime()) / 60000);
+                    setPaymentError(`Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`);
+                  } else {
+                    setPaymentError("Payment window expired. Please start a new booking.");
+                    // Reset booking ID to force new booking
+                    setBookingId(null);
+                  }
+                } else {
+                  // User just cancelled, no payment attempt
+                  setPaymentError("Payment was cancelled. You can try again.");
+                }
+              } catch (error) {
+                console.error("Error checking booking status:", error);
+                setPaymentError("Payment was cancelled. You can try again.");
+              }
+            } else {
+              setPaymentError("Payment was cancelled. You can try again.");
+            }
+          },
+        },
+      };
+  
+      await openRazorpayPayment(razorpayOptions);
+      setPaymentError(null); // Clear any previous errors
+    } catch (error) {
+      console.error("Payment error", error);
+      setIsPaying(false);
+      setPaymentError("Failed to initiate payment. Please try again.");
+      toast.error("Payment failed", "Please try again.");
     }
   };
+
+  // Retry payment function
+  const retryPayment = async () => {
+    if (!bookingId) {
+      toast.error("No booking found. Please start over.");
+      return;
+    }
+
+    setIsRetryingPayment(true);
+    setPaymentError(null);
+
+    try {
+      // Check if booking is still valid for retry
+      const statusRes = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+      );
+
+      const booking = statusRes.data;
+
+      if (booking?.paymentStatus !== 'failed' || booking?.bookingStatus !== 'initiated') {
+        setPaymentError("Booking is no longer available for retry. Please start a new booking.");
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      const lockExpiresAt = new Date(booking.lockExpiresAt);
+      const now = new Date();
+
+      if (lockExpiresAt <= now) {
+        setPaymentError("Payment window expired. Please start a new booking.");
+        setBookingId(null);
+        setIsRetryingPayment(false);
+        return;
+      }
+
+      // Retry payment with existing booking
+      await handlePaymentAndBooking();
+    } catch (error) {
+      console.error("Retry payment error:", error);
+      setPaymentError("Failed to retry payment. Please start a new booking.");
+      toast.error("Retry failed", "Please start a new booking.");
+    } finally {
+      setIsRetryingPayment(false);
+    }
+  };
+  
+
+const handleNext = async () => {
+  
+  // STEP 3 → STEP 4 (LOCK SLOT HERE)
+  if (step === 3) {
+    console.log("🟢 Step 3: Creating slot...");
+    const id = await createSlot(); // initiate booking
+    if (!id) return;
+
+    setBookingId(id);
+    nextStep();
+    return;
+  }
+
+  // STEP 4 → PAYMENT
+  if (step === 4) {
+    if (canProceedFromStep4()) {
+      handlePaymentAndBooking();
+    } else {
+      toast.error("Please fill all the details");
+    }
+    return;
+  }
+
+  nextStep();
+};
+
 
   if (!isOpen) return null;
 
@@ -412,10 +705,10 @@ export function PsychologistModal({
                   bookingData={bookingData}
                   onUpdate={(data) => {
                     if (data?.date) {
-                      fetchBookedSlots(data?.date?.toISOString().split("T")[0]);
+                      fetchBookedSlots(data.date);
                     }
                     updateBookingData(data);
-                  }}
+                  }}                  
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
@@ -432,6 +725,38 @@ export function PsychologistModal({
 
           {/* Footer */}
           <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+            {/* Payment Error Message */}
+            {paymentError && step === 4 && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="flex-1">
+                    <p className="text-sm text-red-800">{paymentError}</p>
+                    {paymentError.includes("retry") && bookingId && (
+                      <button
+                        onClick={retryPayment}
+                        disabled={isRetryingPayment}
+                        className="mt-2 text-sm font-semibold text-red-700 hover:text-red-800 underline disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isRetryingPayment ? "Retrying..." : "Retry Payment"}
+                      </button>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setPaymentError(null)}
+                    className="text-red-600 hover:text-red-800"
+                    aria-label="Dismiss error"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
               <button
                 onClick={step === 1 ? onClose : prevStep}
@@ -442,13 +767,13 @@ export function PsychologistModal({
 
               <button
                 onClick={handleNext}
-                disabled={!canProceed()}
-                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed()
+                disabled={!canProceed() || isPaying || isRetryingPayment}
+                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed() || isPaying || isRetryingPayment
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-[#005657] hover:bg-[#005657]/90"
                   }`}
               >
-                {getNextButtonText()}
+                {isPaying || isRetryingPayment ? "Processing..." : getNextButtonText()}
               </button>
             </div>
           </div>

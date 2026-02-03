@@ -1,6 +1,7 @@
 export interface PsychologistBookingData {
   // Slot selection
-  date?: Date;
+  // date?: Date;
+  date?: string;
   timeSlot?: string;
 
   // User details
