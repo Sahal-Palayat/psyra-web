@@ -20,7 +20,7 @@ const Services = () => {
       type: "Individual therapy",
       subTitle: "Starts from ₹999",
       img: Individual,
-      route: "individual",
+      route: "individual-therapy",
     },
     {
       type: "Couple therapy",
