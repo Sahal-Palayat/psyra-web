@@ -11,12 +11,6 @@ import {
   Globe,
 } from "lucide-react";
 
-export const metadata = {
-  title: "Consent Policy | Psyra",
-  description:
-    "Read Psyra’s consent policy to understand how we collect, use, and protect personal information while providing mental health services.",
-};
-
 export default function Consent() {
   const privacySections = [
     {
