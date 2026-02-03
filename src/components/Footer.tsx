@@ -120,7 +120,7 @@ export default function Footer() {
               <ul className="mt-2 space-y-2">
                 <li>
                   <Link
-                    href="/individual"
+                    href="/individual-therapy"
                     className="hover:text-[#6EF1EC] transition-colors"
                   >
                     Individual Therapy
