@@ -14,7 +14,7 @@ import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 import LatestBlogs from "@/components/blogs/latestBlogs";
 import AssessmentCTA from "@/components/assessment/AssessmentCTA";
-import {HowItWorks} from "@/components/HowTherapyWorks";
+import { HowItWorks } from "@/components/HowTherapyWorks";
 
 // Dynamically import components with the themed loader
 const DynamicPsychologistCarousel = dynamic(
@@ -22,7 +22,7 @@ const DynamicPsychologistCarousel = dynamic(
     import("@/components/Psychologist/SimpleCarousel/psychologist-carousel"),
   {
     loading: () => <MentalHealthLoader />,
-  }
+  },
 );
 
 // const DynamicOurSpecials = dynamic(() => import("@/components/OurSpecials"), {
@@ -58,12 +58,11 @@ export default function Home() {
         </div>
       </section>
 
-      <HowItWorks />
-
       <section className="bg-[#F7F8F2] pt-0 pb-4">
-  <DynamicPsychologistCarousel />
-</section>
+        <DynamicPsychologistCarousel />
+      </section>
 
+      <HowItWorks />
 
       {/* <BlogSwiper /> */}
       {/* Our Specialties with themed loading */}
