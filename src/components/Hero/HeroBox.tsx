@@ -8,7 +8,7 @@ const HeroBox = () => {
       subtitle: "Get your online session heal your mind",
       image: "/Online-Counselling-Malayalam-Take-Your-Online-Therapy.webp",
       buttonText: "Book Now",
-      link: "/services",
+      link: "/online-counselling-services",
     },
     {
       title: "Take Your Free Assessment",

@@ -30,7 +30,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/services"
+                    href="/online-counselling-services"
                     className="hover:text-[#6EF1EC] transition-colors"
 
                   >

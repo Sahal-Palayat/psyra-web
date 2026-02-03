@@ -44,7 +44,7 @@ export default function MalayalamCounsellingSectionClient({
               <p className="mt-4 text-sm text-[#0F3D3E]">
                 Learn more about our{" "}
                 <Link
-                  href="/services"
+                  href="/online-counselling-services"
                   className="font-semibold text-[#0F3D3E] underline underline-offset-4 decoration-[#0F3D3E]/60 hover:decoration-[#0F3D3E]"
                 >
                   Malayalam online counselling services

@@ -47,7 +47,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
             </p>
 
             <Link
-              href="/services"
+              href="/online-counselling-services"
               className="
           inline-flex items-center gap-2
           px-5 py-3
@@ -110,7 +110,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
               </p>
               <div className="flex justify-center md:justify-start">
                 <Link
-                  href="/services"
+                  href="/online-counselling-services"
                   className="
           group inline-flex items-center gap-3
           px-6 py-3

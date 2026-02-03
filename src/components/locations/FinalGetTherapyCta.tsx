@@ -22,7 +22,7 @@ export default function FinalCTA({ countryName }: FinalCTAProps) {
 
         <div className="pt-4 md:pt-6">
           <Link
-            href="/services"
+            href="/online-counselling-services"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#43C6AC] text-white text-sm font-bold uppercase tracking-widest hover:bg-[#1a3c34] transition"
           >
             Start Online Therapy

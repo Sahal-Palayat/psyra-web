@@ -111,7 +111,7 @@ const Navbar = () => {
               About us
             </Link>
             <Link
-              href="/services"
+              href="/online-counselling-services"
               className={`transition-all duration-200
                     ${
                       isScrolled
