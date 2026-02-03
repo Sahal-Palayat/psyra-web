@@ -13,9 +13,12 @@ import {
   RefreshCw,
 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy Best online counseling",
+export const metadata = {
+  title: "Privacy Policy | Psyra",
+  description:
+    "Read Psyra’s privacy policy to understand how we collect, use, store, and protect personal information on our mental health platform.",
 };
+
 
 export default function PrivacyPolicy() {
   const privacySections = [

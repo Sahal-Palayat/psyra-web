@@ -3,6 +3,12 @@ import { Suspense } from "react";
 import {  useSearchParams } from "next/navigation";
 import FeedbackForm from "@/components/feedback/feedback-form";
 
+export const metadata = {
+  title: "Share Your Feedback | Psyra",
+  description:
+    "Share your feedback and experience with Psyra. Your insights help us improve our mental health services and support better care.",
+};
+
 function FeedbackPageContent() {
   const searchParams = useSearchParams();
   const encodedData = searchParams.get("data");

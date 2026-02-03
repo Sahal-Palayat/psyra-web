@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card"
-import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 const concerns = [
   { title: "Depression", slug: "depression" },
@@ -11,7 +11,13 @@ const concerns = [
   { title: "Sexual Issues", slug: "sexual-issues" },
   { title: "Relationship Issues", slug: "relationship-issues" },
   { title: "Work Related Challenges", slug: "work-related-challenges" },
-]
+];
+
+export const metadata = {
+  title: "Mental Health Concerns We Treat | Psyra",
+  description:
+    "Explore common mental health concerns such as anxiety, depression, stress, relationship issues, and more. Psyra offers professional support tailored to your needs.",
+};
 
 export default function Concerns() {
   return (
@@ -45,5 +51,5 @@ export default function Concerns() {
         </div>
       </section>
     </div>
-  )
+  );
 }

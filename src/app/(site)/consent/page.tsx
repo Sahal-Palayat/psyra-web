@@ -1,7 +1,21 @@
-"use client"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowLeft, Shield, Eye, Lock, Database, UserCheck, Globe } from "lucide-react"
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  Shield,
+  Eye,
+  Lock,
+  Database,
+  UserCheck,
+  Globe,
+} from "lucide-react";
+
+export const metadata = {
+  title: "Consent Policy | Psyra",
+  description:
+    "Read Psyra’s consent policy to understand how we collect, use, and protect personal information while providing mental health services.",
+};
 
 export default function Consent() {
   const privacySections = [
@@ -61,7 +75,7 @@ export default function Consent() {
         "Incident response and breach notification procedures",
       ],
     },
-  ]
+  ];
 
   const additionalSections = [
     {
@@ -108,7 +122,7 @@ export default function Consent() {
         "Clear information about cookie usage",
       ],
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#E8F9FC] to-white">
@@ -123,7 +137,11 @@ export default function Consent() {
             Back to Home
           </Link>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-[#B6E5DF] rounded-full flex items-center justify-center">
                 <Shield className="w-6 h-6 text-[#005657]" />
@@ -131,7 +149,8 @@ export default function Consent() {
               <h1 className="text-4xl md:text-5xl font-bold">Privacy Policy</h1>
             </div>
             <p className="text-xl text-[#B6E5DF] max-w-2xl">
-              Your privacy is our priority. Learn how we protect and handle your personal information.
+              Your privacy is our priority. Learn how we protect and handle your
+              personal information.
             </p>
           </motion.div>
         </div>
@@ -150,7 +169,9 @@ export default function Consent() {
             <div className="w-8 h-8 bg-[#005657] rounded-full flex items-center justify-center">
               <Eye className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-lg font-semibold text-[#005657]">Privacy Notice</h2>
+            <h2 className="text-lg font-semibold text-[#005657]">
+              Privacy Notice
+            </h2>
           </div>
           <p className="text-[#005657]/80 mb-2">
             <strong>Last Updated:</strong> December 23, 2024
@@ -167,21 +188,27 @@ export default function Consent() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-white rounded-xl shadow-lg p-8 mb-8"
         >
-          <h2 className="text-2xl font-bold text-[#005657] mb-4">Our Commitment to Your Privacy</h2>
+          <h2 className="text-2xl font-bold text-[#005657] mb-4">
+            Our Commitment to Your Privacy
+          </h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            At Psyra, we understand that your mental health information is deeply personal and sensitive. This Privacy
-            Policy explains how we collect, use, protect, and share your information when you use our mental health
-            services and platform.
+            At Psyra, we understand that your mental health information is
+            deeply personal and sensitive. This Privacy Policy explains how we
+            collect, use, protect, and share your information when you use our
+            mental health services and platform.
           </p>
           <p className="text-gray-700 leading-relaxed mb-4">
-            We are committed to maintaining the highest standards of privacy and confidentiality, in compliance with
-            applicable healthcare privacy laws, including HIPAA (where applicable) and Indian data protection
+            We are committed to maintaining the highest standards of privacy and
+            confidentiality, in compliance with applicable healthcare privacy
+            laws, including HIPAA (where applicable) and Indian data protection
             regulations.
           </p>
           <div className="bg-[#B6E5DF]/20 rounded-lg p-4">
             <p className="text-[#005657] font-medium">
-              🔒 Your trust is essential to the therapeutic relationship. We will never compromise your privacy or use
-              your information for purposes other than providing you with the best possible mental health care.
+              🔒 Your trust is essential to the therapeutic relationship. We
+              will never compromise your privacy or use your information for
+              purposes other than providing you with the best possible mental
+              health care.
             </p>
           </div>
         </motion.div>
@@ -200,14 +227,21 @@ export default function Consent() {
                 <div className="w-10 h-10 bg-[#B6E5DF] rounded-full flex items-center justify-center text-[#005657]">
                   {section.icon}
                 </div>
-                <h3 className="text-xl font-bold text-[#005657]">{section.title}</h3>
+                <h3 className="text-xl font-bold text-[#005657]">
+                  {section.title}
+                </h3>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-4">{section.content}</p>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                {section.content}
+              </p>
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="font-semibold text-[#005657] mb-3">Details:</h4>
                 <ul className="space-y-2">
                   {section.details.map((detail, detailIndex) => (
-                    <li key={detailIndex} className="flex items-start gap-3 text-gray-700">
+                    <li
+                      key={detailIndex}
+                      className="flex items-start gap-3 text-gray-700"
+                    >
                       <div className="w-2 h-2 bg-[#B6E5DF] rounded-full mt-2 flex-shrink-0"></div>
                       <span>{detail}</span>
                     </li>
@@ -228,10 +262,15 @@ export default function Consent() {
               transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
               className="bg-white rounded-xl shadow-lg p-8"
             >
-              <h3 className="text-xl font-bold text-[#005657] mb-4">{section.title}</h3>
+              <h3 className="text-xl font-bold text-[#005657] mb-4">
+                {section.title}
+              </h3>
               <ul className="space-y-3">
                 {section.content.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-start gap-3 text-gray-700">
+                  <li
+                    key={itemIndex}
+                    className="flex items-start gap-3 text-gray-700"
+                  >
                     <div className="w-2 h-2 bg-[#B6E5DF] rounded-full mt-2 flex-shrink-0"></div>
                     <span>{item}</span>
                   </li>
@@ -250,11 +289,13 @@ export default function Consent() {
         >
           <div className="flex items-center gap-3 mb-4">
             <Shield className="w-8 h-8 text-[#B6E5DF]" />
-            <h3 className="text-2xl font-bold">Privacy Questions or Concerns?</h3>
+            <h3 className="text-2xl font-bold">
+              Privacy Questions or Concerns?
+            </h3>
           </div>
           <p className="text-[#B6E5DF] mb-6">
-            If you have questions about this Privacy Policy or concerns about how we handle your information, please
-            contact our Privacy Officer.
+            If you have questions about this Privacy Policy or concerns about
+            how we handle your information, please contact our Privacy Officer.
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -268,11 +309,12 @@ export default function Consent() {
           </div>
           <div className="mt-6 pt-6 border-t border-white/20">
             <p className="text-sm text-[#B6E5DF]">
-              We will respond to privacy inquiries within 48 hours during business days.
+              We will respond to privacy inquiries within 48 hours during
+              business days.
             </p>
           </div>
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

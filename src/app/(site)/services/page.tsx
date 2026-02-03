@@ -2,6 +2,12 @@ import Faq from "@/components/Faq";
 import Services from "@/components/Services";
 import React from "react";
 
+export const metadata = {
+  title: "Online Counselling | Trusted therapy | Psyra",
+  description:
+    "Explore Psyra’s mental health services, including individual therapy, couple therapy, assessments, and online counselling tailored to your needs.",
+};
+
 const page = () => {
   return (
     <>
