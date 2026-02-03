@@ -52,14 +52,14 @@ export default function Home() {
       {/* Psychologist Carousel with themed loading */}
       <CarouselStats />
       <Concerns />
+
+      <section className="bg-[#F7F8F2] pt-4 pb-0">
+        <DynamicPsychologistCarousel />
+      </section>
       <section className="bg-[#F7F8F2]">
         <div className="max-w-7xl mx-auto px-4">
           <AssessmentCTA />
         </div>
-      </section>
-
-      <section className="bg-[#F7F8F2] pt-0 pb-4">
-        <DynamicPsychologistCarousel />
       </section>
 
       <HowItWorks />
