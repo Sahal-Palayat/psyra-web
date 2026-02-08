@@ -7,7 +7,6 @@ async function fetchBlogs() {
       cache: "no-store",
     });
     console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
-
     if (!res.ok) {
       throw new Error("Failed to fetch blogs");
     }
@@ -19,6 +18,12 @@ async function fetchBlogs() {
     return [];
   }
 }
+
+export const metadata = {
+  title: "Mental Health Blogs & Articles | Psyra",
+  description:
+    "Read expert-written mental health blogs and articles from Psyra covering therapy, emotional well-being, self-care, and mental health awareness.",
+};
 
 export default async function BlogsPage() {
   const blogs = await fetchBlogs();

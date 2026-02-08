@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Online Counseling Psychology",
+  title: "Online Counseling Psychology | Trusted Therapy - Psyra",
   description:
     "Professional mental health Online services with licensed therapists and psychologists. Your trusted partner for mental wellness and therapy sessions.",
   keywords: [
