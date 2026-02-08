@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MoveRight } from "lucide-react";
 
 interface LocationHeroProps {
@@ -9,29 +10,36 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
   return (
     <section
       className="
-    relative overflow-hidden isolate
-    md:min-h-[100vh]
-    pt-0 md:pt-40
-    pb-0 md:pb-28
-    text-[#1a3c34]
+    relative overflow-hidden
+    pt-[76px] pb-0
+    sm:pt-8 sm:pb-12
+    md:pt-0 md:pb-0 md:h-screen
+    px-0
     bg-[#EAF7F5]
+    text-[#1a3c34]
   "
     >
       {/*  MOBILE HERO  */}
-      <div className="relative md:hidden w-full h-[420px] overflow-hidden">
-        {/* Background image */}
-        <img
-          src="/images/online-therapy-global-psyra.webp"
-          alt={`Online therapy and mental health support in ${countryName}`}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <div className="md:hidden flex flex-col">
+        {/* Smooth transition gradient from navbar */}
+        <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white/40 via-[#EAF7F5]/60 to-transparent pointer-events-none z-10" />
+        
+        {/* Image - shown first, full-width edge-to-edge */}
+        <div className="w-screen h-[320px] sm:h-[360px] overflow-hidden bg-[#EAF7F5] relative left-1/2 -translate-x-1/2">
+          <Image
+            src="/images/online-malayalam-counselling-hero-mobile.webp"
+            alt={`Online therapy and mental health support in ${countryName}`}
+            fill
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: 'center 70%' }}
+            priority
+          />
+        </div>
 
-        {/* Soft blend overlay  */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#EAF7F5]/95 via-[#EAF7F5]/80 to-transparent" />
-
-        {/* Text */}
-        <div className="relative z-10 h-full flex items-center">
-          <div className="px-6 max-w-[260px]">
+        {/* Text content - shown below image, with improved layout */}
+        <div className="pt-8 pb-8 px-4 sm:px-6">
+          <div className="max-w-[280px] sm:max-w-[320px] mx-auto text-center">
             <p className="text-[10px] tracking-widest uppercase text-[#43C6AC] mb-3">
               Online Therapy for {countryName}
             </p>
@@ -64,49 +72,31 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
 
       {/* DESKTOP HERO */}
 
-      <div className="hidden md:block">
-        <img
-          src="/images/online-therapy-global-psyra.webp"
-          alt={`Online therapy and mental health support in ${countryName}`}
-          className="sr-only"
-        />
+      <div className="hidden md:flex md:flex-col md:h-full md:relative bg-[#EAF7F5]">
+        {/* Smooth transition gradient from navbar - desktop */}
+        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white/50 via-white/20 to-transparent pointer-events-none z-10" />
 
-        {/* Background image (right aligned globe) */}
-        <div
-          className="
-    absolute inset-0
-    bg-no-repeat bg-cover bg-center
-  "
-          style={{
-            backgroundImage: `url('/images/online-therapy-global-psyra.webp')`,
-          }}
-        />
+        {/* Desktop hero background image */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src="/images/online-malayalam-counselling-hero-desktop.webp"
+            alt={`Online therapy and mental health support in ${countryName}`}
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            priority
+            quality={90}
+          />
+        </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Badge */}
-          <div className="inline-block px-5 py-2 mb-10 rounded-full border border-[#43C6AC]/40 bg-[#43C6AC]/10 backdrop-blur-sm">
-            <p className="text-[11px] md:text-xs uppercase tracking-[0.35em] font-bold text-[#1a3c34]">
-              Online Therapy for{" "}
-              <span className="text-[#43C6AC]">{countryName}</span> Residents
-            </p>
-          </div>
-
-          {/* Heading */}
-          <h1
-            className="text-4xl md:text-[4.75rem] lg:text-[5.25rem]
-               font-serif leading-[1.05] tracking-tight
-               mb-8 text-balance md:text-left text-center max-w-2xl"
-          >
-            Wellness meets <br />
-            <span className="italic text-[#43C6AC]">purposeful</span> care.
-          </h1>
-
-          {/* Content + CTA */}
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-12 max-w-5xl">
-            <div className="max-w-xl text-center md:text-left space-y-4">
-              <p className="text-sm md:text-base leading-relaxed text-[#1a3c34]/70 text-pretty max-w-md">
-                Thoughtful, confidential mental health support designed for
-                people navigating life in {countryName}.
+        {/* Content container */}
+        <div className="flex-1 flex items-center relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 lg:py-16">
+            {/* Badge */}
+            <div className="inline-block px-5 py-2 mb-6 lg:mb-8 rounded-full border border-[#43C6AC]/40 bg-[#43C6AC]/10 backdrop-blur-sm">
+              <p className="text-xs uppercase tracking-[0.35em] font-bold text-[#1a3c34]">
+                Online Therapy for{" "}
+                <span className="text-[#43C6AC]">{countryName}</span> Residents
               </p>
               <div className="flex justify-center md:justify-start">
                 <Link
