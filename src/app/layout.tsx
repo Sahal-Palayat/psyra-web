@@ -162,6 +162,7 @@ export default function RootLayout({
               })(window,document,'script','dataLayer','GTM-5QRB9K55');`,
           }}
         />
+        <script src="https://services.chatmount.co/embed/9b09382b-b1f0-4011-9b0d-2e1489f43c36.js" async></script>
         {/* End Google Tag Manager */}
       </head>
       <body className={`${onest.variable} ${geistMono.variable} antialiased`}>
