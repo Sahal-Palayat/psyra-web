@@ -135,7 +135,7 @@ const HeroMob = () => {
               >
                 <div
                   onClick={() => {
-                    window.location.href = "/services";
+                    window.location.href = "/online-counselling-services";
                   }}
                   className="flex flex-col gap-4 justify-between"
                 >

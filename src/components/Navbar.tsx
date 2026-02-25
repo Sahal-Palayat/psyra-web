@@ -248,7 +248,7 @@ const Navbar = () => {
                 About us
               </Link>
               <Link
-                href="/services"
+                href="/online-counselling-services"
                 className="text-white text-lg font-medium"
                 onClick={toggleMenu}
               >
