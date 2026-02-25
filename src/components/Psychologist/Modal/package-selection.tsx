@@ -12,132 +12,171 @@ interface PackageSelectionProps {
 type Package = {
   id: string;
   title: string;
-  price: string;
-  originalPrice: string | null;
+  price: number;
+  originalPrice?: string | null;
   sessions: number;
   popular: boolean;
   savings: string | null;
 };
 
-// Utility function to apply 10% discount
-const applyOfferDiscount = (price: number): number => {
-  return Math.round(price * 0.9);
+type BackendPackage = {
+  id: string;
+  sessions: number;
+  price: number;
+  discount: number;
 };
+// Utility function to apply 10% discount
+// const applyOfferDiscount = (price: number): number => {
+//   return Math.round(price * 0.9);
+// };
 
 // Utility function to format price with rupee symbol
-const formatPriceWithSymbol = (price: number): string => {
-  return `₹${price.toLocaleString('en-IN')}`;
-};
+// const formatPriceWithSymbol = (price: number): string => {
+//   return `₹${price.toLocaleString('en-IN')}`;
+// };
 
 export function PackageSelection({
   bookingData,
   onUpdate,
   hasOfferClaim = false,
 }: PackageSelectionProps) {
-  const [packages, setPackages] = useState<Package[]>([
-    {
-      id: "",
-      title: "",
-      price: "",
-      originalPrice: null,
-      sessions: 1,
-      popular: false,
-      savings: null,
-    },
-  ]);
-  const individualPackage = [
-    {
-      id: "single",
-      title: "Single Session",
-      price: "₹999",
-      originalPrice: null,
-      sessions: 1,
-      popular: false,
-      savings: null,
-    },
-    {
-      id: "8-sessions",
-      title: "8 Sessions Package",
-      price: "₹6000",
-      originalPrice: "",
-      sessions: 8,
-      popular: true,
-      savings: "25% OFF",
-    },
-    {
-      id: "24-sessions",
-      title: "24 Sessions Package",
-      price: "14400",
-      originalPrice: "",
-      sessions: 10,
-      popular: false,
-      savings: "40% OFF",
-    },
-  ];
+  // const [packages, setPackages] = useState<Package[]>([
+  //   {
+  //     id: "",
+  //     title: "",
+  //     price: "",
+  //     originalPrice: null,
+  //     sessions: 1,
+  //     popular: false,
+  //     savings: null,
+  //   },
+  // ]);
 
-  const couplePackage = [
-    {
-      id: "single",  
-      title: "Single Session",
-      price: "₹1499",
-      originalPrice: null,
-      sessions: 1,
-      popular: false,
-      savings: null,
-    },
-    {
-      id: "package-4",
-      title: "4-Couple Session Plan",
-      price: "₹4800",
-      originalPrice: "₹5996",
-      sessions: 4,
-      popular: true,
-      savings: "20% OFF",
-    },
-    {
-      id: "package-8",
-      title: " 8-Couple Session Plan",
-      price: "₹8000",
-      originalPrice: "₹11992",
-      sessions: 8,
-      popular: false,
-      savings: "34% OFF",
-    },
-  ];
+  const [packages, setPackages] = useState<Package[]>([]);
+  // const individualPackage = [
+  //   {
+  //     id: "single",
+  //     title: "Single Session",
+  //     price: "₹999",
+  //     originalPrice: null,
+  //     sessions: 1,
+  //     popular: false,
+  //     savings: null,
+  //   },
+  //   {
+  //     id: "8-sessions",
+  //     title: "8 Sessions Package",
+  //     price: "₹6000",
+  //     originalPrice: "",
+  //     sessions: 8,
+  //     popular: true,
+  //     savings: "25% OFF",
+  //   },
+  //   {
+  //     id: "24-sessions",
+  //     title: "24 Sessions Package",
+  //     price: "14400",
+  //     originalPrice: "",
+  //     sessions: 10,
+  //     popular: false,
+  //     savings: "40% OFF",
+  //   },
+  // ];
 
-  useEffect(() => {
-    const data =
-      bookingData?.therapyType === "individual"
-        ? individualPackage
-        : couplePackage;
-    
-    // Apply offer discount if hasOfferClaim is true
-    if (hasOfferClaim) {
-      const discountedPackages = data.map(pkg => {
-        const originalPrice = parseInt(pkg.price.replace(/[₹,]/g, ''));
-        const discountedPrice = applyOfferDiscount(originalPrice);
-        
-        return {
-          ...pkg,
-          price: formatPriceWithSymbol(discountedPrice),
-          originalPrice: pkg.originalPrice || formatPriceWithSymbol(originalPrice),
-          savings: "10% OFF", // Always show 10% OFF when offer is active
-        };
+  // const couplePackage = [
+  //   {
+  //     id: "single",  
+  //     title: "Single Session",
+  //     price: "₹1499",
+  //     originalPrice: null,
+  //     sessions: 1,
+  //     popular: false,
+  //     savings: null,
+  //   },
+  //   {
+  //     id: "package-4",
+  //     title: "4-Couple Session Plan",
+  //     price: "₹4800",
+  //     originalPrice: "₹5996",
+  //     sessions: 4,
+  //     popular: true,
+  //     savings: "20% OFF",
+  //   },
+  //   {
+  //     id: "package-8",
+  //     title: " 8-Couple Session Plan",
+  //     price: "₹8000",
+  //     originalPrice: "₹11992",
+  //     sessions: 8,
+  //     popular: false,
+  //     savings: "34% OFF",
+  //   },
+  // ];
+
+useEffect(() => {
+  if (!bookingData?.therapyType) return;
+
+  const fetchPackages = async () => {
+    try {
+      const params = new URLSearchParams({
+        therapyType: bookingData.therapyType,
       });
-      setPackages(discountedPackages);
-    } else {
-      setPackages(data);
+
+      if (bookingData.psychologistId) {
+        params.append("psychologistId", bookingData.psychologistId);
+      }
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/pricing/packages?${params}`
+      );
+
+      const data = await res.json();
+
+      // map backend → UI format
+      let formatted = (data as BackendPackage[]).map((pkg) => ({
+        id: pkg.id,
+        title:
+          pkg.id === "single"
+            ? "Single Session"
+            : `${pkg.sessions} Sessions Package`,
+        price: pkg.price,
+        sessions: pkg.sessions,
+        popular: pkg.id === "pack8",
+        savings: pkg.discount ? `${pkg.discount}% OFF` : null,
+      }));
+
+      // apply 10% offer if active
+      if (hasOfferClaim) {
+        formatted = formatted.map((pkg) => {
+          const discounted = Math.round(pkg.price * 0.9);
+          return {
+            ...pkg,
+            originalPrice: pkg.price,
+            price: discounted,
+            savings: "10% OFF",
+          };
+        });
+      }
+
+      setPackages(formatted);
+    } catch (err) {
+      console.error("pricing fetch failed", err);
     }
-  }, [bookingData, hasOfferClaim]);
+  };
+
+  fetchPackages();
+}, [bookingData.therapyType, bookingData.psychologistId, hasOfferClaim]);
 
   const handlePackageSelect = (packageId: string) => {
-    const selectedPackage = packages.find(pkg => pkg.id === packageId);
-    const amount = selectedPackage ? parseInt(selectedPackage.price.replace(/[₹,]/g, '')) : 0;
-    onUpdate({ 
-      packageTitle: packageId,
-      packageAmount: amount
-    });
-  };
+  const selectedPackage = packages.find(pkg => pkg.id === packageId);
+
+  const amount = selectedPackage ? selectedPackage.price : 0;
+
+  onUpdate({ 
+    packageTitle: packageId,
+    packageAmount: amount
+  });
+};
 
   return (
     <div className="space-y-6">
@@ -207,7 +246,7 @@ export function PackageSelection({
 
               <div className="mb-2">
                 <span className="text-3xl font-bold text-[#005657]">
-                  {pkg.price}
+                  ₹{pkg.price.toLocaleString("en-IN")}
                 </span>
                 {pkg.originalPrice && (
                   <span className="text-lg text-gray-400 line-through ml-2">
