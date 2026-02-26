@@ -16,6 +16,7 @@ export interface PsychologistBookingData {
 
   psychologistId?: string;
   // Package info
+  packageId: string; 
   packageTitle?: string;
   packageAmount:number
 }

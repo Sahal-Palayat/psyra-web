@@ -35,7 +35,8 @@ export function BookingModal({
   onClose,
   packageTitle,
   price,
-  packageId
+  packageId,
+  fixedPsychologistId
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
@@ -65,7 +66,7 @@ export function BookingModal({
     sessionType: "",
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     packageAmount: parseInt(price),
-    psychologistId: undefined,
+    psychologistId: fixedPsychologistId || undefined,
     packageId: packageId
   });
   const [psychologists, setPsychologists] = useState<PsychologistLite[]>([]);
@@ -477,6 +478,7 @@ useEffect(() => {
                       bookingData={bookingData}
                       onUpdate={updateBookingData}
                       psychologists={psychologists}
+                      hideTherapistSelect={!!fixedPsychologistId}
                     />
 
                     {/* price display */}

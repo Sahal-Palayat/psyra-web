@@ -50,6 +50,7 @@ export function PsychologistModal({
     packageTitle: "",
     therapyType: "",
     packageAmount: typeof data?.price === 'number' ? data.price : 0,
+    packageId: "",
   });
 
   useEffect(() => {
@@ -96,6 +97,7 @@ export function PsychologistModal({
       packageTitle: "",
       therapyType: "",
       packageAmount: typeof data?.price === 'number' ? data.price : 0,
+      packageId: "",
     });
     onClose();
   };
@@ -435,6 +437,7 @@ export function PsychologistModal({
                 <DetailsForm
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
+                  hideTherapistSelect={true}
                 />
               )}
             </div>

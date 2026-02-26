@@ -28,6 +28,7 @@ export interface BookingModalProps {
   packageTitle: string;
   price: string;
   packageId: string; 
+  fixedPsychologistId?: string;
 }
 
 export interface PsychologistModalProps {

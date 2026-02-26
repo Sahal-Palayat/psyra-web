@@ -85,7 +85,7 @@ export function PackageSelection({
 
   // const couplePackage = [
   //   {
-  //     id: "single",  
+  //     id: "single",
   //     title: "Single Session",
   //     price: "₹1499",
   //     originalPrice: null,
@@ -113,80 +113,95 @@ export function PackageSelection({
   //   },
   // ];
 
-useEffect(() => {
-  if (!bookingData?.therapyType) return;
+  useEffect(() => {
+    if (!bookingData?.therapyType) return;
 
-  const fetchPackages = async () => {
-    try {
-      const params = new URLSearchParams({
-        therapyType: bookingData.therapyType,
-      });
-
-      if (bookingData.psychologistId) {
-        params.append("psychologistId", bookingData.psychologistId);
-      }
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/pricing/packages?${params}`
-      );
-
-      const data = await res.json();
-
-      // map backend → UI format
-      let formatted = (data as BackendPackage[]).map((pkg) => ({
-        id: pkg.id,
-        title:
-          pkg.id === "single"
-            ? "Single Session"
-            : `${pkg.sessions} Sessions Package`,
-        price: pkg.price,
-        sessions: pkg.sessions,
-        popular: pkg.id === "pack8",
-        savings: pkg.discount ? `${pkg.discount}% OFF` : null,
-      }));
-
-      // apply 10% offer if active
-      if (hasOfferClaim) {
-        formatted = formatted.map((pkg) => {
-          const discounted = Math.round(pkg.price * 0.9);
-          return {
-            ...pkg,
-            originalPrice: pkg.price,
-            price: discounted,
-            savings: "10% OFF",
-          };
+    const fetchPackages = async () => {
+      try {
+        const params = new URLSearchParams({
+          therapyType: bookingData.therapyType,
         });
+
+        if (bookingData.psychologistId) {
+          params.append("psychologistId", bookingData.psychologistId);
+        }
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/pricing/packages?${params}`,
+        );
+
+        const data = await res.json();
+
+        // map backend → UI format
+        let formatted = (data as BackendPackage[]).map((pkg) => ({
+          id: pkg.id,
+          title:
+            pkg.id === "single"
+              ? "Single Session"
+              : `${pkg.sessions} Sessions Package`,
+          price: pkg.price,
+          sessions: pkg.sessions,
+          popular: pkg.id === "pack8",
+          savings: pkg.discount ? `${pkg.discount}% OFF` : null,
+        }));
+
+        // filter for psychologist profile flow
+        let allowedProfilePackages: string[] = [];
+
+        if (bookingData.therapyType === "individual") {
+          allowedProfilePackages = ["single", "pack8", "pack24"];
+        } else if (bookingData.therapyType === "couple") {
+          allowedProfilePackages = ["single", "pack4", "pack8"];
+        }
+
+        formatted = formatted.filter((pkg) =>
+          allowedProfilePackages.includes(pkg.id),
+        );
+
+        // apply 10% offer if active
+        if (hasOfferClaim) {
+          formatted = formatted.map((pkg) => {
+            const discounted = Math.round(pkg.price * 0.9);
+            return {
+              ...pkg,
+              originalPrice: pkg.price,
+              price: discounted,
+              savings: "10% OFF",
+            };
+          });
+        }
+
+        setPackages(formatted);
+      } catch (err) {
+        console.error("pricing fetch failed", err);
       }
+    };
 
-      setPackages(formatted);
-    } catch (err) {
-      console.error("pricing fetch failed", err);
-    }
-  };
-
-  fetchPackages();
-}, [bookingData.therapyType, bookingData.psychologistId, hasOfferClaim]);
+    fetchPackages();
+  }, [bookingData.therapyType, bookingData.psychologistId, hasOfferClaim]);
 
   const handlePackageSelect = (packageId: string) => {
-  const selectedPackage = packages.find(pkg => pkg.id === packageId);
+    const selectedPackage = packages.find((pkg) => pkg.id === packageId);
 
-  const amount = selectedPackage ? selectedPackage.price : 0;
+    const amount = selectedPackage ? selectedPackage.price : 0;
 
-  onUpdate({ 
-    packageTitle: packageId,
-    packageAmount: amount
-  });
-};
+    onUpdate({
+      packageTitle: packageId,
+      packageAmount: amount,
+    });
+  };
 
   return (
     <div className="space-y-6">
       {hasOfferClaim && (
         <div className="bg-gradient-to-r from-green-400 to-green-600 text-white p-4 rounded-lg text-center">
           <h4 className="text-lg font-bold">🎉 Special Offer Active!</h4>
-          <p className="text-sm">{" You're getting 10% OFF on all packages "}</p>
+          <p className="text-sm">
+            {" You're getting 10% OFF on all packages "}
+          </p>
         </div>
       )}
-      
+
       <div className="text-center">
         <h3 className="text-2xl font-bold text-[#005657] mb-2">
           Choose Your Package

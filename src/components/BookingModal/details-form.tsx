@@ -7,11 +7,12 @@ import { THERAPY_MODES, THERAPY_ISSUES, SESSION_TYPE } from "./types";
 interface DetailsFormProps {
   bookingData: BookingData;
   onUpdate: (data: Partial<BookingData>) => void;
-  psychologists: {
+  psychologists?: {
     _id: string;
     name: string;
     price: number;
   }[];
+  hideTherapistSelect?: boolean;
 }
 
 interface ValidationErrors {
@@ -25,6 +26,7 @@ export function DetailsForm({
   bookingData,
   onUpdate,
   psychologists,
+  hideTherapistSelect = false,
 }: DetailsFormProps) {
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -147,6 +149,7 @@ export function DetailsForm({
   }) => {
     const isOpen = openDropdown === name;
 
+    console.log("Therapist ID:", bookingData.psychologistId);
     return (
       <div className="space-y-2">
         <label className="block text-[#005657] font-medium">
@@ -389,19 +392,25 @@ export function DetailsForm({
             required
           />
 
-          <CustomSelect
-            label="Select Therapist"
-            value={bookingData.psychologistId || ""}
-            options={[
-              { label: "Any Available Therapist", value: "" },
-              ...psychologists.map((p) => ({
-                label: `${p.name} - ₹${p.price}`,
-                value: p._id,
-              })),
-            ]}
-            placeholder="Choose your therapist (optional)"
-            name="psychologistId"
-          />
+          {!hideTherapistSelect && psychologists && (
+            <CustomSelect
+              label="Select Therapist"
+              value={bookingData.psychologistId || ""}
+              options={[
+                { label: "Any Available Therapist", value: "" },
+                ...(psychologists?.map((p) => ({
+                  label: p.name,
+                  value: p._id,
+                })) || []),
+              ]}
+              placeholder="Choose therapist"
+              name="psychologistId"
+            />
+          )}
+
+          <p className="text-xs text-gray-500 mt-1">
+            Choosing a therapist may change the session price
+          </p>
 
           <div className="space-y-4 pt-4">
             <div className="flex items-start space-x-3">
@@ -414,6 +423,7 @@ export function DetailsForm({
                 required
                 className="mt-1 h-4 w-4 text-[#005657] focus:ring-[#B6E5DF] border-gray-300 rounded"
               />
+
               <label htmlFor="agreeToTerms" className="text-sm text-[#005657]">
                 I agree to the{" "}
                 <a
