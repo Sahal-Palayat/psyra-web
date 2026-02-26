@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Play } from "lucide-react"
 import { SectionHeader } from "./SectionTitle"
+import Image from "next/image"
+
 
 type MediaType = "image" | "video"
 
@@ -13,6 +15,7 @@ interface EventMedia {
   thumbnail?: string
   location: string
   title?: string
+  alt: string
   gridSize: "small" | "medium" | "large" | "wide" | "tall"
   link?: string
 }
@@ -23,28 +26,30 @@ interface EventMedia {
 //   "https://images.unsplash.com/photo-1526779259212-939e64788e3c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D"
 
 const eventMedia: EventMedia[] = [
-  { id: "1", type: "image", src: '/event_2.jpg', location: "Bangalore", title: "SIP & PAINT", gridSize: "medium", link: "https://www.instagram.com/reel/DO8uVe3jRx1/?igsh=ODNoZzBldzl3OWoz" },
+  { id: "1", type: "image", src: '/events/guided-art-therapy-workshop-session.webp', location: "Bangalore", title: "SIP & PAINT",alt: "Facilitator guiding participants during a group art therapy workshop", gridSize: "medium", link: "https://www.instagram.com/reel/DO8uVe3jRx1/?igsh=ODNoZzBldzl3OWoz" },
   {
     id: "2",
     type: "image",
-    src: '/event_5.jpg',
+    src: '/events/group-art-therapy-workshop-experience.webp',
     location: "Kochi",
     title: "Heal With Art",
+    alt: "Group art therapy workshop experience promoting emotional connection and creativity",
     gridSize: "small",
     link: "https://www.instagram.com/reel/DIq2t0syD09/?igsh=cWFpYm5zcDMzczEw",
   },
-  { id: "3", type: "image", src: '/event_3.jpg', location: "Bangalore", title: "Art With Strangers", gridSize: "tall", link: "https://www.instagram.com/reel/DK99PeeSUkH/?igsh=MXQ4cjJrczJtZTU5Mw==" },
-  { id: "4", type: "image", src: '/event_7.jpg', location: "Kochi", title: "SIP & PAINT", gridSize: "wide", link: "https://www.instagram.com/reel/DOqaQ5Yj83F/?igsh=YjY4eGR0ZDEzb3B5" },
+  { id: "3", type: "image", src: '/events/individual-art-therapy-painting-session.webp', location: "Bangalore", title: "Art With Strangers",alt: "Participant expressing emotions through painting in an individual art therapy session", gridSize: "tall", link: "https://www.instagram.com/reel/DK99PeeSUkH/?igsh=MXQ4cjJrczJtZTU5Mw==" },
+  { id: "4", type: "image", src: '/events/art-therapy-community-workshop-group.webp', location: "Kochi", title: "SIP & PAINT",alt: "Participants showcasing artwork after completing a community art therapy workshop", gridSize: "wide", link: "https://www.instagram.com/reel/DOqaQ5Yj83F/?igsh=YjY4eGR0ZDEzb3B5" },
   {
     id: "5",
     type: "image",
-    src: '/event_4.jpg',
+    src: '/events/creative-healing-art-therapy-event.webp',
     location: "Ernakulam",
     title: "Heal With Art",
+    alt: "Creative healing art therapy event focused on relaxation and emotional expression",
     gridSize: "medium",
     link: "https://www.instagram.com/reel/DIq2t0syD09/?igsh=cWFpYm5zcDMzczEw",
   },
-  { id: "6", type: "image", src: '/event_1.jpg', location: "Banglore", title: "SIP & PAINT", gridSize: "medium", link: "https://www.instagram.com/reel/DP864tWEsFJ/?igsh=d2Q2bGFqamFzcmx6" },
+  { id: "6", type: "image", src: '/events/sip-and-paint-art-therapy-session.webp', location: "Banglore", title: "SIP & PAINT",alt: "Participants enjoying a sip and paint art therapy session for emotional wellness", gridSize: "medium", link: "https://www.instagram.com/reel/DP864tWEsFJ/?igsh=d2Q2bGFqamFzcmx6" },
   //   { id: "7", type: "image", src: PLACEHOLDER, location: "Bangalore", title: "Sports Day", gridSize: "small" },
   //   { id: "8", type: "image", src: PLACEHOLDER, location: "Coimbatore", title: "Music Night", gridSize: "tall" },
 ]
@@ -128,11 +133,14 @@ export function CommunityEvents() {
             >
               {/* Media Content */}
               <div className="relative h-full w-full">
-                <img
-                  src={item.type === "video" ? item.thumbnail : item.src}
-                  alt={item.title || "Community event"}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+              <Image
+                src={item.type === "video" ? item.thumbnail! : item.src}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+
 
                 {/* Video Play Button */}
                 {item.type === "video" && (
