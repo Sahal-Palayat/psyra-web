@@ -6,6 +6,7 @@ import PackageServices from "./PackagesServices";
 import WhyPackage from "@/components/packages/WhyPackage";
 
 interface PackageItem {
+  id: string,
   type: string;
   title: string;
   tagline: string;
@@ -22,6 +23,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
   const [packagePrice, setPackagePrice] = useState<string>("");
+  const [selectedPackageId, setSelectedPackageId] = useState("");
 
   return (
     <div className="mb-12">
@@ -84,6 +86,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
           onClose={() => setIsModalOpen(false)}
           packageTitle={selectedPackage}
           price={packagePrice}
+          packageId={selectedPackageId}
         />
       </div>
       <div className="relative z-10 -mt-34 md:-mt-28">
@@ -92,6 +95,7 @@ const HeroPackages = ({ data }: PackagesProps) => {
           setSelectedPackage={setSelectedPackage}
           setSelectedPrice={setPackagePrice}
           PackagesObj={data}
+          setSelectedPackageId={setSelectedPackageId}
         />
       </div>
     </div>

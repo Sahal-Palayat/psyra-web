@@ -10,6 +10,7 @@ import HeroPackages from "./HeroPackage";
 export default function Individual() {
   const individualTypes = [
     {
+      id: "pack4", 
       type: "individual",
       title: "Basic Growth Plan",
       sessions: "4",
@@ -28,6 +29,7 @@ export default function Individual() {
       cta: "Start Your Journey Today",
     },
     {
+      id: "pack8", 
       type: "individual",
       title: "Deep Healing Plan",
       sessions: "8",
@@ -46,6 +48,7 @@ export default function Individual() {
       cta: "Invest in Your Well-Being",
     },
     {
+      id: "pack12", 
       type: "individual",
       title: "Premium Plan",
       sessions: "12",

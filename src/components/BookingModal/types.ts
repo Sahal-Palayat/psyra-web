@@ -18,6 +18,8 @@ export interface BookingData {
   // Package info
   packageTitle?: string;
   packageAmount: number;
+  packageId: string;
+  psychologistId?: string; 
 }
 
 export interface BookingModalProps {
@@ -25,6 +27,7 @@ export interface BookingModalProps {
   onClose: () => void;
   packageTitle: string;
   price: string;
+  packageId: string; 
 }
 
 export interface PsychologistModalProps {
@@ -54,20 +57,27 @@ export interface BookedSlot {
   timeSlot: string; // Format: "12:00 AM - 01:00 AM"
 }
 
-export const THERAPY_MODES = ["Video Call", "Audio Call", "Chat"];
-
-export const THERAPY_ISSUES = [
-  "Anxiety & Stress",
-  "Depression",
-  "Relationship Issues",
-  "Trauma & PTSD",
-  "Addiction & Substance Abuse",
-  "Grief & Loss",
-  "Self-Esteem & Confidence",
-  "Other",
+export const THERAPY_MODES = [
+  { label: "Video Call", value: "Video Call" },
+  { label: "Audio Call", value: "Audio Call" },
+  { label: "Chat", value: "Chat" },
 ];
 
-export const SESSION_TYPE = ["New Session", "Followup Session"];
+export const THERAPY_ISSUES = [
+  { label: "Anxiety & Stress", value: "Anxiety & Stress" },
+  { label: "Depression", value: "Depression" },
+  { label: "Relationship Issues", value: "Relationship Issues" },
+  { label: "Trauma & PTSD", value: "Trauma & PTSD" },
+  { label: "Addiction & Substance Abuse", value: "Addiction & Substance Abuse" },
+  { label: "Grief & Loss", value: "Grief & Loss" },
+  { label: "Self-Esteem & Confidence", value: "Self-Esteem & Confidence" },
+  { label: "Other", value: "Other" },
+];
+
+export const SESSION_TYPE = [
+  { label: "New Session", value: "New Session" },
+  { label: "Followup Session", value: "Followup Session" },
+];
 
 // Generate all 24-hour time slots
 export const INDIVIDUAL_TIME_SLOTS = [
