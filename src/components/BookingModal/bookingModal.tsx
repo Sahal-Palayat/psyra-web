@@ -19,11 +19,24 @@ import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
 // import DemoPayment from "./demo-payment";
 
+type PsychologistLite = {
+  _id: string;
+  name: string;
+  price: number;
+};
+
+type PricingPackage = {
+  id: string;
+  price: number;
+};
+
 export function BookingModal({
   isOpen,
   onClose,
   packageTitle,
   price,
+  packageId,
+  fixedPsychologistId
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<BookedSlot[]>([]);
@@ -53,7 +66,10 @@ export function BookingModal({
     sessionType: "",
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     packageAmount: parseInt(price),
+    psychologistId: fixedPsychologistId || undefined,
+    packageId: packageId
   });
+  const [psychologists, setPsychologists] = useState<PsychologistLite[]>([]);
 
   useEffect(() => {
     setBookingData((prev) => ({
@@ -61,8 +77,61 @@ export function BookingModal({
       packageTitle: packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
       packageAmount: parseInt(price),
+      packageId: packageId,
     }));
-  }, [packageTitle]);
+  }, [packageTitle, price, packageId]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fetchPsychologists = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/psychologists`,
+        );
+        setPsychologists(res?.data?.psychologists || []);
+      } catch (err) {
+        console.error("Failed to fetch psychologists", err);
+      }
+    };
+
+    fetchPsychologists();
+  }, [isOpen]);
+
+useEffect(() => {
+  const fetchDynamicPrice = async () => {
+    if (!bookingData.packageId) return;
+
+    try {
+      const params = new URLSearchParams({
+        therapyType: bookingData.therapyType,
+      });
+
+      if (bookingData.psychologistId) {
+        params.append("psychologistId", bookingData.psychologistId);
+      }
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/pricing/packages?${params}`
+      );
+
+      const data: PricingPackage[] = await res.json();
+
+      const pkg = data.find((p) => p.id === bookingData.packageId);
+
+      if (pkg) {
+        setBookingData((prev) => ({
+          ...prev,
+          packageAmount: pkg.price,
+        }));
+      }
+    } catch (err) {
+      console.error("Dynamic pricing failed", err);
+    }
+  };
+
+  fetchDynamicPrice();
+}, [bookingData.psychologistId, bookingData.packageId, bookingData.therapyType]);
 
   console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
 
@@ -83,7 +152,7 @@ export function BookingModal({
       const adjustedDate = selectedDate.toISOString().split("T")[0];
 
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`
+        `${process.env.NEXT_PUBLIC_API_URL}/consultation/booked-slots?date=${adjustedDate}`,
       );
 
       console.log("Adjusted Date (1 day less):", adjustedDate);
@@ -115,7 +184,9 @@ export function BookingModal({
       agreeToTerms: false,
       packageTitle: packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
-      packageAmount: 0,
+      packageAmount: parseInt(price),
+      packageId: packageId,
+      psychologistId: undefined,
     });
     onClose();
   };
@@ -191,7 +262,7 @@ export function BookingModal({
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/consultation/book-slot`,
-        variable
+        variable,
       ); // Update endpoint
 
       // if (response?.status) {
@@ -211,8 +282,8 @@ export function BookingModal({
       // } else {
       //   alert("Technincal issue");
       // }
-      console.log(response,"TO TEST");
-      
+      console.log(response, "TO TEST");
+
       // alert("response:");
     } catch (error) {
       console.error("Booking failed", error);
@@ -255,7 +326,8 @@ export function BookingModal({
       issue,
       agreeToTerms,
       sessionType,
-      psychologistId: "687a42319c601751727e7b1f",
+      // psychologistId: "687a42319c601751727e7b1f",
+      psychologistId: bookingData.psychologistId,
       therapyType: bookingData.therapyType,
       packageTitle: packageTitle || "Therapy Session",
       date: adjustedDate.toISOString().split("T")[0],
@@ -265,19 +337,21 @@ export function BookingModal({
     createSlot();
     // Process payment with loading state until Razorpay window opens
     setIsPaying(true);
-    
+
     // Use requestAnimationFrame to ensure state update renders on mobile
-    await new Promise(resolve => requestAnimationFrame(() => {
-      requestAnimationFrame(resolve);
-    }));
-    
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resolve);
+      }),
+    );
+
     try {
       await processPayment(
         paymentData,
         // On success - show success modal
         async (response) => {
           console.log("Payment successful, now booking session...", response);
-          
+
           // Set success data for modal
           setSuccessData({
             name: name || "",
@@ -296,11 +370,11 @@ export function BookingModal({
         (error) => {
           console.error("Payment failed:", error);
           setIsPaying(false);
-        }
+        },
       );
       // At this point, Razorpay window has been opened
       // Keep loading state visible for a minimum duration to ensure it's visible on mobile
-      await new Promise(resolve => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 300));
       setIsPaying(false);
     } catch (error) {
       console.error("Payment error:", error);
@@ -385,7 +459,7 @@ export function BookingModal({
                         updateBookingData(data);
                         if (data?.date) {
                           fetchBookedSlots(
-                            data?.date?.toISOString().split("T")[0]
+                            data?.date?.toISOString().split("T")[0],
                           );
                         }
                       }}
@@ -399,10 +473,22 @@ export function BookingModal({
                   </div>
                 )}
                 {step === 2 && (
-                  <DetailsForm
-                    bookingData={bookingData}
-                    onUpdate={updateBookingData}
-                  />
+                  <>
+                    <DetailsForm
+                      bookingData={bookingData}
+                      onUpdate={updateBookingData}
+                      psychologists={psychologists}
+                      hideTherapistSelect={!!fixedPsychologistId}
+                    />
+
+                    {/* price display */}
+                    <div className="mt-4 text-center text-sm text-gray-600">
+                      Total payable:
+                      <span className="font-bold text-[#005657] ml-1">
+                        ₹{bookingData.packageAmount?.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                  </>
                 )}
               </div>
             </div>

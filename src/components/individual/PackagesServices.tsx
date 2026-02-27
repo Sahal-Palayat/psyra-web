@@ -10,6 +10,7 @@ export interface TherapyCardType {
 }
 
 export interface PackageItem {
+  id: string;
   type: string;
   title: string;
   tagline: string;
@@ -26,20 +27,24 @@ interface PackageServicesCard {
   setSelectedPackage: React.Dispatch<React.SetStateAction<string>>;
   setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedPrice: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedPackageId: React.Dispatch<React.SetStateAction<string>>;
 }
 const PackageServices = ({
   PackagesObj,
   setSelectedPackage,
   setIsModal,
   setSelectedPrice,
+  setSelectedPackageId,  
 }: PackageServicesCard) => {
   const handleBookNow = (
     packageTitle: string,
     packageType: string,
-    packagePrice: string
+    packagePrice: string,
+    packageId: string 
   ) => {
     setSelectedPackage(`${packageTitle} - ${packageType}`);
     setSelectedPrice(packagePrice);
+    setSelectedPackageId(packageId);
     setIsModal(true);
   };
 
@@ -116,7 +121,7 @@ const PackageServices = ({
                     <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() =>
-                        handleBookNow(item.title, item?.type, item?.price)
+                        handleBookNow(item.title, item?.type, item?.price, item.id)
                       }
                     >
                       Book Now

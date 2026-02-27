@@ -7,6 +7,7 @@ import HeroPackages from "../individual/HeroPackage";
 const CoupleIndex = () => {
   const couplePackages = [
     {
+      id: "single", 
       type: "couple",
       title: "Starter Plan",
       sessions: 1,
@@ -23,6 +24,7 @@ const CoupleIndex = () => {
       cta: "Get Started",
     },
     {
+      id: "pack4", 
       type: "couple",
       title: " Basic Growth Plan",
       sessions: "4",
@@ -41,6 +43,7 @@ const CoupleIndex = () => {
       cta: "Strengthen Your Relationship",
     },
     {
+      id: "pack8", 
       type: "couple",
       title: " Deep Healing Plan",
       sessions: "8",

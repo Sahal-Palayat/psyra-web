@@ -14,7 +14,9 @@ export interface PsychologistBookingData {
   sessionType: string;
   therapyType: string;
 
+  psychologistId?: string;
   // Package info
+  packageId: string; 
   packageTitle?: string;
   packageAmount:number
 }

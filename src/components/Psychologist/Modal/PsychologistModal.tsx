@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import type {
@@ -38,6 +38,7 @@ export function PsychologistModal({
     amount: 0,
   });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
+    psychologistId: data?._id, 
     name: "",
     email: "",
     phone: "",
@@ -49,7 +50,17 @@ export function PsychologistModal({
     packageTitle: "",
     therapyType: "",
     packageAmount: typeof data?.price === 'number' ? data.price : 0,
+    packageId: "",
   });
+
+  useEffect(() => {
+  if (data?._id) {
+    setBookingData(prev => ({
+      ...prev,
+      psychologistId: data._id
+    }));
+  }
+}, [data]);
 
   const fetchBookedSlots = async (date: string) => {
     try {
@@ -86,6 +97,7 @@ export function PsychologistModal({
       packageTitle: "",
       therapyType: "",
       packageAmount: typeof data?.price === 'number' ? data.price : 0,
+      packageId: "",
     });
     onClose();
   };
@@ -425,6 +437,7 @@ export function PsychologistModal({
                 <DetailsForm
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
+                  hideTherapistSelect={true}
                 />
               )}
             </div>
