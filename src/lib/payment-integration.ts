@@ -17,6 +17,22 @@ export interface BookingPaymentData {
   bookingId: string;
   bookingType: "psychologist" | "general";
   totalAmount: number;
+
+    sessionDetails: {
+    name: string;
+    email: string;
+    phone: string;
+    age: string;
+    modeOfTherapy: string;
+    issue: string;
+    sessionType: string;
+    therapyType: string;
+    packageTitle: string;
+    date: string;
+    timeSlot: string;
+    agreeToTerms: boolean;
+    otherIssue?: string;
+  };
 }
 
 /**

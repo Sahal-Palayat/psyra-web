@@ -3,8 +3,8 @@ import { Psychologist } from "@/types/psychologist";
 export interface BookingData {
   // Slot selection
   // date?: Date;
-  date?: string;
-  timeSlot?: string;
+  date: string;
+  timeSlot: string;
 
   // User details
   name: string;
@@ -17,7 +17,7 @@ export interface BookingData {
   sessionType: string;
   therapyType: string;
   // Package info
-  packageTitle?: string;
+  packageTitle: string;
   packageAmount: number;
 }
 

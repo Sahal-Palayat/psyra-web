@@ -229,6 +229,22 @@ export interface PaymentData {
   bookingId: string;
   bookingType: "psychologist" | "general";
   totalAmount: number;
+
+    sessionDetails: {
+    name: string;
+    email: string;
+    phone: string;
+    age: string;
+    modeOfTherapy: string;
+    issue: string;
+    sessionType: string;
+    therapyType: string;
+    packageTitle: string;
+    date: string;
+    timeSlot: string;
+    agreeToTerms: boolean;
+    otherIssue?: string;
+  };
 }
 
 // Razorpay checkout options
@@ -262,11 +278,7 @@ export const createPaymentOrder = async (
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        bookingId: paymentData.bookingId,
-        bookingType: paymentData.bookingType,
-        totalAmount: paymentData.totalAmount,
-      }),
+      body: JSON.stringify(paymentData),
     }
   );
 

@@ -15,9 +15,6 @@ import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
 
-
-
-
 export function BookingModal({
   isOpen,
   onClose,
@@ -52,8 +49,8 @@ export function BookingModal({
     packageTitle,
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     packageAmount: Number(price),
-    date: undefined,
-    timeSlot: undefined,
+    date: "",
+    timeSlot: "",
   });
 
   useEffect(() => {
@@ -71,12 +68,10 @@ export function BookingModal({
 
   /* ---------------- DATE HELPERS ---------------- */
 
-  
-
   const fetchBookedSlots = async (date: string) => {
     try {
       if (!bookingData.therapyType) return;
-  
+
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
         {
@@ -84,22 +79,19 @@ export function BookingModal({
             date,
             therapyType: bookingData.therapyType,
           },
-        }
+        },
       );
-  
+
       setBookedSlot(res?.data || []);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
-  
-  
 
   /* ---------------- STEP CHECKS ---------------- */
 
   const canProceedFromStep1 = () =>
     !!bookingData.date && !!bookingData.timeSlot;
-  
 
   const canProceedFromStep2 = () =>
     bookingData.name.trim() &&
@@ -129,9 +121,7 @@ export function BookingModal({
       toast.error("Please select date and time slot");
       return false;
     }
-  
-   
-  
+
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/general-booking/initiate`,
@@ -139,26 +129,26 @@ export function BookingModal({
           date: bookingData.date, // ✅ already YYYY-MM-DD
           timeSlot: bookingData.timeSlot,
           therapyType: bookingData.therapyType,
-        }
+        },
       );
-  
+
       setCurrentBookingId(res.data._id);
       return true;
     } catch (error: any) {
       const message = error?.response?.data?.message;
-  
+
       if (message === "Slot already booked") {
         toast.error("Slot already booked. Please choose another slot.");
         await fetchBookedSlots(bookingData.date);
         updateBookingData({ timeSlot: undefined });
         return false;
       }
-  
+
       toast.error("Unable to lock slot");
       return false;
     }
   };
-  
+
   const initiateGeneralBookingAndPay = async () => {
     if (!currentBookingId) {
       toast.error("Booking expired. Please start again.");
@@ -173,55 +163,50 @@ export function BookingModal({
           bookingId: currentBookingId,
           bookingType: "general",
           totalAmount: bookingData.packageAmount,
+
+          sessionDetails: {
+            name: bookingData.name,
+            email: bookingData.email,
+            phone: bookingData.phone,
+            age: bookingData.age,
+            modeOfTherapy: bookingData.modeOfTherapy,
+            issue: bookingData.issue,
+            sessionType: bookingData.sessionType,
+            therapyType: bookingData.therapyType,
+            packageTitle: bookingData.packageTitle,
+            date: bookingData.date,
+            timeSlot: bookingData.timeSlot,
+            agreeToTerms: bookingData.agreeToTerms,
+          },
         },
 
         // ✅ SUCCESS
-       
-async () => {
-  setIsPaying(false);
 
-  // CONFIRM GENERAL BOOKING
-  await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/general-booking/confirm`,
-    {
-      bookingId: currentBookingId,
+        async () => {
+          setIsPaying(false);
 
-      // SESSION DETAILS
-      name: bookingData.name,
-      email: bookingData.email,
-      phone: bookingData.phone,
-      age: bookingData.age,
-      modeOfTherapy: bookingData.modeOfTherapy,
-      issue: bookingData.issue,
-      sessionType: bookingData.sessionType,
-      therapyType: bookingData.therapyType,
-      packageTitle: bookingData.packageTitle,
-    }
-  );
+          if (bookingData.date) {
+            await fetchBookedSlots(bookingData.date);
+          }
 
-  if (bookingData.date) {
-    await fetchBookedSlots(bookingData.date);
-  }
+          setSuccessData({
+            name: bookingData.name,
+            email: bookingData.email,
+            phone: bookingData.phone,
+            packageTitle: bookingData.packageTitle || "Therapy Session",
+            date: bookingData.date || "",
+            timeSlot: bookingData.timeSlot || "",
+            amount: bookingData.packageAmount,
+          });
 
-  setSuccessData({
-    name: bookingData.name,
-    email: bookingData.email,
-    phone: bookingData.phone,
-    packageTitle: bookingData.packageTitle || "Therapy Session",
-    date: bookingData.date || "",
-    timeSlot: bookingData.timeSlot || "",
-    amount: bookingData.packageAmount,
-  });
-
-  setShowSuccessModal(true);
-},
-    
+          setShowSuccessModal(true);
+        },
 
         // ❌ PAYMENT FAILED / CLOSED
         () => {
           setIsPaying(false);
           toast.error("Payment was not completed");
-        }
+        },
       );
     } catch (error) {
       console.error(error);
@@ -254,9 +239,7 @@ async () => {
               <h2 className="text-lg sm:text-xl font-bold">
                 Book Consultation
               </h2>
-              <p className="text-[#B6E5DF] mt-1 text-sm">
-                {packageTitle}
-              </p>
+              <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
             </div>
 
             {/* CONTENT */}
@@ -269,7 +252,7 @@ async () => {
                     if (data.date) {
                       fetchBookedSlots(data.date);
                     }
-                  }}                  
+                  }}
                   allTimeSlots={
                     bookingData.therapyType === "individual"
                       ? INDIVIDUAL_TIME_SLOTS

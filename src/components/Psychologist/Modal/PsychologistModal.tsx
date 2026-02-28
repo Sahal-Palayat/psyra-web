@@ -44,17 +44,20 @@ export function PsychologistModal({
     amount: 0,
   });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
+    date: "",
+    timeSlot: "",
     name: "",
     email: "",
     phone: "",
     age: "",
     modeOfTherapy: "",
     issue: "",
+    otherIssue: "",
     agreeToTerms: false,
     sessionType: "",
     packageTitle: "",
     therapyType: "",
-    packageAmount: typeof data?.price === 'number' ? data.price : 0,
+    packageAmount: typeof data?.price === "number" ? data.price : 0,
   });
 
   const [bookingId, setBookingId] = useState<string | null>(null);
@@ -62,18 +65,16 @@ export function PsychologistModal({
   const [isRetryingPayment, setIsRetryingPayment] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
 
-
   const fetchBookedSlots = async (date: string) => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
       );
       setBookedSlot(res?.data || []);
     } catch (error) {
       console.error("Error fetching booked slots:", error);
     }
   };
-  
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -85,17 +86,20 @@ export function PsychologistModal({
   const resetAndClose = () => {
     setStep(1);
     setBookingData({
+      date: "",
+      timeSlot: "",
       name: "",
       email: "",
       phone: "",
       age: "",
       modeOfTherapy: "",
       issue: "",
+      otherIssue: "",
       sessionType: "",
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
-      packageAmount: typeof data?.price === 'number' ? data.price : 0,
+      packageAmount: typeof data?.price === "number" ? data.price : 0,
     });
     setBookingId(null);
     setPaymentError(null);
@@ -169,7 +173,7 @@ export function PsychologistModal({
   //   // Validate required fields
   //   const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
   //   const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
-    
+
   //   if (missingFields.length > 0) {
   //     console.error("Missing required fields:", missingFields);
   //     toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
@@ -210,7 +214,7 @@ export function PsychologistModal({
   //   } catch (error: Error | unknown) {
   //     console.error("Booking failed", error);
   //     toast.error("Technical issue");
-      
+
   //   }
   // };
 
@@ -229,12 +233,12 @@ export function PsychologistModal({
   //     therapyType,
   //     packageTitle,
   //   } = bookingData;
-  
+
   //   const adjustedDate =
   //     date instanceof Date
   //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
   //       : new Date();
-  
+
   //   const variable = {
   //     name,
   //     email,
@@ -250,13 +254,13 @@ export function PsychologistModal({
   //     therapyType,
   //     sessionType,
   //   };
-  
+
   //   try {
   //     const response = await axios.post(
   //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
   //       variable
   //     );
-  
+
   //     return response.data?._id; // ✅ bookingId
   //   } catch (error) {
   //     console.error("Booking failed", error);
@@ -264,40 +268,36 @@ export function PsychologistModal({
   //     return null;
   //   }
   // };
-  
-const createSlot = async (): Promise<string | null> => {
-  const { date, timeSlot } = bookingData;
 
+  const createSlot = async (): Promise<string | null> => {
+    const { date, timeSlot } = bookingData;
 
+    if (!data?._id || !date || !timeSlot) {
+      toast.error("Please select date and time");
+      return null;
+    }
 
-  if (!data?._id || !date || !timeSlot) {
-    toast.error("Please select date and time");
-    return null;
-  }
+    const payload = {
+      psychologistId: data._id,
+      date,
+      timeSlot,
+    };
 
-  const payload = {
-    psychologistId: data._id,
-    date, 
-    timeSlot,
+    console.log("🟡 PSY CREATE SLOT PAYLOAD:", payload);
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
+        payload,
+      );
+
+      return res.data._id; // ✅ bookingId
+    } catch (err) {
+      console.error("Booking failed", err);
+      toast.error("Slot already booked or invalid");
+      return null;
+    }
   };
-
-  console.log("🟡 PSY CREATE SLOT PAYLOAD:", payload);
-
-  try {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
-      payload
-    );
-
-    return res.data._id; // ✅ bookingId
-  } catch (err) {
-    console.error("Booking failed", err);
-    toast.error("Slot already booked or invalid");
-    return null;
-  }
-};
-
-
 
   const getStepTitle = () => {
     switch (step) {
@@ -369,7 +369,7 @@ const createSlot = async (): Promise<string | null> => {
   //   // Prepare payment data
   //   console.log('Package amount from booking data:', packageAmount);
   //   console.log('Psychologist price:', data?.price);
-    
+
   //   const paymentData: BookingPaymentData = {
   //     name,
   //     email,
@@ -386,7 +386,7 @@ const createSlot = async (): Promise<string | null> => {
   //     psychologistId: data?._id,
   //     totalAmount: packageAmount, // You can make this dynamic based on package
   //   };
-    
+
   //   console.log('Final payment data totalAmount:', paymentData.totalAmount);
   //   await createSlot();
   //   // Process payment
@@ -420,7 +420,6 @@ const createSlot = async (): Promise<string | null> => {
   //   );
   // };
 
-
   const handlePaymentAndBooking = async () => {
     try {
       // 1️⃣ Check booking ID
@@ -431,7 +430,7 @@ const createSlot = async (): Promise<string | null> => {
 
       setIsPaying(true);
       setPaymentError(null);
-  
+
       // 2️⃣ Create payment order
       const paymentRes = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`,
@@ -439,12 +438,28 @@ const createSlot = async (): Promise<string | null> => {
           bookingId,
           bookingType: "psychologist",
           totalAmount: bookingData.packageAmount,
-        }
+
+          sessionDetails: {
+            name: bookingData.name,
+            email: bookingData.email,
+            phone: bookingData.phone,
+            age: bookingData.age,
+            modeOfTherapy: bookingData.modeOfTherapy,
+            issue: bookingData.issue,
+            sessionType: bookingData.sessionType,
+            therapyType: bookingData.therapyType,
+            packageTitle: bookingData.packageTitle,
+            psychologistId: data?._id,
+            date: bookingData.date,
+            timeSlot: bookingData.timeSlot,
+            agreeToTerms: bookingData.agreeToTerms,
+          },
+        },
       );
-  
+
       // ✅ FIX: Extract from nested data property
       const { orderId, amount, currency, keyId } = paymentRes.data.data;
-      
+
       // ✅ Also use keyId from backend instead of RAZORPAY_CONFIG
       const razorpayOptions: RazorpayOptions = {
         key: keyId || RAZORPAY_CONFIG.key_id || "", // Use keyId from backend
@@ -465,26 +480,6 @@ const createSlot = async (): Promise<string | null> => {
           }),
         },
         handler: async function (_response: RazorpayPaymentResponse) {
-
-          // 🔑 ADD THIS: CONFIRM PSYCHOLOGIST BOOKING
-          await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/confirm`,
-            {
-              bookingId,
-        
-              // SESSION DETAILS
-              name: bookingData.name,
-              email: bookingData.email,
-              phone: bookingData.phone,
-              age: bookingData.age,
-              modeOfTherapy: bookingData.modeOfTherapy,
-              issue: bookingData.issue,
-              sessionType: bookingData.sessionType,
-              therapyType: bookingData.therapyType,
-              packageTitle: bookingData.packageTitle,
-            }
-          );
-        
           setSuccessData({
             name: bookingData.name || "",
             email: bookingData.email || "",
@@ -494,37 +489,46 @@ const createSlot = async (): Promise<string | null> => {
             timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
-        
+
           setIsPaying(false);
           setShowSuccessModal(true);
         },
-        
+
         theme: { color: "#005657" },
         modal: {
           ondismiss: async () => {
             // User closed/cancelled payment modal
             setIsPaying(false);
-            
+
             // Check booking status to see if payment failed
             if (bookingId) {
               try {
                 const statusRes = await axios.get(
-                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`,
                 );
-                
+
                 const booking = statusRes.data;
-                
+
                 // If payment failed (backend webhook already processed it)
-                if (booking?.paymentStatus === 'failed' && booking?.bookingStatus === 'initiated') {
+                if (
+                  booking?.paymentStatus === "failed" &&
+                  booking?.bookingStatus === "initiated"
+                ) {
                   const lockExpiresAt = new Date(booking.lockExpiresAt);
                   const now = new Date();
-                  
+
                   // Check if lock is still valid (within 10-minute window)
                   if (lockExpiresAt > now) {
-                    const minutesRemaining = Math.ceil((lockExpiresAt.getTime() - now.getTime()) / 60000);
-                    setPaymentError(`Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`);
+                    const minutesRemaining = Math.ceil(
+                      (lockExpiresAt.getTime() - now.getTime()) / 60000,
+                    );
+                    setPaymentError(
+                      `Payment was cancelled or failed. You can retry payment. ${minutesRemaining} minutes remaining.`,
+                    );
                   } else {
-                    setPaymentError("Payment window expired. Please start a new booking.");
+                    setPaymentError(
+                      "Payment window expired. Please start a new booking.",
+                    );
                     // Reset booking ID to force new booking
                     setBookingId(null);
                   }
@@ -542,7 +546,7 @@ const createSlot = async (): Promise<string | null> => {
           },
         },
       };
-  
+
       await openRazorpayPayment(razorpayOptions);
       setPaymentError(null); // Clear any previous errors
     } catch (error) {
@@ -566,13 +570,18 @@ const createSlot = async (): Promise<string | null> => {
     try {
       // Check if booking is still valid for retry
       const statusRes = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`,
       );
 
       const booking = statusRes.data;
 
-      if (booking?.paymentStatus !== 'failed' || booking?.bookingStatus !== 'initiated') {
-        setPaymentError("Booking is no longer available for retry. Please start a new booking.");
+      if (
+        booking?.paymentStatus !== "failed" ||
+        booking?.bookingStatus !== "initiated"
+      ) {
+        setPaymentError(
+          "Booking is no longer available for retry. Please start a new booking.",
+        );
         setIsRetryingPayment(false);
         return;
       }
@@ -597,34 +606,31 @@ const createSlot = async (): Promise<string | null> => {
       setIsRetryingPayment(false);
     }
   };
-  
 
-const handleNext = async () => {
-  
-  // STEP 3 → STEP 4 (LOCK SLOT HERE)
-  if (step === 3) {
-    console.log("🟢 Step 3: Creating slot...");
-    const id = await createSlot(); // initiate booking
-    if (!id) return;
+  const handleNext = async () => {
+    // STEP 3 → STEP 4 (LOCK SLOT HERE)
+    if (step === 3) {
+      console.log("🟢 Step 3: Creating slot...");
+      const id = await createSlot(); // initiate booking
+      if (!id) return;
 
-    setBookingId(id);
-    nextStep();
-    return;
-  }
-
-  // STEP 4 → PAYMENT
-  if (step === 4) {
-    if (canProceedFromStep4()) {
-      handlePaymentAndBooking();
-    } else {
-      toast.error("Please fill all the details");
+      setBookingId(id);
+      nextStep();
+      return;
     }
-    return;
-  }
 
-  nextStep();
-};
+    // STEP 4 → PAYMENT
+    if (step === 4) {
+      if (canProceedFromStep4()) {
+        handlePaymentAndBooking();
+      } else {
+        toast.error("Please fill all the details");
+      }
+      return;
+    }
 
+    nextStep();
+  };
 
   if (!isOpen) return null;
 
@@ -708,7 +714,7 @@ const handleNext = async () => {
                       fetchBookedSlots(data.date);
                     }
                     updateBookingData(data);
-                  }}                  
+                  }}
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
@@ -729,8 +735,18 @@ const handleNext = async () => {
             {paymentError && step === 4 && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <div className="flex-1">
                     <p className="text-sm text-red-800">{paymentError}</p>
@@ -749,8 +765,18 @@ const handleNext = async () => {
                     className="text-red-600 hover:text-red-800"
                     aria-label="Dismiss error"
                   >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -768,12 +794,15 @@ const handleNext = async () => {
               <button
                 onClick={handleNext}
                 disabled={!canProceed() || isPaying || isRetryingPayment}
-                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${!canProceed() || isPaying || isRetryingPayment
+                className={`w-full sm:w-auto px-4 py-2 rounded-md text-white transition-colors order-1 sm:order-2 ${
+                  !canProceed() || isPaying || isRetryingPayment
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-[#005657] hover:bg-[#005657]/90"
-                  }`}
+                }`}
               >
-                {isPaying || isRetryingPayment ? "Processing..." : getNextButtonText()}
+                {isPaying || isRetryingPayment
+                  ? "Processing..."
+                  : getNextButtonText()}
               </button>
             </div>
           </div>
