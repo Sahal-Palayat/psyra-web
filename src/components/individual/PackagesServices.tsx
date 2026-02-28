@@ -34,13 +34,13 @@ const PackageServices = ({
   setSelectedPackage,
   setIsModal,
   setSelectedPrice,
-  setSelectedPackageId,  
+  setSelectedPackageId,
 }: PackageServicesCard) => {
   const handleBookNow = (
     packageTitle: string,
     packageType: string,
     packagePrice: string,
-    packageId: string 
+    packageId: string,
   ) => {
     setSelectedPackage(`${packageTitle} - ${packageType}`);
     setSelectedPrice(packagePrice);
@@ -89,7 +89,6 @@ const PackageServices = ({
                     <p className="text-sm font-medium text-[#005657]">
                       {item.sessions}{" "}
                       {item.sessions === 1 ? "Session" : "Sessions"}
-                      {item.pricePerSession && ` · ${item.pricePerSession}`}
                     </p>
                   </div>
                 )}
@@ -113,6 +112,9 @@ const PackageServices = ({
 
                 <div className="mt-auto">
                   <div className="mb-4">
+                    <span className="text-md text-black mr-2">
+                      Starts from
+                    </span>
                     <span className="text-2xl font-bold text-black">
                       ₹{item.price}
                     </span>
@@ -121,7 +123,12 @@ const PackageServices = ({
                     <button
                       className="bg-white px-6 py-2 text-black text-sm font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition"
                       onClick={() =>
-                        handleBookNow(item.title, item?.type, item?.price, item.id)
+                        handleBookNow(
+                          item.title,
+                          item?.type,
+                          item?.price,
+                          item.id,
+                        )
                       }
                     >
                       Book Now

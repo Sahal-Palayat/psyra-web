@@ -14,7 +14,7 @@ export default function Individual() {
       type: "individual",
       title: "Basic Growth Plan",
       sessions: "4",
-      pricePerSession: "₹800 per session",
+      // pricePerSession: "₹800 per session",
       tagline: "Start your journey towards clarity",
       discountNote: "Save 20%",
       list: [
@@ -33,7 +33,7 @@ export default function Individual() {
       type: "individual",
       title: "Deep Healing Plan",
       sessions: "8",
-      pricePerSession: "₹750 per session",
+      // pricePerSession: "₹750 per session",
       tagline: "Go deeper and heal stronger.",
       discountNote: "Save 25%",
       list: [
@@ -52,7 +52,7 @@ export default function Individual() {
       type: "individual",
       title: "Premium Plan",
       sessions: "12",
-      pricePerSession: "₹600 per session",
+      // pricePerSession: "₹600 per session",
       tagline: "Your complete support system.",
       discountNote: "Save 30%",
       list: [

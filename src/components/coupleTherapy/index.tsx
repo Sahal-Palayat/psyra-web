@@ -28,7 +28,7 @@ const CoupleIndex = () => {
       type: "couple",
       title: " Basic Growth Plan",
       sessions: "4",
-      pricePerSession: "₹1200 per session",
+      // pricePerSession: "₹1200 per session",
       tagline: "Build a Stronger Connection",
       discountNote: "Save 20%",
       list: [
@@ -47,7 +47,7 @@ const CoupleIndex = () => {
       type: "couple",
       title: " Deep Healing Plan",
       sessions: "8",
-      pricePerSession: "₹1000 per session",
+      // pricePerSession: "₹1000 per session",
       tagline: "Grow together deeply.",
       discountNote: "Save 33%",
       list: [
