@@ -18,21 +18,16 @@ export interface BookingPaymentData {
   bookingType: "psychologist" | "general";
   totalAmount: number;
 
-    sessionDetails: {
-    name: string;
-    email: string;
-    phone: string;
-    age: string;
-    modeOfTherapy: string;
-    issue: string;
-    sessionType: string;
-    therapyType: string;
-    packageTitle: string;
-    date: string;
-    timeSlot: string;
-    agreeToTerms: boolean;
-    otherIssue?: string;
-  };
+   name: string;
+  email: string;
+  phone: string;
+  age: string;
+  modeOfTherapy: string;
+  issue: string;
+  otherIssue?: string;
+  sessionType: string;
+  therapyType: string;
+  packageTitle: string;
 }
 
 /**
@@ -47,11 +42,7 @@ export const processPayment = async (
   try {
 
     // 🔹 STEP 1: Create Razorpay order via backend
-    const orderResponse = await createPaymentOrder({
-      bookingId: paymentData.bookingId,
-      bookingType: paymentData.bookingType,
-      totalAmount: paymentData.totalAmount,
-    });
+    const orderResponse = await createPaymentOrder(paymentData);
 
     // 🔹 STEP 2: Configure Razorpay
     const razorpayOptions: RazorpayOptions = {
