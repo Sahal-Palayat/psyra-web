@@ -1,4 +1,4 @@
-// 
+
 // Payment integration for Book Session button (NEW FLOW)
 import {
   createPaymentOrder,
@@ -9,10 +9,7 @@ import {
 } from "./razorpay";
 import { toast } from "./toast";
 
-/**
- * ✅ Minimal data required for payment
- * Backend is the source of truth
- */
+
 export interface BookingPaymentData {
   bookingId: string;
   bookingType: "psychologist" | "general";

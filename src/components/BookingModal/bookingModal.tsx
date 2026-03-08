@@ -197,7 +197,7 @@ export function BookingModal({
           setShowSuccessModal(true);
         },
 
-        // ❌ PAYMENT FAILED / CLOSED
+        //  PAYMENT FAILED / CLOSED
         () => {
           setIsPaying(false);
           toast.error("Payment was not completed");

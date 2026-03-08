@@ -3,16 +3,11 @@ import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import type {
-  // BookedSlot,
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
 import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
-// import {
-//   processPayment,
-//   type BookingPaymentData,
-// } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
 import { TherapyTypeSelection } from "./therapy-type-selection";
@@ -133,141 +128,6 @@ export function PsychologistModal({
     );
   };
 
-  // const createSlot = async () => {
-  //   const {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     issue,
-  //     agreeToTerms,
-  //     date,
-  //     timeSlot,
-  //     sessionType,
-  //     therapyType,
-  //     packageTitle,
-  //   } = bookingData;
-
-  //   const adjustedDate =
-  //     date instanceof Date
-  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-  //       : new Date();
-
-  //   const variable = {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     psychologistId: data?._id,
-  //     issue,
-  //     agreeToTerms,
-  //     packageTitle,
-  //     date: adjustedDate.toISOString().split("T")[0],
-  //     timeSlot,
-  //     therapyType,
-  //     sessionType,
-  //   };
-
-  //   // Validate required fields
-  //   const requiredFields = ['name', 'email', 'phone', 'age', 'modeOfTherapy', 'issue', 'packageTitle', 'timeSlot', 'therapyType', 'sessionType'];
-  //   const missingFields = requiredFields.filter(field => !variable[field as keyof typeof variable] || variable[field as keyof typeof variable] === '');
-
-  //   if (missingFields.length > 0) {
-  //     console.error("Missing required fields:", missingFields);
-  //     toast.error("Missing Information", `Please fill in: ${missingFields.join(', ')}`);
-  //     return;
-  //   }
-
-  //   if (!data?._id) {
-  //     console.error("Psychologist ID is missing");
-  //     toast.error("Invalid Psychologist", "Please select a valid psychologist.");
-  //     return;
-  //   }
-
-  //   console.log("Sending data to psychologist-booking API:", variable);
-  //   console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking`);
-  //   console.log("Booking data from state:", bookingData);
-  //   console.log("Psychologist data:", data);
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
-  //       variable
-  //     );
-
-  //     if (response?.status) {
-  //       //         const phoneNumber = "+918891724199";
-  //       //         const message = encodeURIComponent(
-  //       //           `Hi, I would like to book the following therapy session. Please share the payment details:
-  //       // Name: ${name}
-  //       // Age: ${age}
-  //       // Preferred Date: ${adjustedDate.toISOString().split("T")[0]}
-  //       // Time Slot: ${timeSlot}
-  //       // Looking forward to your confirmation. Thank you!`
-  //       //         );
-  //       // window.open(`https://wa.me/${phoneNumber}?text=${message}`);
-  //     } else {
-  //       toast.error("Technical issue");
-  //     }
-  //   } catch (error: Error | unknown) {
-  //     console.error("Booking failed", error);
-  //     toast.error("Technical issue");
-
-  //   }
-  // };
-
-  // const createSlot = async (): Promise<string | null> => {
-  //   const {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     issue,
-  //     agreeToTerms,
-  //     date,
-  //     timeSlot,
-  //     sessionType,
-  //     therapyType,
-  //     packageTitle,
-  //   } = bookingData;
-
-  //   const adjustedDate =
-  //     date instanceof Date
-  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-  //       : new Date();
-
-  //   const variable = {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     psychologistId: data?._id,
-  //     issue,
-  //     agreeToTerms,
-  //     packageTitle,
-  //     date: adjustedDate.toISOString().split("T")[0],
-  //     timeSlot,
-  //     therapyType,
-  //     sessionType,
-  //   };
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/initiate`,
-  //       variable
-  //     );
-
-  //     return response.data?._id; // ✅ bookingId
-  //   } catch (error) {
-  //     console.error("Booking failed", error);
-  //     toast.error("Booking failed");
-  //     return null;
-  //   }
-  // };
 
   const createSlot = async (): Promise<string | null> => {
     const { date, timeSlot } = bookingData;
@@ -343,82 +203,6 @@ export function PsychologistModal({
         return false;
     }
   };
-
-  // const handlePaymentAndBooking = async () => {
-  //   const {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     issue,
-  //     agreeToTerms,
-  //     sessionType,
-  //     therapyType,
-  //     packageTitle,
-  //     date,
-  //     timeSlot,
-  //     packageAmount,
-  //   } = bookingData;
-
-  //   const adjustedDate =
-  //     date instanceof Date
-  //       ? new Date(date.getTime() + 24 * 60 * 60 * 1000)
-  //       : new Date();
-
-  //   // Prepare payment data
-  //   console.log('Package amount from booking data:', packageAmount);
-  //   console.log('Psychologist price:', data?.price);
-
-  //   const paymentData: BookingPaymentData = {
-  //     name,
-  //     email,
-  //     phone,
-  //     age,
-  //     modeOfTherapy,
-  //     issue,
-  //     agreeToTerms,
-  //     sessionType,
-  //     therapyType,
-  //     packageTitle: packageTitle || "Therapy Session",
-  //     date: adjustedDate.toISOString().split("T")[0],
-  //     timeSlot: timeSlot || "10:00-11:00",
-  //     psychologistId: data?._id,
-  //     totalAmount: packageAmount, // You can make this dynamic based on package
-  //   };
-
-  //   console.log('Final payment data totalAmount:', paymentData.totalAmount);
-  //   await createSlot();
-  //   // Process payment
-  //   await processPayment(
-  //     paymentData,
-  //     // On success - show success modal
-  //     async (response) => {
-  //       console.log("Payment successful, now booking session...", response);
-
-  //       // Call the original booking API
-  //       await createSlot();
-
-  //       // Set success data for modal
-  //       setSuccessData({
-  //         name: name || "",
-  //         email: email || "",
-  //         phone: phone || "",
-  //         packageTitle: packageTitle || "Therapy Session",
-  //         date: adjustedDate.toISOString().split("T")[0],
-  //         timeSlot: timeSlot || "10:00-11:00",
-  //         amount: packageAmount || 0,
-  //       });
-
-  //       // Show success modal
-  //       setShowSuccessModal(true);
-  //     },
-  //     // On error
-  //     (error) => {
-  //       console.error("Payment failed:", error);
-  //     }
-  //   );
-  // };
 
   const handlePaymentAndBooking = async () => {
     try {
