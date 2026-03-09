@@ -1,7 +1,8 @@
 export interface PsychologistBookingData {
   // Slot selection
-  date?: Date;
-  timeSlot?: string;
+  // date?: Date;
+  date: string;
+  timeSlot: string;
 
   // User details
   name: string;
@@ -10,11 +11,12 @@ export interface PsychologistBookingData {
   age: string;
   modeOfTherapy: string;
   issue: string;
+  otherIssue : string,
   agreeToTerms: boolean;
   sessionType: string;
   therapyType: string;
 
   // Package info
-  packageTitle?: string;
+  packageTitle: string;
   packageAmount:number
 }

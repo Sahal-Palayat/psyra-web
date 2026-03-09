@@ -49,7 +49,7 @@ export default function Individual() {
       type: "individual",
       title: "Premium Plan",
       sessions: "12",
-      pricePerSession: "₹600 per session",
+      pricePerSession: "₹700 per session",
       tagline: "Your complete support system.",
       discountNote: "Save 30%",
       list: [
