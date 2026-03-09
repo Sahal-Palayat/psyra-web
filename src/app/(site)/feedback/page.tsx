@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import {  useSearchParams } from "next/navigation";
 import FeedbackForm from "@/components/feedback/feedback-form";
 
+
 function FeedbackPageContent() {
   const searchParams = useSearchParams();
   const encodedData = searchParams.get("data");

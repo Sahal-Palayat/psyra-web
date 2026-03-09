@@ -71,7 +71,7 @@ try {
     // --- static pages ---
     { url: `${baseUrl}`, priority: 1 },
     { url: `${baseUrl}/about-us` },
-    { url: `${baseUrl}/services` },
+    { url: `${baseUrl}/online-counselling-services` },
     { url: `${baseUrl}/concerns` }, // concerns page currently uses static data
     { url: `${baseUrl}/contact-us` },
 

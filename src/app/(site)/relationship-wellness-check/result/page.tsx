@@ -39,7 +39,7 @@ export default function RelationshipResultPage() {
   }, []);
 
   function handleCtaClick() {
-    router.push("/services");
+    router.push("/online-counselling-services");
   }
 
   if (loading) {

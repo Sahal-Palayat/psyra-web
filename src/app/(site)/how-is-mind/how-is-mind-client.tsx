@@ -553,7 +553,7 @@ export default function SurveyQuestions() {
         {typedResponse.length === aiResponse.length && (
           <motion.button
             onClick={() => {
-              window.location.href = "/services";
+              window.location.href = "/online-counselling-services";
             }}
             className="mt-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
             initial={{ opacity: 0, y: 10 }}

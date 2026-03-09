@@ -55,7 +55,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
             </p>
 
             <Link
-              href="/services"
+              href="/online-counselling-services"
               className="
           inline-flex items-center gap-2
           px-5 py-3
@@ -98,43 +98,23 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
                 Online Therapy for{" "}
                 <span className="text-[#43C6AC]">{countryName}</span> Residents
               </p>
-            </div>
-
-            {/* Heading */}
-            <h1
-              className="text-[4.75rem] lg:text-[5.25rem]
-                 font-serif leading-[1.05] tracking-tight
-                 mb-6 lg:mb-8 text-balance text-left max-w-2xl"
-            >
-              Wellness meets <br />
-              <span className="italic text-[#43C6AC]">purposeful</span> care.
-            </h1>
-
-            {/* Content + CTA */}
-            <div className="flex flex-row items-end justify-between gap-12 max-w-5xl">
-              <div className="max-w-xl text-left space-y-4">
-                <p className="text-base leading-relaxed text-[#1a3c34]/70 text-pretty max-w-md">
-                  Thoughtful, confidential mental health support designed for
-                  people navigating life in {countryName}.
-                </p>
-                <div className="flex justify-start">
-                  <Link
-                    href="/services"
-                    className="
-            group inline-flex items-center gap-3
-            px-6 py-3
-            bg-[#2FB9A3] text-white
-            rounded-full
-            text-sm font-semibold uppercase tracking-wide
-            hover:bg-[#259E8C]
-            transition-all duration-300
-            shadow-md
-          "
-                  >
-                    Get Therapy
-                    <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
+              <div className="flex justify-center md:justify-start">
+                <Link
+                  href="/online-counselling-services"
+                  className="
+          group inline-flex items-center gap-3
+          px-6 py-3
+          bg-[#2FB9A3] text-white
+          rounded-full
+          text-sm font-semibold uppercase tracking-wide
+          hover:bg-[#259E8C]
+          transition-all duration-300
+          shadow-md
+        "
+                >
+                  Get Therapy
+                  <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
           </div>
