@@ -1,65 +1,61 @@
-// Razorpay configuration and service
+// Razorpay configuration
 export const RAZORPAY_CONFIG = {
   key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
   key_secret: process.env.NEXT_PUBLIC_RAZORPAY_KEY_SECRET,
 };
 
-// Razorpay payment response interface
+// Razorpay payment response
 export interface RazorpayPaymentResponse {
   razorpay_payment_id: string;
   razorpay_order_id: string;
   razorpay_signature: string;
 }
 
-// Razorpay order response interface
+// Razorpay order response (from backend)
 export interface RazorpayOrderResponse {
   orderId: string;
   amount: number;
   currency: string;
-  orderDbId: string;
 }
 
-// Backend API response interface
+// Backend API response
 export interface CreateOrderResponse {
   status: boolean;
   message: string;
   data: RazorpayOrderResponse;
 }
 
-// Razorpay instance interface
-export interface RazorpayInstance {
-  open: () => void;
-  close: () => void;
-}
-
-// Window interface extension for Razorpay
+// Window Razorpay type
 declare global {
   interface Window {
-    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+    Razorpay: new (options: RazorpayOptions) => {
+      open: () => void;
+      close: () => void;
+    };
   }
 }
 
-// Payment data interface
+/**
+ * ✅ NEW PaymentData
+ */
 export interface PaymentData {
-  sessionDetails: {
-    date: string;
-    timeSlot: string;
-    psychologistId: string;
-    name: string;
-    email: string;
-    phone: string;
-    age: string;
-    modeOfTherapy: string;
-    issue: string;
-    agreeToTerms: boolean;
-    sessionType: string;
-    therapyType: string;
-    packageTitle: string;
-  };
+  bookingId: string;
+  bookingType: "psychologist" | "general";
   totalAmount: number;
+
+ name: string;
+  email: string;
+  phone: string;
+  age: string;
+  modeOfTherapy: string;
+  issue: string;
+  otherIssue?: string;
+  sessionType: string;
+  therapyType: string;
+  packageTitle: string;
 }
 
-// Razorpay options interface
+// Razorpay checkout options
 export interface RazorpayOptions {
   key: string;
   amount: number;
@@ -68,118 +64,84 @@ export interface RazorpayOptions {
   description: string;
   order_id: string;
   handler: (response: RazorpayPaymentResponse) => void;
-  prefill: {
-    name: string;
-    email: string;
-    contact: string;
-  };
-  notes: {
-    sessionDetails: string;
-  };
-  theme: {
-    color: string;
+  theme?: {
+    color?: string;
   };
   modal?: {
-    ondismiss: () => void;
+    ondismiss?: () => void;
   };
-  // Optional method configuration to enable/disable payment methods
-  method?: {
-    upi?: boolean | {
-      flow?: string;
-      vpa?: string;
-      apps?: string[];
-    };
-    card?: boolean;
-    netbanking?: boolean;
-    wallet?: boolean;
-    paylater?: boolean;
-  };
-  // Optional top-level UPI configuration (alternative approach)
-  upi?: {
-    mode?: string;
-    apps?: string[];
-  };
-  // Optional UI configuration for Checkout display (e.g., GPay first)
-  config?: {
-    display?: {
-      payment_method?: {
-        upi?: {
-          rp_branding?: boolean;
-          preferred_apps_order?: string[];
-        };
-      };
-      blocks?: Record<string, {
-        name: string;
-        instruments: Array<{
-          method: string;
-          flows?: string[];
-          apps?: string[];
-        }>;
-      }>;
-      sequence?: string[];
-      preferences?: {
-        show_default_blocks?: boolean;
-      };
-    };
-  };
-  // Allow additional vendor-supported fields without type errors
+  // Payment failure callback (custom handling)
+  onPaymentFailed?: (error: { code: string; description: string; source: string; step: string; reason: string }) => void;
   [key: string]: unknown;
 }
 
-// Create payment order
-export const createPaymentOrder = async (paymentData: PaymentData): Promise<RazorpayOrderResponse> => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+/**
+ * ✅ Create payment order (BACKEND CREATES orderId)
+ */
+export const createPaymentOrder = async (
+  paymentData: PaymentData
+): Promise<RazorpayOrderResponse> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(paymentData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to create payment order');
     }
+  );
 
-    const apiResponse: CreateOrderResponse = await response.json();
-    
-    if (!apiResponse.status) {
-      throw new Error(apiResponse.message || 'Failed to create payment order');
-    }
-
-    return apiResponse.data;
-  } catch (error) {
-    console.error('Error creating payment order:', error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("Failed to create payment order");
   }
+
+  const apiResponse: CreateOrderResponse = await response.json();
+
+  if (!apiResponse.status) {
+    throw new Error(apiResponse.message || "Payment order failed");
+  }
+
+  return apiResponse.data;
 };
 
 
-// Initialize Razorpay
 export const initializeRazorpay = (): Promise<boolean> => {
   return new Promise((resolve) => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onload = () => {
-      resolve(true);
-    };
-    script.onerror = () => {
+    if (typeof window === "undefined") {
       resolve(false);
-    };
+      return;
+    }
+
+    if ((window as any).Razorpay) {
+      resolve(true);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+
     document.body.appendChild(script);
   });
 };
 
-// Open Razorpay payment modal
-export const openRazorpayPayment = async (options: RazorpayOptions): Promise<RazorpayInstance> => {
-  const razorpayLoaded = await initializeRazorpay();
-  
-  if (!razorpayLoaded) {
-    throw new Error('Razorpay SDK failed to load');
+
+
+// Open Razorpay modal
+
+export const openRazorpayPayment = async (
+  options: RazorpayOptions
+) => {
+  const loaded = await initializeRazorpay();
+
+  if (!loaded) {
+    throw new Error("Razorpay SDK failed to load");
   }
 
   const razorpay = new window.Razorpay(options);
   razorpay.open();
-  
-  return razorpay;
 };
+
+
