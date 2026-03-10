@@ -248,6 +248,9 @@ export function BookingModal({
           sessionType: bookingData.sessionType,
           therapyType: bookingData.therapyType,
           packageTitle: bookingData.packageTitle,
+           ...(bookingData.psychologistId && {
+      psychologistId: bookingData.psychologistId,
+    }),
         },
 
         // ✅ SUCCESS
@@ -312,34 +315,7 @@ export function BookingModal({
               <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
             </div>
 
-            {/* CONTENT */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-              {step === 1 && (
-                <SlotSelection
-                  bookingData={bookingData}
-                  onUpdate={(data) => {
-                    updateBookingData(data);
-                    if (data.date) {
-                      fetchBookedSlots(data.date);
-                    }
-                  }}
-                  allTimeSlots={
-                    bookingData.therapyType === "individual"
-                      ? INDIVIDUAL_TIME_SLOTS
-                      : COUPLE_TIME_SLOTS
-                  }
-                  bookedSlots={bookedSlots}
-                />
-              )}
-
-              {step === 2 && (
-                <DetailsForm
-                  bookingData={bookingData}
-                  onUpdate={updateBookingData}
-                />
-              )}
-            </div>
-
+      
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 sm:p-6">
