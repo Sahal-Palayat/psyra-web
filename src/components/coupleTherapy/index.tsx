@@ -7,6 +7,7 @@ import HeroPackages from "../individual/HeroPackage";
 const CoupleIndex = () => {
   const couplePackages = [
     {
+      id: "single", 
       type: "couple",
       title: "Starter Plan",
       sessions: 1,
@@ -23,10 +24,11 @@ const CoupleIndex = () => {
       cta: "Get Started",
     },
     {
+      id: "pack4", 
       type: "couple",
       title: " Basic Growth Plan",
       sessions: "4",
-      pricePerSession: "₹1200 per session",
+      // pricePerSession: "₹1200 per session",
       tagline: "Build a Stronger Connection",
       discountNote: "Save 20%",
       list: [
@@ -41,10 +43,11 @@ const CoupleIndex = () => {
       cta: "Strengthen Your Relationship",
     },
     {
+      id: "pack8", 
       type: "couple",
       title: " Deep Healing Plan",
       sessions: "8",
-      pricePerSession: "₹1000 per session",
+      // pricePerSession: "₹1000 per session",
       tagline: "Grow together deeply.",
       discountNote: "Save 33%",
       list: [

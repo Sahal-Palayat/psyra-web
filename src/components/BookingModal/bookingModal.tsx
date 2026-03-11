@@ -15,11 +15,24 @@ import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../Payment/PaymentSuccessModal";
 import axios from "axios";
 
+type PsychologistLite = {
+  _id: string;
+  name: string;
+  price: number;
+};
+
+type PricingPackage = {
+  id: string;
+  price: number;
+};
+
 export function BookingModal({
   isOpen,
   onClose,
   packageTitle,
   price,
+  packageId,
+  fixedPsychologistId,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<string[]>([]);
@@ -49,9 +62,12 @@ export function BookingModal({
     packageTitle,
     therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
     packageAmount: Number(price),
+    psychologistId: fixedPsychologistId || undefined,
+    packageId: packageId,
     date: "",
     timeSlot: "",
   });
+  const [psychologists, setPsychologists] = useState<PsychologistLite[]>([]);
 
   useEffect(() => {
     setBookingData((prev) => ({
@@ -59,8 +75,67 @@ export function BookingModal({
       packageTitle,
       therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
       packageAmount: Number(price),
+      packageId: packageId,
     }));
-  }, [packageTitle, price]);
+  }, [packageTitle, price, packageId]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fetchPsychologists = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/psychologists`,
+        );
+        setPsychologists(res?.data?.psychologists || []);
+      } catch (err) {
+        console.error("Failed to fetch psychologists", err);
+      }
+    };
+
+    fetchPsychologists();
+  }, [isOpen]);
+
+  useEffect(() => {
+    const fetchDynamicPrice = async () => {
+      if (!bookingData.packageId) return;
+
+      try {
+        const params = new URLSearchParams({
+          therapyType: bookingData.therapyType,
+        });
+
+        if (bookingData.psychologistId) {
+          params.append("psychologistId", bookingData.psychologistId);
+        }
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/pricing/packages?${params}`,
+        );
+
+        const data: PricingPackage[] = await res.json();
+
+        const pkg = data.find((p) => p.id === bookingData.packageId);
+
+        if (pkg) {
+          setBookingData((prev) => ({
+            ...prev,
+            packageAmount: pkg.price,
+          }));
+        }
+      } catch (err) {
+        console.error("Dynamic pricing failed", err);
+      }
+    };
+
+    fetchDynamicPrice();
+  }, [
+    bookingData.psychologistId,
+    bookingData.packageId,
+    bookingData.therapyType,
+  ]);
+
+  console.log(packageTitle, "packageTitle", bookingData, "bookingData first");
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -93,15 +168,29 @@ export function BookingModal({
   const canProceedFromStep1 = () =>
     !!bookingData.date && !!bookingData.timeSlot;
 
-  const canProceedFromStep2 = () =>
-    bookingData.name.trim() &&
-    bookingData.email.trim() &&
-    bookingData.phone.trim() &&
-    bookingData.age.trim() &&
-    bookingData.modeOfTherapy.trim() &&
-    bookingData.issue.trim() &&
-    bookingData.sessionType.trim() &&
-    bookingData.agreeToTerms;
+  const canProceedFromStep2 = () => {
+    const nameValid =
+      bookingData.name.trim().length >= 2 &&
+      /^[a-zA-Z\s]+$/.test(bookingData.name);
+
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
+
+    const phoneValid = /^[0-9]{10}$/.test(bookingData.phone);
+
+    const ageNum = parseInt(bookingData.age, 10);
+    const ageValid = ageNum >= 18 && ageNum <= 120;
+
+    return (
+      nameValid &&
+      emailValid &&
+      phoneValid &&
+      ageValid &&
+      bookingData.modeOfTherapy !== "" &&
+      bookingData.issue !== "" &&
+      bookingData.sessionType !== "" &&
+      bookingData.agreeToTerms
+    );
+  };
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -111,6 +200,25 @@ export function BookingModal({
     setCurrentBookingId(null);
     setIsPaying(false);
     setShowSuccessModal(false);
+
+    setBookingData({
+      name: "",
+      email: "",
+      phone: "",
+      age: "",
+      modeOfTherapy: "",
+      issue: "",
+      agreeToTerms: false,
+      sessionType: "",
+      packageTitle,
+      therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
+      packageAmount: Number(price),
+      psychologistId: fixedPsychologistId || undefined,
+      packageId,
+      date: "",
+      timeSlot: "",
+    });
+
     onClose();
   };
 
@@ -173,6 +281,9 @@ export function BookingModal({
           sessionType: bookingData.sessionType,
           therapyType: bookingData.therapyType,
           packageTitle: bookingData.packageTitle,
+          ...(bookingData.psychologistId && {
+            psychologistId: bookingData.psychologistId,
+          }),
         },
 
         // ✅ SUCCESS
@@ -237,32 +348,48 @@ export function BookingModal({
               <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
             </div>
 
-            {/* CONTENT */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-              {step === 1 && (
-                <SlotSelection
-                  bookingData={bookingData}
-                  onUpdate={(data) => {
-                    updateBookingData(data);
-                    if (data.date) {
-                      fetchBookedSlots(data.date);
-                    }
-                  }}
-                  allTimeSlots={
-                    bookingData.therapyType === "individual"
-                      ? INDIVIDUAL_TIME_SLOTS
-                      : COUPLE_TIME_SLOTS
-                  }
-                  bookedSlots={bookedSlots}
-                />
-              )}
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-4 sm:p-6">
+                {step === 1 && (
+                  <div>
+                    <SlotSelection
+                      bookingData={bookingData}
+                      onUpdate={(data) => {
+                        updateBookingData(data);
+                        if (data?.date) {
+                          fetchBookedSlots(data.date);
+                        }
+                      }}
+                      allTimeSlots={
+                        bookingData?.therapyType === "individual"
+                          ? INDIVIDUAL_TIME_SLOTS
+                          : COUPLE_TIME_SLOTS
+                      }
+                      bookedSlots={bookedSlots}
+                    />
+                  </div>
+                )}
 
-              {step === 2 && (
-                <DetailsForm
-                  bookingData={bookingData}
-                  onUpdate={updateBookingData}
-                />
-              )}
+                {step === 2 && (
+                  <>
+                    <DetailsForm
+                      bookingData={bookingData}
+                      onUpdate={updateBookingData}
+                      psychologists={psychologists}
+                      hideTherapistSelect={!!fixedPsychologistId}
+                    />
+
+                    {/* Dynamic price display */}
+                    <div className="mt-4 text-center text-sm text-gray-600">
+                      Total payable:
+                      <span className="font-bold text-[#005657] ml-1">
+                        ₹{bookingData.packageAmount?.toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* FOOTER */}

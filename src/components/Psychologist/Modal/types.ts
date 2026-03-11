@@ -11,12 +11,15 @@ export interface PsychologistBookingData {
   age: string;
   modeOfTherapy: string;
   issue: string;
-  otherIssue : string,
+  otherIssue: string;
   agreeToTerms: boolean;
   sessionType: string;
   therapyType: string;
 
+  psychologistId?: string;
   // Package info
+
+  packageId: string;
   packageTitle: string;
-  packageAmount:number
+  packageAmount: number;
 }
