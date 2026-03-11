@@ -57,13 +57,16 @@ packageId: "",
 });
 
 useEffect(() => {
-  if (data?._id) {
+  if (isOpen && data?._id) {
     setBookingData((prev) => ({
       ...prev,
       psychologistId: data._id,
+      packageAmount: typeof data?.price === "number" ? data.price : 0,
     }));
   }
-}, [data]);
+}, [isOpen, data]);
+
+
 
 const [bookingId, setBookingId] = useState<string | null>(null);
 const [paymentError, setPaymentError] = useState<string | null>(null);
@@ -91,6 +94,7 @@ const [isPaying, setIsPaying] = useState(false);
   const resetAndClose = () => {
     setStep(1);
     setBookingData({
+      psychologistId: data?._id,
       date: "",
       timeSlot: "",
       name: "",
@@ -126,18 +130,31 @@ const [isPaying, setIsPaying] = useState(false);
     return bookingData.date && bookingData.timeSlot;
   };
 
-  const canProceedFromStep4 = () => {
-    return (
-      bookingData.name.trim() !== "" &&
-      bookingData.email.trim() !== "" &&
-      bookingData.phone.trim() !== "" &&
-      bookingData.age.trim() !== "" &&
-      bookingData.modeOfTherapy.trim() !== "" &&
-      bookingData.issue.trim() !== "" &&
-      bookingData.sessionType.trim() !== "" &&
-      bookingData.agreeToTerms
-    );
-  };
+const canProceedFromStep4 = () => {
+  const nameValid =
+    bookingData.name.trim().length >= 2 &&
+    /^[a-zA-Z\s]+$/.test(bookingData.name);
+
+  const emailValid =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
+
+  const phoneValid =
+    /^[0-9]{10}$/.test(bookingData.phone);
+
+  const ageNum = parseInt(bookingData.age, 10);
+  const ageValid = ageNum >= 18 && ageNum <= 120;
+
+  return (
+    nameValid &&
+    emailValid &&
+    phoneValid &&
+    ageValid &&
+    bookingData.modeOfTherapy !== "" &&
+    bookingData.issue !== "" &&
+    bookingData.sessionType !== "" &&
+    bookingData.agreeToTerms
+  );
+};
 
 
   const createSlot = async (): Promise<string | null> => {
@@ -247,17 +264,17 @@ const [isPaying, setIsPaying] = useState(false);
         },
       );
 
-      // ✅ FIX: Extract from nested data property
+      
       const { orderId, amount, currency, keyId } = paymentRes.data.data;
 
-      // ✅ Also use keyId from backend instead of RAZORPAY_CONFIG
+     
       const razorpayOptions: RazorpayOptions = {
-        key: keyId || RAZORPAY_CONFIG.key_id || "", // Use keyId from backend
-        amount, // ✅ Now this will be 99900 (correct amount)
+        key: keyId || RAZORPAY_CONFIG.key_id || "", 
+        amount, 
         currency,
         name: "Psyra",
         description: "Psychologist Session",
-        order_id: orderId, // ✅ Now this will be correct orderId
+        order_id: orderId, 
         prefill: {
           name: bookingData.name || "",
           email: bookingData.email || "",
@@ -428,7 +445,7 @@ const [isPaying, setIsPaying] = useState(false);
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div
         className="fixed inset-0 bg-black/50 transition-opacity"
-        onClick={onClose}
+        onClick={resetAndClose}
         aria-hidden="true"
       />
 

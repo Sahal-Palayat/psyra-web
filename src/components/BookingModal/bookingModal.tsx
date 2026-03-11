@@ -168,15 +168,29 @@ export function BookingModal({
   const canProceedFromStep1 = () =>
     !!bookingData.date && !!bookingData.timeSlot;
 
-  const canProceedFromStep2 = () =>
-    bookingData.name.trim() &&
-    bookingData.email.trim() &&
-    bookingData.phone.trim() &&
-    bookingData.age.trim() &&
-    bookingData.modeOfTherapy.trim() &&
-    bookingData.issue.trim() &&
-    bookingData.sessionType.trim() &&
-    bookingData.agreeToTerms;
+  const canProceedFromStep2 = () => {
+    const nameValid =
+      bookingData.name.trim().length >= 2 &&
+      /^[a-zA-Z\s]+$/.test(bookingData.name);
+
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
+
+    const phoneValid = /^[0-9]{10}$/.test(bookingData.phone);
+
+    const ageNum = parseInt(bookingData.age, 10);
+    const ageValid = ageNum >= 18 && ageNum <= 120;
+
+    return (
+      nameValid &&
+      emailValid &&
+      phoneValid &&
+      ageValid &&
+      bookingData.modeOfTherapy !== "" &&
+      bookingData.issue !== "" &&
+      bookingData.sessionType !== "" &&
+      bookingData.agreeToTerms
+    );
+  };
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
@@ -186,6 +200,25 @@ export function BookingModal({
     setCurrentBookingId(null);
     setIsPaying(false);
     setShowSuccessModal(false);
+
+    setBookingData({
+      name: "",
+      email: "",
+      phone: "",
+      age: "",
+      modeOfTherapy: "",
+      issue: "",
+      agreeToTerms: false,
+      sessionType: "",
+      packageTitle,
+      therapyType: packageTitle?.includes("couple") ? "couple" : "individual",
+      packageAmount: Number(price),
+      psychologistId: fixedPsychologistId || undefined,
+      packageId,
+      date: "",
+      timeSlot: "",
+    });
+
     onClose();
   };
 
@@ -248,9 +281,9 @@ export function BookingModal({
           sessionType: bookingData.sessionType,
           therapyType: bookingData.therapyType,
           packageTitle: bookingData.packageTitle,
-           ...(bookingData.psychologistId && {
-      psychologistId: bookingData.psychologistId,
-    }),
+          ...(bookingData.psychologistId && {
+            psychologistId: bookingData.psychologistId,
+          }),
         },
 
         // ✅ SUCCESS
@@ -315,7 +348,6 @@ export function BookingModal({
               <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
             </div>
 
-      
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 sm:p-6">

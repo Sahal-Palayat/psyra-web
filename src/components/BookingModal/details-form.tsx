@@ -236,7 +236,7 @@ export function DetailsForm({
               onBlur={handleBlur}
               placeholder="Enter your full name"
               required
-              className={`${getInputClassName("name")} px-4 py- text-sm`}
+              className={`${getInputClassName("name")} px-4 py-3 text-sm`}
             />
 
             {touched.name && errors.name && (
@@ -272,7 +272,7 @@ export function DetailsForm({
               onBlur={handleBlur}
               placeholder="Enter your email address"
               required
-              className={`${getInputClassName("email")} px-4 py- text-sm`}
+              className={`${getInputClassName("email")} px-4 py-3 text-sm`}
             />
             {touched.email && errors.email && (
               <p className="text-sm text-red-600 flex items-center gap-1">
@@ -306,7 +306,7 @@ export function DetailsForm({
               onBlur={handleBlur}
               placeholder="Enter your phone number"
               required
-              className={`${getInputClassName("phone")} px-4 py- text-sm`}
+              className={`${getInputClassName("phone")} px-4 py-3 text-sm`}
             />
             {touched.phone && errors.phone && (
               <p className="text-sm text-red-600 flex items-center gap-1">
@@ -341,7 +341,7 @@ export function DetailsForm({
               placeholder="Enter your age"
               required
               maxLength={3}
-              className={`${getInputClassName("age")} px-4 py- text-sm`}
+              className={`${getInputClassName("age")} px-4 py-3 text-sm`}
             />
             {touched.age && errors.age && (
               <p className="text-sm text-red-600 flex items-center gap-1">
