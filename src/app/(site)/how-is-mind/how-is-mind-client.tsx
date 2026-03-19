@@ -22,6 +22,7 @@ import {
   type AssessmentSeverity,
   type SeverityDisplayConfig,
 } from "@/lib/assessmentSeverity";
+import { sendConcernToSheet } from "@/lib/sheet";
 
 type QuestionOption =
   | string
@@ -148,6 +149,10 @@ export default function SurveyQuestions() {
 
   const surveyQuestions = concern ? questions : howIsMindQues;
 
+  const concernQuestionMap: Record<string, string> = Object.fromEntries(
+  questions.map((q) => [q.id, q.text])
+);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
@@ -221,7 +226,7 @@ export default function SurveyQuestions() {
             selectedAnswer: answers[questionId] ?? "",
           })),
         };
-
+        
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}`,
           {
@@ -233,6 +238,35 @@ export default function SurveyQuestions() {
 
         const data = await response.json();
         setConcernSeverity(data?.data?.severity ?? null);
+        
+        const formattedAnswers : SheetAnswers = {
+          Q1: "",Q2 : "",Q3 : "",Q4 : "",Q5 : "",
+          Q6: "",Q7 : "",Q8 : "",Q9 : "",Q10 : ""
+
+        }
+        Object.entries(score).forEach(([questionId],index)=>{
+          const key = `Q${index+1}` as QuestionKey;
+          const qText = concernQuestionMap[questionId];
+          const ans = answers[questionId];
+          formattedAnswers[key] = `${qText} - ${ans}`;
+        })
+        const sheetPayload = {
+          timestamp: new Date().toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata"}),
+          concern,
+          severity:data?.data?.severity??null,
+          score:data?.data?.score??null,
+          personDetails: {
+            name: finalAnswers.name,
+            mobile: finalAnswers.contact,
+          },
+          answers: formattedAnswers,
+        };
+
+        try{
+          await sendConcernToSheet(sheetPayload);
+        }catch(e){
+          console.error("Concern sheet failed",e);
+        }
 
         setIsAiLoading(false);
 
@@ -243,7 +277,7 @@ export default function SurveyQuestions() {
         setAiResponse(aiText);
         setTypedResponse("");
         setSurveyComplete(true);
-
+        console.log(assessmentPayload,"assessment");
         return;
       }
 
