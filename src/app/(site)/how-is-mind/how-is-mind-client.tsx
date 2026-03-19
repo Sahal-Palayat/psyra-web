@@ -238,7 +238,7 @@ export default function SurveyQuestions() {
 
         const data = await response.json();
         setConcernSeverity(data?.data?.severity ?? null);
-        
+        // Concern sheet formatting
         const formattedAnswers : SheetAnswers = {
           Q1: "",Q2 : "",Q3 : "",Q4 : "",Q5 : "",
           Q6: "",Q7 : "",Q8 : "",Q9 : "",Q10 : ""

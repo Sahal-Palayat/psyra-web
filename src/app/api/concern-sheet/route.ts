@@ -19,7 +19,7 @@ export async function POST(req:Request){
         });
         console.log("Google status:", response.status);
         const text = await response.text();
-        console.log("Google body:", text);  // 👈 this will show what Google returned
+        console.log("Google body:", text); 
 
         const data = JSON.parse(text);
         return NextResponse.json(data);
