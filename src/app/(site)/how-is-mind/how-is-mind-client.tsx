@@ -251,7 +251,14 @@ export default function SurveyQuestions() {
           formattedAnswers[key] = `${qText} - ${ans}`;
         })
         const sheetPayload = {
-          timestamp: new Date().toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata"}),
+          timestamp: new Date().toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",
+                                day:"2-digit",
+                                month:"2-digit",
+                                year:"numeric",
+                                hour:"2-digit",
+                                minute:"2-digit",
+                                hour12:false
+          }),
           concern,
           severity:data?.data?.severity??null,
           score:data?.data?.score??null,

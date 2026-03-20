@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req:Request){
     try{
         const body = await req.json();
-        const url = "https://script.google.com/macros/s/AKfycbxe7ayjh1f_EewNnhbIR8aJ-EAsBQ3wquFbTSPzP-xnmQpNgX63HmWe7Jzv7UOmhqaO/exec";
+        const url = process.env.CONCERN_SHEET_URL;
         console.log(url);
         if (!url){
             return NextResponse.json(
