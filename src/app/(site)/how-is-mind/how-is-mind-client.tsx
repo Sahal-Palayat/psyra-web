@@ -22,7 +22,31 @@ import {
   type AssessmentSeverity,
   type SeverityDisplayConfig,
 } from "@/lib/assessmentSeverity";
+import { sendConcernToSheet } from "@/lib/sheet";
 
+type SheetAnswers = {
+  Q1:string,
+  Q2:string,
+  Q3:string,
+  Q4:string,
+  Q5:string,
+  Q6:string,
+  Q7:string,
+  Q8:string,
+  Q9:string,
+  Q10:string
+}
+type QuestionKey =
+  | "Q1"
+  | "Q2"
+  | "Q3"
+  | "Q4"
+  | "Q5"
+  | "Q6"
+  | "Q7"
+  | "Q8"
+  | "Q9"
+  | "Q10";
 type QuestionOption =
   | string
   | {
@@ -148,6 +172,10 @@ export default function SurveyQuestions() {
 
   const surveyQuestions = concern ? questions : howIsMindQues;
 
+  const concernQuestionMap: Record<string, string> = Object.fromEntries(
+  questions.map((q) => [q.id, q.text])
+);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
@@ -221,7 +249,7 @@ export default function SurveyQuestions() {
             selectedAnswer: answers[questionId] ?? "",
           })),
         };
-
+        
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/assessments/${concern}`,
           {
@@ -233,6 +261,42 @@ export default function SurveyQuestions() {
 
         const data = await response.json();
         setConcernSeverity(data?.data?.severity ?? null);
+        // Concern sheet formatting
+        const formattedAnswers : SheetAnswers = {
+          Q1: "",Q2 : "",Q3 : "",Q4 : "",Q5 : "",
+          Q6: "",Q7 : "",Q8 : "",Q9 : "",Q10 : ""
+
+        }
+        Object.entries(score).forEach(([questionId],index)=>{
+          const key = `Q${index+1}` as QuestionKey;
+          const qText = concernQuestionMap[questionId];
+          const ans = answers[questionId];
+          formattedAnswers[key] = `${qText} - ${ans}`;
+        })
+        const sheetPayload = {
+          timestamp: new Date().toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",
+                                day:"2-digit",
+                                month:"2-digit",
+                                year:"numeric",
+                                hour:"2-digit",
+                                minute:"2-digit",
+                                hour12:false
+          }),
+          concern,
+          severity:data?.data?.severity??null,
+          score:data?.data?.score??null,
+          personDetails: {
+            name: finalAnswers.name,
+            mobile: finalAnswers.contact,
+          },
+          answers: formattedAnswers,
+        };
+
+        try{
+          await sendConcernToSheet(sheetPayload);
+        }catch(e){
+          console.error("Concern sheet failed",e);
+        }
 
         setIsAiLoading(false);
 
@@ -243,7 +307,7 @@ export default function SurveyQuestions() {
         setAiResponse(aiText);
         setTypedResponse("");
         setSurveyComplete(true);
-
+        console.log(assessmentPayload,"assessment");
         return;
       }
 
