@@ -24,6 +24,29 @@ import {
 } from "@/lib/assessmentSeverity";
 import { sendConcernToSheet } from "@/lib/sheet";
 
+type SheetAnswers = {
+  Q1:string,
+  Q2:string,
+  Q3:string,
+  Q4:string,
+  Q5:string,
+  Q6:string,
+  Q7:string,
+  Q8:string,
+  Q9:string,
+  Q10:string
+}
+type QuestionKey =
+  | "Q1"
+  | "Q2"
+  | "Q3"
+  | "Q4"
+  | "Q5"
+  | "Q6"
+  | "Q7"
+  | "Q8"
+  | "Q9"
+  | "Q10";
 type QuestionOption =
   | string
   | {
