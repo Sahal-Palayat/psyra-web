@@ -161,7 +161,7 @@ const HeroMob = () => {
               </motion.div>
 
               {/* Find Your Therapist Card */}
-              <motion.div
+              {/* <motion.div
                 className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow shimmer-card"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -171,17 +171,17 @@ const HeroMob = () => {
                 <div
                   onClick={() => (window.location.href = "/how-is-mind")}
                   className="flex flex-col gap-4 cursor-pointer"
-                >
-                  <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
+                > */}
+                  {/* <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
                       src="/Online-Counselling-Malayalam-Free-Assessment.webp"
                       alt="Free mental health assessment with online counseling Malayalam support"
                       className="h-full w-full"
                       loading="lazy"
                     />
-                  </div>
+                  </div> */}
 
-                  <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
+                  {/* <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
                     Take Your Free Assessment
                   </p>
 
@@ -192,9 +192,9 @@ const HeroMob = () => {
                   <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
                     <span>Start Now</span>
                     <MoveRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </motion.div>
+                  </div> */}
+                {/* </div>
+              </motion.div> */}
             </div>
           </div>
           {/* <CarouselStats /> */}

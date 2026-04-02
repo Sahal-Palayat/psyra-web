@@ -10,13 +10,13 @@ const HeroBox = () => {
       buttonText: "Book Now",
       link: "/online-counselling-services",
     },
-    {
-      title: "Take Your Free Assessment",
-      subtitle: "Know your mental health status quickly",
-      image: "/Online-Counselling-Malayalam-Free-Assessment.webp",
-      buttonText: "Start Now",
-      link: "/how-is-mind",
-    },
+    // {
+    //   title: "Take Your Free Assessment",
+    //   subtitle: "Know your mental health status quickly",
+    //   image: "/Online-Counselling-Malayalam-Free-Assessment.webp",
+    //   buttonText: "Start Now",
+    //   link: "/how-is-mind",
+    // },
     {
       title: "Find Your Therapist",
       subtitle: "Choose your right therapist and start your session",

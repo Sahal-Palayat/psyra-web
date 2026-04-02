@@ -10,7 +10,7 @@ import { CarouselStats } from "@/components/Psychologist/SimpleCarousel/carousel
 // import { TestimonialsSlider } from "@/components/Testimonals";
 import { WhatsAppTestimonials } from "@/components/WhatsAppTestimonals";
 // import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
-import { CommunityEvents } from "@/components/EventSection";
+// import { CommunityEvents } from "@/components/EventSection";
 // import BlogSwiper from "@/components/Blog/blog-swiper";
 import LatestBlogs from "@/components/blogs/latestBlogs";
 import AssessmentCTA from "@/components/assessment/AssessmentCTA";
@@ -70,7 +70,7 @@ export default function Home() {
 
       {/* Contact Form with themed loading */}
       {/* <DynamicGetInTouch /> */}
-      <CommunityEvents />
+      {/* <CommunityEvents /> */}
 
       {/* Blog Section */}
       <LatestBlogs />
