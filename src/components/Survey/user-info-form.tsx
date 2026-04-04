@@ -6,7 +6,11 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 interface UserInfoFormProps {
-  onSubmit: (userInfo: { name: string; contact: string }) => void;
+  onSubmit: (userInfo: {
+    name: string;
+    contact: string;
+    email: string;
+  }) => void;
   isLoading?: boolean;
 }
 
@@ -16,6 +20,7 @@ export function UserInfoForm({
 }: UserInfoFormProps) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
@@ -35,6 +40,15 @@ export function UserInfoForm({
       }
     }
 
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        newErrors.email = "Please enter a valid email address";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -42,7 +56,7 @@ export function UserInfoForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit({ name, contact });
+      onSubmit({ name, contact, email });
     }
   };
 
@@ -85,6 +99,31 @@ export function UserInfoForm({
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
+        </div>
+
+        {/* Email Field */}
+        <div className="text-left">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Email 
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+            }}
+            placeholder="Enter your email"
+            className={`w-full px-4 py-3 rounded-lg border-2 transition-colors focus:outline-none ${
+              errors.email
+                ? "border-red-500 focus:border-red-600"
+                : "border-gray-200 focus:border-emerald-500"
+            }`}
+            disabled={isLoading}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
         </div>
 
