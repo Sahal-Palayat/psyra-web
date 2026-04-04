@@ -8,7 +8,6 @@ import {
   profQuestions,
 } from "@/components/Survey/data/survey-questions";
 import {
-  SurveyAnswers,
   SurveyQuestion,
 } from "@/components/Survey/types/survey";
 
@@ -29,7 +28,9 @@ export const useSurveyLogic = () => {
     }
   }, [router]);
 
-  const submitSurvey = async (finalAnswers: SurveyAnswers) => {
+ const submitSurvey = async (
+  finalAnswers: Record<string, string | number | boolean>
+) => {
     console.log("finalAnswers", finalAnswers);
     try {
       const response = await fetch("https://kochimetrocalc.me/psyra-survey", {

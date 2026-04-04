@@ -25,6 +25,7 @@ export interface BookingPaymentData {
   sessionType: string;
   therapyType: string;
   packageTitle: string;
+  psychologistId?: string
 }
 
 /**

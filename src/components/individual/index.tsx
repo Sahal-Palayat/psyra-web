@@ -1,19 +1,15 @@
 "use client";
-// import Packages from "./Packages";
-// import HeroIndividual from "./HeroIndividual";
-// import individual from "../../../public/Packages 2.jpg";
-// import individual1 from "../../../public/Packages 1.jpg";
-// import individual2 from "../../../public/Packages 3.jpg";
 import Faq from "../Faq";
 import HeroPackages from "./HeroPackage";
 
 export default function Individual() {
   const individualTypes = [
     {
+      id: "pack4", 
       type: "individual",
       title: "Basic Growth Plan",
       sessions: "4",
-      pricePerSession: "₹800 per session",
+      // pricePerSession: "₹800 per session",
       tagline: "Start your journey towards clarity",
       discountNote: "Save 20%",
       list: [
@@ -28,10 +24,11 @@ export default function Individual() {
       cta: "Start Your Journey Today",
     },
     {
+      id: "pack8", 
       type: "individual",
       title: "Deep Healing Plan",
       sessions: "8",
-      pricePerSession: "₹750 per session",
+      // pricePerSession: "₹750 per session",
       tagline: "Go deeper and heal stronger.",
       discountNote: "Save 25%",
       list: [
@@ -46,10 +43,11 @@ export default function Individual() {
       cta: "Invest in Your Well-Being",
     },
     {
+      id: "pack12", 
       type: "individual",
       title: "Premium Plan",
       sessions: "12",
-      pricePerSession: "₹700 per session",
+      // pricePerSession: "₹700 per session",
       tagline: "Your complete support system.",
       discountNote: "Save 30%",
       list: [
