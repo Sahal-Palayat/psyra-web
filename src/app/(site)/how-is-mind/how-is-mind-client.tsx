@@ -10,7 +10,7 @@ import {
   basicQuestions,
   howIsMindQues,
 } from "@/components/Survey/data/survey-questions";
-import type { SurveyAnswers } from "@/components/Survey/types/survey";
+import type { FinalSurveyAnswers  } from "@/components/Survey/types/survey";
 import { Background } from "@/components/anonymous/background";
 import { sendAssessmentToSheet } from "@/lib/sheet";
 import type { AssessmentPayload } from "@/types/sheet";
@@ -85,6 +85,7 @@ const formatSurveyData = (raw: RawPayload): AssessmentPayload => {
 
   const name = String(person.name ?? "");
   const mobile = String(person.mobile ?? "");
+  const email = String(person.email ?? "");
   const score = Number(person.score ?? 0);
 
   const questionAnswers: Record<string, string | number> = {};
@@ -101,7 +102,7 @@ const formatSurveyData = (raw: RawPayload): AssessmentPayload => {
   }
 
   return {
-    personDetails: { name, mobile, score },
+    personDetails: { name, mobile,email, score },
     questionAnswers,
   };
 };
@@ -198,7 +199,7 @@ export default function SurveyQuestions() {
     howIsMindQues.map((q) => [q.id, q.question])
   );
 
-  const submitSurvey = async (finalAnswers: SurveyAnswers) => {
+  const submitSurvey = async (finalAnswers: FinalSurveyAnswers) => {
     const isConcernAssessment = Boolean(concern);
 
     try {
@@ -214,6 +215,7 @@ export default function SurveyQuestions() {
           personDetails: {
             name: finalAnswers.name,
             mobile: finalAnswers.contact,
+            email: finalAnswers.email,
           },
           answers: Object.entries(score).map(([questionId, selectedScore]) => ({
             questionId,
@@ -232,9 +234,10 @@ export default function SurveyQuestions() {
         );
 
         const data = await response.json();
+        console.log("AI RESPONSE:", data?.data?.aiResponse);
         setConcernSeverity(data?.data?.severity ?? null);
 
-        setIsAiLoading(false);
+        
 
         const aiText =
           data?.data?.aiResponse ??
@@ -243,6 +246,7 @@ export default function SurveyQuestions() {
         setAiResponse(aiText);
         setTypedResponse("");
         setSurveyComplete(true);
+        setIsAiLoading(false);
 
         return;
       }
@@ -260,6 +264,7 @@ export default function SurveyQuestions() {
         personDetails: {
           name: finalAnswers.name,
           mobile: finalAnswers.contact,
+          email: finalAnswers.email,
           score: totalScore,
         },
         questionAnswers: Object.fromEntries(
@@ -340,11 +345,13 @@ export default function SurveyQuestions() {
   const handleUserInfoSubmit = (userInfo: {
     name: string;
     contact: string;
+    email: string;
   }) => {
-    const finalAnswers = {
+    const finalAnswers: FinalSurveyAnswers = {
       ...answers,
       name: userInfo.name,
       contact: userInfo.contact,
+      email: userInfo.email,
     };
 
     submitSurvey(finalAnswers);
