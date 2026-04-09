@@ -4,10 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import Modal from "./Modal";
 import EventModal from "./EventModal";
 import { MoveRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const HeroMob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [eventModal, setEventModal] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     // const eventQrParam = searchParams.get("eventQr");
@@ -133,12 +135,7 @@ const HeroMob = () => {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 1 }}
               >
-                <div
-                  onClick={() => {
-                    window.location.href = "/online-counselling-services";
-                  }}
-                  className="flex flex-col gap-4 justify-between"
-                >
+                <div className="flex flex-col gap-4 justify-between">
                   <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
                       src="/Online-Counselling-Malayalam-Take-Your-Online-Therapy.webp"
@@ -153,35 +150,40 @@ const HeroMob = () => {
                   <p className="text-black text-[12px] md:text-2xl leading-tight">
                     Get your online session heal your mind
                   </p>
-                  <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
+                  <button
+                    onClick={() => {
+                      console.log("CTA Click: Online Therapy");
+                      router.push("/online-counselling-services");
+                    }}
+                    className="group flex items-center justify-center gap-2 w-full mt-2 px-3 py-2 rounded-lg 
+             bg-gradient-to-r from-teal-500 to-teal-700 text-white text-xs font-semibold 
+             shadow-md active:scale-95 transition-all"
+                  >
                     <span>Book Now</span>
-                    <MoveRight className="w-4 h-4" />
-                  </div>
+                    <MoveRight className="w-4 h-4 transition-transform group-active:translate-x-1" />
+                  </button>
                 </div>
               </motion.div>
 
-              {/* Find Your Therapist Card */}
-              {/* <motion.div
+              {/* Assessment Card */}
+              <motion.div
                 className="flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow shimmer-card"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 1, delay: 0.1 }}
               >
-                <div
-                  onClick={() => (window.location.href = "/how-is-mind")}
-                  className="flex flex-col gap-4 cursor-pointer"
-                > */}
-                  {/* <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
+                <div className="flex flex-col gap-4 justify-between">
+                  <div className="bg-gradient-to-br p-2 from-teal-100 to-teal-50 rounded-lg">
                     <img
                       src="/Online-Counselling-Malayalam-Free-Assessment.webp"
                       alt="Free mental health assessment with online counseling Malayalam support"
                       className="h-full w-full"
                       loading="lazy"
                     />
-                  </div> */}
+                  </div>
 
-                  {/* <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
+                  <p className="font-bold text-teal-600 text-[18px] md:text-2xl leading-tight">
                     Take Your Free Assessment
                   </p>
 
@@ -189,29 +191,43 @@ const HeroMob = () => {
                     Know your mental health status quickly
                   </p>
 
-                  <div className="flex flex-row items-center text-teal-800 text-[14px] gap-1">
+                  <button
+                    onClick={() => {
+                      router.push("/how-is-mind");
+                    }}
+                    className="group flex items-center justify-center gap-2 w-full mt-2 px-3 py-2 rounded-lg 
+             bg-gradient-to-r from-teal-500 to-teal-700 text-white text-xs font-semibold 
+             shadow-md active:scale-95 transition-all"
+                  >
                     <span>Start Now</span>
-                    <MoveRight className="w-4 h-4" />
-                  </div> */}
-                {/* </div>
-              </motion.div> */}
+                    <MoveRight className="w-4 h-4 transition-transform group-active:translate-x-1" />
+                  </button>
+                </div>
+              </motion.div>
             </div>
           </div>
+
           {/* <CarouselStats /> */}
-          <div
-            onClick={() => (window.location.href = "/psychologists")}
-            className="flex-1 mt-4 bg-gradient-to-br from-[#F0FDF9] to-[#D1FAE5] text-black rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
-          >
-            <div className="flex mb-2 flex-row items-center text-teal-800 text-[14px] gap-1">
-              <p className="font-bold text-teal-800 text-[18px] md:text-2xl leading-tight">
-                Find Your Right Therapist
-              </p>
-              <MoveRight className="w-4 h-4" />
-            </div>
+          <div className="flex-1 mt-4 bg-gradient-to-br from-[#F0FDF9] to-[#D1FAE5] text-black rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow">
+            <p className="font-bold text-teal-800 text-[18px] md:text-2xl leading-tight mb-1">
+              Find Your Right Therapist
+            </p>
 
             <p className="text-black text-[12px] md:text-2xl leading-tight">
               Choose your therapist and start your session.
             </p>
+            <button
+              onClick={() => {
+                console.log("CTA Click: Find Therapist");
+                router.push("/psychologists");
+              }}
+              className="group flex items-center justify-center gap-2 w-full mt-3 px-3 py-2 rounded-lg 
+             bg-teal-700 text-white text-xs font-semibold shadow-md 
+             active:scale-95 transition-all"
+            >
+              <span>Find Now</span>
+              <MoveRight className="w-4 h-4 transition-transform group-active:translate-x-1" />
+            </button>
           </div>
         </div>
 

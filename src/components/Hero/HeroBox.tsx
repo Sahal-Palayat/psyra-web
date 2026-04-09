@@ -1,7 +1,9 @@
 import { MoveRight } from "lucide-react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const HeroBox = () => {
+  const router = useRouter();
   const cards = [
     {
       title: "Take Your Online Therapy",
@@ -10,13 +12,13 @@ const HeroBox = () => {
       buttonText: "Book Now",
       link: "/online-counselling-services",
     },
-    // {
-    //   title: "Take Your Free Assessment",
-    //   subtitle: "Know your mental health status quickly",
-    //   image: "/Online-Counselling-Malayalam-Free-Assessment.webp",
-    //   buttonText: "Start Now",
-    //   link: "/how-is-mind",
-    // },
+    {
+      title: "Take Your Free Assessment",
+      subtitle: "Know your mental health status quickly",
+      image: "/Online-Counselling-Malayalam-Free-Assessment.webp",
+      buttonText: "Start Now",
+      link: "/how-is-mind",
+    },
     {
       title: "Find Your Therapist",
       subtitle: "Choose your right therapist and start your session",
@@ -33,7 +35,10 @@ const HeroBox = () => {
           <div
             key={index}
             className={`flex-1 bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow ${
-              card.image === "/Online-Counselling-Malayalam-Free-Assessment.webp" ? "shimmer-card" : ""
+              card.image ===
+              "/Online-Counselling-Malayalam-Free-Assessment.webp"
+                ? "shimmer-card"
+                : ""
             } `}
           >
             <div className="flex flex-col gap-4 justify-between h-full">
@@ -55,13 +60,19 @@ const HeroBox = () => {
                 </p>
               </div>
 
-              <div
-                onClick={() => (window.location.href = card.link)}
-                className="flex flex-row items-center text-teal-800 text-[14px] gap-1 cursor-pointer"
+              <button
+                onClick={() => {
+                  console.log("CTA Click:", card.title);
+                  router.push(card.link);
+                }}
+                className="group flex items-center justify-center gap-2 w-full mt-2 px-4 py-2 rounded-lg 
+             bg-gradient-to-r from-teal-500 to-teal-700 text-white text-sm font-semibold 
+             shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 
+             transition-all duration-200"
               >
                 <span>{card.buttonText}</span>
-                <MoveRight className="w-4 h-4" />
-              </div>
+                <MoveRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
           </div>
         ))}
