@@ -9,20 +9,11 @@ import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarouse
 import ConcernHero from "@/components/locations/ConcernHero";
 import MalayalamCounsellingSection from "@/components/locations/MalayalamCounsellingSectionServer";
 import LocationFaq from "@/components/locations/LocationFaq";
-import {HowItWorks} from "@/components/HowTherapyWorks";
+import { HowItWorks } from "@/components/HowTherapyWorks";
 import TestimonialsSection from "@/components/locations/TestimonialsSection.server";
-
-
-
 import { getLocationData } from "@/lib/getLocationData";
-import { getLocationFaqs } from "@/constants/locationFaq";
+// import { getLocationFaqs } from "@/constants/locationFaq";
 import { getTestimonialsByLocation } from "@/lib/getLocationData";
-
-function extractCountryFromSlug(slug: string): string | null {
-  const match = slug.match(/-in-([a-zA-Z-]+)$/);
-  return match ? match[1] : null;
-}
-
 
 export async function generateMetadata({
   params,
@@ -31,18 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
 
-  const countrySlug = extractCountryFromSlug(slug);
-  
-
-  if (!countrySlug) {
-    return {
-      title: "Online Therapy | Psyra",
-      description:
-        "Confidential online therapy and mental health support with Psyra.",
-    };
-  }
-
-  const locationData = await getLocationData(countrySlug);
+  const locationData = await getLocationData(slug);
 
   if (!locationData) {
     return {
@@ -53,11 +33,12 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Online Malayalam Counselling in ${locationData.countryName} | Psyra`,
-    description: `Professional online Malayalam counselling for residents of ${locationData.countryName}. Private, secure, and culturally sensitive mental health support.`,
+    title: locationData.meta?.title || locationData.hero?.title,
+    description:
+      locationData.meta?.description || locationData.hero?.description,
     openGraph: {
-      title: `Online Malayalam Counselling in ${locationData.countryName} | Psyra`,
-      description: `Confidential online counselling services for Malayalam-speaking residents of ${locationData.countryName}.`,
+      title: locationData.meta?.title,
+      description: locationData.meta?.description,
       type: "website",
     },
   };
@@ -72,42 +53,37 @@ export default async function OnlineMalayalamCounsellingPage({
 
   if (!slug) notFound();
 
-  const countrySlug = extractCountryFromSlug(slug);
-
-  if (!countrySlug) notFound();
-
-  const locationData = await getLocationData(countrySlug);
+  const locationData = await getLocationData(slug);
 
   if (!locationData) notFound();
-  const testimonials = await getTestimonialsByLocation(countrySlug);
 
-// console.log('[SERVER] API URL:', process.env.NEXT_PUBLIC_API_URL);
-// console.log('[SERVER] Country slug:', countrySlug);
-// console.log('[SERVER] Testimonials received:', testimonials);
-// console.log('[SERVER] Testimonials length:', testimonials?.length);
-// console.log('[SERVER] Testimonials type:', typeof testimonials);
+  const testimonials = await getTestimonialsByLocation(slug);
 
-
-  const faqs = getLocationFaqs(
-    locationData.countryName,
-    locationData.displayName
-  );
+  const faqs = locationData.faqs || [];
 
   return (
     <main className="min-h-screen bg-[#f8faf9] font-sans selection:bg-primary/10">
-      <LocationHero countryName={locationData.countryName} />
-      <LocationContextSection countryName={locationData.countryName} />
-      <HowItWorks bgColor="bg-[#eef4f1]" />                                
+      <LocationHero
+        title={locationData.hero.title}
+        description={locationData.hero.description}
+      />
+      <LocationContextSection
+        title={locationData.context.title}
+        paragraphs={locationData.context.paragraphs}
+      />
+      <HowItWorks bgColor="bg-[#eef4f1]" />
 
       <MalayalamCounsellingSection
-        countryName={locationData.countryName}
-        displayName={locationData.displayName}
+        title={locationData.counsellingSection.title}
+        description={locationData.counsellingSection.description}
+        steps={locationData.counsellingSection.steps}
+        related={locationData.counsellingSection.related}
       />
-      
-<TestimonialsSection
-  testimonials={testimonials}
-  countryName={locationData.countryName}
-/>
+
+      <TestimonialsSection
+        testimonials={testimonials}
+        countryName={locationData.countryName}
+      />
       <section className="bg-[#eef4f1] py-16">
         <DynamicPsychologistCarousel />
       </section>

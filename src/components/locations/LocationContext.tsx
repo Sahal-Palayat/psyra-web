@@ -2,39 +2,29 @@ import { ShieldCheck, Globe, Clock } from "lucide-react";
 import Link from "next/link";
 
 interface LocationContextSectionProps {
-  countryName: string;
+  title: string;
+  paragraphs: string[];
 }
 
 export default function LocationContextSection({
-  countryName,
+  title,
+  paragraphs,
 }: LocationContextSectionProps) {
   return (
     <section className="px-6 py-16 md:py-24 bg-linear-to-r from-[#eef4f1] to-[#e4ede8]">
       <div className="max-w-4xl md:ml-24">
-
         <div className="flex flex-col md:flex-row gap-10 md:gap-12">
           
           {/* LEFT CONTENT */}
           <div className="flex-1 text-left">
             <h2 className="text-3xl md:text-4xl font-serif leading-tight mb-6 text-[#00989D]">
-              Online Malayalam counselling for Malayalis living in {countryName}
+              {title}
             </h2>
 
             <div className="space-y-5 text-base md:text-lg text-[#1a3c34]/70 leading-relaxed">
-              <p>
-                Living in {countryName} can bring unique emotional challenges for
-                Malayalis. Work pressure, distance from family, cultural
-                differences, and adjusting to a new lifestyle can slowly affect
-                mental health.
-              </p>
-
-              <p>
-                Psyra offers confidential online Malayalam counselling for
-                Malayalis in {countryName} who feel more comfortable expressing
-                their thoughts and emotions in their native language. Our
-                Malayalam-speaking psychologists understand both the language and
-                cultural background.
-              </p>
+              {paragraphs.map((para, index) => (
+                <p key={index}>{para}</p>
+              ))}
 
               <p className="mt-4 text-sm text-[#0F3D3E]">
                 Many Malayalis experience{" "}
@@ -56,7 +46,7 @@ export default function LocationContextSection({
             </div>
           </div>
 
-          {/* RIGHT FEATURES */}
+          {/* RIGHT FEATURES*/}
           <div className="w-full md:w-1/3 grid grid-cols-1 gap-8">
             {[
               {
@@ -66,8 +56,8 @@ export default function LocationContextSection({
               },
               {
                 icon: Globe,
-                label: `${countryName} Focused Care`,
-                desc: `Support that understands life in ${countryName}`,
+                label: "Location Focused Care",
+                desc: "Support tailored to your environment",
               },
               {
                 icon: Clock,
