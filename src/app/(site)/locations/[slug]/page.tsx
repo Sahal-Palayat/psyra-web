@@ -14,6 +14,7 @@ import TestimonialsSection from "@/components/locations/TestimonialsSection.serv
 import { getLocationData } from "@/lib/getLocationData";
 // import { getLocationFaqs } from "@/constants/locationFaq";
 import { getTestimonialsByLocation } from "@/lib/getLocationData";
+import OtherLocations from "@/components/locations/OtherLocations";
 
 export async function generateMetadata({
   params,
@@ -94,7 +95,7 @@ export default async function OnlineMalayalamCounsellingPage({
 
       <AssessmentCTA />
       <FinalCTA countryName={locationData.countryName} />
-
+      <OtherLocations currentSlug={slug} />
       <LocationFaq faqs={faqs} />
     </main>
   );

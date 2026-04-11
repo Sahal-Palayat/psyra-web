@@ -1,11 +1,14 @@
+import { Location } from "@/types/location";
+
 export type Testimonial = {
   _id: string;
   name: string;
   message: string;
 };
 
-
-export async function getLocationData(countrySlug: string) {
+export async function getLocationData(
+  countrySlug: string
+): Promise<Location | null> {
   if (!countrySlug) return null;
 
   try {
@@ -16,7 +19,8 @@ export async function getLocationData(countrySlug: string) {
 
     if (!res.ok) return null;
 
-    return res.json();
+    const data: Location = await res.json();
+    return data;
   } catch {
     return null;
   }
@@ -40,10 +44,12 @@ export async function getTestimonialsByLocation(
       return [];
     }
 
-    return res.json();
+    const data = await res.json();
+
+    return Array.isArray(data)
+      ? data
+      : data.data || data.testimonials || [];
   } catch {
     return [];
   }
 }
-
-

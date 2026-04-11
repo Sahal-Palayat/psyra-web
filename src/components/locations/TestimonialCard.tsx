@@ -27,7 +27,7 @@ export default function TestimonialCard({ name, message }: Testimonial) {
         relative
         flex-shrink-0
 
-        w-[300px]
+        w-[280px]
         sm:w-[300px]
         md:w-[340px]
 

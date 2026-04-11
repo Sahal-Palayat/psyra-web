@@ -17,6 +17,7 @@ interface MalayalamCounsellingSectionProps {
   };
 }
 
+
 export default function MalayalamCounsellingSectionClient({
   title,
   description,
@@ -30,7 +31,7 @@ export default function MalayalamCounsellingSectionClient({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           
           {/* LEFT */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2"> 
             <div className="p-8 md:p-16 bg-[#00989D] text-white">
               
               <h3 className="text-2xl md:text-3xl font-serif mb-6 leading-snug">
@@ -72,7 +73,7 @@ export default function MalayalamCounsellingSectionClient({
             <div className="space-y-5">
               {steps.map((step, i) => (
                 <div key={i} className="flex gap-4 items-center bg-[#43C6AC]/5 border border-[#43C6AC]/10 rounded-xl p-5">
-                  <span className="w-8 h-8 rounded-full bg-[#43C6AC]/15 text-sm font-bold text-[#43C6AC] flex items-center justify-center">
+                  <span className="flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-[#43C6AC]/15 text-sm font-bold text-[#43C6AC] shrink-0 leading-none">
                     {i + 1}
                   </span>
                   <p className="text-sm md:text-base text-[#1a3c34]/80">

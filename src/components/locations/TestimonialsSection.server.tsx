@@ -16,7 +16,13 @@ export default function TestimonialsSection({
   testimonials,
   countryName,
 }: Props) {
-  if (!testimonials || testimonials.length === 0) return null;
+  if (!testimonials || testimonials.length === 0) {
+  return (
+    <div className="text-center py-10">
+      No testimonials found
+    </div>
+  );
+}
 
   return (
     <section className="py-16 bg-white">
