@@ -65,9 +65,7 @@ export default function TestimonialsScroller({
       if (!card) return;
 
       const gap = 24; // gap-6
-      const index = Math.round(
-        viewport.scrollLeft / (card.offsetWidth + gap)
-      );
+      const index = Math.round(viewport.scrollLeft / (card.offsetWidth + gap));
 
       setActiveIndex(index);
     };
@@ -75,7 +73,6 @@ export default function TestimonialsScroller({
     viewport.addEventListener("scroll", onScroll, { passive: true });
     return () => viewport.removeEventListener("scroll", onScroll);
   }, []);
-
 
   useEffect(() => {
     startAutoScroll();
@@ -103,22 +100,19 @@ export default function TestimonialsScroller({
         ref={viewportRef}
         className="
           mx-auto
-       
           overflow-x-auto md:overflow-hidden
           scrollbar-hide 
-          
-
           w-full md:w-[1084px]
           px-4 md:px-0
-
           snap-x snap-mandatory md:snap-none
           overscroll-x-contain
           scroll-smooth
+          scroll-pl-4
         "
       >
         <div
           ref={trackRef}
-          className="flex gap-6 md:gap-8 will-change-transform"
+          className="flex gap-6 md:gap-8 px-2 md:px-0 will-change-transform"
         >
           {children}
 
@@ -136,9 +130,7 @@ export default function TestimonialsScroller({
             <span
               key={i}
               className={`h-2 rounded-full transition-all duration-300 ${
-                i === activeIndex
-                  ? "w-4 bg-[#00989D]"
-                  : "w-2 bg-[#cfe8e6]"
+                i === activeIndex ? "w-4 bg-[#00989D]" : "w-2 bg-[#cfe8e6]"
               }`}
             />
           ))}

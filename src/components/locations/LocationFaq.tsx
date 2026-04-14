@@ -1,4 +1,7 @@
-import type { FaqItem } from "@/constants/locationFaq";
+type FaqItem = {
+  question: string;
+  answer: string;
+};
 
 export default function LocationFaq({ faqs }: { faqs: FaqItem[] }) {
   return (
