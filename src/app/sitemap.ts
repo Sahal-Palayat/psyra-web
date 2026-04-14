@@ -12,14 +12,10 @@ type ConcernForSitemap = {
   status?: "active" | "inactive"
 }
 
-const LOCATION_SLUGS = [
-  "uae",
-  "canada",
-  "uk",
-  "us",
-  "saudi-arabia",
-] as const
-
+type LocationForSitemap = {
+  slug: string
+  updatedAt?: string
+}
 
 
 
@@ -64,7 +60,21 @@ try {
   console.error("CONCERNS SITEMAP FETCH ERROR", error)
 }
 
+    let locations: LocationForSitemap[] = []
 
+try {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/locations`,
+    { cache: "no-store" }
+  )
+
+  if (res.ok) {
+    const data = await res.json()
+    locations = Array.isArray(data) ? data : data.locations ?? []
+  }
+} catch (error) {
+  console.error("LOCATION SITEMAP FETCH ERROR", error)
+}
 
 
   return [
@@ -99,9 +109,13 @@ try {
       priority: 0.7,
     })),
 
-...LOCATION_SLUGS.map((slug) => ({
-  url: `${baseUrl}/locations/online-malayalam-counselling-in-${slug}`,
-  lastModified: new Date(),
+
+
+...locations.map((loc) => ({
+  url: `${baseUrl}/locations/${loc.slug}`,
+  lastModified: loc.updatedAt
+    ? new Date(loc.updatedAt)
+    : new Date(),
   priority: 0.9,
 })),
 

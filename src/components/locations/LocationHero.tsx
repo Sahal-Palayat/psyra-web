@@ -3,16 +3,18 @@ import Image from "next/image";
 import { MoveRight } from "lucide-react";
 
 interface LocationHeroProps {
-  countryName: string;
+  title: string;
+  description: string;
 }
 
-export default function LocationHero({ countryName }: LocationHeroProps) {
+export default function LocationHero({
+  title,
+  description,
+}: LocationHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[#EAF7F5] text-[#1a3c34]">
-
       {/* ================= MOBILE ================= */}
       <div className="md:hidden flex flex-col">
-        
         <div className="relative w-full h-[360px]">
           <Image
             src="/images/online-malayalam-counselling-hero-mobile.webp"
@@ -27,7 +29,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
 
         <div className="py-8 px-5 text-center">
           <p className="text-[10px] tracking-widest uppercase text-[#43C6AC] mb-3">
-            Online Therapy for {countryName}
+            {title}
           </p>
 
           <h1 className="text-2xl font-serif mb-3">
@@ -35,10 +37,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
             <span className="italic text-[#43C6AC]">purposeful</span> care.
           </h1>
 
-          <p className="text-sm mb-5">
-            Thoughtful, confidential mental health support designed for people
-            navigating life in {countryName}.
-          </p>
+          <p className="text-sm mb-5">{description}</p>
 
           <Link
             href="/online-counselling-services"
@@ -51,7 +50,6 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
 
       {/* ================= DESKTOP ================= */}
       <div className="hidden md:block relative min-h-screen">
-
         {/* Background Image */}
         <Image
           src="/images/online-malayalam-counselling-hero-desktop.webp"
@@ -61,15 +59,12 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
           priority
         />
 
-  
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-20">
-
           {/* Badge */}
           <div className="inline-block px-5 py-2 mb-8 rounded-full border border-[#43C6AC]/40 bg-[#43C6AC]/10">
             <p className="text-xs uppercase tracking-widest font-bold">
-              Online Therapy for{" "}
-              <span className="text-[#43C6AC]">{countryName}</span> Residents
+              {title}
             </p>
           </div>
 
@@ -81,8 +76,7 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
 
           {/* Description */}
           <p className="text-lg max-w-md mb-8 text-[#1a3c34]/70">
-            Thoughtful, confidential mental health support designed for people
-            navigating life in {countryName}.
+            {description}
           </p>
 
           {/* CTA */}
@@ -93,7 +87,6 @@ export default function LocationHero({ countryName }: LocationHeroProps) {
             Get Therapy
             <MoveRight className="w-4 h-4" />
           </Link>
-
         </div>
       </div>
     </section>

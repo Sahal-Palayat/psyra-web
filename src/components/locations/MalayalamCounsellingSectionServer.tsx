@@ -1,8 +1,15 @@
 import MalayalamCounsellingSectionClient from "./MalayalamCounsellingSectionClient";
 
 interface Props {
-  countryName: string;
-  displayName: string;
+  title: string;
+  description: string;
+  steps: string[];
+  related: {
+    title: string;
+    description: string;
+    linkText: string;
+    link: string;
+  };
 }
 
 export default function MalayalamCounsellingSection(props: Props) {
