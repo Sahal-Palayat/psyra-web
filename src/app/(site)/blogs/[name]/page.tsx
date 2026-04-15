@@ -7,6 +7,7 @@ import { TherapyCtaSidebar } from "@/components/blogs/therapy-cta";
 import { notFound } from "next/navigation";
 import { relatedBlogsMap } from "@/constants/relatedBlogs";
 import RelatedBlogs from "@/components/blogs/relatedBlogs";
+import { applyInternalLinks } from "@/utils/applyInternalLinks";
 
 function getReadingTime(html: string) {
   const text = html.replace(/<[^>]*>/g, "");
@@ -45,6 +46,11 @@ export default async function BlogDetail({
     notFound();
   }
 
+    const processedContent = applyInternalLinks(
+    blog.content,
+    blog.internalLinks || [],
+  );
+
   const relatedSlugs = relatedBlogsMap[name] || [];
 
   const allBlogsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
@@ -77,7 +83,7 @@ export default async function BlogDetail({
   const CTA1 = "<!-- CTA_BREAK_1 -->";
   const CTA2 = "<!-- CTA_BREAK_2 -->";
 
-  const content = blog.content;
+  const content = processedContent;
   let part1 = content;
   let part2 = "";
   let part3 = "";
@@ -192,9 +198,7 @@ export default async function BlogDetail({
 
           {part3 && <div dangerouslySetInnerHTML={{ __html: part3 }} />}
 
-          {relatedBlogs.length > 0 && (
-  <RelatedBlogs blogs={relatedBlogs} />
-)}
+          {relatedBlogs.length > 0 && <RelatedBlogs blogs={relatedBlogs} />}
         </div>
 
         {/* Sidebar */}

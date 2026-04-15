@@ -1,5 +1,5 @@
 import type { ContentBlock } from "@/types/concerns";
-import { cleanText } from "@/components/utils/cleanText";
+import { cleanText } from "@/utils/cleanText";
 
 interface Props {
   blocks: readonly ContentBlock[];
