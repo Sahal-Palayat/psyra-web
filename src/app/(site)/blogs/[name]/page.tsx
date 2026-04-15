@@ -5,6 +5,8 @@ import { MobileTherapyCta } from "@/components/blogs/mobileTherapyCta";
 import { MobileQuickCheckin } from "@/components/blogs/mobileQuickIn";
 import { TherapyCtaSidebar } from "@/components/blogs/therapy-cta";
 import { notFound } from "next/navigation";
+import { relatedBlogsMap } from "@/constants/relatedBlogs";
+import RelatedBlogs from "@/components/blogs/relatedBlogs";
 
 function getReadingTime(html: string) {
   const text = html.replace(/<[^>]*>/g, "");
@@ -37,15 +39,28 @@ export default async function BlogDetail({
   const data = await res.json();
 
   const blog: Blog | null =
-    data?.blog ||
-    data?.data?.blog ||
-    data?.data ||
-    null;
+    data?.blog || data?.data?.blog || data?.data || null;
 
-    if (!blog) {
-    notFound(); 
+  if (!blog) {
+    notFound();
   }
-  
+
+  const relatedSlugs = relatedBlogsMap[name] || [];
+
+  const allBlogsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
+    cache: "no-store",
+  });
+
+  const allBlogsData = await allBlogsRes.json();
+
+  const allBlogs = Array.isArray(allBlogsData)
+    ? allBlogsData
+    : allBlogsData.blogs || [];
+
+  const relatedBlogs = allBlogs.filter((b: Blog) =>
+    relatedSlugs.includes(b.name),
+  );
+
   const readingTime = getReadingTime(blog.content);
 
   if (!blog) {
@@ -93,38 +108,35 @@ export default async function BlogDetail({
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-[#005657] via-[#00989D] to-[#00B5B8] pt-24 pb-10">
-  <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
-    
-    {/* Match blog content column */}
-    <div className="lg:w-8/12">
-      <span className="inline-flex items-center px-3 py-1.5 bg-white/10 border border-white/20 rounded-full text-xs sm:text-sm text-white uppercase tracking-wide">
-        {blog.category}
-      </span>
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
+          {/* Match blog content column */}
+          <div className="lg:w-8/12">
+            <span className="inline-flex items-center px-3 py-1.5 bg-white/10 border border-white/20 rounded-full text-xs sm:text-sm text-white uppercase tracking-wide">
+              {blog.category}
+            </span>
 
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-4 leading-tight">
-        {blog.title}
-      </h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-4 leading-tight">
+              {blog.title}
+            </h1>
 
-      <p className="text-white/80 text-sm sm:text-base mt-2 max-w-2xl">
-        {blog.shortDescription}
-      </p>
+            <p className="text-white/80 text-sm sm:text-base mt-2 max-w-2xl">
+              {blog.shortDescription}
+            </p>
 
-      <p className="text-white/70 text-xs sm:text-sm mt-5 flex flex-wrap gap-2 items-center">
-        <span>
-          {new Date(blog.createdAt).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </span>
-        <span className="opacity-60">•</span>
-        <span>{readingTime} min read</span>
-      </p>
-    </div>
-
-  </div>
-</section>
-
+            <p className="text-white/70 text-xs sm:text-sm mt-5 flex flex-wrap gap-2 items-center">
+              <span>
+                {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+              <span className="opacity-60">•</span>
+              <span>{readingTime} min read</span>
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Content + Sidebar */}
       <section className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -135,7 +147,7 @@ export default async function BlogDetail({
             <div dangerouslySetInnerHTML={{ __html: firstImage }} />
           )}
 
-          {/* Author block */ }
+          {/* Author block */}
           {blog.author && (
             <Link
               href={`/profile/${blog.author._id}`}
@@ -179,6 +191,10 @@ export default async function BlogDetail({
           </div>
 
           {part3 && <div dangerouslySetInnerHTML={{ __html: part3 }} />}
+
+          {relatedBlogs.length > 0 && (
+  <RelatedBlogs blogs={relatedBlogs} />
+)}
         </div>
 
         {/* Sidebar */}
