@@ -39,7 +39,7 @@ export function PsychologistModal({
     amount: 0,
   });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
-    psychologistId: data?._id, 
+    psychologistId: data?._id,
     date: "",
     timeSlot: "",
     name: "",
@@ -52,36 +52,35 @@ export function PsychologistModal({
     agreeToTerms: false,
     sessionType: "",
     packageTitle: "",
-    therapyType: "",packageAmount: typeof data?.price === "number" ? data.price : 0,
-packageId: "",
-});
+    therapyType: "",
+    packageAmount: typeof data?.price === "number" ? data.price : 0,
+    packageId: "",
+  });
 
-useEffect(() => {
-  if (isOpen && data?._id) {
-    setBookingData((prev) => ({
-      ...prev,
-      psychologistId: data._id,
-      packageAmount: typeof data?.price === "number" ? data.price : 0,
-    }));
-  }
-}, [isOpen, data]);
+  useEffect(() => {
+    if (isOpen && data?._id) {
+      setBookingData((prev) => ({
+        ...prev,
+        psychologistId: data._id,
+        packageAmount: typeof data?.price === "number" ? data.price : 0,
+      }));
+    }
+  }, [isOpen, data]);
 
-useEffect(() => {
-  if (isOpen) {
-    setBookingData((prev) => ({
-      ...prev,
-      date: new Date().toISOString(),
-      timeSlot: "to_be_scheduled",
-    }));
-  }
-}, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      setBookingData((prev) => ({
+        ...prev,
+        date: new Date().toISOString(),
+        timeSlot: "to_be_scheduled",
+      }));
+    }
+  }, [isOpen]);
 
-
-
-const [bookingId, setBookingId] = useState<string | null>(null);
-const [paymentError, setPaymentError] = useState<string | null>(null);
-const [isRetryingPayment, setIsRetryingPayment] = useState(false);
-const [isPaying, setIsPaying] = useState(false);
+  const [bookingId, setBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isRetryingPayment, setIsRetryingPayment] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
 
   // const fetchBookedSlots = async (date: string) => {
   //   try {
@@ -118,7 +117,7 @@ const [isPaying, setIsPaying] = useState(false);
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
-      packageAmount: typeof data?.price === 'number' ? data.price : 0,
+      packageAmount: typeof data?.price === "number" ? data.price : 0,
       packageId: "",
     });
     setBookingId(null);
@@ -140,34 +139,29 @@ const [isPaying, setIsPaying] = useState(false);
   //   return bookingData.date && bookingData.timeSlot;
   // };
 
-  const canProceedFromStep3 = () => true;
+  const canProceedFromStep4 = () => {
+    const nameValid =
+      bookingData.name.trim().length >= 2 &&
+      /^[a-zA-Z\s]+$/.test(bookingData.name);
 
-const canProceedFromStep4 = () => {
-  const nameValid =
-    bookingData.name.trim().length >= 2 &&
-    /^[a-zA-Z\s]+$/.test(bookingData.name);
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
 
-  const emailValid =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
+    const phoneValid = /^[0-9]{10}$/.test(bookingData.phone);
 
-  const phoneValid =
-    /^[0-9]{10}$/.test(bookingData.phone);
+    const ageNum = parseInt(bookingData.age, 10);
+    const ageValid = ageNum >= 18 && ageNum <= 120;
 
-  const ageNum = parseInt(bookingData.age, 10);
-  const ageValid = ageNum >= 18 && ageNum <= 120;
-
-  return (
-    nameValid &&
-    emailValid &&
-    phoneValid &&
-    ageValid &&
-    bookingData.modeOfTherapy !== "" &&
-    bookingData.issue !== "" &&
-    bookingData.sessionType !== "" &&
-    bookingData.agreeToTerms
-  );
-};
-
+    return (
+      nameValid &&
+      emailValid &&
+      phoneValid &&
+      ageValid &&
+      bookingData.modeOfTherapy !== "" &&
+      bookingData.issue !== "" &&
+      bookingData.sessionType !== "" &&
+      bookingData.agreeToTerms
+    );
+  };
 
   const createSlot = async (): Promise<string | null> => {
     const { date, timeSlot } = bookingData;
@@ -206,9 +200,9 @@ const canProceedFromStep4 = () => {
       case 2:
         return "Select Package";
       case 3:
-        return "Session Scheduling";
-      case 4:
         return "Personal Details";
+      // case 4:
+      //   return "Personal Details";
       default:
         return "Book Consultation";
     }
@@ -218,11 +212,11 @@ const canProceedFromStep4 = () => {
     switch (step) {
       case 1:
         return "Continue to Packages";
+      // case 2:
+      //   return "Continue to Schedule";
       case 2:
-        return "Continue to Schedule";
-      case 3:
         return "Continue to Details";
-      case 4:
+      case 3:
         return "Book Session";
       default:
         return "Continue";
@@ -236,22 +230,22 @@ const canProceedFromStep4 = () => {
       case 2:
         return canProceedFromStep2();
       case 3:
-        return canProceedFromStep3();
-      case 4:
         return canProceedFromStep4();
+      // case 4:
+      //   return canProceedFromStep4();
       default:
         return false;
     }
   };
 
-  const handlePaymentAndBooking = async () => {
-    try {
-      // 1️⃣ Check booking ID
-      if (!bookingId) {
-        toast.error("Booking not initiated");
-        return;
-      }
+  const handlePaymentAndBooking = async (customBookingId?: string) => {
+    const finalBookingId = customBookingId || bookingId;
 
+    if (!finalBookingId) {
+      toast.error("Booking not initiated");
+      return;
+    }
+    try {
       setIsPaying(true);
       setPaymentError(null);
 
@@ -259,7 +253,7 @@ const canProceedFromStep4 = () => {
       const paymentRes = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`,
         {
-          bookingId,
+          bookingId: finalBookingId,
           bookingType: "psychologist",
           totalAmount: bookingData.packageAmount,
 
@@ -276,17 +270,15 @@ const canProceedFromStep4 = () => {
         },
       );
 
-      
       const { orderId, amount, currency, keyId } = paymentRes.data.data;
 
-     
       const razorpayOptions: RazorpayOptions = {
-        key: keyId || RAZORPAY_CONFIG.key_id || "", 
-        amount, 
+        key: keyId || RAZORPAY_CONFIG.key_id || "",
+        amount,
         currency,
         name: "Psyra",
         description: "Psychologist Session",
-        order_id: orderId, 
+        order_id: orderId,
         prefill: {
           name: bookingData.name || "",
           email: bookingData.email || "",
@@ -294,7 +286,7 @@ const canProceedFromStep4 = () => {
         },
         notes: {
           sessionDetails: JSON.stringify({
-            bookingId,
+            finalBookingId,
             packageTitle: bookingData.packageTitle,
           }),
         },
@@ -310,7 +302,7 @@ const canProceedFromStep4 = () => {
                 : bookingData.date || "",
             timeSlot:
               bookingData.timeSlot === "to_be_scheduled"
-                ? "Session scheduling will be handled by our client support executive."
+                ? "To be scheduled"
                 : bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
@@ -326,10 +318,10 @@ const canProceedFromStep4 = () => {
             setIsPaying(false);
 
             // Check booking status to see if payment failed
-            if (bookingId) {
+            if (finalBookingId) {
               try {
                 const statusRes = await axios.get(
-                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`,
+                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${finalBookingId}`,
                 );
 
                 const booking = statusRes.data;
@@ -434,23 +426,29 @@ const canProceedFromStep4 = () => {
 
   const handleNext = async () => {
     // STEP 3 → STEP 4 (LOCK SLOT HERE)
+    // if (step === 3) {
+    //   console.log("🟢 Step 3: Creating slot...");
+    //   const id = await createSlot(); // initiate booking
+    //   if (!id) return;
+
+    //   setBookingId(id);
+    //   nextStep();
+    //   return;
+    // }
+
+    // STEP 4 → PAYMENT
     if (step === 3) {
-      console.log("🟢 Step 3: Creating slot...");
-      const id = await createSlot(); // initiate booking
+      if (!canProceedFromStep4()) {
+        toast.error("Please fill all the details");
+        return;
+      }
+
+      const id = await createSlot();
       if (!id) return;
 
       setBookingId(id);
-      nextStep();
-      return;
-    }
 
-    // STEP 4 → PAYMENT
-    if (step === 4) {
-      if (canProceedFromStep4()) {
-        handlePaymentAndBooking();
-      } else {
-        toast.error("Please fill all the details");
-      }
+      await handlePaymentAndBooking(id);
       return;
     }
 
@@ -481,7 +479,7 @@ const canProceedFromStep4 = () => {
                 <h2 className="text-lg sm:text-xl font-bold truncate">
                   {getStepTitle()}
                 </h2>
-                <p className="text-sm text-white/80 mt-1">Step {step} of 4</p>
+                <p className="text-sm text-white/80 mt-1">Step {step} of 3</p>
               </div>
               <button
                 onClick={resetAndClose}
@@ -508,7 +506,7 @@ const canProceedFromStep4 = () => {
             <div className="mt-4 w-full bg-[#005657]/30 rounded-full h-2">
               <div
                 className="bg-white h-2 rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${(step / 4) * 100}%` }}
+                style={{ width: `${(step / 3) * 100}%` }}
               />
             </div>
           </div>
@@ -545,57 +543,7 @@ const canProceedFromStep4 = () => {
                 />
               )} */}
 
- {step === 3 && (
-  <div className="flex justify-center items-center py-10">
-    <div className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 sm:p-8 max-w-md w-full text-center">
-
-      {/* Icon */}
-      <div className="flex justify-center mb-4">
-        <div className="bg-[#005657]/10 text-[#005657] p-4 rounded-full text-2xl">
-          📅
-        </div>
-      </div>
-
-      {/* Title */}
-      <h3 className="text-xl font-semibold text-[#005657] mb-2">
-        Session Scheduling
-      </h3>
-
-      {/* Description */}
-      <p className="text-gray-600 text-sm leading-relaxed">
-        Our client support executive will reach out shortly to schedule your session
-        at a convenient time based on your availability.
-      </p>
-
-      {/* Divider */}
-      <div className="my-5 border-t" />
-
-      {/* Steps */}
-      <div className="text-left text-sm text-gray-700 space-y-2">
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">1.</span>
-          Our team will contact you after booking
-        </p>
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">2.</span>
-          You can choose a convenient date & time
-        </p>
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">3.</span>
-          Your session will be confirmed instantly
-        </p>
-      </div>
-
-      {/* Bottom note */}
-      <div className="mt-6 text-xs text-gray-500">
-        You can now proceed to enter your details and complete the booking.
-      </div>
-
-    </div>
-  </div>
-)}
-
-              {step === 4 && (
+              {step === 3 && (
                 <DetailsForm
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
@@ -608,7 +556,7 @@ const canProceedFromStep4 = () => {
           {/* Footer */}
           <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
             {/* Payment Error Message */}
-            {paymentError && step === 4 && (
+            {paymentError && step === 3 && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex items-start gap-2">
                   <svg

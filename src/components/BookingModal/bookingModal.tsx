@@ -5,10 +5,10 @@ import {
   type BookingModalProps,
   type BookingData,
   // BookedSlot,
-  // INDIVIDUAL_TIME_SLOTS,
-  // COUPLE_TIME_SLOTS,
+  INDIVIDUAL_TIME_SLOTS,
+  COUPLE_TIME_SLOTS,
 } from "./types";
-// import { SlotSelection } from "./slot-selection";
+import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
 import { processPayment } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
@@ -35,10 +35,11 @@ export function BookingModal({
   fixedPsychologistId,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
-  // const [bookedSlots, setBookedSlot] = useState<string[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const [successData, setSuccessData] = useState({
     name: "",
@@ -73,8 +74,8 @@ export function BookingModal({
     if (isOpen) {
       setBookingData((prev) => ({
         ...prev,
-        date: new Date().toISOString(),
-        timeSlot: "to_be_scheduled",
+        date: "",
+        timeSlot: "",
       }));
     }
   }, [isOpen]);
@@ -153,30 +154,30 @@ export function BookingModal({
 
   /* ---------------- DATE HELPERS ---------------- */
 
-  // const fetchBookedSlots = async (date: string) => {
-  //   try {
-  //     if (!bookingData.therapyType) return;
+  const fetchBookedSlots = async (date: string) => {
+    try {
+      if (!bookingData.therapyType) return;
 
-  //     const res = await axios.get(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
-  //       {
-  //         params: {
-  //           date,
-  //           therapyType: bookingData.therapyType,
-  //         },
-  //       },
-  //     );
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
+        {
+          params: {
+            date,
+            therapyType: bookingData.therapyType,
+          },
+        },
+      );
 
-  //     setBookedSlot(res?.data || []);
-  //   } catch (error) {
-  //     console.error("Error fetching booked slots:", error);
-  //   }
-  // };
+      setBookedSlot(res?.data || []);
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
 
   /* ---------------- STEP CHECKS ---------------- */
 
-  const canProceedFromStep1 = () => true;
-  // !!bookingData.date && !!bookingData.timeSlot;
+  const canProceedFromStep1 = () =>
+    !!bookingData.date && !!bookingData.timeSlot;
 
   const canProceedFromStep2 = () => {
     const nameValid =
@@ -310,14 +311,8 @@ export function BookingModal({
             email: bookingData.email,
             phone: bookingData.phone,
             packageTitle: bookingData.packageTitle || "Therapy Session",
-            date:
-              bookingData.timeSlot === "to_be_scheduled"
-                ? "To be scheduled"
-                : bookingData.date || "",
-            timeSlot:
-              bookingData.timeSlot === "to_be_scheduled"
-                ? "Session scheduling will be handled by our client support executive."
-                : bookingData.timeSlot || "",
+            date: bookingData.date || "",
+            timeSlot: bookingData.timeSlot || "",
             amount: bookingData.packageAmount,
           });
 
@@ -327,7 +322,12 @@ export function BookingModal({
         //  PAYMENT FAILED / CLOSED
         () => {
           setIsPaying(false);
-          toast.error("Payment was not completed");
+          setPaymentError("Payment was cancelled. You can try again.");
+        },
+
+        () => {
+          setIsPaying(false);
+          setPaymentError("Payment was cancelled. You can try again.");
         },
       );
     } catch (error) {
@@ -357,17 +357,27 @@ export function BookingModal({
         >
           <>
             {/* HEADER */}
-            <div className="bg-[#005657] text-white p-4 sm:p-6 flex-shrink-0">
-              <h2 className="text-lg sm:text-xl font-bold">
-                Book Consultation
-              </h2>
-              <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
+            <div className="bg-[#005657] text-white p-4 sm:p-6 flex items-start justify-between">
+              {/* LEFT CONTENT */}
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold">
+                  Book Consultation
+                </h2>
+                <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
+              </div>
+
+              <button
+                onClick={onClose}
+                className="text-white hover:text-gray-200 text-2xl font-bold leading-none"
+              >
+                ×
+              </button>
             </div>
 
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 sm:p-6">
-                {/* {step === 1 && (
+                {step === 1 && (
                   <div>
                     <SlotSelection
                       bookingData={bookingData}
@@ -385,59 +395,7 @@ export function BookingModal({
                       bookedSlots={bookedSlots}
                     />
                   </div>
-                )} */}
-
-             {step === 1 && (
-  <div className="flex justify-center items-center py-10">
-    <div className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 sm:p-8 max-w-md w-full text-center">
-
-      {/* Icon */}
-      <div className="flex justify-center mb-4">
-        <div className="bg-[#005657]/10 text-[#005657] p-4 rounded-full text-2xl">
-          📅
-        </div>
-      </div>
-
-      {/* Title */}
-      <h3 className="text-xl font-semibold text-[#005657] mb-2">
-        Session Scheduling
-      </h3>
-
-      {/* Description */}
-      <p className="text-gray-600 text-sm leading-relaxed">
-        Our client support executive will reach out shortly to schedule your session
-        at a convenient time based on your availability.
-      </p>
-
-      {/* Divider */}
-      <div className="my-5 border-t" />
-
-      {/* Steps */}
-      <div className="text-left text-sm text-gray-700 space-y-2">
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">1.</span>
-          Our team will contact you after booking
-        </p>
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">2.</span>
-          You can choose a convenient date & time
-        </p>
-        <p className="flex items-start gap-2">
-          <span className="text-[#005657] font-bold">3.</span>
-          Your session will be confirmed instantly
-        </p>
-      </div>
-
-      {/* Bottom note */}
-      <div className="mt-6 text-xs text-gray-500">
-        You can now proceed to enter your details and complete the booking.
-      </div>
-
-    </div>
-  </div>
-)}
-
-                
+                )}
 
                 {step === 2 && (
                   <>
@@ -445,53 +403,74 @@ export function BookingModal({
                       bookingData={bookingData}
                       onUpdate={updateBookingData}
                       psychologists={psychologists}
-                      hideTherapistSelect={!!fixedPsychologistId}
+                      hideTherapistSelect={true}
                     />
 
                     {/* Dynamic price display */}
-                    <div className="mt-4 text-center text-sm text-gray-600">
+                    {/* <div className="mt-4 text-center text-sm text-gray-600">
                       Total payable:
                       <span className="font-bold text-[#005657] ml-1">
                         ₹{bookingData.packageAmount?.toLocaleString("en-IN")}
                       </span>
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>
             </div>
 
             {/* FOOTER */}
-            <div className="p-4 sm:p-6 border-t bg-gray-50 flex gap-3">
-              <button
-                onClick={step === 1 ? onClose : prevStep}
-                className="px-4 py-2 border rounded-md"
-              >
-                {step === 1 ? "Cancel" : "Back"}
-              </button>
+            <div className="p-4 sm:p-6 border-t bg-gray-50">
+              {/* ✅ ERROR  */}
+              {paymentError && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex justify-between items-start">
+                  <p className="text-sm text-red-800">{paymentError}</p>
 
-              {step === 1 ? (
-                <button
-                  onClick={async () => {
-                    if (!canProceedFromStep1()) {
-                      toast.error("Please select date and slot");
-                      return;
-                    }
-                    const locked = await initiateGeneralBooking();
-                    if (locked) nextStep();
-                  }}
-                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
-                >
-                  Continue to Details
-                </button>
-              ) : (
-                <button
-                  onClick={initiateGeneralBookingAndPay}
-                  disabled={!canProceedFromStep2() || isPaying}
-                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
-                >
-                  {isPaying ? "Processing..." : "Book Session"}
-                </button>
+                  <button
+                    onClick={() => setPaymentError(null)}
+                    className="text-red-600 hover:text-red-800 ml-3"
+                  >
+                    ✕
+                  </button>
+                </div>
               )}
+
+              {/* ✅ BUTTONS ROW */}
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={step === 1 ? onClose : prevStep}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
+                >
+                  {step === 1 ? "Cancel" : "Back"}
+                </button>
+
+                {step === 1 ? (
+                  <button
+                    onClick={async () => {
+                      if (!canProceedFromStep1()) {
+                        toast.error("Please select date and slot");
+                        return;
+                      }
+                      const locked = await initiateGeneralBooking();
+                      if (locked) nextStep();
+                    }}
+                    className="px-4 py-2 bg-[#005657] text-white rounded-md"
+                  >
+                    Continue to Details
+                  </button>
+                ) : (
+                  <button
+                    onClick={initiateGeneralBookingAndPay}
+                    disabled={!canProceedFromStep2() || isPaying}
+                    className={`px-4 py-2 rounded-md text-white ${
+                      isPaying
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-[#005657] hover:bg-[#005657]/90"
+                    }`}
+                  >
+                    {isPaying ? "Processing..." : "Book Session"}
+                  </button>
+                )}
+              </div>
             </div>
           </>
         </motion.div>
