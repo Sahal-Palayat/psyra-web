@@ -5,10 +5,10 @@ import {
   type BookingModalProps,
   type BookingData,
   // BookedSlot,
-  INDIVIDUAL_TIME_SLOTS,
-  COUPLE_TIME_SLOTS,
+  // INDIVIDUAL_TIME_SLOTS,
+  // COUPLE_TIME_SLOTS,
 } from "./types";
-import { SlotSelection } from "./slot-selection";
+// import { SlotSelection } from "./slot-selection";
 import { DetailsForm } from "./details-form";
 import { processPayment } from "@/lib/payment-integration";
 import { toast } from "@/lib/toast";
@@ -35,7 +35,7 @@ export function BookingModal({
   fixedPsychologistId,
 }: BookingModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
+  // const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
@@ -68,6 +68,16 @@ export function BookingModal({
     timeSlot: "",
   });
   const [psychologists, setPsychologists] = useState<PsychologistLite[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setBookingData((prev) => ({
+        ...prev,
+        date: new Date().toISOString(),
+        timeSlot: "to_be_scheduled",
+      }));
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     setBookingData((prev) => ({
@@ -143,30 +153,30 @@ export function BookingModal({
 
   /* ---------------- DATE HELPERS ---------------- */
 
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      if (!bookingData.therapyType) return;
+  // const fetchBookedSlots = async (date: string) => {
+  //   try {
+  //     if (!bookingData.therapyType) return;
 
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
-        {
-          params: {
-            date,
-            therapyType: bookingData.therapyType,
-          },
-        },
-      );
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/general-booking/booked-slots`,
+  //       {
+  //         params: {
+  //           date,
+  //           therapyType: bookingData.therapyType,
+  //         },
+  //       },
+  //     );
 
-      setBookedSlot(res?.data || []);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
-    }
-  };
+  //     setBookedSlot(res?.data || []);
+  //   } catch (error) {
+  //     console.error("Error fetching booked slots:", error);
+  //   }
+  // };
 
   /* ---------------- STEP CHECKS ---------------- */
 
-  const canProceedFromStep1 = () =>
-    !!bookingData.date && !!bookingData.timeSlot;
+  const canProceedFromStep1 = () => true;
+  // !!bookingData.date && !!bookingData.timeSlot;
 
   const canProceedFromStep2 = () => {
     const nameValid =
@@ -246,9 +256,9 @@ export function BookingModal({
       const message = error?.response?.data?.message;
 
       if (message === "Slot already booked") {
-        toast.error("Slot already booked. Please choose another slot.");
-        await fetchBookedSlots(bookingData.date);
-        updateBookingData({ timeSlot: undefined });
+        toast.error("Unable to process booking. Please try again.");
+        // await fetchBookedSlots(bookingData.date);
+        // updateBookingData({ timeSlot: undefined });
         return false;
       }
 
@@ -291,17 +301,23 @@ export function BookingModal({
         async () => {
           setIsPaying(false);
 
-          if (bookingData.date) {
-            await fetchBookedSlots(bookingData.date);
-          }
+          // if (bookingData.date) {
+          //   await fetchBookedSlots(bookingData.date);
+          // }
 
           setSuccessData({
             name: bookingData.name,
             email: bookingData.email,
             phone: bookingData.phone,
             packageTitle: bookingData.packageTitle || "Therapy Session",
-            date: bookingData.date || "",
-            timeSlot: bookingData.timeSlot || "",
+            date:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "To be scheduled"
+                : bookingData.date || "",
+            timeSlot:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "Session scheduling will be handled by our client support executive."
+                : bookingData.timeSlot || "",
             amount: bookingData.packageAmount,
           });
 
@@ -351,7 +367,7 @@ export function BookingModal({
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 sm:p-6">
-                {step === 1 && (
+                {/* {step === 1 && (
                   <div>
                     <SlotSelection
                       bookingData={bookingData}
@@ -369,7 +385,59 @@ export function BookingModal({
                       bookedSlots={bookedSlots}
                     />
                   </div>
-                )}
+                )} */}
+
+             {step === 1 && (
+  <div className="flex justify-center items-center py-10">
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 sm:p-8 max-w-md w-full text-center">
+
+      {/* Icon */}
+      <div className="flex justify-center mb-4">
+        <div className="bg-[#005657]/10 text-[#005657] p-4 rounded-full text-2xl">
+          📅
+        </div>
+      </div>
+
+      {/* Title */}
+      <h3 className="text-xl font-semibold text-[#005657] mb-2">
+        Session Scheduling
+      </h3>
+
+      {/* Description */}
+      <p className="text-gray-600 text-sm leading-relaxed">
+        Our client support executive will reach out shortly to schedule your session
+        at a convenient time based on your availability.
+      </p>
+
+      {/* Divider */}
+      <div className="my-5 border-t" />
+
+      {/* Steps */}
+      <div className="text-left text-sm text-gray-700 space-y-2">
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">1.</span>
+          Our team will contact you after booking
+        </p>
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">2.</span>
+          You can choose a convenient date & time
+        </p>
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">3.</span>
+          Your session will be confirmed instantly
+        </p>
+      </div>
+
+      {/* Bottom note */}
+      <div className="mt-6 text-xs text-gray-500">
+        You can now proceed to enter your details and complete the booking.
+      </div>
+
+    </div>
+  </div>
+)}
+
+                
 
                 {step === 2 && (
                   <>
