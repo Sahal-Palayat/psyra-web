@@ -6,7 +6,7 @@ import type {
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
-import { SlotSelection } from "@/components/BookingModal/slot-selection";
+// import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
@@ -27,7 +27,7 @@ export function PsychologistModal({
   hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
+  // const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
@@ -66,6 +66,16 @@ useEffect(() => {
   }
 }, [isOpen, data]);
 
+useEffect(() => {
+  if (isOpen) {
+    setBookingData((prev) => ({
+      ...prev,
+      date: new Date().toISOString(),
+      timeSlot: "to_be_scheduled",
+    }));
+  }
+}, [isOpen]);
+
 
 
 const [bookingId, setBookingId] = useState<string | null>(null);
@@ -73,16 +83,16 @@ const [paymentError, setPaymentError] = useState<string | null>(null);
 const [isRetryingPayment, setIsRetryingPayment] = useState(false);
 const [isPaying, setIsPaying] = useState(false);
 
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
-      );
-      setBookedSlot(res?.data || []);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
-    }
-  };
+  // const fetchBookedSlots = async (date: string) => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
+  //     );
+  //     setBookedSlot(res?.data || []);
+  //   } catch (error) {
+  //     console.error("Error fetching booked slots:", error);
+  //   }
+  // };
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -126,9 +136,11 @@ const [isPaying, setIsPaying] = useState(false);
     return bookingData.packageTitle;
   };
 
-  const canProceedFromStep3 = () => {
-    return bookingData.date && bookingData.timeSlot;
-  };
+  // const canProceedFromStep3 = () => {
+  //   return bookingData.date && bookingData.timeSlot;
+  // };
+
+  const canProceedFromStep3 = () => true;
 
 const canProceedFromStep4 = () => {
   const nameValid =
@@ -194,7 +206,7 @@ const canProceedFromStep4 = () => {
       case 2:
         return "Select Package";
       case 3:
-        return "Select Date & Time";
+        return "Session Scheduling";
       case 4:
         return "Personal Details";
       default:
@@ -292,8 +304,14 @@ const canProceedFromStep4 = () => {
             email: bookingData.email || "",
             phone: bookingData.phone || "",
             packageTitle: bookingData.packageTitle || "Therapy Session",
-            date: bookingData.date || "",
-            timeSlot: bookingData.timeSlot || "",
+            date:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "To be scheduled"
+                : bookingData.date || "",
+            timeSlot:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "Session scheduling will be handled by our client support executive."
+                : bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
 
@@ -513,7 +531,7 @@ const canProceedFromStep4 = () => {
                 />
               )}
 
-              {step === 3 && (
+              {/* {step === 3 && (
                 <SlotSelection
                   bookingData={bookingData}
                   onUpdate={(data) => {
@@ -525,7 +543,57 @@ const canProceedFromStep4 = () => {
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
-              )}
+              )} */}
+
+ {step === 3 && (
+  <div className="flex justify-center items-center py-10">
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 sm:p-8 max-w-md w-full text-center">
+
+      {/* Icon */}
+      <div className="flex justify-center mb-4">
+        <div className="bg-[#005657]/10 text-[#005657] p-4 rounded-full text-2xl">
+          📅
+        </div>
+      </div>
+
+      {/* Title */}
+      <h3 className="text-xl font-semibold text-[#005657] mb-2">
+        Session Scheduling
+      </h3>
+
+      {/* Description */}
+      <p className="text-gray-600 text-sm leading-relaxed">
+        Our client support executive will reach out shortly to schedule your session
+        at a convenient time based on your availability.
+      </p>
+
+      {/* Divider */}
+      <div className="my-5 border-t" />
+
+      {/* Steps */}
+      <div className="text-left text-sm text-gray-700 space-y-2">
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">1.</span>
+          Our team will contact you after booking
+        </p>
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">2.</span>
+          You can choose a convenient date & time
+        </p>
+        <p className="flex items-start gap-2">
+          <span className="text-[#005657] font-bold">3.</span>
+          Your session will be confirmed instantly
+        </p>
+      </div>
+
+      {/* Bottom note */}
+      <div className="mt-6 text-xs text-gray-500">
+        You can now proceed to enter your details and complete the booking.
+      </div>
+
+    </div>
+  </div>
+)}
 
               {step === 4 && (
                 <DetailsForm
