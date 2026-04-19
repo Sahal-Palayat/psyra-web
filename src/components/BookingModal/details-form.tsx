@@ -408,9 +408,11 @@ export function DetailsForm({
             />
           )}
 
-          <p className="text-xs text-gray-500 mt-1">
-            Choosing a therapist may change the session price
-          </p>
+          {!hideTherapistSelect && (
+            <p className="text-xs text-gray-500 mt-1">
+              Choosing a therapist may change the session price
+            </p>
+          )}
 
           <div className="space-y-4 pt-4">
             <div className="flex items-start space-x-3">

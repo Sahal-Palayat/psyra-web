@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { isSameDay, parse, addMinutes } from "date-fns";
 import { motion } from "framer-motion";
 import { Calendar } from "./calendar";
-import {  BookingData } from "./types";
+import { BookingData } from "./types";
 
 interface SlotSelectionProps {
   bookingData: BookingData;
@@ -26,12 +26,10 @@ export function SlotSelection({
   useEffect(() => {
     if (bookingData.date) {
       // Backend already filters by date
-      const bookedForThisDate = Array.isArray(bookedSlots)
-        ? bookedSlots
-        : [];
-  
+      const bookedForThisDate = Array.isArray(bookedSlots) ? bookedSlots : [];
+
       setBookedSlotsForDate(bookedForThisDate);
-  
+
       if (
         bookingData.timeSlot &&
         (bookedForThisDate.includes(bookingData.timeSlot) ||
@@ -41,7 +39,6 @@ export function SlotSelection({
       }
     }
   }, [bookingData.date, bookedSlots]);
-  
 
   /* ---------------- DATE SELECT ---------------- */
 
@@ -68,10 +65,7 @@ export function SlotSelection({
   /* ---------------- TIME SELECT ---------------- */
 
   const handleTimeSelect = (timeSlot: string) => {
-    if (
-      !isSlotBooked(timeSlot) &&
-      !isSlotPast(timeSlot, bookingData.date)
-    ) {
+    if (!isSlotBooked(timeSlot) && !isSlotPast(timeSlot, bookingData.date)) {
       onUpdate({ timeSlot });
     }
   };
@@ -117,8 +111,7 @@ export function SlotSelection({
   };
 
   const unavailableSlots = allTimeSlots.filter(
-    (slot) =>
-      isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
+    (slot) => isSlotBooked(slot) || isSlotPast(slot, bookingData.date),
   );
 
   /* ---------------- UI ---------------- */
@@ -174,11 +167,10 @@ export function SlotSelection({
                   key={slot}
                   type="button"
                   disabled={
-                    isSlotBooked(slot) ||
-                    isSlotPast(slot, bookingData.date)
+                    isSlotBooked(slot) || isSlotPast(slot, bookingData.date)
                   }
                   className={`px-2 py-2 rounded-md border text-xs sm:text-sm ${getSlotButtonClass(
-                    slot
+                    slot,
                   )}`}
                   onClick={() => handleTimeSelect(slot)}
                   title={getSlotTooltip(slot)}
@@ -189,7 +181,7 @@ export function SlotSelection({
             </div>
 
             {bookingData.timeSlot && (
-              <div className="mt-4 p-3 bg-[#B6E5DF]/30 rounded-md">
+              <div className="mt-4 p-3 rounded-md bg-[#005657]/10 text-[#005657] font-medium">
                 Selected time: {bookingData.timeSlot}
               </div>
             )}
