@@ -142,7 +142,7 @@ export function PackageSelection({
           price: pkg.price,
           sessions: pkg.sessions,
           popular: pkg.id === "pack8",
-          savings: pkg.discount ? `${pkg.discount}% OFF` : null,
+          savings: pkg.discount ? `${Math.round(pkg.discount)}% OFF` : null,
         }));
 
         // filter for psychologist profile flow

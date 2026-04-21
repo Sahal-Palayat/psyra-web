@@ -39,6 +39,7 @@ export function BookingModal({
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
   const [currentBookingId, setCurrentBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const [successData, setSuccessData] = useState({
     name: "",
@@ -68,6 +69,16 @@ export function BookingModal({
     timeSlot: "",
   });
   const [psychologists, setPsychologists] = useState<PsychologistLite[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setBookingData((prev) => ({
+        ...prev,
+        date: "",
+        timeSlot: "",
+      }));
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     setBookingData((prev) => ({
@@ -246,9 +257,9 @@ export function BookingModal({
       const message = error?.response?.data?.message;
 
       if (message === "Slot already booked") {
-        toast.error("Slot already booked. Please choose another slot.");
-        await fetchBookedSlots(bookingData.date);
-        updateBookingData({ timeSlot: undefined });
+        toast.error("Unable to process booking. Please try again.");
+        // await fetchBookedSlots(bookingData.date);
+        // updateBookingData({ timeSlot: undefined });
         return false;
       }
 
@@ -291,9 +302,9 @@ export function BookingModal({
         async () => {
           setIsPaying(false);
 
-          if (bookingData.date) {
-            await fetchBookedSlots(bookingData.date);
-          }
+          // if (bookingData.date) {
+          //   await fetchBookedSlots(bookingData.date);
+          // }
 
           setSuccessData({
             name: bookingData.name,
@@ -311,7 +322,12 @@ export function BookingModal({
         //  PAYMENT FAILED / CLOSED
         () => {
           setIsPaying(false);
-          toast.error("Payment was not completed");
+          setPaymentError("Payment was cancelled. You can try again.");
+        },
+
+        () => {
+          setIsPaying(false);
+          setPaymentError("Payment was cancelled. You can try again.");
         },
       );
     } catch (error) {
@@ -341,11 +357,21 @@ export function BookingModal({
         >
           <>
             {/* HEADER */}
-            <div className="bg-[#005657] text-white p-4 sm:p-6 flex-shrink-0">
-              <h2 className="text-lg sm:text-xl font-bold">
-                Book Consultation
-              </h2>
-              <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
+            <div className="bg-[#005657] text-white p-4 sm:p-6 flex items-start justify-between">
+              {/* LEFT CONTENT */}
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold">
+                  Book Consultation
+                </h2>
+                <p className="text-[#B6E5DF] mt-1 text-sm">{packageTitle}</p>
+              </div>
+
+              <button
+                onClick={onClose}
+                className="text-white hover:text-gray-200 text-2xl font-bold leading-none"
+              >
+                ×
+              </button>
             </div>
 
             {/* Scrollable Content */}
@@ -377,53 +403,74 @@ export function BookingModal({
                       bookingData={bookingData}
                       onUpdate={updateBookingData}
                       psychologists={psychologists}
-                      hideTherapistSelect={!!fixedPsychologistId}
+                      hideTherapistSelect={true}
                     />
 
                     {/* Dynamic price display */}
-                    <div className="mt-4 text-center text-sm text-gray-600">
+                    {/* <div className="mt-4 text-center text-sm text-gray-600">
                       Total payable:
                       <span className="font-bold text-[#005657] ml-1">
                         ₹{bookingData.packageAmount?.toLocaleString("en-IN")}
                       </span>
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>
             </div>
 
             {/* FOOTER */}
-            <div className="p-4 sm:p-6 border-t bg-gray-50 flex gap-3">
-              <button
-                onClick={step === 1 ? onClose : prevStep}
-                className="px-4 py-2 border rounded-md"
-              >
-                {step === 1 ? "Cancel" : "Back"}
-              </button>
+            <div className="p-4 sm:p-6 border-t bg-gray-50">
+              {/* ✅ ERROR  */}
+              {paymentError && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex justify-between items-start">
+                  <p className="text-sm text-red-800">{paymentError}</p>
 
-              {step === 1 ? (
-                <button
-                  onClick={async () => {
-                    if (!canProceedFromStep1()) {
-                      toast.error("Please select date and slot");
-                      return;
-                    }
-                    const locked = await initiateGeneralBooking();
-                    if (locked) nextStep();
-                  }}
-                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
-                >
-                  Continue to Details
-                </button>
-              ) : (
-                <button
-                  onClick={initiateGeneralBookingAndPay}
-                  disabled={!canProceedFromStep2() || isPaying}
-                  className="px-4 py-2 bg-[#005657] text-white rounded-md"
-                >
-                  {isPaying ? "Processing..." : "Book Session"}
-                </button>
+                  <button
+                    onClick={() => setPaymentError(null)}
+                    className="text-red-600 hover:text-red-800 ml-3"
+                  >
+                    ✕
+                  </button>
+                </div>
               )}
+
+              {/* ✅ BUTTONS ROW */}
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={step === 1 ? onClose : prevStep}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
+                >
+                  {step === 1 ? "Cancel" : "Back"}
+                </button>
+
+                {step === 1 ? (
+                  <button
+                    onClick={async () => {
+                      if (!canProceedFromStep1()) {
+                        toast.error("Please select date and slot");
+                        return;
+                      }
+                      const locked = await initiateGeneralBooking();
+                      if (locked) nextStep();
+                    }}
+                    className="px-4 py-2 bg-[#005657] text-white rounded-md"
+                  >
+                    Continue to Details
+                  </button>
+                ) : (
+                  <button
+                    onClick={initiateGeneralBookingAndPay}
+                    disabled={!canProceedFromStep2() || isPaying}
+                    className={`px-4 py-2 rounded-md text-white ${
+                      isPaying
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-[#005657] hover:bg-[#005657]/90"
+                    }`}
+                  >
+                    {isPaying ? "Processing..." : "Book Session"}
+                  </button>
+                )}
+              </div>
             </div>
           </>
         </motion.div>

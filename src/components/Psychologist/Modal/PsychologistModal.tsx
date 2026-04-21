@@ -6,7 +6,7 @@ import type {
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
-import { SlotSelection } from "@/components/BookingModal/slot-selection";
+// import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
@@ -27,7 +27,7 @@ export function PsychologistModal({
   hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
-  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
+  // const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
@@ -39,7 +39,7 @@ export function PsychologistModal({
     amount: 0,
   });
   const [bookingData, setBookingData] = useState<PsychologistBookingData>({
-    psychologistId: data?._id, 
+    psychologistId: data?._id,
     date: "",
     timeSlot: "",
     name: "",
@@ -52,37 +52,46 @@ export function PsychologistModal({
     agreeToTerms: false,
     sessionType: "",
     packageTitle: "",
-    therapyType: "",packageAmount: typeof data?.price === "number" ? data.price : 0,
-packageId: "",
-});
+    therapyType: "",
+    packageAmount: typeof data?.price === "number" ? data.price : 0,
+    packageId: "",
+  });
 
-useEffect(() => {
-  if (isOpen && data?._id) {
-    setBookingData((prev) => ({
-      ...prev,
-      psychologistId: data._id,
-      packageAmount: typeof data?.price === "number" ? data.price : 0,
-    }));
-  }
-}, [isOpen, data]);
-
-
-
-const [bookingId, setBookingId] = useState<string | null>(null);
-const [paymentError, setPaymentError] = useState<string | null>(null);
-const [isRetryingPayment, setIsRetryingPayment] = useState(false);
-const [isPaying, setIsPaying] = useState(false);
-
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
-      );
-      setBookedSlot(res?.data || []);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
+  useEffect(() => {
+    if (isOpen && data?._id) {
+      setBookingData((prev) => ({
+        ...prev,
+        psychologistId: data._id,
+        packageAmount: typeof data?.price === "number" ? data.price : 0,
+      }));
     }
-  };
+  }, [isOpen, data]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setBookingData((prev) => ({
+        ...prev,
+        date: new Date().toISOString(),
+        timeSlot: "to_be_scheduled",
+      }));
+    }
+  }, [isOpen]);
+
+  const [bookingId, setBookingId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isRetryingPayment, setIsRetryingPayment] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
+
+  // const fetchBookedSlots = async (date: string) => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
+  //     );
+  //     setBookedSlot(res?.data || []);
+  //   } catch (error) {
+  //     console.error("Error fetching booked slots:", error);
+  //   }
+  // };
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -108,7 +117,7 @@ const [isPaying, setIsPaying] = useState(false);
       agreeToTerms: false,
       packageTitle: "",
       therapyType: "",
-      packageAmount: typeof data?.price === 'number' ? data.price : 0,
+      packageAmount: typeof data?.price === "number" ? data.price : 0,
       packageId: "",
     });
     setBookingId(null);
@@ -126,36 +135,33 @@ const [isPaying, setIsPaying] = useState(false);
     return bookingData.packageTitle;
   };
 
-  const canProceedFromStep3 = () => {
-    return bookingData.date && bookingData.timeSlot;
+  // const canProceedFromStep3 = () => {
+  //   return bookingData.date && bookingData.timeSlot;
+  // };
+
+  const canProceedFromStep4 = () => {
+    const nameValid =
+      bookingData.name.trim().length >= 2 &&
+      /^[a-zA-Z\s]+$/.test(bookingData.name);
+
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
+
+    const phoneValid = /^[0-9]{10}$/.test(bookingData.phone);
+
+    const ageNum = parseInt(bookingData.age, 10);
+    const ageValid = ageNum >= 18 && ageNum <= 120;
+
+    return (
+      nameValid &&
+      emailValid &&
+      phoneValid &&
+      ageValid &&
+      bookingData.modeOfTherapy !== "" &&
+      bookingData.issue !== "" &&
+      bookingData.sessionType !== "" &&
+      bookingData.agreeToTerms
+    );
   };
-
-const canProceedFromStep4 = () => {
-  const nameValid =
-    bookingData.name.trim().length >= 2 &&
-    /^[a-zA-Z\s]+$/.test(bookingData.name);
-
-  const emailValid =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingData.email);
-
-  const phoneValid =
-    /^[0-9]{10}$/.test(bookingData.phone);
-
-  const ageNum = parseInt(bookingData.age, 10);
-  const ageValid = ageNum >= 18 && ageNum <= 120;
-
-  return (
-    nameValid &&
-    emailValid &&
-    phoneValid &&
-    ageValid &&
-    bookingData.modeOfTherapy !== "" &&
-    bookingData.issue !== "" &&
-    bookingData.sessionType !== "" &&
-    bookingData.agreeToTerms
-  );
-};
-
 
   const createSlot = async (): Promise<string | null> => {
     const { date, timeSlot } = bookingData;
@@ -194,9 +200,9 @@ const canProceedFromStep4 = () => {
       case 2:
         return "Select Package";
       case 3:
-        return "Select Date & Time";
-      case 4:
         return "Personal Details";
+      // case 4:
+      //   return "Personal Details";
       default:
         return "Book Consultation";
     }
@@ -206,11 +212,11 @@ const canProceedFromStep4 = () => {
     switch (step) {
       case 1:
         return "Continue to Packages";
+      // case 2:
+      //   return "Continue to Schedule";
       case 2:
-        return "Continue to Schedule";
-      case 3:
         return "Continue to Details";
-      case 4:
+      case 3:
         return "Book Session";
       default:
         return "Continue";
@@ -224,22 +230,22 @@ const canProceedFromStep4 = () => {
       case 2:
         return canProceedFromStep2();
       case 3:
-        return canProceedFromStep3();
-      case 4:
         return canProceedFromStep4();
+      // case 4:
+      //   return canProceedFromStep4();
       default:
         return false;
     }
   };
 
-  const handlePaymentAndBooking = async () => {
-    try {
-      // 1️⃣ Check booking ID
-      if (!bookingId) {
-        toast.error("Booking not initiated");
-        return;
-      }
+  const handlePaymentAndBooking = async (customBookingId?: string) => {
+    const finalBookingId = customBookingId || bookingId;
 
+    if (!finalBookingId) {
+      toast.error("Booking not initiated");
+      return;
+    }
+    try {
       setIsPaying(true);
       setPaymentError(null);
 
@@ -247,7 +253,7 @@ const canProceedFromStep4 = () => {
       const paymentRes = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/psyra-payment/create`,
         {
-          bookingId,
+          bookingId: finalBookingId,
           bookingType: "psychologist",
           totalAmount: bookingData.packageAmount,
 
@@ -264,17 +270,15 @@ const canProceedFromStep4 = () => {
         },
       );
 
-      
       const { orderId, amount, currency, keyId } = paymentRes.data.data;
 
-     
       const razorpayOptions: RazorpayOptions = {
-        key: keyId || RAZORPAY_CONFIG.key_id || "", 
-        amount, 
+        key: keyId || RAZORPAY_CONFIG.key_id || "",
+        amount,
         currency,
         name: "Psyra",
         description: "Psychologist Session",
-        order_id: orderId, 
+        order_id: orderId,
         prefill: {
           name: bookingData.name || "",
           email: bookingData.email || "",
@@ -282,7 +286,7 @@ const canProceedFromStep4 = () => {
         },
         notes: {
           sessionDetails: JSON.stringify({
-            bookingId,
+            finalBookingId,
             packageTitle: bookingData.packageTitle,
           }),
         },
@@ -292,8 +296,14 @@ const canProceedFromStep4 = () => {
             email: bookingData.email || "",
             phone: bookingData.phone || "",
             packageTitle: bookingData.packageTitle || "Therapy Session",
-            date: bookingData.date || "",
-            timeSlot: bookingData.timeSlot || "",
+            date:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "To be scheduled"
+                : bookingData.date || "",
+            timeSlot:
+              bookingData.timeSlot === "to_be_scheduled"
+                ? "To be scheduled"
+                : bookingData.timeSlot || "",
             amount: bookingData.packageAmount || 0,
           });
 
@@ -308,10 +318,10 @@ const canProceedFromStep4 = () => {
             setIsPaying(false);
 
             // Check booking status to see if payment failed
-            if (bookingId) {
+            if (finalBookingId) {
               try {
                 const statusRes = await axios.get(
-                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${bookingId}`,
+                  `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/${finalBookingId}`,
                 );
 
                 const booking = statusRes.data;
@@ -416,23 +426,29 @@ const canProceedFromStep4 = () => {
 
   const handleNext = async () => {
     // STEP 3 → STEP 4 (LOCK SLOT HERE)
+    // if (step === 3) {
+    //   console.log("🟢 Step 3: Creating slot...");
+    //   const id = await createSlot(); // initiate booking
+    //   if (!id) return;
+
+    //   setBookingId(id);
+    //   nextStep();
+    //   return;
+    // }
+
+    // STEP 4 → PAYMENT
     if (step === 3) {
-      console.log("🟢 Step 3: Creating slot...");
-      const id = await createSlot(); // initiate booking
+      if (!canProceedFromStep4()) {
+        toast.error("Please fill all the details");
+        return;
+      }
+
+      const id = await createSlot();
       if (!id) return;
 
       setBookingId(id);
-      nextStep();
-      return;
-    }
 
-    // STEP 4 → PAYMENT
-    if (step === 4) {
-      if (canProceedFromStep4()) {
-        handlePaymentAndBooking();
-      } else {
-        toast.error("Please fill all the details");
-      }
+      await handlePaymentAndBooking(id);
       return;
     }
 
@@ -463,7 +479,7 @@ const canProceedFromStep4 = () => {
                 <h2 className="text-lg sm:text-xl font-bold truncate">
                   {getStepTitle()}
                 </h2>
-                <p className="text-sm text-white/80 mt-1">Step {step} of 4</p>
+                <p className="text-sm text-white/80 mt-1">Step {step} of 3</p>
               </div>
               <button
                 onClick={resetAndClose}
@@ -490,7 +506,7 @@ const canProceedFromStep4 = () => {
             <div className="mt-4 w-full bg-[#005657]/30 rounded-full h-2">
               <div
                 className="bg-white h-2 rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${(step / 4) * 100}%` }}
+                style={{ width: `${(step / 3) * 100}%` }}
               />
             </div>
           </div>
@@ -513,7 +529,7 @@ const canProceedFromStep4 = () => {
                 />
               )}
 
-              {step === 3 && (
+              {/* {step === 3 && (
                 <SlotSelection
                   bookingData={bookingData}
                   onUpdate={(data) => {
@@ -525,9 +541,9 @@ const canProceedFromStep4 = () => {
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
-              )}
+              )} */}
 
-              {step === 4 && (
+              {step === 3 && (
                 <DetailsForm
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
@@ -540,7 +556,7 @@ const canProceedFromStep4 = () => {
           {/* Footer */}
           <div className="p-4 sm:p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
             {/* Payment Error Message */}
-            {paymentError && step === 4 && (
+            {paymentError && step === 3 && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex items-start gap-2">
                   <svg

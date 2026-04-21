@@ -33,7 +33,7 @@ export const useSurveyLogic = () => {
 ) => {
     console.log("finalAnswers", finalAnswers);
     try {
-      const response = await fetch("https://kochimetrocalc.me/psyra-survey", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/psyra-survey`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
