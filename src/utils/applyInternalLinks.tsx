@@ -17,6 +17,8 @@ export function applyInternalLinks(
   return updatedContent;
 }
 
+
+
 export function applyInternalLinksText(
   text: string,
   links: { text: string; url: string }[] = [],
@@ -25,11 +27,19 @@ export function applyInternalLinksText(
   let result: React.ReactNode[] = [text];
 
   links.forEach((link) => {
-    result = result.flatMap((part) => {
-      // ✅ only process strings
-      if (typeof part !== "string") return [part];
+    const newResult: React.ReactNode[] = [];
 
-      if (usedLinks.has(link.text.toLowerCase())) return [part];
+    result.forEach((part) => {
+      // only process strings
+      if (typeof part !== "string") {
+        newResult.push(part);
+        return;
+      }
+
+      if (usedLinks.has(link.text.toLowerCase())) {
+        newResult.push(part);
+        return;
+      }
 
       const escapedText = link.text.replace(
         /[.*+?^${}()|[\]\\]/g,
@@ -37,17 +47,21 @@ export function applyInternalLinksText(
       );
 
       const regex = new RegExp(`\\b(${escapedText})\\b`, "i");
-
       const split = part.split(regex);
 
-      if (split.length === 1) return [part];
+      if (split.length === 1) {
+        newResult.push(part);
+        return;
+      }
 
       usedLinks.add(link.text.toLowerCase());
 
-      return split.map((piece, i) => {
-        if (typeof piece === "string" &&
-            piece.toLowerCase() === link.text.toLowerCase()) {
-          return (
+      split.forEach((piece, i) => {
+        if (
+          typeof piece === "string" &&
+          piece.toLowerCase() === link.text.toLowerCase()
+        ) {
+          newResult.push(
             <a
               key={`${link.text}-${i}`}
               href={link.url}
@@ -56,11 +70,13 @@ export function applyInternalLinksText(
               {piece}
             </a>
           );
+        } else {
+          newResult.push(piece);
         }
-
-        return piece as string; // ✅ FIX
       });
     });
+
+    result = newResult;
   });
 
   return result;
