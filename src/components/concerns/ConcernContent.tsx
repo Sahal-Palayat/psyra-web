@@ -1,6 +1,7 @@
 import type { ContentBlock } from "@/types/concerns";
 import { cleanText } from "@/utils/cleanText";
 import { applyInternalLinksText } from "@/utils/applyInternalLinks";
+import { useMemo } from "react";
 
 interface Props {
   blocks: readonly ContentBlock[];
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function ConcernContent({ blocks,internalLinks }: Props) {
+  const usedLinks = useMemo(() => new Set<string>(), []);
   return (
     <section className="space-y-8">
       {blocks.map((block, index) => {
@@ -28,6 +30,7 @@ export default function ConcernContent({ blocks,internalLinks }: Props) {
                 {applyInternalLinksText(
                   cleanText(block.content as string),
                   internalLinks,
+                  usedLinks
                 )}
               </p>
             );
@@ -40,7 +43,7 @@ export default function ConcernContent({ blocks,internalLinks }: Props) {
               >
                 {(block.content as string[]).map((item, i) => (
                   <li key={i}>
-                    {applyInternalLinksText(cleanText(item), internalLinks)}
+                    {applyInternalLinksText(cleanText(item), internalLinks, usedLinks)}
                   </li>
                 ))}
               </ul>

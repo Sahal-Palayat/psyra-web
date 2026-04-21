@@ -80,7 +80,10 @@ export default async function Page({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* LEFT */}
             <div className="lg:col-span-8 space-y-12">
-              <ConcernContent blocks={concern.blocks} />
+              <ConcernContent 
+  blocks={concern.blocks} 
+  internalLinks={concern.internalLinks || []} 
+/>
 
               <div className="lg:hidden">
                 {assessmentKey && (

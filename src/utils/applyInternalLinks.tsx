@@ -20,28 +20,29 @@ export function applyInternalLinks(
 
 export function applyInternalLinksText(
   text: string,
-  links: { text: string; url: string }[] = [] 
+  links: { text: string; url: string }[] = [],
+  usedLinks: Set<string>
 ) {
   let result: (string | React.ReactNode)[] = [text];
 
   links.forEach((link) => {
-    let linked = false;
-
     result = result.flatMap((part) => {
-      if (typeof part !== "string" || linked) return [part];
+      if (typeof part !== "string") return [part];
+
+      if (usedLinks.has(link.text.toLowerCase())) return [part];
 
       const escapedText = link.text.replace(
         /[.*+?^${}()|[\]\\]/g,
         "\\$&"
       );
 
-      const regex = new RegExp(`(${escapedText})`, "i");
+      const regex = new RegExp(`\\b(${escapedText})\\b`, "i");
 
       const split = part.split(regex);
 
       if (split.length === 1) return [part];
 
-      linked = true;
+      usedLinks.add(link.text.toLowerCase()); // ✅ GLOBAL tracking
 
       return split.map((piece, i) => {
         if (piece.toLowerCase() === link.text.toLowerCase()) {
