@@ -17,16 +17,16 @@ export function applyInternalLinks(
   return updatedContent;
 }
 
-
 export function applyInternalLinksText(
   text: string,
   links: { text: string; url: string }[] = [],
   usedLinks: Set<string>
-) {
-  let result: (string | React.ReactNode)[] = [text];
+): React.ReactNode[] {
+  let result: React.ReactNode[] = [text];
 
   links.forEach((link) => {
     result = result.flatMap((part) => {
+      // ✅ only process strings
       if (typeof part !== "string") return [part];
 
       if (usedLinks.has(link.text.toLowerCase())) return [part];
@@ -42,10 +42,11 @@ export function applyInternalLinksText(
 
       if (split.length === 1) return [part];
 
-      usedLinks.add(link.text.toLowerCase()); // ✅ GLOBAL tracking
+      usedLinks.add(link.text.toLowerCase());
 
       return split.map((piece, i) => {
-        if (piece.toLowerCase() === link.text.toLowerCase()) {
+        if (typeof piece === "string" &&
+            piece.toLowerCase() === link.text.toLowerCase()) {
           return (
             <a
               key={`${link.text}-${i}`}
@@ -56,7 +57,8 @@ export function applyInternalLinksText(
             </a>
           );
         }
-        return piece;
+
+        return piece as string; // ✅ FIX
       });
     });
   });
