@@ -1,11 +1,15 @@
 import type { ContentBlock } from "@/types/concerns";
-import { cleanText } from "@/components/utils/cleanText";
+import { cleanText } from "@/utils/cleanText";
+import { applyInternalLinksText } from "@/utils/applyInternalLinks";
+import { useMemo } from "react";
 
 interface Props {
   blocks: readonly ContentBlock[];
+  internalLinks: { text: string; url: string }[];
 }
 
-export default function ConcernContent({ blocks }: Props) {
+export default function ConcernContent({ blocks,internalLinks }: Props) {
+  const usedLinks = useMemo(() => new Set<string>(), []);
   return (
     <section className="space-y-8">
       {blocks.map((block, index) => {
@@ -23,7 +27,11 @@ export default function ConcernContent({ blocks }: Props) {
                 key={index}
                 className="text-gray-700 leading-relaxed whitespace-pre-line"
               >
-                {cleanText(block.content as string)}
+                {applyInternalLinksText(
+                  cleanText(block.content as string),
+                  internalLinks,
+                  usedLinks
+                )}
               </p>
             );
 
@@ -34,7 +42,9 @@ export default function ConcernContent({ blocks }: Props) {
                 className="list-disc list-outside pl-8 space-y-2 text-gray-700"
               >
                 {(block.content as string[]).map((item, i) => (
-                  <li key={i}>{cleanText(item)}</li>
+                  <li key={i}>
+                    {applyInternalLinksText(cleanText(item), internalLinks, usedLinks)}
+                  </li>
                 ))}
               </ul>
             );

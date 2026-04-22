@@ -13,5 +13,9 @@ export interface Blog {
     designation: string;
     imageUrl: string;
   };
-  
+
+    internalLinks?: {
+    text: string;
+    url: string;
+  }[];  
 }
