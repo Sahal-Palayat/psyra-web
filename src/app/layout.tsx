@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Onest, Geist_Mono } from "next/font/google";
+import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -177,6 +178,7 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
+        <WhatsAppChat />
         <div id="modal-root" />
       </body>
     </html>
