@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Onest, Geist_Mono } from "next/font/google";
+import { WhatsAppChat } from "@/components/WhatsappChat/whatsapp-chat";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -110,7 +111,6 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png" type="image/png" />
         <link rel="shortcut icon" href="/icon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
-        <link rel="canonical" href="https://www.psyra.in/" />
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#005657" />
         <meta name="msapplication-TileColor" content="#005657" />
@@ -177,6 +177,7 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {children}
+        <WhatsAppChat />
         <div id="modal-root" />
       </body>
     </html>

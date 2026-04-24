@@ -78,7 +78,14 @@ export function DetailsForm({
     let processedValue = value;
 
     if (name === "phone") {
-      processedValue = value.replace(/\D/g, "").slice(0, 10);
+      let digits = value.replace(/\D/g, "");
+
+      //  Handle autofill case (11 digits starting with 0)
+      if (digits.length > 10 && digits.startsWith("0")) {
+        digits = digits.slice(1);
+      }
+
+      processedValue = digits.slice(0, 10);
     }
     if (name === "age") {
       processedValue = value.replace(/\D/g, "").slice(0, 3);
