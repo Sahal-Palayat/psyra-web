@@ -9,25 +9,9 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'upload.wikimedia.org',
+        hostname: 'upload.wikimedia.org', 
       },
     ],
-  },
-
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.psyra.in',
-          },
-        ],
-        destination: 'https://psyra.in/:path*',
-        permanent: true,
-      },
-    ];
   },
 };
 
