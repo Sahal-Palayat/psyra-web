@@ -7,6 +7,7 @@ export interface Blog {
   thumbnail: string;
   content: string;
   createdAt: string;
+  updatedAt?: string;
   author?: {
      _id: string
     name: string;
@@ -18,4 +19,14 @@ export interface Blog {
     text: string;
     url: string;
   }[];  
+
+  metaDescription?: string;
+  language?: string;
+  reviewer?: {
+    _id: string;
+    name: string;
+    designation: string;
+    imageUrl?: string;
+  };
+  faq?: { question: string; answer: string }[];
 }

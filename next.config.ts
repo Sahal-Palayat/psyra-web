@@ -5,13 +5,29 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'pebby-uplods.s3.us-east-1.amazonaws.com', // your API images
+        hostname: 'pebby-uplods.s3.us-east-1.amazonaws.com',
       },
       {
         protocol: 'https',
-        hostname: 'upload.wikimedia.org', // default fallback image
+        hostname: 'upload.wikimedia.org',
       },
     ],
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.psyra.in',
+          },
+        ],
+        destination: 'https://psyra.in/:path*',
+        permanent: true,
+      },
+    ];
   },
 };
 
