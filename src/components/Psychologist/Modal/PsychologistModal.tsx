@@ -6,7 +6,7 @@ import type {
   BookingData,
   PsychologistModalProps,
 } from "@/components/BookingModal/types";
-// import { SlotSelection } from "@/components/BookingModal/slot-selection";
+import { SlotSelection } from "@/components/BookingModal/slot-selection";
 import { DetailsForm } from "@/components/BookingModal/details-form";
 import { toast } from "@/lib/toast";
 import { PaymentSuccessModal } from "../../Payment/PaymentSuccessModal";
@@ -27,7 +27,7 @@ export function PsychologistModal({
   hasOfferClaim = false,
 }: PsychologistModalProps) {
   const [step, setStep] = useState(1);
-  // const [bookedSlots, setBookedSlot] = useState<string[]>([]);
+  const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successData, setSuccessData] = useState({
     name: "",
@@ -67,31 +67,23 @@ export function PsychologistModal({
     }
   }, [isOpen, data]);
 
-  useEffect(() => {
-    if (isOpen) {
-      setBookingData((prev) => ({
-        ...prev,
-        date: new Date().toISOString(),
-        timeSlot: "to_be_scheduled",
-      }));
-    }
-  }, [isOpen]);
+
 
   const [bookingId, setBookingId] = useState<string | null>(null);
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [isRetryingPayment, setIsRetryingPayment] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
 
-  // const fetchBookedSlots = async (date: string) => {
-  //   try {
-  //     const res = await axios.get(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
-  //     );
-  //     setBookedSlot(res?.data || []);
-  //   } catch (error) {
-  //     console.error("Error fetching booked slots:", error);
-  //   }
-  // };
+  const fetchBookedSlots = async (date: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
+      );
+      setBookedSlot(res?.data || []);
+    } catch (error) {
+      console.error("Error fetching booked slots:", error);
+    }
+  };
 
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
@@ -135,9 +127,9 @@ export function PsychologistModal({
     return bookingData.packageTitle;
   };
 
-  // const canProceedFromStep3 = () => {
-  //   return bookingData.date && bookingData.timeSlot;
-  // };
+  const canProceedFromStep3 = () => {
+    return bookingData.date && bookingData.timeSlot;
+  };
 
   const canProceedFromStep4 = () => {
     const nameValid =
@@ -201,8 +193,8 @@ export function PsychologistModal({
         return "Select Package";
       case 3:
         return "Personal Details";
-      // case 4:
-      //   return "Personal Details";
+      case 4:
+        return "Personal Details";
       default:
         return "Book Consultation";
     }
@@ -212,11 +204,11 @@ export function PsychologistModal({
     switch (step) {
       case 1:
         return "Continue to Packages";
-      // case 2:
-      //   return "Continue to Schedule";
       case 2:
-        return "Continue to Details";
+        return "Continue to Schedule";
       case 3:
+        return "Continue to Details";
+      case 4:
         return "Book Session";
       default:
         return "Continue";
@@ -230,9 +222,9 @@ export function PsychologistModal({
       case 2:
         return canProceedFromStep2();
       case 3:
+        return canProceedFromStep3();
+      case 4:
         return canProceedFromStep4();
-      // case 4:
-      //   return canProceedFromStep4();
       default:
         return false;
     }
@@ -426,29 +418,23 @@ export function PsychologistModal({
 
   const handleNext = async () => {
     // STEP 3 → STEP 4 (LOCK SLOT HERE)
-    // if (step === 3) {
-    //   console.log("🟢 Step 3: Creating slot...");
-    //   const id = await createSlot(); // initiate booking
-    //   if (!id) return;
+    if (step === 3) {
+      console.log("🟢 Step 3: Creating slot...");
+      const id = await createSlot(); // initiate booking
+      if (!id) return;
 
-    //   setBookingId(id);
-    //   nextStep();
-    //   return;
-    // }
+      setBookingId(id);
+      nextStep();
+      return;
+    }
 
     // STEP 4 → PAYMENT
-    if (step === 3) {
+    if (step === 4) {
       if (!canProceedFromStep4()) {
         toast.error("Please fill all the details");
         return;
       }
-
-      const id = await createSlot();
-      if (!id) return;
-
-      setBookingId(id);
-
-      await handlePaymentAndBooking(id);
+      await handlePaymentAndBooking();
       return;
     }
 
@@ -479,7 +465,7 @@ export function PsychologistModal({
                 <h2 className="text-lg sm:text-xl font-bold truncate">
                   {getStepTitle()}
                 </h2>
-                <p className="text-sm text-white/80 mt-1">Step {step} of 3</p>
+                <p className="text-sm text-white/80 mt-1">Step {step} of 4</p>
               </div>
               <button
                 onClick={resetAndClose}
@@ -529,7 +515,7 @@ export function PsychologistModal({
                 />
               )}
 
-              {/* {step === 3 && (
+              {step === 3 && (
                 <SlotSelection
                   bookingData={bookingData}
                   onUpdate={(data) => {
@@ -541,9 +527,9 @@ export function PsychologistModal({
                   allTimeSlots={data?.monthlySlots}
                   bookedSlots={bookedSlots}
                 />
-              )} */}
+              )}
 
-              {step === 3 && (
+              {step === 4 && (
                 <DetailsForm
                   bookingData={bookingData}
                   onUpdate={updateBookingData}
