@@ -56,7 +56,7 @@ const LandingNavbar = () => {
         animate={{ y: 0, x: "-50%", opacity: 1 }}
         transition={{ duration: 0.6, ease: "circOut" }}
         className={`fixed left-1/2 z-50 transition-all duration-500 ease-in-out px-4
-          ${isScrolled ? "top-4 w-full max-w-[1200px]" : "top-0 w-full max-w-[1440px] md:top-6"}`}
+          ${isScrolled ? "top-4 w-full max-w-[1200px]" : "top-1 md:top-0 w-full max-w-[1440px] md:top-6"}`}
       >
         <div 
           className={`relative flex justify-between items-center h-[64px] md:h-[74px] px-6 md:px-10 transition-all duration-500 rounded-[2rem] border

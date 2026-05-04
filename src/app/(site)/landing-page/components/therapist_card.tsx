@@ -60,9 +60,9 @@ export default function LandingTherapistsCard() {
   };
 
   return (
-    <section className="min-h-screen bg-[#F8FAFC] pb-20">
+    <section className="min-h-screen bg-[#F8FAFC] pb-10 md:pb-20 ">
       {/* Header Section */}
-      <div className="relative pt-32 pb-20 px-6 text-center overflow-hidden">
+      <div className="relative pt-20 md:pt-32  pb-10 md:pb-20 px-3 md:px-6 text-center overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
           <div className="absolute top-20 left-1/4 w-64 h-64 bg-teal-100/40 rounded-full blur-3xl" />
           <div className="absolute top-10 right-1/4 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl" />
@@ -136,9 +136,9 @@ export default function LandingTherapistsCard() {
                           </div>
                         </div>
                         {/* The Cute Marquee — Positioned right below the image container */}
-                        <div className="mt-4 w-60 overflow-hidden relative group/marquee">
+                        <div className="mt-4 w-80 md:w-60 justify-center  overflow-hidden relative group/marquee">
                           {/* Gradient Mask for a "Trustworthy" smooth fade */}
-                          <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-white to-transparent z-10" />
+                          <div className="absolute inset-y-0 left-0 w-4  bg-gradient-to-r from-white to-transparent z-10" />
                           <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-white to-transparent z-10" />
                           
                           <motion.div 
@@ -148,7 +148,7 @@ export default function LandingTherapistsCard() {
                               duration: 8, 
                               ease: "linear" 
                             }}
-                            className="flex gap-2 whitespace-nowrap"
+                            className="flex md:justify-center gap-2 whitespace-nowrap"
                           >
                             {/* Duplicate the expertise array to ensure a seamless loop */}
                             {[...(therapist.expertise || []), ...(therapist.expertise || [])].map((exp, i) => (
@@ -170,7 +170,7 @@ export default function LandingTherapistsCard() {
                         </div> */}
                       </div>
 
-                      <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-50 pt-6">
+                      <div className="mt-4 md:mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-50 pt-6">
                         <div>
                           <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Session Starts at</p>
                           <p className="text-xl font-bold text-slate-900">
