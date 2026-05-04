@@ -1,9 +1,8 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Video, Mic, Star, ShieldCheck, Languages, GraduationCap } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Star, ShieldCheck, Languages, GraduationCap } from "lucide-react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import type { Psychologist } from "@/types/psychologist";
@@ -19,7 +18,7 @@ const SkeletonCard = () => (
   <div className="w-full h-72 bg-slate-50 animate-pulse rounded-[2.5rem] border border-slate-100" />
 );
 
-export default function LandingTherapistsCard() {
+function TherapistsList() {
   const [isLoading, setIsLoading] = useState(true);
   const [allData, setAllData] = useState<Psychologist[]>([]);
   const [psychologist, setPsychologist] = useState<Psychologist | null>(null);
@@ -60,28 +59,7 @@ export default function LandingTherapistsCard() {
   };
 
   return (
-    <section className="min-h-screen bg-[#F8FAFC] pb-10 md:pb-20 ">
-      {/* Header Section */}
-      <div className="relative pt-20 md:pt-32  pb-10 md:pb-20 px-3 md:px-6 text-center overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-          <div className="absolute top-20 left-1/4 w-64 h-64 bg-teal-100/40 rounded-full blur-3xl" />
-          <div className="absolute top-10 right-1/4 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl" />
-        </div>
-        
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4"
-        >
-          Your path to <span className="text-teal-600 italic">wellness</span> starts here
-        </motion.h1>
-        <p className="text-slate-500 max-w-2xl mx-auto text-lg">
-          Verified professionals chosen for their empathy and expertise. 
-          Find someone who truly understands your journey.
-        </p>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 md:px-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-10">
         {isLoading ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[...Array(4)].map((_, i) => <SkeletonCard key={i} />)}
@@ -199,7 +177,6 @@ export default function LandingTherapistsCard() {
             </AnimatePresence>
           </div>
         )}
-      </div>
 
       {psychologist && (
         <PsychologistModal
@@ -209,6 +186,44 @@ export default function LandingTherapistsCard() {
           hasOfferClaim={hasOfferClaim}
         />
       )}
+    </div>
+  );
+}
+
+export default function LandingTherapistsCard() {
+  return (
+    <section className="min-h-screen bg-[#F8FAFC] pb-10 md:pb-20 ">
+      {/* Header Section */}
+      <div className="relative pt-20 md:pt-32  pb-10 md:pb-20 px-3 md:px-6 text-center overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+          <div className="absolute top-20 left-1/4 w-64 h-64 bg-teal-100/40 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-1/4 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl" />
+        </div>
+        
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4"
+        >
+          Your path to <span className="text-teal-600 italic">wellness</span> starts here
+        </motion.h1>
+        <p className="text-slate-500 max-w-2xl mx-auto text-lg">
+          Verified professionals chosen for their empathy and expertise. 
+          Find someone who truly understands your journey.
+        </p>
+      </div>
+
+      <Suspense 
+        fallback={
+          <div className="max-w-7xl mx-auto px-4 md:px-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {[...Array(4)].map((_, i) => <SkeletonCard key={i} />)}
+            </div>
+          </div>
+        }
+      >
+        <TherapistsList />
+      </Suspense>
     </section>
   );
 }
