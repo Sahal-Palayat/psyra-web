@@ -36,6 +36,7 @@ export default function NextAvailableSlot({
   const [openBooking, setOpenBooking] = useState(false);
 
   const nextSlot = getNextSlot(monthlySlots);
+  if (!nextSlot) return null;
 
   return (
     <>

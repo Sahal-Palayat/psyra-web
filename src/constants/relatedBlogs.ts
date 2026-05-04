@@ -34,4 +34,10 @@ export const relatedBlogsMap: Record<string, string[]> = {
     "hidden-signs-of-depression-that-dont-look-like-sadness",
     "power-of-emotional-validation",
   ],
+  "bipolar-disorder-symptoms-treatment":[
+    "why-therapy-works",
+    "hidden-signs-of-depression-that-dont-look-like-sadness",
+    "the-science-of-stress-what-happens-inside-your-brain",
+  
+  ]
 };
