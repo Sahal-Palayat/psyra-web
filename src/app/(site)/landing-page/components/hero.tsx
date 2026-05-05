@@ -1,7 +1,7 @@
 "use client";
 
 import { Calendar1, Heart, Search, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -9,7 +9,7 @@ interface Psychologist {
   expertise: string[];
 }
 
-const LandingHero = () => {
+const HeroContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [concerns, setConcerns] = useState<string[]>([]);
@@ -47,13 +47,9 @@ const LandingHero = () => {
   };
 
   return (
-    <section className="relative mt-20 md:mt-32 mb-10 md:mb-20 px-4 md:px-6 overflow-hidden">
-      <div className="absolute top-0 right-0 -z-10 w-48 h-24 md:w-64 md:h-64 bg-teal-100/50 rounded-full blur-3xl opacity-60" />
-      <div className="absolute bottom-0 left-0 -z-10 w-64 h-64 md:w-96 md:h-96 bg-orange-50/50 rounded-full blur-3xl opacity-60" />
-
-      <div className="max-w-6xl mx-auto bg-[#FDFDFC] border border-slate-100 py-10 md:py-24 px-5 md:px-16 rounded-[2rem] md:rounded-[3rem] shadow-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-          
+    <div className="max-w-6xl mx-auto bg-[#FDFDFC] border border-slate-100 py-10 md:py-24 px-5 md:px-16 rounded-[2rem] md:rounded-[3rem] shadow-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+        <div className="space-y-6 md:space-y-10">
           <div className="space-y-6 md:space-y-10">
             <div className="text-center lg:text-left">
               <motion.h1 
@@ -146,10 +142,26 @@ const LandingHero = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
-      
+    </div>
+  );
+};
+
+const LandingHero = () => {
+  return (
+    <section className="relative mt-20 md:mt-32 mb-10 md:mb-20 px-4 md:px-6 overflow-hidden">
+      <div className="absolute top-0 right-0 -z-10 w-48 h-24 md:w-64 md:h-64 bg-teal-100/50 rounded-full blur-3xl opacity-60" />
+      <div className="absolute bottom-0 left-0 -z-10 w-64 h-64 md:w-96 md:h-96 bg-orange-50/50 rounded-full blur-3xl opacity-60" />
+
+      <Suspense 
+        fallback={
+          <div className="max-w-6xl mx-auto bg-slate-50/50 animate-pulse h-[400px] md:h-[600px] rounded-[2rem] md:rounded-[3rem] border border-slate-100" />
+        }
+      >
+        <HeroContent />
+      </Suspense>
+
       {/* Add this global style tag or move it to your CSS file to hide scrollbars */}
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar {
