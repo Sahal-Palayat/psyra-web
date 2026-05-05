@@ -70,8 +70,8 @@ const HeroContent = () => {
           <div className="relative border-l-2 border-teal-100 ml-4 pl-10 space-y-8">
             {[
               { icon: <Search size={18} />, text: "Choose therapist" },
-              { icon: <Calendar1 size={18} />, text: "Book your link" },
-              { icon: <Heart size={18} />, text: "Start healing" },
+              { icon: <Calendar1 size={18} />, text: "Get your link" },
+              { icon: <Heart size={18} />, text: "Start Session" },
             ].map((step, idx) => (
               <div key={idx} className="relative flex items-center gap-4">
                 <span className="absolute -left-[59px]">
