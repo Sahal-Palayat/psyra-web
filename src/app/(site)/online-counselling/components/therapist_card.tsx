@@ -76,7 +76,7 @@ function TherapistsList() {
                   key={therapist._id}
                   className="group relative bg-white border border-slate-100 rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-6 shadow-sm hover:shadow-xl hover:shadow-teal-900/5 transition-all duration-500 overflow-hidden"
                 >
-                  <div className="flex flex-row gap-4 md:gap-8 items-start">
+                  <div className="flex flex-row gap-4 md:gap-8 items-start mb-4">
                     {/* Image Column */}
                     <div className="relative flex-shrink-0">
                       <div className="w-20 h-28 sm:w-24 sm:h-32 md:w-40 md:h-52 rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-inner bg-slate-50 border-2 md:border-4 border-white">
@@ -89,74 +89,71 @@ function TherapistsList() {
                     </div>
 
                     {/* Content Column */}
-                    <div className="flex-1 flex flex-col justify-between min-w-0">
-                      <div>
-                        <h2 className="text-lg md:text-2xl font-bold text-slate-800 leading-tight truncate">{therapist.name}</h2>
-                        <p className="text-teal-600 font-semibold text-[10px] md:text-sm uppercase tracking-wider mb-2 md:mb-4 truncate">
-                          {therapist.designation}
-                        </p>
+                    <div className="flex-1 flex flex-col min-w-0">
+                      <h2 className="text-lg md:text-2xl font-bold text-slate-800 leading-tight truncate">{therapist.name}</h2>
+                      <p className="text-teal-600 font-semibold text-[10px] md:text-sm uppercase tracking-wider mb-1 md:mb-2 truncate">
+                        {therapist.designation}
+                      </p>
 
-                        <div className="space-y-1 md:space-y-3 mb-3 md:mb-6">
-                          <div className="flex items-center gap-2 text-slate-500 text-[11px] md:text-sm">
-                            <GraduationCap size={14} className="flex-shrink-0 text-slate-400" />
-                            <span className="truncate">{therapist.experience} Exp</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-slate-500 text-[11px] md:text-sm">
-                            <Languages size={14} className="flex-shrink-0 text-slate-400" />
-                            <span className="truncate">{therapist.languages?.join(", ")}</span>
-                          </div>
+                      <div className="space-y-1 md:space-y-2 mb-2 md:mb-4">
+                        <div className="flex items-center gap-2 text-slate-500 text-[11px] md:text-sm">
+                          <GraduationCap size={14} className="flex-shrink-0 text-slate-400" />
+                          <span className="truncate">{therapist.experience} Exp</span>
                         </div>
-
-                        {/* Marquee - Fixed with min-w-0 and max-w */}
-                        <div className="mt-2 w-full max-w-[200px] sm:max-w-xs md:max-w-none overflow-hidden relative">
-                          <div className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-white to-transparent z-10" />
-                          <div className="absolute inset-y-0 right-0 w-2 bg-gradient-to-l from-white to-transparent z-10" />
-                          
-                          <motion.div 
-                            animate={{ x: [0, -200] }}
-                            transition={{ 
-                              repeat: Infinity, 
-                              duration: 6, 
-                              ease: "linear" 
-                            }}
-                            className="flex gap-2 whitespace-nowrap"
-                          >
-                            {[...(therapist.expertise || []), ...(therapist.expertise || []), ...(therapist.expertise || [])].map((exp, i) => (
-                              <span 
-                                key={i} 
-                                className="px-2 py-0.5 md:px-3 md:py-1 bg-teal-50/50 text-teal-700 text-[9px] md:text-[10px] font-bold uppercase tracking-tight rounded-full border border-teal-100/50"
-                              >
-                                {exp}
-                              </span>
-                            ))}
-                          </motion.div>
+                        <div className="flex items-center gap-2 text-slate-500 text-[11px] md:text-sm">
+                          <Languages size={14} className="flex-shrink-0 text-slate-400" />
+                          <span className="truncate">{therapist.languages?.join(", ")}</span>
                         </div>
                       </div>
 
-                      {/* Bottom row: Price and Buttons */}
-                      <div className="mt-3 md:mt-6 flex flex-col gap-3 border-t border-slate-50 pt-3 md:pt-6">
-                        <div className="flex items-baseline gap-2">
-                          <p className="text-base md:text-xl font-bold text-slate-900">
-                            ₹{hasOfferClaim ? formatPrice(applyOfferDiscount(parseInt(therapist.price || "999"))) : therapist.price || "999"}
-                          </p>
-                          {hasOfferClaim && <span className="text-[10px] md:text-sm text-slate-300 line-through">₹{therapist.price}</span>}
-                        </div>
-                        
-                        <div className="flex gap-2 w-full">
-                            <Link href={`/profile/${therapist._id}`} className="flex-1">
-                                <Button variant="outline" className="w-full rounded-xl h-8 md:h-10 text-[11px] md:text-sm border-slate-200 text-slate-600">
-                                    View Profile
-                                </Button>
-                            </Link>
-                            <Button 
-                              onClick={() => handleBookNow(therapist)}
-                              className="flex-1 bg-teal-600 hover:bg-teal-700 text-white h-8 md:h-10 rounded-xl text-[11px] md:text-sm"
-                            >
-                              Book
-                            </Button>
-                        </div>
+                      {/* Price moved above marquee for mobile */}
+                      <div className="flex items-baseline gap-2 mb-1 md:mb-0">
+                        <p className="text-lg md:text-xl font-bold text-slate-900">
+                          ₹{hasOfferClaim ? formatPrice(applyOfferDiscount(parseInt(therapist.price || "999"))) : therapist.price || "999"}
+                        </p>
+                        {hasOfferClaim && <span className="text-[10px] md:text-sm text-slate-300 line-through">₹{therapist.price}</span>}
                       </div>
                     </div>
+                  </div>
+
+                  {/* Full Width Marquee */}
+                  <div className="relative w-full overflow-hidden py-2 -mx-4 px-4 md:-mx-6 md:px-6">
+                    <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+                    <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+                    
+                    <motion.div 
+                      animate={{ x: [0, -400] }}
+                      transition={{ 
+                        repeat: Infinity, 
+                        duration: 12, 
+                        ease: "linear" 
+                      }}
+                      className="flex gap-2 whitespace-nowrap"
+                    >
+                      {[...(therapist.expertise || []), ...(therapist.expertise || []), ...(therapist.expertise || []), ...(therapist.expertise || [])].map((exp, i) => (
+                        <span 
+                          key={i} 
+                          className="px-3 py-1 bg-teal-50/50 text-teal-700 text-[9px] md:text-[10px] font-bold uppercase tracking-tight rounded-full border border-teal-100/50"
+                        >
+                          {exp}
+                        </span>
+                      ))}
+                    </motion.div>
+                  </div>
+
+                  {/* Buttons Centered */}
+                  <div className="mt-4 flex gap-3 w-full justify-center border-t border-slate-50 pt-1">
+                      <Link href={`/profile/${therapist._id}`} className="w-[45%] md:flex-1">
+                          <Button variant="outline" className="w-full rounded-xl h-9 md:h-11 text-[11px] md:text-sm border-slate-200 text-slate-600">
+                              View Profile
+                          </Button>
+                      </Link>
+                      <Button 
+                        onClick={() => handleBookNow(therapist)}
+                        className="w-[45%] md:flex-1 bg-teal-600 hover:bg-teal-700 text-white h-9 md:h-11 rounded-xl text-[11px] md:text-sm"
+                      >
+                        Book
+                      </Button>
                   </div>
                 </motion.div>
               ))}
