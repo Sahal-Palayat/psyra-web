@@ -11,7 +11,7 @@ export default function SiteLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname();
-  const isLandingPage = pathname === "/landing-page";
+  const isLandingPage = pathname === "/online-counselling";
 
   return (
     <>
