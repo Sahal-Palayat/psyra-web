@@ -101,43 +101,6 @@
               </button>
             </motion.div>
 
-            {/* Select Input */}
-            {/* <div className="space-y-3 max-w-md">
-              <label className="text-xs md:text-sm uppercase tracking-widest font-black text-slate-400 ml-1">
-                I am looking for help with...
-              </label>
-              <div className="relative group">
-                <select
-                  value={activeConcern}
-                  onChange={handleSelectChange}
-                  className="w-full text-md md:text-lg bg-white/50 backdrop-blur-sm border-b-2 border-slate-200 hover:border-teal-400 focus:border-teal-500 py-4 px-2 outline-none text-slate-800 font-bold  transition-all cursor-pointer appearance-none"
-                >
-                  <option value="">Everything / Select Concern</option>
-                  {concerns.map((concern) => (
-                    <option key={concern} value={concern}>{concern}</option>
-                  ))}
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </div>
-          {/* Stepper */}
-          <div className="relative border-l-2 border-teal-100 ml-4 pl-10 space-y-8">
-            {[
-              { icon: <Search size={18} />, text: "Choose therapist" },
-              { icon: <Calendar1 size={18} />, text: "Get your link" },
-              { icon: <Heart size={18} />, text: "Start Session" },
-            ].map((step, idx) => (
-              <div key={idx} className="relative flex items-center gap-4">
-                <span className="absolute -left-[59px]">
-                  <div className="bg-white p-2.5 rounded-2xl shadow-sm border border-teal-50 text-teal-500">
-                    {step.icon}
-                  </div>
-                </span>
-                <p className="text-slate-700 font-semibold text-lg md:text-xl">{step.text}</p>
-              </div>
-            </div> */}
           </div>
 
           {/* Right Column: Hidden on mobile/tablet, shown on desktop (lg) */}
