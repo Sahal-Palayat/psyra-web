@@ -59,13 +59,13 @@ function TherapistsList() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-10 ">
         {isLoading ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {[...Array(4)].map((_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 ">
             <AnimatePresence mode="popLayout">
               {filteredData.map((therapist) => (
                 <motion.div
@@ -74,7 +74,7 @@ function TherapistsList() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   key={therapist._id}
-                  className="group relative bg-white border border-slate-100 rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-6 shadow-sm hover:shadow-xl hover:shadow-teal-900/5 transition-all duration-500 overflow-hidden"
+                  className="md:mt-12 mt-6 group relative bg-white border border-slate-100 rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-6 shadow-sm hover:shadow-xl hover:shadow-teal-900/5 transition-all duration-500 overflow-hidden"
                 >
                   <div className="flex flex-row gap-4 md:gap-8 items-start mb-4">
                     {/* Image Column */}
@@ -175,7 +175,7 @@ function TherapistsList() {
 
 export default function LandingTherapistsCard() {
   return (
-    <section className="min-h-screen bg-[#F8FAFC] pb-10 md:pb-20">
+    <section id="therapist_card" className="min-h-screen bg-[#F8FAFC] pb-10 md:pb-20">
       <Suspense 
         fallback={
           <div className="max-w-7xl mx-auto px-4 md:px-10">
