@@ -122,6 +122,20 @@
                     <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </div>
+          {/* Stepper */}
+          <div className="relative border-l-2 border-teal-100 ml-4 pl-10 space-y-8">
+            {[
+              { icon: <Search size={18} />, text: "Choose therapist" },
+              { icon: <Calendar1 size={18} />, text: "Get your link" },
+              { icon: <Heart size={18} />, text: "Start Session" },
+            ].map((step, idx) => (
+              <div key={idx} className="relative flex items-center gap-4">
+                <span className="absolute -left-[59px]">
+                  <div className="bg-white p-2.5 rounded-2xl shadow-sm border border-teal-50 text-teal-500">
+                    {step.icon}
+                  </div>
+                </span>
+                <p className="text-slate-700 font-semibold text-lg md:text-xl">{step.text}</p>
               </div>
             </div> */}
           </div>
