@@ -27,6 +27,7 @@ export default function PsychologistCarousel() {
     {
       _id: "",
       name: "",
+      slug: "",
       designation: "",
       monthlySlots: [],
       imageUrl: "",
