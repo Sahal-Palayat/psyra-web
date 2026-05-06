@@ -11,6 +11,7 @@ export interface Blog {
   author?: {
      _id: string
     name: string;
+    slug: string;
     designation: string;
     imageUrl: string;
   };

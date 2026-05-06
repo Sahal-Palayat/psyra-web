@@ -143,7 +143,7 @@ function TherapistsList() {
 
                   {/* Buttons Centered */}
                   <div className="mt-4 flex gap-3 w-full justify-center border-t border-slate-50 pt-1">
-                      <Link href={`/profile/${therapist._id}`} className="w-[45%] md:flex-1">
+                      <Link href={`/profile/${therapist.slug}`} className="w-[45%] md:flex-1">
                           <Button variant="outline" className="w-full rounded-xl h-9 md:h-11 text-[11px] md:text-sm border-slate-200 text-slate-600">
                               View Profile
                           </Button>

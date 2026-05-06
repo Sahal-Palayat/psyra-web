@@ -206,7 +206,7 @@ export default async function BlogDetail({
                   ? {
                       "@type": "Person",
                       name: blog.author.name,
-                      url: `https://psyra.in/profile/${blog.author._id}`,
+                      url: `https://psyra.in/profile/${blog.author.slug}`,
                     }
                   : undefined,
                 publisher: {
@@ -280,7 +280,7 @@ export default async function BlogDetail({
           {/* Author block */}
           {blog.author && (
             <Link
-              href={`/profile/${blog.author._id}`}
+              href={`/profile/${blog.author.slug}`}
               className="block my-6 group"
             >
               <div className="flex items-start gap-5 p-6 rounded-xl bg-gray-50/50 border-l-4 border-[#00989D] transition hover:bg-gray-50">

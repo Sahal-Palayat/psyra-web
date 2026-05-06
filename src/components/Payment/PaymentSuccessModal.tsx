@@ -73,8 +73,7 @@ export const PaymentSuccessModal = ({
             </p>
 
             <div className="mt-3 text-center text-sm text-white/80 leading-relaxed">
-              Our client support executive will contact you shortly to schedule
-              your session at your convenience.
+              Our client support executive will connect with you shortly to assist you with your session.
             </div>
           </div>
         </motion.div>

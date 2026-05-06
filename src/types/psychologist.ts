@@ -1,6 +1,7 @@
 export interface Psychologist {
   _id: string;
   name: string;
+  slug: string;
   designation: string;
   monthlySlots: string[];
   experience: string;
