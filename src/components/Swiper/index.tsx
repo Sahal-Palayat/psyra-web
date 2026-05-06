@@ -171,7 +171,7 @@ export default function Carousel3DFixedTiming({
                         {psychologist.designation || "General Psychology"}
                       </p>
                     </>
-                    <Link href={`/profile/${psychologist._id}`}>
+                    <Link href={`/profile/${psychologist.slug}`}>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}

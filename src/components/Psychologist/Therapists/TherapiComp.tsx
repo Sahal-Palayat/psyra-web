@@ -108,6 +108,7 @@ export default function TherapistsCard() {
   const [allData, setAllData] = useState<Psychologist[]>([]);
   const [psychologist, setPsychologist] = useState<Psychologist>({
     _id: "",
+    slug: "",
     name: "",
     designation: "",
     monthlySlots: [],
@@ -245,7 +246,7 @@ export default function TherapistsCard() {
                         />
 
                         <Link
-                          href={`/profile/${therapist._id}`}
+                          href={`/profile/${therapist.slug}`}
                           className="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-20"
                         >
                           <Button

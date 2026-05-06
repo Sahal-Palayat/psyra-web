@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import ProfileHeader from "@/components/psychologistProfile/header-profile";
 import AboutSection from "@/components/psychologistProfile/aboutSection";
@@ -19,9 +19,9 @@ import axios from "axios";
 export default function TherapistDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { slug: string };
 }) {
-  const { id } = use(params);
+  const { slug } = params;
 
   const [therapist, setTherapist] = useState<PsychologistProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ export default function TherapistDetailPage({
     async function loadTherapistDetails() {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/psychologists/${id}`
+          `${process.env.NEXT_PUBLIC_API_URL}/psychologists/${slug}`
         );
 
         setTherapist(response.data);
@@ -45,7 +45,7 @@ export default function TherapistDetailPage({
     }
 
     loadTherapistDetails();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
