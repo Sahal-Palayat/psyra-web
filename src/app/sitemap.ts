@@ -1,81 +1,93 @@
-import { MetadataRoute } from "next"
-
+import { MetadataRoute } from "next";
 
 type BlogForSitemap = {
-  name: string
-  updatedAt?: string
-}
+  name: string;
+  updatedAt?: string;
+};
 
 type ConcernForSitemap = {
-  slug: string
-  updatedAt?: string
-  status?: "active" | "inactive"
-}
+  slug: string;
+  updatedAt?: string;
+  status?: "active" | "inactive";
+};
 
 type LocationForSitemap = {
-  slug: string
-  updatedAt?: string
-}
+  slug: string;
+  updatedAt?: string;
+};
 
-
+type PsychologistForSitemap = {
+  slug: string;
+  updatedAt?: string;
+};
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://psyra.in"
+  const baseUrl = "https://psyra.in";
 
-  let blogs: BlogForSitemap[] = []
+  let blogs: BlogForSitemap[] = [];
 
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/blogs`,
-      { cache: "no-store" }
-    )
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
+      cache: "no-store",
+    });
 
     if (res.ok) {
-      const responseData = await res.json()
+      const responseData = await res.json();
 
-      
       if (Array.isArray(responseData)) {
-        blogs = responseData
+        blogs = responseData;
       } else if (Array.isArray(responseData.blogs)) {
-        blogs = responseData.blogs
+        blogs = responseData.blogs;
       }
     }
   } catch (error) {
-    console.error("BLOG SITEMAP FETCH ERROR", error)
+    console.error("BLOG SITEMAP FETCH ERROR", error);
   }
 
-let concerns: ConcernForSitemap[] = []
+  let concerns: ConcernForSitemap[] = [];
 
-try {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/concerns`,
-    { cache: "no-store" }
-  )
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/concerns`, {
+      cache: "no-store",
+    });
 
-  if (res.ok) {
-    const data = await res.json()
-    concerns = Array.isArray(data) ? data : data.concerns ?? []
+    if (res.ok) {
+      const data = await res.json();
+      concerns = Array.isArray(data) ? data : (data.concerns ?? []);
+    }
+  } catch (error) {
+    console.error("CONCERNS SITEMAP FETCH ERROR", error);
   }
-} catch (error) {
-  console.error("CONCERNS SITEMAP FETCH ERROR", error)
-}
 
-    let locations: LocationForSitemap[] = []
+  let locations: LocationForSitemap[] = [];
 
-try {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/locations`,
-    { cache: "no-store" }
-  )
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/locations`, {
+      cache: "no-store",
+    });
 
-  if (res.ok) {
-    const data = await res.json()
-    locations = Array.isArray(data) ? data : data.locations ?? []
+    if (res.ok) {
+      const data = await res.json();
+      locations = Array.isArray(data) ? data : (data.locations ?? []);
+    }
+  } catch (error) {
+    console.error("LOCATION SITEMAP FETCH ERROR", error);
   }
-} catch (error) {
-  console.error("LOCATION SITEMAP FETCH ERROR", error)
-}
 
+  let psychologists: PsychologistForSitemap[] = [];
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/psychologists`,
+      { cache: "no-store" },
+    );
+    if (res.ok) {
+      const data = await res.json();
+      psychologists = Array.isArray(data) ? data : (data.psychologists ?? []);
+    }
+  } catch (error) {
+    console.error("PSYCHOLOGISTS SITEMAP FETCH ERROR", error);
+  }
 
   return [
     // --- static pages ---
@@ -89,39 +101,34 @@ try {
     { url: `${baseUrl}/psychologists` },
     { url: `${baseUrl}/blogs` },
 
-
     // --- seo dedicated therapy pages ---
     { url: `${baseUrl}/couples-counselling`, priority: 0.9 },
 
     // --- seo critical pages ---
     ...concerns
-  .filter((c) => c.status !== "inactive")
-  .map((c) => ({
-    url: `${baseUrl}/concerns/${c.slug}`,
-    lastModified: c.updatedAt
-      ? new Date(c.updatedAt)
-      : new Date(),
-    priority: 0.8,
-  })),
-
+      .filter((c) => c.status !== "inactive")
+      .map((c) => ({
+        url: `${baseUrl}/concerns/${c.slug}`,
+        lastModified: c.updatedAt ? new Date(c.updatedAt) : new Date(),
+        priority: 0.8,
+      })),
 
     ...blogs.map((blog) => ({
       url: `${baseUrl}/blogs/${blog.name}`,
-      lastModified: blog.updatedAt
-        ? new Date(blog.updatedAt)
-        : new Date(),
+      lastModified: blog.updatedAt ? new Date(blog.updatedAt) : new Date(),
       priority: 0.7,
     })),
 
+    ...locations.map((loc) => ({
+      url: `${baseUrl}/locations/${loc.slug}`,
+      lastModified: loc.updatedAt ? new Date(loc.updatedAt) : new Date(),
+      priority: 0.9,
+    })),
 
-
-...locations.map((loc) => ({
-  url: `${baseUrl}/locations/${loc.slug}`,
-  lastModified: loc.updatedAt
-    ? new Date(loc.updatedAt)
-    : new Date(),
-  priority: 0.9,
-})),
-
-  ]
+    ...psychologists.map((p) => ({
+      url: `${baseUrl}/psychologists/${p.slug}`,
+      lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(),
+      priority: 0.8,
+    })),
+  ];
 }
