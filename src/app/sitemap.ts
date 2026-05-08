@@ -89,6 +89,10 @@ try {
     { url: `${baseUrl}/psychologists` },
     { url: `${baseUrl}/blogs` },
 
+
+    // --- seo dedicated therapy pages ---
+    { url: `${baseUrl}/couples-counselling`, priority: 0.9 },
+
     // --- seo critical pages ---
     ...concerns
   .filter((c) => c.status !== "inactive")
