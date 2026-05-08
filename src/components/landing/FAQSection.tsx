@@ -6,34 +6,47 @@ const faqs = [
   {
     question: "Can online couples counselling really help?",
     answer:
-      "Yes — research consistently shows that online therapy is as effective as in-person sessions for most relationship concerns. Our licensed Malayalam-speaking psychologists use evidence-based approaches like Emotionally Focused Therapy (EFT) and Cognitive Behavioural Therapy (CBT) to help couples improve communication, resolve conflicts, and rebuild trust — all from the comfort of your home.",
+      "Yes - research consistently shows that online therapy is as effective as in-person sessions for most relationship concerns. Our expert Malayalam-speaking psychologists use evidence-based approaches like Emotionally Focused Therapy (EFT) and Cognitive Behavioural Therapy (CBT) to help couples improve communication, resolve conflicts, and rebuild trust - all from the comfort of your home.",
   },
   {
     question: "Can one partner attend therapy alone?",
     answer:
-      "Absolutely. Individual sessions are available alongside couples therapy. Sometimes one partner begins therapy first, and the other joins later. Our psychologists tailor the approach based on what works best for your situation — there's no fixed rule.",
+      "Absolutely. Individual sessions are available alongside couples therapy. Sometimes one partner begins therapy first, and the other joins later. Our psychologists tailor the approach based on what works best for your situation - there's no fixed rule.",
   },
   {
     question: "Are sessions available in Malayalam?",
     answer:
-      "Yes — all our psychologists are native Malayalam speakers. You can express yourself fully in your mother tongue without worrying about language barriers. We also serve the Kerala diaspora globally, so sessions are available across time zones.",
+      "Yes - all our psychologists are native Malayalam speakers. You can express yourself fully in your mother tongue without worrying about language barriers. We also serve the Kerala diaspora globally, so sessions are available across time zones.",
   },
   {
     question: "How many sessions are usually needed?",
     answer:
-      "It varies depending on the concerns you bring to therapy. Many couples notice meaningful progress within 4–6 sessions. For deeper or long-standing issues, a longer course may be recommended. Your psychologist will discuss a plan with you after the first session — there's no pressure to commit upfront.",
+      "It varies depending on the concerns you bring to therapy. Many couples notice meaningful progress within 4–6 sessions. For deeper or long-standing issues, a longer course may be recommended. Your psychologist will discuss a plan with you after the first session - there's no pressure to commit upfront.",
   },
   {
     question: "Is everything discussed in sessions kept confidential?",
     answer:
-      "Confidentiality is a core principle of our practice. What you share in sessions stays between you and your therapist. The only exceptions are situations involving imminent risk of harm — which your psychologist will explain clearly before you begin.",
+      "Confidentiality is a core principle of our practice. What you share in sessions stays between you and your therapist. The only exceptions are situations involving imminent risk of harm - which your psychologist will explain clearly before you begin.",
   },
   {
     question: "How do I book a session?",
     answer:
-      "Simply click 'Book your first session', choose a time that suits you, and you'll be matched with a qualified Malayalam psychologist. The whole process takes just a few minutes — no lengthy intake forms or waiting lists.",
+      "Simply click 'Book your first session', choose a time that suits you, and you'll be matched with a qualified Malayalam psychologist. The whole process takes just a few minutes - no lengthy intake forms or waiting lists.",
   },
 ]
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+}
 
 function FAQItem({ faq, isOpen, onToggle }: {
   faq: { question: string; answer: string }
@@ -86,37 +99,40 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="py-20">
-      <div className="max-w-3xl mx-auto px-6">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
-        {/* Header */}
-        <div className="text-center mb-10">
-          
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
 
-          <h2 className="font-serif text-3xl font-normal leading-snug text-gray-900 mb-3">
-            Frequently asked{" "}
-            <em className="italic text-teal-700">questions</em>
-          </h2>
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-3xl font-normal leading-snug text-gray-900 mb-3">
+              Frequently asked{" "}
+              <em className="italic text-teal-700">questions</em>
+            </h2>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Everything you need to know about online Malayalam couples counselling at Psyra.
+            </p>
+          </div>
 
-          <p className="text-sm text-gray-500 leading-relaxed">
-            Everything you need to know about online Malayalam couples counselling at Psyra.
-          </p>
+          {/* Accordion */}
+          <div className="space-y-2">
+            {faqs.map((faq, i) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                isOpen={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </div>
+
         </div>
-
-        {/* Accordion */}
-        <div className="space-y-2">
-          {faqs.map((faq, i) => (
-            <FAQItem
-              key={faq.question}
-              faq={faq}
-              isOpen={openIndex === i}
-              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-            />
-          ))}
-        </div>
-
-    
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

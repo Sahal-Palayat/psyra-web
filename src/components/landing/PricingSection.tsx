@@ -20,7 +20,7 @@ const plans = [
   {
     title: "Package Sessions",
     description:
-      "Multiple sessions bundled together for consistent, long-term support — ideal for couples working through deeper challenges.",
+      "Multiple sessions bundled together for consistent, long-term support - ideal for couples working through deeper challenges.",
     price: "₹4,800",
     href: "/couple-therapy",
     tags: ["Multi-session bundle", "Long-term support", "Best value"],
@@ -39,36 +39,17 @@ const plans = [
 export default function PricingSection() {
   return (
     <section className="py-20">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* Header */}
-        <div className="mb-10">
-         
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <h2 className="font-serif text-3xl font-normal leading-snug text-gray-900 mb-2">
-                Affordable online{" "}
-                <em className="italic text-teal-700">couple therapy plans</em>
-              </h2>
-              <p className="text-sm text-gray-500 leading-relaxed max-w-md">
-                Flexible plans designed to make care simple and accessible —
-                fully in Malayalam.
-              </p>
-            </div>
-
-            <Link
-              href="/couple-therapy"
-              className="inline-flex items-center gap-2 text-sm font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 rounded-full px-5 py-2.5 transition-colors flex-shrink-0 w-fit"
-            >
-              View all plans
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 12l14 0" />
-                <path d="M13 18l6 -6" />
-                <path d="M13 6l6 6" />
-              </svg>
-            </Link>
-          </div>
+        {/* Header — centered */}
+        <div className="text-center max-w-lg mx-auto mb-10">
+          <h2 className="font-serif text-3xl font-normal leading-snug text-gray-900 mb-2">
+            Affordable online{" "}
+            <em className="italic text-teal-700">couple therapy plans</em>
+          </h2>
+          <p className="text-sm text-gray-500 leading-relaxed">
+            Flexible plans designed to make care simple and accessible.
+          </p>
         </div>
 
         {/* Cards */}
@@ -125,9 +106,25 @@ export default function PricingSection() {
           ))}
         </div>
 
+        {/* View all plans — centered below cards */}
+        <div className="flex justify-center mt-6">
+          <Link
+            href="/couple-therapy"
+            className="inline-flex items-center gap-2 text-sm font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 rounded-full px-5 py-2.5 transition-colors"
+          >
+            View all plans
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l14 0" />
+              <path d="M13 18l6 -6" />
+              <path d="M13 6l6 6" />
+            </svg>
+          </Link>
+        </div>
+
         {/* Footer note */}
-        <p className="text-center text-xs text-gray-400 mt-6">
-          All sessions are confidential and conducted by licensed Malayalam-speaking psychologists.
+        <p className="text-center text-xs text-gray-400 mt-4">
+          All sessions are confidential and conducted by qualified Malayalam-speaking psychologists.
         </p>
 
       </div>
