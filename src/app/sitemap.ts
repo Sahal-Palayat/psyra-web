@@ -126,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
 
     ...psychologists.map((p) => ({
-      url: `${baseUrl}/psychologists/${p.slug}`,
+      url: `${baseUrl}/profile/${p.slug}`,
       lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(),
       priority: 0.8,
     })),
