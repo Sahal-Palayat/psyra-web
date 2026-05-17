@@ -6,6 +6,9 @@ export const metadata = {
   title: "Mental Health Self Assessment | How Is Your Mind? | Psyra",
   description:
     "Take a simple mental health self-assessment to understand your emotional well-being. Answer guided questions and gain clarity on how your mind is feeling with Psyra.",
+    alternates: {
+    canonical: "https://psyra.in/how-is-mind",
+  },
 };
 
 export default function Page() {
