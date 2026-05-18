@@ -12,7 +12,7 @@ export async function generateMetadata({
       `${process.env.NEXT_PUBLIC_API_URL}/psychologists/${slug}`,
       {
         cache: "no-store",
-      }
+      },
     );
 
     const therapist = await res.json();
@@ -22,11 +22,27 @@ export async function generateMetadata({
       description:
         therapist.description?.slice(0, 155).trimEnd() + "…" ||
         `Book a session with ${therapist.name}, ${therapist.designation}, on Psyra.`,
+      alternates: {
+        canonical: `https://psyra.in/profile/${slug}`,
+      },
+
+      openGraph: {
+        title: `${therapist.name} — ${therapist.designation} | Psyra`,
+
+        description: therapist.description
+          ? therapist.description.slice(0, 155).trimEnd() + "…"
+          : `Book a session with ${therapist.name}, ${therapist.designation}, on Psyra.`,
+
+        url: `https://psyra.in/profile/${slug}`,
+
+        type: "profile",
+      },
     };
   } catch {
     return {
       title: "Find a Psychologist | Psyra",
-      description: "Connect with licensed psychologists and therapists on Psyra. Book a session today.",
+      description:
+        "Connect with licensed psychologists and therapists on Psyra. Book a session today.",
     };
   }
 }

@@ -13,12 +13,21 @@ import {
   RefreshCw,
 } from "lucide-react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Privacy Policy | Psyra",
   description:
     "Read Psyra’s privacy policy to understand how we collect, use, store, and protect personal information on our mental health platform.",
+  alternates: {
+    canonical: "https://psyra.in/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | Psyra",
+    description:
+      "Read Psyra’s privacy policy to understand how we collect, use, store, and protect personal information on our mental health platform.",
+    url: "https://psyra.in/privacy-policy",
+    type: "website",
+  },
 };
-
 
 export default function PrivacyPolicy() {
   const privacySections = [
