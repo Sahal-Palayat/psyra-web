@@ -1,7 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:"About Best online counselling | Trusted Therapy Psyra"
+  title:"About Best online counselling | Trusted Therapy Psyra",
+  alternates: {
+    canonical: "https://psyra.in/about-us",
+  },
 };
 
 export default function AboutUs() {

@@ -6,6 +6,9 @@ export const metadata = {
   title: "Online Counselling Services | Trusted therapy | Psyra",
   description:
     "Explore Psyra’s mental health services, including individual therapy, couple therapy, assessments, and online counselling tailored to your needs.",
+    alternates: {
+    canonical: "https://psyra.in/online-counselling-services",
+  },
 };
 
 const page = () => {

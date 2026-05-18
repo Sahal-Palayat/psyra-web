@@ -1,3 +1,5 @@
+
+import { Metadata } from "next";
 import HeroSection from "@/components/landing/HeroSection"
 import IntroductionSection from "@/components/landing/IntroductionSection"
 import SignsSection from "@/components/landing/SignsSection"
@@ -11,6 +13,31 @@ import PricingSection from "@/components/landing/PricingSection"
 import TestimonialsSection from "@/components/landing/TestimonialsSection"
 import FAQSection from "@/components/landing/FAQSection"
 import CTASection from "@/components/landing/CTASection"
+
+
+export const metadata: Metadata = {
+  title:
+    "Online Couples Counselling & Relationship Therapy | Psyra",
+
+  description:
+    "Professional online couples counselling and relationship therapy to improve communication, resolve conflicts, and strengthen emotional connection with expert therapists at Psyra.",
+
+  alternates: {
+    canonical: "https://psyra.in/couples-counselling",
+  },
+
+  openGraph: {
+    title:
+      "Online Couples Counselling & Relationship Therapy | Psyra",
+
+    description:
+      "Professional online couples counselling and relationship therapy to improve communication, resolve conflicts, and strengthen emotional connection with expert therapists at Psyra.",
+
+    url: "https://psyra.in/couples-counselling",
+
+    type: "website",
+  },
+};
 
 export default function CouplesCounsellingPage() {
   return (

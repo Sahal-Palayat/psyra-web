@@ -5,6 +5,9 @@ export const metadata = {
   title: "Individual Therapy & Online Counselling | One-on-One Support | Psyra",
   description:
     "Get professional individual therapy and online counselling tailored to your personal mental health needs. One-on-one support from qualified therapists at Psyra.",
+    alternates: {
+    canonical: "https://psyra.in/individual-therapy",
+  },
 };
 
 const page = () => {

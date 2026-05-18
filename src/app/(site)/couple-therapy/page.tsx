@@ -5,6 +5,9 @@ export const metadata = {
   title: "Couple Therapy & Online Counselling | Trusted Relationship Support | Psyra",
   description:
     "Professional couple therapy and online counselling to help partners improve communication, rebuild trust, and strengthen relationships with expert therapists at Psyra.",
+     alternates: {
+    canonical: "https://psyra.in/couple-therapy",
+  },
 };
 
 const page = () => {

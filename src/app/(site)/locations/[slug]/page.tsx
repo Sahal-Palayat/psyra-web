@@ -37,10 +37,16 @@ export async function generateMetadata({
     title: locationData.meta?.title || locationData.hero?.title,
     description:
       locationData.meta?.description || locationData.hero?.description,
+
+    alternates: {
+      canonical: `https://psyra.in/locations/${slug}`,
+    },
+
     openGraph: {
       title: locationData.meta?.title,
       description: locationData.meta?.description,
       type: "website",
+      url: `https://psyra.in/locations/${slug}`,
     },
   };
 }

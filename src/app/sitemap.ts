@@ -96,6 +96,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/online-counselling-services` },
     { url: `${baseUrl}/concerns` }, // concerns page currently uses static data
     { url: `${baseUrl}/contact-us` },
+    { url: `${baseUrl}/individual-therapy` },
+    { url: `${baseUrl}/couple-therapy` },
+    { url: `${baseUrl}/how-is-mind` },
+    { url: `${baseUrl}/privacy-policy` },
 
     // --- dynamic pages ---
     { url: `${baseUrl}/psychologists` },

@@ -17,6 +17,9 @@ export const metadata = {
   title: "Mental Health Concerns We Treat | Psyra",
   description:
     "Explore common mental health concerns such as anxiety, depression, stress, relationship issues, and more. Psyra offers professional support tailored to your needs.",
+     alternates: {
+    canonical: "https://psyra.in/concerns",
+  },
 };
 
 export default function Concerns() {

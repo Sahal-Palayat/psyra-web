@@ -39,9 +39,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL("https://psyra.in"), // Replace with your actual domain
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Psyra - Mental Health Support",
     description:
