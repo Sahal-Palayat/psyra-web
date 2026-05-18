@@ -39,18 +39,18 @@ export async function generateMetadata({
     title: `${blog.title} | Psyra`,
     description: blog.metaDescription || blog.shortDescription,
     alternates: {
-      canonical: `https://psyra.in/blogs/${blog.name}/`,
+      canonical: `https://psyra.in/blogs/${blog.name}`,
       // hreflang — only added when language field exists
       ...(blog.language && {
         languages: {
-          [blog.language]: `https://psyra.in/blogs/${blog.name}/`,
+          [blog.language]: `https://psyra.in/blogs/${blog.name}`,
         },
       }),
     },
     openGraph: {
       title: blog.title,
       description: blog.metaDescription || blog.shortDescription,
-      url: `https://psyra.in/blogs/${blog.name}/`,
+      url: `https://psyra.in/blogs/${blog.name}`,
       type: "article",
       publishedTime: blog.createdAt,
       modifiedTime: blog.updatedAt,
@@ -260,13 +260,13 @@ export default async function BlogDetail({
                     "@type": "ListItem",
                     position: 2,
                     name: "Blog",
-                    item: "https://psyra.in/blogs/",
+                    item: "https://psyra.in/blogs",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: blog.title,
-                    item: `https://psyra.in/blogs/${blog.name}/`,
+                    item: `https://psyra.in/blogs/${blog.name}`,
                   },
                 ],
               }),
