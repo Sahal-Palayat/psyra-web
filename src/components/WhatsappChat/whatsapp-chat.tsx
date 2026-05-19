@@ -3,7 +3,8 @@
 import Image from "next/image";
 
 function buildWhatsAppHref() {
-  const phone = "918891724199";
+  // const phone = "918891724199";
+  const phone = "+918129724199";
   const message = "Hi, I’m looking for support and would like to talk to someone.";
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
