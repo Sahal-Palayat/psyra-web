@@ -94,7 +94,9 @@ export default function HindiServices(){
 interface ServiceItem{
     title:string;
     description:string;
-    icon:any;
+    icon: React.ReactNode;
+    button_text: string;
+    button_link: string;
 }
 export function HindiConcernsCard({
   title,
