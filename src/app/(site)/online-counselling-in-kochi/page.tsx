@@ -9,7 +9,9 @@ import Testimonials from "@/components/locations/Kochi/Testimonials";
 import FAQ from "@/components/locations/Kochi/FAQ";
 import CTA from "@/components/locations/Kochi/CTA";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Online Malayalam Counselling in Kochi | Online Therapy in Kerala",
 
   description:
@@ -25,6 +27,23 @@ export const metadata = {
     "counselling in malayalam",
     "online psychologist kochi",
   ],
+
+  alternates: {
+  canonical: "https://psyra.in/online-counselling-in-kochi",
+},
+
+  openGraph: {
+    title:
+      "Online Malayalam Counselling in Kochi | Online Therapy in Kerala",
+
+    description:
+      "Get confidential online Malayalam counselling in Kochi with experienced psychologists. Online therapy support for anxiety, stress, relationships, depression, and emotional wellbeing.",
+
+    url:
+      "https://psyra.in/online-counselling-in-kochi",
+
+    type: "website",
+  },
 };
 
 // FAQ SCHEMA
