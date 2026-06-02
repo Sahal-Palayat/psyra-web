@@ -20,6 +20,8 @@ import {
   type RazorpayPaymentResponse,
 } from "@/lib/razorpay";
 
+import convert24hToSlotRangeHelper from "@/components/24hrtoSlotConverter";
+
 export function PsychologistModal({
   isOpen,
   onClose,
@@ -29,6 +31,7 @@ export function PsychologistModal({
   const [step, setStep] = useState(1);
   const [bookedSlots, setBookedSlot] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [successData, setSuccessData] = useState({
     name: "",
     email: "",
@@ -57,15 +60,11 @@ export function PsychologistModal({
     packageId: "",
   });
 
-  useEffect(() => {
-    if (isOpen && data?._id) {
-      setBookingData((prev) => ({
-        ...prev,
-        psychologistId: data._id,
-        packageAmount: typeof data?.price === "number" ? data.price : 0,
-      }));
-    }
-  }, [isOpen, data]);
+useEffect(() => {
+  if (bookingData.date) {
+    fetchPsychologistAvailability(bookingData.date);
+  }
+}, [bookingData.date, data?._id]);
 
 
 
@@ -74,17 +73,32 @@ export function PsychologistModal({
   const [isRetryingPayment, setIsRetryingPayment] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
 
-  const fetchBookedSlots = async (date: string) => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/psychologist-booking/booked-slots?date=${date}&psychologistId=${data?._id}`,
-      );
-      setBookedSlot(res?.data || []);
-    } catch (error) {
-      console.error("Error fetching booked slots:", error);
-    }
-  };
+  const fetchPsychologistAvailability = async (date: string) => {
+  if (!data?._id) return;
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/psychologist-portal/availability/${data._id}`,
+      { params: { date } }
+    );
 
+    // FIXED: Correctly grabbing the first element of the response array safely
+    const availabilityDoc = res?.data?.[0];
+
+    if (availabilityDoc && Array.isArray(availabilityDoc.slots)) {
+      // Filter out slots marked as 'unavailable' and map the free ones to range strings
+      const freeSlots = availabilityDoc.slots
+        .filter((slot: any) => slot.status === "free")
+        .map((slot: any) => convert24hToSlotRangeHelper(slot.startTime));
+
+      setAvailableSlots(freeSlots);
+    } else {
+      setAvailableSlots([]);
+    }
+  } catch (error) {
+    console.error("Error fetching dynamic availability slots:", error);
+    setAvailableSlots([]);
+  }
+};
   const updateBookingData = useCallback((data: Partial<BookingData>) => {
     setBookingData((prev) => ({ ...prev, ...data }));
   }, []);
@@ -518,14 +532,13 @@ export function PsychologistModal({
               {step === 3 && (
                 <SlotSelection
                   bookingData={bookingData}
-                  onUpdate={(data) => {
-                    if (data?.date) {
-                      fetchBookedSlots(data.date);
-                    }
-                    updateBookingData(data);
+                  onUpdate={(updatedData) => {
+                    updateBookingData(updatedData);
                   }}
-                  allTimeSlots={data?.monthlySlots}
-                  bookedSlots={bookedSlots}
+                  // Pass the calculated free slot range blocks
+                  allTimeSlots={availableSlots}
+                  // Safe to pass empty array since unavailable blocks are dropped during formatting
+                  bookedSlots={[]}
                 />
               )}
 
