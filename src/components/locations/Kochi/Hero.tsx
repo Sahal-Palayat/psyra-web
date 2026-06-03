@@ -1,20 +1,58 @@
+import Link from "next/link";
+
+const tags = [
+  "Anxiety",
+  "Depression",
+  "Stress",
+  "Relationships",
+  "Overthinking",
+  "Burnout",
+  "Loneliness",
+  "Family conflicts",
+];
+
+const avatars = [
+  { initial: "A", bg: "#1D9E75" },
+  { initial: "R", bg: "#0F6E56" },
+  { initial: "P", bg: "#5DCAA5" },
+  { initial: "M", bg: "#085041" },
+];
+
 export default function Hero() {
   return (
-    <section className="w-full bg-white py-16 lg:py-24">
+    <section className="w-full bg-white pt-24 pb-10 lg:pt-28 lg:pb-14">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
-          {/* LEFT CONTENT */}
-          <div>
-            <h1 className="text-4xl lg:text-6xl font-semibold leading-tight text-[#1E1E1E] mb-8">
-              Online Malayalam Counselling in Kochi
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+          {/* ── LEFT ── */}
+          <div className="order-last lg:order-first">
+            {/* Heading */}
+            <h1 className="font-serif text-[36px] sm:text-[44px] lg:text-[52px] font-semibold leading-[1.08] tracking-[-0.03em] text-[#1a2e2e]">
+              Online Malayalam
+              <span className="block italic font-normal text-[#008C95]">
+                Counselling in Kochi
+              </span>
             </h1>
 
-            <div className="space-y-6 text-[18px] leading-9 text-[#5F5F5F]">
-              
+            <div className="flex flex-wrap gap-3 mt-8 mb-6">
+              <span className="bg-white border border-[#D4ECEC] px-4 py-2 rounded-full text-sm text-[#085041]">
+                Malayalam Sessions
+              </span>
+              <span className="bg-white border border-[#D4ECEC] px-4 py-2 rounded-full text-sm text-[#085041]">
+                Online & Confidential
+              </span>
+              <span className="bg-white border border-[#D4ECEC] px-4 py-2 rounded-full text-sm text-[#085041]">
+                Qualified Psychologists
+              </span>
+            </div>
+
+            {/* Body */}
+            <div className="space-y-4 text-[15px] leading-[1.82] text-[#5c6e6e] font-light">
               <p>
-                In today’s fast-moving world, emotional wellbeing has become an
-                important part of maintaining a balanced and healthy life.
+                In today's fast-moving world, emotional wellbeing has become an
+                important part of maintaining a{" "}
+                <strong className="text-[#1a2e2e] font-medium">
+                  balanced and healthy life.
+                </strong>{" "}
                 However, many individuals still struggle to find accessible and
                 comfortable mental health support that truly understands their
                 emotions, lifestyle, and communication preferences.
@@ -22,51 +60,130 @@ export default function Hero() {
 
               <p>
                 Our online Malayalam counselling sessions in Kochi provide a
-                safe and supportive space to speak openly with experienced
-                psychologists from the comfort of your home. Whether you are
-                experiencing anxiety, stress, relationship challenges,
-                overthinking, emotional burnout, depression, loneliness, or
-                family conflicts, online therapy can help you better understand
-                and manage your emotions.
+                safe and supportive space to speak openly with{" "}
+                <Link
+                  href="/psychologists"
+                  className="text-[#008C95] font-medium hover:underline"
+                >
+                  experienced psychologists
+                </Link>{" "}
+                from the comfort of your home. Whether you are experiencing{" "}
+                <strong className="text-[#1a2e2e] font-medium">
+                  anxiety, stress,{" "}
+                  <Link
+                    href="/couples-counselling"
+                    className="text-[#008C95] font-medium hover:underline"
+                  >
+                    relationship challenges
+                  </Link>
+                  , overthinking, emotional burnout, depression, loneliness,
+                </strong>{" "}
+                or family conflicts, online therapy can help you better
+                understand and manage your emotions.
               </p>
 
-              <p>
+              {/* Pull-quote */}
+              <div className="bg-[#F0FAF8] border-l-[3px] border-[#1D9E75] rounded-r-lg px-4 py-3 text-[13.5px] text-[#0F6E56] leading-[1.72]">
                 Speaking in your native language often makes emotional
-                conversations feel more natural and comfortable. Malayalam
-                counselling sessions can help individuals express feelings more
-                openly without hesitation, allowing deeper emotional connection
-                and understanding during therapy.
-              </p>
+                conversations feel more natural and comfortable — allowing
+                deeper emotional connection and understanding during therapy.
+              </div>
 
               <p>
-                We offer confidential online counselling support for
-                individuals, couples, students, parents, and working
-                professionals across Kochi and Kerala through secure online
-                video sessions with Malayalam-speaking psychologists.
+                We offer confidential online counselling support for{" "}
+                <strong className="text-[#1a2e2e] font-medium">
+                  individuals, couples, students, parents, and working
+                  professionals
+                </strong>{" "}
+                across Kochi and Kerala through secure online video sessions
+                with Malayalam-speaking psychologists.
               </p>
             </div>
 
-            {/* CTA */}
-            <div className="mt-10 flex flex-wrap gap-4">
-              <button className="bg-[#008C95] hover:bg-[#00757D] transition text-white px-8 py-4 rounded-full text-sm font-medium">
+            {/* CTAs */}
+            <div className="mt-7 flex flex-wrap gap-2.5">
+              <Link
+                href="/online-counselling-services"
+                className="bg-[#008C95] hover:bg-[#006d75] transition-colors text-white px-6 py-3 rounded-full text-[13px] font-medium"
+              >
                 Book Now
-              </button>
+              </Link>
 
-              <button className="border border-[#008C95] text-[#008C95] hover:bg-[#008C95] hover:text-white transition px-8 py-4 rounded-full text-sm font-medium">
+              <Link
+                href="/psychologists"
+                className="border-[1.5px] border-[#008C95] text-[#008C95] hover:bg-[#008C95] hover:text-white transition-colors px-5 py-3 rounded-full text-[13px] font-medium"
+              >
                 Talk to a Psychologist
-              </button>
+              </Link>
+            </div>
+
+            {/* Trust row */}
+            <div className="mt-5 flex items-center gap-2.5">
+              <div className="flex">
+                {avatars.map(({ initial, bg }) => (
+                  <div
+                    key={initial}
+                    className="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-medium text-white -ml-2 first:ml-0"
+                    style={{ background: bg }}
+                  >
+                    {initial}
+                  </div>
+                ))}
+              </div>
+              <span className="text-[12px] text-[#8aabab]">
+                Trusted by 2,000+ individuals across Kerala
+              </span>
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="w-[320px] h-[320px] lg:w-[500px] lg:h-[500px] rounded-full overflow-hidden border-4 border-[#00A3AD]">
-                <img
-                  src="/images/kochi/hero.webp"
-                  alt="Online Malayalam counselling session in Kochi"
-                  className="w-full h-full object-cover"
-                />
+          {/* ── RIGHT ── image comes FIRST on mobile */}
+          <div className="order-first lg:order-last flex flex-col gap-3.5 lg:sticky lg:top-24">
+            {/* Landscape image */}
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#dff0ef]">
+              <img
+                src="https://pebby-uplods.s3.us-east-1.amazonaws.com/uploads/7b87d523-5eee-425c-9d2d-f44094e091a2.webp"
+                alt="Woman attending an online Malayalam counselling session with a psychologist in Kochi"
+                className="w-full h-full object-cover object-center"
+                loading="eager"
+              />
+              
+            </div>
+
+            {/* Stats strip */}
+            <div className="grid grid-cols-[1fr_1px_1fr] bg-[#F7FAFA] border border-[#D4ECEC] rounded-xl overflow-hidden">
+              <div className="py-3.5 text-center">
+                <span className="block font-serif text-[20px] font-semibold text-[#008C95] mb-0.5">
+                  500+
+                </span>
+                <span className="text-[10.5px] text-[#8aabab]">
+                  Sessions/month
+                </span>
+              </div>
+              <div className="bg-[#D4ECEC]" />
+              <div className="py-3.5 text-center">
+                <span className="block font-serif text-[20px] font-semibold text-[#008C95] mb-0.5">
+                  4.9★
+                </span>
+                <span className="text-[10.5px] text-[#8aabab]">
+                  Client rating
+                </span>
+              </div>
+            </div>
+
+            {/* Topic tags */}
+            <div className="border border-[#E0EDED] rounded-xl p-4">
+              <p className="text-[10px] font-medium text-[#8aabab] tracking-[.08em] uppercase mb-2.5">
+                We help with
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-[#E8F4F4] text-[#085041] text-[11px] px-2.5 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

@@ -1,44 +1,42 @@
+import Link from "next/link";
+
 export default function CTA() {
   return (
-    <section className="w-full bg-[#EAF6F6] py-16 lg:py-24">
-      <div className="max-w-6xl mx-auto px-6 lg:px-10">
-
-        <div className="bg-[#F9F5EE] rounded-[40px] px-8 py-14 lg:px-16 lg:py-20 text-center">
-
-          {/* SMALL LABEL */}
-          <p className="text-sm uppercase tracking-[0.2em] text-[#008C95] mb-5">
+    <section className="w-full bg-[#EAF6F6] py-12 lg:py-16">
+      <div className="max-w-4xl mx-auto px-6 lg:px-10">
+        <div className="bg-gradient-to-br from-[#008C95] to-[#006d75] rounded-2xl px-6 py-10 sm:px-10 sm:py-12 text-center">
+          {/* Eyebrow */}
+          <p className="text-[10px] font-medium tracking-[.12em] uppercase text-white/60 mb-3">
             Start Your Mental Wellness Journey
           </p>
 
-          {/* HEADING */}
-          <h2 className="text-3xl lg:text-5xl font-semibold leading-tight text-[#1E1E1E] max-w-4xl mx-auto mb-8">
+          {/* Heading */}
+          <h2 className="font-serif text-[22px] sm:text-[28px] lg:text-[32px] font-semibold leading-[1.25] tracking-tight text-white max-w-lg mx-auto mb-2">
             Connect with Malayalam-Speaking Psychologists Online in Kochi
           </h2>
 
-          {/* DESCRIPTION */}
-          <p className="text-[17px] leading-8 text-[#5F5F5F] max-w-3xl mx-auto mb-10">
+          {/* Description */}
+          <p className="text-[13px] leading-[1.8] text-white/70 font-light max-w-md mx-auto mb-6">
             Psyra offers confidential online Malayalam counselling sessions for
             individuals, couples, students, and working professionals seeking
             emotional support, therapy, and mental wellbeing across Kochi and
             Kerala.
           </p>
 
-          {/* BUTTONS */}
-          <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-[#008C95] hover:bg-[#00757D] transition text-white px-8 py-4 rounded-full text-sm font-medium">
-              Book Online Session
-            </button>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Link
+              href="/online-counselling-services"
+              className="bg-white text-[#008C95] hover:bg-[#F3F8F8] transition-all px-7 py-3 rounded-full text-sm font-semibold shadow-sm"
+            >
+              Book Now
+            </Link>
 
-            <button className="border border-[#008C95] text-[#008C95] hover:bg-[#008C95] hover:text-white transition px-8 py-4 rounded-full text-sm font-medium">
+            <Link
+              href="/psychologists"
+              className="border border-white/40 text-white hover:bg-white hover:text-[#008C95] transition-all px-7 py-3 rounded-full text-sm font-medium"
+            >
               Talk to a Psychologist
-            </button>
-          </div>
-
-          {/* TRUST TEXT */}
-          <div className="flex flex-wrap justify-center gap-5 mt-10 text-sm text-[#5F5F5F]">
-            <span>✔ Confidential Sessions</span>
-            <span>✔ Online Video Counselling</span>
-            <span>✔ Malayalam Speaking Psychologists</span>
+            </Link>
           </div>
         </div>
       </div>
