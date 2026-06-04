@@ -85,14 +85,22 @@ useEffect(() => {
     const availabilityDoc = res?.data?.[0];
 
     if (availabilityDoc && Array.isArray(availabilityDoc.slots)) {
-      // Filter out slots marked as 'unavailable' and map the free ones to range strings
-      const freeSlots = availabilityDoc.slots
-        .filter((slot: any) => slot.status === "free")
+      // Include both 'free' and 'booked' slots so they are rendered in the list
+      const visibleSlots = availabilityDoc.slots
+        .filter((slot: any) => slot.status === "free" || slot.status === "booked")
         .map((slot: any) => convert24hToSlotRangeHelper(slot.startTime));
 
-      setAvailableSlots(freeSlots);
+      setAvailableSlots(visibleSlots);
     } else {
       setAvailableSlots([]);
+    }
+    if (availabilityDoc && Array.isArray(availabilityDoc.slots)){
+      const bookedSlots = availabilityDoc.slots
+        .filter((slot:any)=>slot.status==="booked")
+        .map((slot:any)=>convert24hToSlotRangeHelper(slot.startTime));
+      setBookedSlot(bookedSlots);
+    }else{
+      setBookedSlot([]);
     }
   } catch (error) {
     console.error("Error fetching dynamic availability slots:", error);
@@ -538,7 +546,7 @@ useEffect(() => {
                   // Pass the calculated free slot range blocks
                   allTimeSlots={availableSlots}
                   // Safe to pass empty array since unavailable blocks are dropped during formatting
-                  bookedSlots={[]}
+                  bookedSlots={bookedSlots}
                 />
               )}
 
