@@ -95,7 +95,10 @@ export function SlotSelection({
 
   const getSlotButtonClass = (slot: string) => {
     if (isSlotBooked(slot) || isSlotPast(slot, bookingData.date)) {
-      return "bg-red-100 text-red-400 border-red-200 cursor-not-allowed";
+      if (isSlotBooked(slot)) {
+        return "bg-red-200 text-red-600 border-red-300 cursor-not-allowed"; // Slightly darker red for booked
+      }
+      return "bg-red-100 text-red-400 border-red-200 cursor-not-allowed"; // Lighter red for past
     }
     if (bookingData.timeSlot === slot) {
       return "bg-[#005657] text-white border-[#005657]";
