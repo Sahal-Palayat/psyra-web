@@ -24,7 +24,7 @@ export const metadata = {
   description:
     "Read expert-written mental health blogs and articles from Psyra covering therapy, emotional well-being, self-care, and mental health awareness.",
      alternates: {
-    canonical: "https://psyra.in/blog",
+    canonical: "https://psyra.in/blogs",
   },
 };
 
