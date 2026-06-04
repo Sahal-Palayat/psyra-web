@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import ConcernContent from "@/components/concerns/ConcernContent";
 import PsyraSupportJourney from "@/components/concerns/PsyraSupportJourney";
 import MobileTherapyCTA from "@/components/concerns/MobileTherapyCTA";
@@ -25,6 +26,41 @@ const concernSlugToAssessmentKey: Record<string, string> = {
   ocd: "ocd",
 };
 
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/concerns/${slug}`,
+    { cache: "no-store" },
+  );
+
+  if (!res.ok) {
+    return {};
+  }
+
+  const concern = await res.json();
+
+  return {
+    title: `${concern.title} | Psyra`,
+    description:
+      concern.hero?.description ||
+      `Professional support for ${concern.title} at Psyra.`,
+    alternates: {
+      canonical: `https://psyra.in/concerns/${slug}`,
+    },
+    openGraph: {
+      title: `${concern.title} | Psyra`,
+      description:
+        concern.hero?.description ||
+        `Professional support for ${concern.title} at Psyra.`,
+      url: `https://psyra.in/concerns/${slug}`,
+      type: "website",
+    },
+  };
+}
+
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
 
@@ -32,7 +68,7 @@ export default async function Page({ params }: PageProps) {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/concerns/${slug}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
   const normalizedSlug = slug.toLowerCase().trim();
   const assessmentKey = concernSlugToAssessmentKey[normalizedSlug] ?? null;
@@ -80,10 +116,10 @@ export default async function Page({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* LEFT */}
             <div className="lg:col-span-8 space-y-12">
-              <ConcernContent 
-  blocks={concern.blocks} 
-  internalLinks={concern.internalLinks || []} 
-/>
+              <ConcernContent
+                blocks={concern.blocks}
+                internalLinks={concern.internalLinks || []}
+              />
 
               <div className="lg:hidden">
                 {assessmentKey && (

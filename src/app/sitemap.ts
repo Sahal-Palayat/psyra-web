@@ -96,6 +96,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/online-counselling-services` },
     { url: `${baseUrl}/concerns` }, // concerns page currently uses static data
     { url: `${baseUrl}/contact-us` },
+    { url: `${baseUrl}/individual-therapy` },
+    { url: `${baseUrl}/couple-therapy` },
+    { url: `${baseUrl}/how-is-mind` },
+    { url: `${baseUrl}/privacy-policy` },
+    {url: `${baseUrl}/online-hindi-counselling-mumbai`},
 
     // --- dynamic pages ---
     { url: `${baseUrl}/psychologists` },
@@ -126,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
 
     ...psychologists.map((p) => ({
-      url: `${baseUrl}/psychologists/${p.slug}`,
+      url: `${baseUrl}/profile/${p.slug}`,
       lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(),
       priority: 0.8,
     })),
