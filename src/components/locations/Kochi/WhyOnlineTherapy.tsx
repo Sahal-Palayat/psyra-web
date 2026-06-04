@@ -34,9 +34,6 @@ export default function WhyOnlineTherapy() {
 
         {/* HEADING */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <p className="text-[10.5px] font-medium tracking-[.12em] uppercase text-[#008C95] mb-4">
-            Why Choose Psyra
-          </p>
           <h2 className="font-serif text-[30px] lg:text-[38px] font-semibold leading-[1.25] tracking-tight text-[#1a2e2e] mb-2.5">
             Why Choose Online Malayalam Counselling in Kochi with Psyra?
           </h2>

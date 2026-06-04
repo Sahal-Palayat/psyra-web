@@ -5,6 +5,7 @@ import Services from "@/components/locations/Kochi/Services";
 import WhyOnlineTherapy from "@/components/locations/Kochi/WhyOnlineTherapy";
 import NativeLanguageBenefits from "@/components/locations/Kochi/NativeLanguageBenefits";
 import HowItWorks from "@/components/locations/Kochi/HowItWorks";
+import DynamicPsychologistCarousel from "@/components/Psychologist/SimpleCarousel/psychologist-carousel";
 import Testimonials from "@/components/locations/Kochi/Testimonials";
 import FAQ from "@/components/locations/Kochi/FAQ";
 import CTA from "@/components/locations/Kochi/CTA";
@@ -118,6 +119,10 @@ export default function KochiPage() {
       <NativeLanguageBenefits />
 
       <HowItWorks />
+
+      <section className="bg-[#F7F8F2] pt-4 pb-0">
+              <DynamicPsychologistCarousel />
+            </section>
 
       <Testimonials />
 

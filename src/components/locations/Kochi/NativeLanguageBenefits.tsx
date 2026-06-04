@@ -34,9 +34,6 @@ export default function NativeLanguageBenefits() {
 
         {/* HEADING */}
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <p className="text-[10.5px] font-medium tracking-[.12em] uppercase text-[#008C95] mb-4">
-            Online Therapy Benefits
-          </p>
           <h2 className="font-serif text-[30px] lg:text-[38px] font-semibold leading-[1.25] tracking-tight text-[#1a2e2e] mb-2.5">
             Benefits of Online Malayalam Counselling in Kochi
           </h2>

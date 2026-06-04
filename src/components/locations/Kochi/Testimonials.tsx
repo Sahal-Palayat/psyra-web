@@ -34,9 +34,6 @@ export default function Testimonials() {
 
         {/* HEADING */}
         <div className="text-center max-w-xl mx-auto mb-8">
-          <p className="text-[10.5px] font-medium tracking-[.12em] uppercase text-[#008C95] mb-4">
-            Client Experiences
-          </p>
           <h2 className="font-serif text-[30px] lg:text-[38px] font-semibold leading-[1.25] tracking-tight text-[#1a2e2e] mb-2.5">
             What People Say About Online Counselling with Psyra
           </h2>

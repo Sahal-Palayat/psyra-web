@@ -19,10 +19,6 @@ export default function EmotionalConnection() {
 
           {/* CONTENT */}
           <div>
-            {/* Eyebrow */}
-            <p className="text-[10.5px] font-medium tracking-[.12em] uppercase text-[#008C95] mb-4">
-              Emotional Comfort
-            </p>
 
             {/* Heading */}
             <h2 className="font-serif text-[30px] lg:text-[38px] font-semibold leading-[1.25] tracking-tight text-[#1a2e2e] mb-2.5">
