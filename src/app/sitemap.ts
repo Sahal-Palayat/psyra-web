@@ -100,7 +100,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/couple-therapy` },
     { url: `${baseUrl}/how-is-mind` },
     { url: `${baseUrl}/privacy-policy` },
-    {url: `${baseUrl}/online-hindi-counselling-mumbai`},
+    
 
     // --- dynamic pages ---
     { url: `${baseUrl}/psychologists` },
@@ -108,6 +108,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // --- seo dedicated therapy pages ---
     { url: `${baseUrl}/couples-counselling`, priority: 0.9 },
+    {url: `${baseUrl}/online-hindi-counselling-mumbai`, priority: 0.9},
+    {url: `${baseUrl}/online-counselling-in-kochi`, priority: 0.9},
 
     // --- seo critical pages ---
     ...concerns
