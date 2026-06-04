@@ -165,7 +165,9 @@ export function SlotSelection({
             className="bg-[#B6E5DF]/10 rounded-lg p-3 sm:p-4 max-h-[500px] overflow-y-auto"
           >
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              {allTimeSlots.map((slot) => (
+              {[...new Set(allTimeSlots.map((s) => s.trim()))]
+                .filter((slot) => !isSlotPast(slot, bookingData.date))
+                .map((slot) => (
                 <button
                   key={slot}
                   type="button"
